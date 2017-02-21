@@ -33,7 +33,7 @@ define(function (require) {
                 // eventTarget : 'wrapper',
                 // noSwiping : true,
                 pagination: this.pagination,
-                loop: true,
+                loop: false,
                 grabCursor: true,
                 paginationClickable: true,
                 releaseElementsClass: "launchpad-shortcut"
