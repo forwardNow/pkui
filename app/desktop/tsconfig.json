@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "module": "AMD",
+    "noImplicitAny": false,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    //"outFile": "js/main.js",
+    "sourceMap": false,
+    "target": "es3",
+    "watch": true
+  },
+  "include": [ "js/**/*.ts"]
+
+}

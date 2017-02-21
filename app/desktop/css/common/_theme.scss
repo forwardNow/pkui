@@ -1,0 +1,13 @@
+.da-theme {
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-transition: background-position .8s ease;
+            transition: background-position .8s ease;
+}
+
+.da-theme-default {
+    background-image: url(#{$image-path}/da_bg.jpg);
+    .da-topbar {
+        background: url(#{$image-path}/topbar_bg.png) repeat-x 0 0;
+    }
+}

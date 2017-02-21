@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>执法监督平台——用户名</title>
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="css/style.css">
+    <script src="../../pkui/lib/sea-modules/seajs/3.0.0.x/sea.js"></script>
+    <script src="../../pkui/lib/sea-modules/seajs-config.js"></script>
+    <script>
+        seajs.config( { base: '../../pkui'  } );
+        seajs.use("./js/main");
+    </script>
+</head>
+<body>
+
+<!-- desktop app -->
+<div class="da da-theme da-theme-default">
+
+    <!-- 顶部栏 -->
+    <div class="da-topbar">
+
+        <!-- 显示桌面 -->
+        <div class="topbar-home"></div>
+        <!-- /显示桌面 -->
+
+        <!-- 已使用过的功能 -->
+        <div class="topbar-history"></div>
+        <!-- /已使用过的功能 -->
+
+        <!-- 任务栏 -->
+        <div class="topbar-dock">
+            <div class="topbar-dock-item active" style="width: 136px;"><!--
+                --><img class="dock-item-icon" src="./images/apps/app_01.png" alt=""><!--
+                --><span class="dock-item-title" title="执法监督综合应用门户">执法监督综合应用门户</span><!--
+                --><i class="dock-item-btn"></i>
+            </div>
+            <div class="topbar-dock-item" style="width: 136px;"><!--
+                --><img class="dock-item-icon" src="./images/apps/app_02.png" alt=""><!--
+                --><span class="dock-item-title" title="执法监督综合应用门户">执法问题动态跟踪子系统</span><!--
+                --><span class="dock-item-btn"></span>
+            </div>
+        </div>
+        <!-- /任务栏 -->
+
+        <!-- 工具栏 -->
+        <div class="topbar-toolbar">
+            <!-- 搜索 -->
+            <div class="topbar-toolbar-item toolbar-search"><i class="toolbar-item-icon icon-search"></i></div>
+            <!-- /搜索 -->
+            <!-- 消息 -->
+            <div class="topbar-toolbar-item toolbar-message"><i class="toolbar-item-icon icon-message"></i><span class="toolbar-message-num">12</span></div>
+            <!-- /消息 -->
+            <!-- 仪表盘 -->
+            <div class="topbar-toolbar-item toolbar-dashboard"><i class="toolbar-item-icon icon-dashboard"></i></div>
+            <!-- /仪表盘 -->
+            <!-- 用户信息 -->
+            <div class="topbar-toolbar-item toolbar-user toolbar-item-menu">
+                <i class="toolbar-item-icon icon-user"></i><span class="toolbar-item-title">张某某</span><i class="toolbar-item-indicator"></i>
+                <div class="pkui-menu pkui-menu-dark">
+                    <div class="pkui-menu-bd">
+                        <div class="pkui-menu-item"><span class="pkui-menu-text">待处理消息：20</span></div>
+                    </div>
+                    <div class="pkui-menu-bd">
+                        <div class="pkui-menu-item"><a class="pkui-menu-link" href="#"><i class="pkui-menu-icon icon-add"></i><span class="pkui-menu-text">添加收藏</span></a></div>
+                        <div class="pkui-menu-item"><a class="pkui-menu-link" href="#"><i class="pkui-menu-icon icon-setting"></i><span class="pkui-menu-text">管理消息</span></a></div>
+                        <div class="pkui-menu-group">
+                            <div class="pkui-menu-title"><span class="pkui-menu-text">播放列表</span></div>
+                            <div class="pkui-menu-item"><a class="pkui-menu-link" href="#"><i class="pkui-menu-icon"></i><span class="pkui-menu-text">观看最多</span></a></div>
+                            <div class="pkui-menu-item"><a class="pkui-menu-link" href="#"><i class="pkui-menu-icon"></i><span class="pkui-menu-text">推荐直播</span></a></div>
+                            <div class="pkui-menu-item"><a class="pkui-menu-link" href="#"><i class="pkui-menu-icon"></i><span class="pkui-menu-text">推荐新闻</span></a></div>
+                        </div>
+                        <div class="pkui-menu-group">
+                            <div class="pkui-menu-title"><span class="pkui-menu-text">账户管理</span></div>
+                            <div class="pkui-menu-item"><a class="pkui-menu-link" href="#"><i class="pkui-menu-icon"></i><span class="pkui-menu-text">添加账号</span></a></div>
+                            <div class="pkui-menu-item"><a class="pkui-menu-link" href="#"><i class="pkui-menu-icon"></i><span class="pkui-menu-text">退出登录</span></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /用户信息 -->
+            <!-- 退出系统 -->
+            <div class="topbar-toolbar-item toolbar-logout"><i class="toolbar-item-icon icon-logout"></i></div>
+            <!-- /退出系统 -->
+            <!-- 其他功能 -->
+            <div class="topbar-toolbar-item toolbar-more"><i class="toolbar-item-icon icon-more"></i></div>
+            <!-- /其他功能 -->
+
+        </div>
+        <!-- /工具栏 -->
+
+    </div>
+    <!-- /顶部栏 -->
+
+    <!-- 桌面 -->
+    <div class="da-desktop">
+        <!-- 应用启动面板 -->
+        <div class="launchpad-container">
+
+            <!-- 显示区域 -->
+            <div class="launchpad-view swiper-container">
+                <div class="launchpad-view-pageList swiper-wrapper">
+                    <div class="launchpad-view-pageItem swiper-slide">
+                        <div class="launchpad-shortcutpad">
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_01.png" alt=""><p class="launchpad-shortcut-title">执法监督综合应用门户</p></div>
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_02.png" alt=""><p class="launchpad-shortcut-title">执法问题动态跟踪子系统</p></div>
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_03.png" alt=""><p class="launchpad-shortcut-title">如实受立案监督子系统</p></div>
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_04.png" alt=""><p class="launchpad-shortcut-title">执法时限预警子系统</p></div>
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_05.png" alt=""><p class="launchpad-shortcut-title">电子屏动态监督子系统</p></div>
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_06.png" alt=""><p class="launchpad-shortcut-title">问题模型管理子系统</p></div>
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_07.png" alt=""><p class="launchpad-shortcut-title">网上巡查监督子系统</p></div>
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_08.png" alt=""><p class="launchpad-shortcut-title">办案场所监督子系统</p></div>
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_09.png" alt=""><p class="launchpad-shortcut-title">执法质量考评子系统</p></div>
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_10.png" alt=""><p class="launchpad-shortcut-title">监督救济业务子系统</p></div>
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_11.png" alt=""><p class="launchpad-shortcut-title">执法监督台帐子系统</p></div>
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_12.png" alt=""><p class="launchpad-shortcut-title">执法规范化建设管理子系统</p></div>
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_13.png" alt=""><p class="launchpad-shortcut-title">执法教育培训子系统</p></div>
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_14.png" alt=""><p class="launchpad-shortcut-title">分局执法监督平台子系统</p></div>
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_15.png" alt=""><p class="launchpad-shortcut-title">综合统计分析子系统</p></div>
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_16.png" alt=""><p class="launchpad-shortcut-title">运行管理维护子系统</p></div>
+                        </div>
+                    </div>
+                    <div class="launchpad-view-pageItem swiper-slide">
+                        <div class="launchpad-shortcutpad">
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_01.png" alt=""><p class="launchpad-shortcut-title">执法监督综合应用门户</p></div>
+                        </div>
+                    </div>
+                    <div class="launchpad-view-pageItem swiper-slide">
+                        <div class="launchpad-shortcutpad">
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_01.png" alt=""><p class="launchpad-shortcut-title">执法监督综合应用门户</p></div>
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_01.png" alt=""><p class="launchpad-shortcut-title">执法监督综合应用门户</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 显示区域 -->
+
+            <!-- 分页器 -->
+            <div class="launchpad-pagination">
+                <!-- 导航 -->
+                <div class="launchpad-pagination-nav">
+                    <div class="launchpad-pagination-previous"><!-- 上一页 --></div>
+                    <div class="launchpad-pagination-next"><!-- 下一页 --></div>
+                </div>
+                <!-- /导航 -->
+                <!-- 切换按钮 -->
+                <div class="launchpad-pagination-switchList">
+                    <!--<a href="#" class="launchpad-pagination-switchItem active"></a>-->
+                </div>
+                <!-- /切换按钮 -->
+            </div>
+            <!-- 分页器 -->
+
+        </div>
+        <!-- /应用启动面板 -->
+    </div>
+    <!-- /桌面 -->
+
+</div>
+<!-- /desktop app -->
+
+</body>
+</html>

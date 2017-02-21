@@ -1,0 +1,23 @@
+// IE8 不支持媒介查询造成的问题：不是内联表单
+.form-inline {
+    .form-group {
+        display: inline-block\9;
+        margin-bottom: 0\9;
+        vertical-align: middle\9;
+    }
+    .form-control {
+        display: inline-block\9;
+        width: auto\9;
+        vertical-align: middle\9;
+    }
+}
+
+// IE8 不支持媒介查询造成的问题：模态框不居中
+.modal-dialog {
+    margin-left: auto\9;
+    margin-right: auto\9;
+}
+// IE8 不支持媒介查询造成的问题：此属性无效
+.modal-sm {
+    width: 300px\9;
+}

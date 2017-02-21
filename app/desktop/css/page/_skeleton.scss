@@ -1,0 +1,30 @@
+/**
+ * @file 骨架：搭建整体结构
+ */
+
+.da {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+.da-topbar {
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 46px;
+}
+
+
+.da-desktop {
+    position: absolute;
+    top: 46px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    min-height: 500px;
+}

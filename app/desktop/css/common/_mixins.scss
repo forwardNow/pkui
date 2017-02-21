@@ -1,0 +1,9 @@
+
+@mixin vertical-middle() {
+    &:before {
+        content: '';
+        height: 100%;
+        display: inline-block;
+        vertical-align: middle;
+    }
+}

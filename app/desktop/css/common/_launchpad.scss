@@ -1,0 +1,113 @@
+// 应用启动面板
+.launchpad-container {
+    position: relative;
+    width: 100%;
+    height : 100%;
+    @include clearfix();
+}
+.launchpad-view {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.launchpad-view-pageList {
+
+}
+.launchpad-view-pageItem {
+
+}
+.launchpad-shortcutpad {
+    width: 80%;
+    min-width: 140px * 6;
+    min-height: 140px * 3;
+    margin: 40px auto 0 auto;
+    @include clearfix();
+    @include user-select(none);
+}
+.launchpad-shortcut {
+    float: left;
+    width: 140px - 2;
+    height: 140px - 2;
+    border: solid 1px transparent;
+    cursor: pointer;
+    &:hover {
+        background-color: rgba(0,0,0,.2);
+        border-color: rgba(255,255,255,0.2);
+    }
+}
+.launchpad-shortcut-placeholder {
+    float: left;
+    width: 140px - 2;
+    height: 140px - 2;
+    border: solid 1px rgba(255,255,255,0.1);
+    background-color: rgba(0,0,0,.1);
+}
+.launchpad-shortcut-icon {
+    display: block;
+    width: 76px;
+    height: 76px;
+    margin: 10px auto 0 auto;
+}
+.launchpad-shortcut-title {
+    width: 100px;
+    margin: 8px auto 0 auto;
+    font-size: 14px;
+    text-align: center;
+    color: #fff;
+}
+.launchpad-pagination {
+    //background: rgba(0,0,0,.2);
+    //position: absolute;
+    //bottom: 0;
+    //left: 0;
+    //width: 100%;
+}
+.launchpad-pagination-nav {
+}
+.launchpad-pagination-navItem-active {
+    @include opacity(1);
+
+}
+.launchpad-pagination-previous {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 5%;
+    margin-top: -30px;
+    cursor: pointer;
+    @extend .icon-arrow-left;
+    @include opacity(.6);
+    &:hover {
+        @extend .launchpad-pagination-navItem-active;
+    }
+}
+.launchpad-pagination-next {
+    @extend .launchpad-pagination-previous;
+    @extend .icon-arrow-right;
+    left: auto;
+    right: 5%;
+}
+.launchpad-pagination-switchList {
+    //background: rgba(0,0,0,.2);
+    position: absolute;
+    z-index: 2;
+    bottom: 50px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+.launchpad-pagination-switchItem {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 0 12px;
+    border-radius: 12px;
+    background-color: #6e9ec0;
+    @include box-shadow(inset 0 0 1px rgba(0, 0, 0, 0.35));
+    &:hover {
+        @extend .launchpad-pagination-switchItem-active;
+    }
+}
+.launchpad-pagination-switchItem-active {
+        background-color: #fff;
+}

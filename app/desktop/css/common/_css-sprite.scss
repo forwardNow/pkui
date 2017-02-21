@@ -1,0 +1,78 @@
+@import "../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites";
+@import "desktop/*.png";
+
+//@include desktop-sprite(header_bg);
+.icon-home {
+    width: 20px;
+    height: 46px;
+    @include desktop-sprite(icon_home);
+}
+.icon-history {
+    width: 19px;
+    height: 16px;
+    @include desktop-sprite(icon_history);
+}
+.icon-close {
+    width: 17px;
+    height: 17px;
+    @include desktop-sprite(icon_close);
+}
+.icon-dashboard {
+    width: 24px;
+    height: 24px;
+    @include desktop-sprite(icon_dashboard);
+}
+.icon-logout {
+    width: 24px;
+    height: 24px;
+    @include desktop-sprite(icon_logout);
+}
+.icon-message {
+    width: 24px;
+    height: 24px;
+    @include desktop-sprite(icon_message);
+}
+.icon-more {
+    width: 24px;
+    height: 24px;
+    @include desktop-sprite(icon_more);
+}
+.icon-search {
+    width: 24px;
+    height: 24px;
+    @include desktop-sprite(icon_search);
+}
+.icon-user {
+    width: 24px;
+    height: 24px;
+    @include desktop-sprite(icon_user);
+}
+.icon-triangle-down {
+    width: 10px;
+    height: 5px;
+    @include desktop-sprite(icon_triangle_down);
+}
+
+.icon-add {
+    width: 16px;
+    height: 16px;
+    @include desktop-sprite(icon_add);
+}
+
+.icon-setting {
+    width: 16px;
+    height: 16px;
+    @include desktop-sprite(icon_setting);
+}
+
+.icon-arrow-left {
+    width: 33px;
+    height: 60px;
+    @include desktop-sprite(icon_arrow_left);
+}
+
+.icon-arrow-right {
+    width: 33px;
+    height: 60px;
+    @include desktop-sprite(icon_arrow_right);
+}

@@ -1,0 +1,128 @@
+.topbar-home {
+    float: left;
+    @extend .icon-home;
+    @include opacity(.7);
+    -webkit-transition: opacity .3s ease;
+            transition: opacity .3s ease;
+    &:hover {
+        @include opacity(1);
+    }
+}
+
+.topbar-history {
+    float: left;
+    margin: 14px 0 0 14px;
+    cursor: pointer;
+    @extend .icon-history;
+
+}
+
+
+.topbar-dock {
+    float: left;
+    margin: 0 10px;
+}
+
+.topbar-dock-item {
+    float: left;
+    position: relative;
+    bottom: 0;
+    overflow: hidden;
+    margin: 5px 3px 0 3px;
+    height: 36px;
+    width: 100px;
+    border-radius: 4px;
+    padding-right: 26px;
+    text-align: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
+
+    background-color: rgba(252,252,252,0.4);
+    @include transition(all .8s);
+
+    @include vertical-middle();
+    @include user-select(none);
+
+    &.active {
+        background-color: rgba(252,252,252,0.8);
+    }
+}
+
+.dock-item-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: -6px;
+    margin-right: 7px;
+    margin-left: 10px;
+}
+.dock-item-title {
+    overflow: hidden;
+    color: #082849;
+    text-overflow: ellipsis;
+}
+.dock-item-btn {
+    position: absolute;
+    top: 9px;
+    right: 6px;
+    @extend .icon-close;
+    &:hover {
+        background-color: #e6ecf3;
+        border-radius: 2px;
+    }
+}
+
+
+.topbar-toolbar {
+    float: right;
+}
+.topbar-toolbar-item {
+    position: relative;
+    float: left;
+    margin: 10px 12px 0 12px;
+    cursor: pointer;
+    &:hover {
+        top: -1px;
+    }
+}
+.toolbar-item-icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+.toolbar-item-title {
+    display: inline-block;
+    padding: 0 .5em;
+    line-height: 24px;
+    color: #fff;
+}
+.toolbar-message-num {
+    position: relative;
+    top: -4px;
+    display: inline-block;
+    padding: 0 6px;
+    border-radius: 16px;
+    font-size: 12px;
+    line-height: 16px;
+    background-color: #fe5026;
+    color: #fff;
+}
+.toolbar-item-indicator {
+    display: inline-block;
+    vertical-align: middle;
+    @extend .icon-triangle-down;
+}
+.toolbar-item-menu {
+    position: relative;
+    .pkui-menu {
+        position: absolute;
+        top: 102%;
+        right: 0;
+        display: none;
+    }
+    &:hover {
+        .pkui-menu {
+            display: block;
+        }
+    }
+}
