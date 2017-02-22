@@ -1,12 +1,12 @@
 .topbar-home {
     float: left;
     @extend .icon-home;
-    @include opacity(.7);
+    //@include opacity(.7);
     -webkit-transition: opacity .3s ease;
             transition: opacity .3s ease;
-    &:hover {
-        @include opacity(1);
-    }
+    //&:hover {
+    //    @include opacity(1);
+    //}
 }
 
 .topbar-history {
@@ -116,7 +116,7 @@
     position: relative;
     .pkui-menu {
         position: absolute;
-        top: 102%;
+        top: 100%;
         right: 0;
         display: none;
     }

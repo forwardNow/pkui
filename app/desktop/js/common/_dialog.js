@@ -2,10 +2,13 @@
  * @file 窗口/对话框
  * @author 吴钦飞(wuqf@pkusoft.net)
  */
-define(function (require) {
+define( function ( require ) {
     var $, Dialog, Utils;
-    $ = require("jquery");
-    Utils = require("../base/_utils");
+
+    $ = require( "jquery" );
+    Utils = require( "../base/_utils" );
+    layer = require( "layer" );
+
     Dialog = {
         init: function () {
             this.render();
@@ -18,5 +21,6 @@ define(function (require) {
             _this = this;
         }
     };
+
     return Dialog;
-});
+} );

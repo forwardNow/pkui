@@ -1,4 +1,4 @@
-@import "../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites";
+@import "compass/utilities/sprites";
 @import "desktop/*.png";
 
 //@include desktop-sprite(header_bg);
@@ -75,4 +75,16 @@
     width: 33px;
     height: 60px;
     @include desktop-sprite(icon_arrow_right);
+}
+
+.icon-circle-1 {
+    width: 12px;
+    height: 12px;
+    @include desktop-sprite(icon_circle_1);
+}
+
+.icon-circle-2 {
+    width: 12px;
+    height: 12px;
+    @include desktop-sprite(icon_circle_2);
 }

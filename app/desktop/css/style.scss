@@ -1,5 +1,5 @@
 // bootstrap mixins
-@import "../../../pkui/css/bootstrap/3.3.6/bootstrap/mixins";
+@import "../../../src/css/bootstrap/3.3.6/bootstrap/mixins";
 
 @import "common/mixins";
 
@@ -10,7 +10,7 @@
 @import "common/css-sprite";
 
 // 基础样式
-@import "../../../pkui/css/base/1.0.0/base";
+@import "../../../src/css/base/1.0.0/base";
 
 // 工具类
 @import "base/utilities";

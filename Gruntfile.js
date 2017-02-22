@@ -26,7 +26,7 @@ module.exports = function(grunt) {
             }
         },
         copy: {
-            pkui: {
+            srcToTemp: {
                 files: [
                     {
                         cwd: 'src',
@@ -35,28 +35,38 @@ module.exports = function(grunt) {
                         expand: true
                     }
                 ]
+            },
+            tempToPkui: {
+                files: [
+                    {
+                        cwd: 'dist/temp',
+                        src: [ '**' ],
+                        dest: 'dist/pkui',
+                        expand: true
+                    }
+                ]
             }
         },
         // 压缩JS（参考：http://www.cnblogs.com/artwl/p/3449303.html）
         uglify: {
-            buildall: {//按原文件结构压缩js文件夹内所有JS文件
+            buildToTemp: {//按原文件结构压缩js文件夹内所有JS文件
                 files: [{
                     expand:true,
                     cwd:'src',//dist目录下
                     src:'**/*.js',//所有js文件
-                    dest: 'dist/pkui'//输出到此目录下
+                    dest: 'dist/temp'//输出到此目录下
                 }]
             }
         },
 
         // 压缩css
         cssmin: {
-            buildall: {
+            buildToTemp: {
                 files: [{
                     expand:true,
                     cwd:'src',//dist目录下
                     src:'**/*.css',//所有js文件
-                    dest: 'dist/pkui'//输出到此目录下
+                    dest: 'dist/temp'//输出到此目录下
                 }]
             }
         }
@@ -78,10 +88,11 @@ module.exports = function(grunt) {
 
     grunt.registerTask('pkui', [
         'clean:init', // 清理
-        'copy:pkui', // 拷贝
+        'copy:srcToTemp', // 拷贝
         "clean:temp",
-        'uglify:buildall', // 压缩js到临时目录
-        'cssmin:buildall', // 压缩css到临时目录
+        'uglify:buildToTemp', // 压缩js到临时目录
+        'cssmin:buildToTemp', // 压缩css到临时目录
+        'copy:tempToPkui', // 拷贝
         'clean:destory'
     ] );
 

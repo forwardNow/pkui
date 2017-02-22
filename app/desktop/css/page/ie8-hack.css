@@ -1,0 +1,37 @@
+.desktop-sprite, .swiper-pagination-switch, .swiper-active-switch, .swiper-pagination-switch:hover {
+  background-image: url('../../images/desktop-s1cfc475408.png');
+  background-repeat: no-repeat;
+}
+
+.topbar-dock-item {
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#66FFFFFF', endColorstr='#66FFFFFF');
+}
+
+.topbar-dock-item.active {
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#CCFFFFFF', endColorstr='#CCFFFFFF');
+}
+
+.launchpad-shortcut-placeholder {
+  border: solid 1px #fff;
+  background-color: #000;
+  opacity: 0.1;
+  filter: alpha(opacity=10);
+}
+
+.swiper-pagination-switch {
+  background-color: transparent;
+  background-position: 0 -136px;
+}
+
+.swiper-active-switch, .swiper-pagination-switch:hover {
+  background-color: transparent;
+  background-position: 0 -148px;
+}
+
+.pkui-menu-dark {
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#19FFFFFF', endColorstr='#19FFFFFF');
+}
+
+.pkui-menu-bd {
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#CC0B0B0B', endColorstr='#CC0B0B0B');
+}

@@ -1,0 +1,39 @@
+@import "compass/utilities/sprites";
+// bootstrap mixins
+@import "../../../../src/css/bootstrap/3.3.6/bootstrap/mixins";
+
+@import "desktop/*.png";
+.topbar-dock-item {
+    filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#66FFFFFF', endColorstr='#66FFFFFF');
+}
+.topbar-dock-item.active {
+    filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#CCFFFFFF', endColorstr='#CCFFFFFF');
+}
+
+.launchpad-shortcut-placeholder {
+    border: solid 1px #fff;
+    background-color: #000;
+    @include opacity(.1);
+}
+
+
+.swiper-pagination-switch {
+    background-color: transparent;
+    @include desktop-sprite(icon_circle_1);
+    &:hover {
+        @extend .swiper-active-switch;
+    }
+}
+.swiper-active-switch {
+    background-color: transparent;
+    @include desktop-sprite(icon_circle_2);
+}
+
+.pkui-menu-dark {
+    //background-color: rgba(255,255,255,.1);
+    filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#19FFFFFF', endColorstr='#19FFFFFF');
+}
+.pkui-menu-bd {
+    //background-color: rgba( 11, 11, 11, 0.8 );
+    filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#CC0B0B0B', endColorstr='#CC0B0B0B');
+}
