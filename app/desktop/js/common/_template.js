@@ -29,7 +29,8 @@ define( function ( require ) {
 
             $.ajax( {
                 async: false,
-                type: "POST",
+                type: "GET",
+                cache: false,
                 dataType: "text",
                 url: templateUrl
             } ).done( function ( data ) {
