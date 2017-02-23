@@ -68,7 +68,7 @@ define(function (require) {
                         _this.nextBtn.trigger("click");
                     }
 
-                    console.info( x, Utils.pageWidth );
+                    // console.info( x, Utils.pageWidth );
                     if (x === 20 || x + 20 === Utils.pageWidth) {
                         _this.isSwippingWhenSort = true;
                         window.setTimeout(function () {

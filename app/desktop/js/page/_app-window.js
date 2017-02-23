@@ -1,30 +1,36 @@
 /**
- * @file 窗口/对话框
+ * @file 窗口
  * @author 吴钦飞(wuqf@pkusoft.net)
  */
 define( function ( require ) {
-    var $, Dialog, Utils;
+    var $,
+        layer,
+        AppWindow
+        ;
 
     $ = require( "jquery" );
-    Utils = require( "../base/_utils" );
     layer = require( "layer" );
 
-    Dialog = {
+    AppWindow = {
         layer: layer,
-        init: function () {
+        _init: function () {
             this.render();
             this.bind();
         },
-        render: function () {
+        _render: function () {
         },
-        bind: function () {
+        _bind: function () {
             var _this;
             _this = this;
         },
-        open: function ( opts ) {
-            // return layer.
+        create: function ( opts ) {
+            return new Window( opts );
         }
     };
 
-    return Dialog;
+    function Window() {
+
+    }
+
+    return AppWindow;
 } );

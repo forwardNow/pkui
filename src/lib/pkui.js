@@ -49,7 +49,7 @@
             alias: {
                 // 动态载入CSS文件
                 "seajs-css": "lib/sea-modules/seajs-css/1.0.0/seajs-css",
-                "seajs-debug": "lib/sea-modules/seajs-css/1.0.0/seajs-debug",
+                "seajs-text": "lib/sea-modules/seajs-text/1.1.1/seajs-text",
 
                 // polyfill ES5 grammar
                 "es5-shim": "lib/es5-shim/4.5.9.x/es5-shim",
@@ -74,7 +74,10 @@
                 "swiper": "lib/swiper/2.7.6.x/swiper",
 
                 // 弹窗组件
-                "layer": "lib/layer/3.0.1.x/layer"
+                "layer": "lib/layer/3.0.1.x/layer",
+
+                // 模板引擎
+                "artTemplate": "lib/art-template/3.1.0/template"
             },
 
             // 路径配置

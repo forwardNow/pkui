@@ -5,7 +5,8 @@
 define( function ( require ) {
     var $ = require( "jquery" );
     var Launchpad = require( "./common/_launchpad" );
-    var Dialog = require( "./common/_dialog" );
+    var App = require( "./page/_app" );
+    var Template = require( "./common/_template" );
 
     if ( window.isIE8 ) {
         require( "seajs-css" );
@@ -14,6 +15,7 @@ define( function ( require ) {
 
     $( document ).ready( function () {
         Launchpad.init();
-        Dialog.init();
+        Template.init( { base: "/pkui/app/desktop/tpl/" } )
+        App.init();
     } );
 } );
