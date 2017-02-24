@@ -12,7 +12,7 @@ module.exports = function(grunt) {
                     // "app/desktop/js/common/*.js",
                     // "app/desktop/js/page/*.js",
                     // "app/desktop/js/*.js"
-                    "app/desktop/js/page/app.js"
+                    "app/desktop/js/base/utils.js"
                 ],
                 options: {
                     destination: 'app/desktop/doc/js',
