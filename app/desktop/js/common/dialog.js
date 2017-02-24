@@ -6,7 +6,7 @@ define( function ( require ) {
     var $, Dialog, Utils;
 
     $ = require( "jquery" );
-    Utils = require( "../base/_utils" );
+    Utils = require( "../base/utils" );
     layer = require( "layer" );
 
     Dialog = {

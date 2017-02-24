@@ -7,7 +7,7 @@ define(function (require) {
     $ = require("jquery");
     Swiper = require("swiper");
     require("jquery-ui");
-    Utils = require("../base/_utils");
+    Utils = require("../base/utils");
     Launchpad = {
         swiper: null,
         previousBtn: ".launchpad-pagination-previous",

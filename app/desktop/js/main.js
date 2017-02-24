@@ -4,9 +4,9 @@
  */
 define( function ( require ) {
     var $ = require( "jquery" );
-    var Launchpad = require( "./common/_launchpad" );
-    var App = require( "./page/_app" );
-    var Template = require( "./common/_template" );
+    var Launchpad = require( "./common/launchpad" );
+    var App = require( "./page/app" );
+    var Template = require( "./common/template" );
 
     if ( window.isIE8 ) {
         require( "seajs-css" );
@@ -14,8 +14,11 @@ define( function ( require ) {
     }
 
     $( document ).ready( function () {
+
+        Template.init( { base: "/pkui/app/desktop/tpl/" } );
+
         Launchpad.init();
-        Template.init( { base: "/pkui/app/desktop/tpl/" } )
+
         App.init();
     } );
 } );

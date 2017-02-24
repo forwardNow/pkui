@@ -4,6 +4,26 @@ module.exports = function(grunt) {
         ;
 
     pkuiConfig = {
+
+        jsdoc : {
+            desktopApp : {
+                src: [
+                    // "app/desktop/js/base/*.js",
+                    // "app/desktop/js/common/*.js",
+                    // "app/desktop/js/page/*.js",
+                    // "app/desktop/js/*.js"
+                    "app/desktop/js/page/app.js"
+                ],
+                options: {
+                    destination: 'app/desktop/doc/js',
+                    // template: "node_modules/minami"
+                    template: "node_modules/docdash"
+                    // template : "node_modules/ink-docstrap/template"
+                }
+            }
+        },
+
+
         // 清空 dist 目录
         clean: {
             init: {
@@ -22,6 +42,11 @@ module.exports = function(grunt) {
             destory: {
                 files: [
                     { src: 'dist/temp/**' }
+                ]
+            },
+            desktopApp: {
+                files: [
+                    { src: 'app/desktop/doc/js/**' }
                 ]
             }
         },
@@ -84,6 +109,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     // grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks('grunt-jsdoc');
 
 
     grunt.registerTask('pkui', [
@@ -94,6 +120,11 @@ module.exports = function(grunt) {
         'cssmin:buildToTemp', // 压缩css到临时目录
         'copy:tempToPkui', // 拷贝
         'clean:destory'
+    ] );
+
+    grunt.registerTask('app-desktop', [
+        "clean:desktopApp",
+        'jsdoc:desktopApp'
     ] );
 
     // 默认被执行的任务列表。

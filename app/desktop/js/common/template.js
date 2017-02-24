@@ -20,12 +20,14 @@ define( function ( require ) {
                 renderCache,
                 tpl
             ;
+            tpl = null;
             renderCache = this.renderCache;
+
             if ( renderCache[ templateName ] ) {
                 return renderCache[ templateName ]( data );
             }
 
-            templateUrl = this.options.base + templateName + this.options.extname;
+            templateUrl = this.options.base + templateName + this.options.extName;
 
             $.ajax( {
                 async: false,
@@ -37,6 +39,7 @@ define( function ( require ) {
                 tpl = data;
             } ).fail( function ( jqXHR, textStatus ) {
                 console.info( textStatus );
+                throw "获取模板失败";
             } );
 
             renderCache[ templateName ] = ArtTemplate.compile( tpl );
@@ -46,7 +49,7 @@ define( function ( require ) {
     };
     Template.defaults = {
         base: "",
-        extname: ".html"
+        extName: ".html"
     };
 
     return Template;
