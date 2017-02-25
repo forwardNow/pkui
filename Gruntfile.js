@@ -8,14 +8,14 @@ module.exports = function(grunt) {
         jsdoc : {
             desktopApp : {
                 src: [
-                    // "app/desktop/js/base/*.js",
-                    // "app/desktop/js/common/*.js",
-                    // "app/desktop/js/page/*.js",
-                    // "app/desktop/js/*.js"
-                    "app/desktop/js/base/utils.js"
+                    "app/desktop/js/base/*.js",
+                    "app/desktop/js/common/*.js",
+                    "app/desktop/js/page/*.js",
+                    "app/desktop/js/*.js"
+                    //"app/desktop/js/base/utils.js"
                 ],
                 options: {
-                    destination: 'app/desktop/doc/js',
+                    destination: 'app/desktop/doc/_js',
                     // template: "node_modules/minami"
                     template: "node_modules/docdash"
                     // template : "node_modules/ink-docstrap/template"

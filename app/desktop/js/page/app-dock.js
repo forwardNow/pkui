@@ -1,6 +1,9 @@
 /**
- * @file dock，页签
+ * @fileOverview  应用（App）—— 页签（AppDock）
+ * @module module:page/app-dock
  * @author 吴钦飞(wuqf@pkusoft.net)
+ * @requires module:jquery
+ * @requires module:common/template
  */
 define( function ( require ) {
     var $,
@@ -11,24 +14,10 @@ define( function ( require ) {
     Template = require( "../common/template" );
 
     /**
-     * 默认参数
-     * @type {{icon: string, title: string, dockTemplateName: string}}
-     */
-    AppDock.prototype.defaults = {
-        icon: "",
-        title: "",
-        dockTemplateName: ""
-    };
-
-    /**
-     * 包裹所有dock的容器
-     * @type {string}
-     */
-    AppDock.prototype.$container = ".topbar-dock";
-
-    /**
-     * app dock，页签
-     * @class
+     * @classDesc 页签（AppDock）类
+     * @exports module:page/app-dock
+     * @alias AppDock
+     * @constructor
      * @param {Object} options 参数
      */
     function AppDock ( options ) {
@@ -38,12 +27,31 @@ define( function ( require ) {
         this._init( options );
     }
 
+    /**
+     * 页签（AppDock）实例的默认参数
+     * @type {object}
+     * @property {string} icon 页签（dock）图标的URL（推荐使用绝对路径）
+     * @property {string} title 页签（dock）的标题
+     * @property {string} dockTemplateName 页签（dock）的模板文件名
+     */
+    AppDock.prototype.defaults = {
+        icon: "",
+        title: "",
+        dockTemplateName: ""
+    };
+
+    /**
+     * 包裹所有页签（AppDock）的容器的CSS选择器
+     * @type {string}
+     */
+    AppDock.prototype.$container = ".topbar-dock";
+
+
+
     // @public
-    $.extend( AppDock.prototype, {
+    $.extend( AppDock.prototype, /** @lends AppDock.prototype */ {
         /**
-         * 显示dock，让该dock处于active状态。
-         *
-         * @public
+         * 显示页签（AppDock） 即 让该dock处于active状态。
          * @return {AppDock} 链式调用
          */
         show: function () {
@@ -53,10 +61,9 @@ define( function ( require ) {
     } );
 
     // @private
-    $.extend( AppDock.prototype, {
+    $.extend( AppDock.prototype, /** @lends AppDock.prototype */{
         /**
-         * 初始化
-         *
+         * 初始化页签（AppDock）实例
          * @private
          * @param {Object} options 参数
          * @return {AppDock} 链式调用
@@ -71,7 +78,7 @@ define( function ( require ) {
             return this;
         },
         /**
-         * 创建DOM
+         * 创建页签（AppDock）节点，并将其添加到页签（AppDock）容器。
          *
          * @private
          * @return {AppDock} 链式调用

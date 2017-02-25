@@ -15,7 +15,7 @@ define( function ( require ) {
 
     $( document ).ready( function () {
 
-        Template.init( { base: "/pkui/app/desktop/tpl/" } );
+        Template.setOptions( { base: "/pkui/app/desktop/tpl/" } );
 
         Launchpad.init();
 

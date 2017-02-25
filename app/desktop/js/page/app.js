@@ -31,7 +31,7 @@ define( function ( require ) {
 
     /**
      * 用于App类初始化时的默认参数
-     * @type {{hookSelector: string, optionsProp: string}}
+     * @type {object}
      * @property {string} hookSelector 标志快捷方式的CSS选择器
      * @property {string} optionsProp 标志快捷方式的参数的HTML属性
      */
@@ -80,6 +80,20 @@ define( function ( require ) {
         dockTemplateName: "dock_item"
     };
 
+    // @public
+    $.extend( App.prototype, /** @lends App.prototype */ {
+
+        /**
+         * 显示dock和window。
+         * @returns {App}
+         */
+        show: function () {
+            this.appDock.show();
+            this.appWindow.show();
+            return this;
+        }
+    } );
+
     // @private
     $.extend( App.prototype, /** @lends App.prototype */ {
         /**
@@ -110,20 +124,6 @@ define( function ( require ) {
             return $.parseJSON( data );
         }
 
-    } );
-
-    // @public
-    $.extend( App.prototype, /** @lends App.prototype */ {
-
-        /**
-         * 显示dock和window。
-         * @returns {App}
-         */
-        show: function () {
-            this.appDock.show();
-            this.appWindow.show();
-            return this;
-        }
     } );
 
 
