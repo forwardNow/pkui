@@ -25,6 +25,9 @@ define( function ( require ) {
         if ( typeof this.$container === "string" ) {
             this.$container = $( this.$container );
         }
+        this.appInstance = null;
+        this.$target = null;
+        this.options = null;
         this._init( options );
     }
 
@@ -57,6 +60,21 @@ define( function ( require ) {
          */
         show: function () {
             this.$target.addClass( "active" ).siblings().removeClass( "active" );
+            return this;
+        },
+        /**
+         * 销毁AppDock。
+         * @returns {AppDock}
+         */
+        destroy: function () {
+            this.$target.remove();
+
+            this.appInstance.isAppDockDestroy = true;
+
+            this.$target = null;
+            this.options = null;
+            this.appInstance = null;
+
             return this;
         }
     } );

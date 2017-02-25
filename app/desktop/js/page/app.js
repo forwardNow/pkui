@@ -25,9 +25,17 @@ define( function ( require ) {
      * @param {object} $target 快捷方式DOM
      */
     function App( $target ) {
+        /**
+         * 快捷方式容器
+         * @type {jQuery}
+         */
         this.$target = $target;
+        this.appDock = null;
+        this.appWindow = null;
+        this.isAppDestroy = false;
+        this.isAppDockDestroy = false;
+        this.isAppWindowDestroy = false;
         this._init();
-        this.show();
     }
 
     /**
@@ -54,7 +62,7 @@ define( function ( require ) {
      * @private
      */
     App._bind = function () {
-        $( window.document ).on( "click.app", this._options.hookSelector, function () {
+        $( window.document ).on( "click.shortcut.app", this._options.hookSelector, function () {
             var $this,
                 appInstance
                 ;
@@ -63,6 +71,7 @@ define( function ( require ) {
 
             if ( appInstance ) {
                 appInstance.show();
+                return;
             }
             $this.data( "appInstance", new App( $this ) );
         } );
@@ -92,6 +101,19 @@ define( function ( require ) {
             this.appDock.show();
             this.appWindow.show();
             return this;
+        },
+        /**
+         * 销毁App（关闭窗口，关闭dock）。
+         * @returns {App}
+         */
+        destroy: function () {
+            !this.isAppDockDestroy && this.appDock.destroy();
+            !this.isAppWindowDestroy && this.appWindow.destroy();
+            this.isAppDestroy = true;
+            this.$target = null;
+            this.appDock = null;
+            this.appWindow = null;
+            return this;
         }
     } );
 
@@ -108,9 +130,11 @@ define( function ( require ) {
 
             // 2. 创建一个 页签（dock）
             this.appDock = new AppDock( this.options );
+            this.appDock.appInstance = this;
 
             // 3. 创建一个 窗口（window）
             this.appWindow = new AppWindow( this.options );
+            this.appWindow.appInstance = this;
 
             return this;
         },

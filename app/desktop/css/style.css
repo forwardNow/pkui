@@ -1,165 +1,4 @@
 @charset "UTF-8";
-.desktop-sprite, .icon-home, .topbar-home, .icon-history, .topbar-history, .icon-close, .dock-item-btn, .icon-dashboard, .icon-logout, .icon-message, .icon-more, .icon-search, .icon-user, .icon-triangle-down, .toolbar-item-indicator, .icon-add, .icon-setting, .icon-arrow-left, .launchpad-pagination-previous, .launchpad-pagination-next, .icon-arrow-right, .icon-circle-1, .icon-circle-2, .icon-win-close, .icon-win-close-hover, .icon-win-max, .icon-win-max-hover, .icon-win-maxmin, .icon-win-maxmin-hover, .icon-win-min, .layui-layer-min, .icon-win-min-hover {
-  background-image: url('../images/desktop-s05643dee38.png');
-  background-repeat: no-repeat;
-}
-
-.icon-home, .topbar-home {
-  width: 20px;
-  height: 46px;
-  background-position: 0 -217px;
-}
-
-.icon-history, .topbar-history {
-  width: 19px;
-  height: 16px;
-  background-position: 0 -201px;
-}
-
-.icon-close, .dock-item-btn {
-  width: 17px;
-  height: 17px;
-  background-position: 0 -160px;
-}
-
-.icon-dashboard {
-  width: 24px;
-  height: 24px;
-  background-position: 0 -177px;
-}
-
-.icon-logout {
-  width: 24px;
-  height: 24px;
-  background-position: 0 -263px;
-}
-
-.icon-message {
-  width: 24px;
-  height: 24px;
-  background-position: 0 -287px;
-}
-
-.icon-more {
-  width: 24px;
-  height: 24px;
-  background-position: 0 -311px;
-}
-
-.icon-search {
-  width: 24px;
-  height: 24px;
-  background-position: 0 -335px;
-}
-
-.icon-user {
-  width: 24px;
-  height: 24px;
-  background-position: 0 -380px;
-}
-
-.icon-triangle-down, .toolbar-item-indicator {
-  width: 10px;
-  height: 5px;
-  background-position: 0 -375px;
-}
-
-.icon-add {
-  width: 16px;
-  height: 16px;
-  background-position: 0 0;
-}
-
-.icon-setting {
-  width: 16px;
-  height: 16px;
-  background-position: 0 -359px;
-}
-
-.icon-arrow-left, .launchpad-pagination-previous, .launchpad-pagination-next {
-  width: 33px;
-  height: 60px;
-  background-position: 0 -16px;
-}
-
-.icon-arrow-right, .launchpad-pagination-next {
-  width: 33px;
-  height: 60px;
-  background-position: 0 -76px;
-}
-
-.icon-circle-1 {
-  width: 12px;
-  height: 12px;
-  background-position: 0 -136px;
-}
-
-.icon-circle-2 {
-  width: 12px;
-  height: 12px;
-  background-position: 0 -148px;
-}
-
-.icon-win-close {
-  width: 16px;
-  height: 16px;
-  background-position: 0 -404px;
-}
-.icon-win-close:hover, .icon-win-close.icon_win_close-hover {
-  background-position: 0 -420px;
-}
-
-.icon-win-close-hover {
-  width: 16px;
-  height: 16px;
-  background-position: 0 -420px;
-}
-
-.icon-win-max {
-  width: 16px;
-  height: 16px;
-  background-position: 0 -436px;
-}
-.icon-win-max:hover, .icon-win-max.icon_win_max-hover {
-  background-position: 0 -452px;
-}
-
-.icon-win-max-hover {
-  width: 16px;
-  height: 16px;
-  background-position: 0 -452px;
-}
-
-.icon-win-maxmin {
-  width: 16px;
-  height: 16px;
-  background-position: 0 -468px;
-}
-.icon-win-maxmin:hover, .icon-win-maxmin.icon_win_maxmin-hover {
-  background-position: 0 -484px;
-}
-
-.icon-win-maxmin-hover {
-  width: 16px;
-  height: 16px;
-  background-position: 0 -484px;
-}
-
-.icon-win-min, .layui-layer-min {
-  width: 16px;
-  height: 16px;
-  background-position: 0 -500px;
-}
-.icon-win-min:hover, .layui-layer-min:hover, .icon-win-min.icon_win_min-hover, .icon_win_min-hover.layui-layer-min {
-  background-position: 0 -516px;
-}
-
-.icon-win-min-hover {
-  width: 16px;
-  height: 16px;
-  background-position: 0 -516px;
-}
-
 /*
 YUI 3.18.1 (build f7e7bcb)
 Copyright 2014 Yahoo! Inc. All rights reserved.
@@ -1859,4 +1698,195 @@ html #layuicss-skinlayercss {
 }
 .layui-layer-setwin .layui-layer-min cite {
   display: none;
+}
+
+.layui-layer-title {
+  background-color: #33a6e7;
+  border-bottom: none 0;
+}
+
+.layui-layer {
+  border-radius: 0;
+}
+
+.layui-layer-title {
+  border-radius: 0;
+  color: #ffffff;
+}
+
+.layerui-layer-title-icon {
+  margin: -1px 6px 0 0;
+  height: 20px;
+  vertical-align: middle;
+}
+
+.pkui-content-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  background: url(../images/component/layer/loading-2.gif);
+}
+
+.desktop-sprite, .icon-home, .topbar-home, .icon-history, .topbar-history, .icon-close, .dock-item-btn, .icon-dashboard, .icon-logout, .icon-message, .icon-more, .icon-search, .icon-user, .icon-triangle-down, .toolbar-item-indicator, .icon-add, .icon-setting, .icon-arrow-left, .launchpad-pagination-previous, .launchpad-pagination-next, .icon-arrow-right, .icon-circle-1, .icon-circle-2, .icon-win-close, .layui-layer-setwin .layui-layer-close1, .icon-win-close-hover, .icon-win-max, .layui-layer-setwin .layui-layer-max, .icon-win-max-hover, .icon-win-maxmin, .layui-layer-setwin .layui-layer-maxmin, .icon-win-maxmin-hover, .icon-win-min, .layui-layer-min, .icon-win-min-hover {
+  background-image: url('../images/desktop-s05643dee38.png');
+  background-repeat: no-repeat;
+}
+
+.icon-home, .topbar-home {
+  width: 20px;
+  height: 46px;
+  background-position: 0 -217px;
+}
+
+.icon-history, .topbar-history {
+  width: 19px;
+  height: 16px;
+  background-position: 0 -201px;
+}
+
+.icon-close, .dock-item-btn {
+  width: 17px;
+  height: 17px;
+  background-position: 0 -160px;
+}
+
+.icon-dashboard {
+  width: 24px;
+  height: 24px;
+  background-position: 0 -177px;
+}
+
+.icon-logout {
+  width: 24px;
+  height: 24px;
+  background-position: 0 -263px;
+}
+
+.icon-message {
+  width: 24px;
+  height: 24px;
+  background-position: 0 -287px;
+}
+
+.icon-more {
+  width: 24px;
+  height: 24px;
+  background-position: 0 -311px;
+}
+
+.icon-search {
+  width: 24px;
+  height: 24px;
+  background-position: 0 -335px;
+}
+
+.icon-user {
+  width: 24px;
+  height: 24px;
+  background-position: 0 -380px;
+}
+
+.icon-triangle-down, .toolbar-item-indicator {
+  width: 10px;
+  height: 5px;
+  background-position: 0 -375px;
+}
+
+.icon-add {
+  width: 16px;
+  height: 16px;
+  background-position: 0 0;
+}
+
+.icon-setting {
+  width: 16px;
+  height: 16px;
+  background-position: 0 -359px;
+}
+
+.icon-arrow-left, .launchpad-pagination-previous, .launchpad-pagination-next {
+  width: 33px;
+  height: 60px;
+  background-position: 0 -16px;
+}
+
+.icon-arrow-right, .launchpad-pagination-next {
+  width: 33px;
+  height: 60px;
+  background-position: 0 -76px;
+}
+
+.icon-circle-1 {
+  width: 12px;
+  height: 12px;
+  background-position: 0 -136px;
+}
+
+.icon-circle-2 {
+  width: 12px;
+  height: 12px;
+  background-position: 0 -148px;
+}
+
+.icon-win-close, .layui-layer-setwin .layui-layer-close1 {
+  width: 16px;
+  height: 16px;
+  background-position: 0 -404px;
+}
+.icon-win-close:hover, .layui-layer-setwin .layui-layer-close1:hover, .icon-win-close.icon_win_close-hover, .layui-layer-setwin .icon_win_close-hover.layui-layer-close1 {
+  background-position: 0 -420px;
+}
+
+.icon-win-close-hover {
+  width: 16px;
+  height: 16px;
+  background-position: 0 -420px;
+}
+
+.icon-win-max, .layui-layer-setwin .layui-layer-max {
+  width: 16px;
+  height: 16px;
+  background-position: 0 -436px;
+}
+.icon-win-max:hover, .layui-layer-setwin .layui-layer-max:hover, .icon-win-max.icon_win_max-hover, .layui-layer-setwin .icon_win_max-hover.layui-layer-max {
+  background-position: 0 -452px;
+}
+
+.icon-win-max-hover {
+  width: 16px;
+  height: 16px;
+  background-position: 0 -452px;
+}
+
+.icon-win-maxmin, .layui-layer-setwin .layui-layer-maxmin {
+  width: 16px;
+  height: 16px;
+  background-position: 0 -468px;
+}
+.icon-win-maxmin:hover, .layui-layer-setwin .layui-layer-maxmin:hover, .icon-win-maxmin.icon_win_maxmin-hover, .layui-layer-setwin .icon_win_maxmin-hover.layui-layer-maxmin {
+  background-position: 0 -484px;
+}
+
+.icon-win-maxmin-hover {
+  width: 16px;
+  height: 16px;
+  background-position: 0 -484px;
+}
+
+.icon-win-min, .layui-layer-min {
+  width: 16px;
+  height: 16px;
+  background-position: 0 -500px;
+}
+.icon-win-min:hover, .layui-layer-min:hover, .icon-win-min.icon_win_min-hover, .icon_win_min-hover.layui-layer-min {
+  background-position: 0 -516px;
+}
+
+.icon-win-min-hover {
+  width: 16px;
+  height: 16px;
+  background-position: 0 -516px;
 }

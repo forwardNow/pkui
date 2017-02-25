@@ -1,6 +1,50 @@
 .layui-layer-setwin .layui-layer-min cite {
     display: none;
 }
+
 .layui-layer-min {
     @extend .icon-win-min;
+}
+
+.layui-layer-title {
+    background-color: #33a6e7;
+    border-bottom: none 0;
+}
+
+.layui-layer-setwin .layui-layer-max {
+    @extend .icon-win-max;
+}
+
+.layui-layer-setwin .layui-layer-close1 {
+    @extend .icon-win-close;
+}
+
+.layui-layer-setwin .layui-layer-maxmin {
+    @extend .icon-win-maxmin;
+}
+
+.layui-layer {
+    border-radius: 0;
+}
+
+.layui-layer-title {
+    border-radius: 0;
+    color: #ffffff;
+}
+
+.layerui-layer-title-icon {
+    margin: -1px 6px 0 0;
+    height: 20px;
+    vertical-align: middle;
+}
+
+// loading
+.pkui-content-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 32px;
+    height: 32px;
+    margin: -16px 0 0 -16px;
+    background: url(#{$layui-layer-img-path}loading-2.gif);
 }

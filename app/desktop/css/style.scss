@@ -6,8 +6,6 @@
 // 变量
 @import "page/variables";
 
-// 雪碧图
-@import "common/css-sprite";
 
 // 基础样式
 @import "../../../src/css/base/1.0.0/base";
@@ -37,5 +35,8 @@
 
 // app-window
 @import "../../../src/lib/layer/3.0.1.x/skin/default/layer";
+
 @import "common/layer";
 
+// 雪碧图（置于最下面，否则@extend的样式会提前）
+@import "common/css-sprite";
