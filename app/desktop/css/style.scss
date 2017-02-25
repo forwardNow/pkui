@@ -35,6 +35,7 @@
 // 顶部条
 @import "page/topbar";
 
-// 弹出框
-@import "common/dialog";
+// app-window
+@import "../../../src/lib/layer/3.0.1.x/skin/default/layer";
+@import "common/layer";
 

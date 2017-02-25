@@ -53,7 +53,7 @@ define( function ( require ) {
             titleIcon = this.options.icon;
             titleText = this.options.title;
 
-            title = '<img src="'+titleIcon+'" style="margin: -1px 10px 0 0;height: 16px; vertical-align: middle;">' + titleText;
+            title = '<img src="'+titleIcon+'" style="margin: -1px 6px 0 0; height: 20px; vertical-align: middle;">' + titleText;
 
             layer.open( {
                 type: 1,//Page层类型

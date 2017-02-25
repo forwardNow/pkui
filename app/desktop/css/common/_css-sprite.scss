@@ -88,3 +88,49 @@
     height: 12px;
     @include desktop-sprite(icon_circle_2);
 }
+
+.icon-win-close {
+    width: 16px;
+    height: 16px;
+    @include desktop-sprite(icon_win_close);
+}
+
+.icon-win-close-hover {
+    width: 16px;
+    height: 16px;
+    @include desktop-sprite(icon_win_close_hover);
+}
+
+.icon-win-max {
+    width: 16px;
+    height: 16px;
+    @include desktop-sprite(icon_win_max);
+}
+
+.icon-win-max-hover {
+    width: 16px;
+    height: 16px;
+    @include desktop-sprite(icon_win_max_hover);
+}
+.icon-win-maxmin {
+    width: 16px;
+    height: 16px;
+    @include desktop-sprite(icon_win_maxmin);
+}
+
+.icon-win-maxmin-hover {
+    width: 16px;
+    height: 16px;
+    @include desktop-sprite(icon_win_maxmin_hover);
+}
+.icon-win-min {
+    width: 16px;
+    height: 16px;
+    @include desktop-sprite(icon_win_min);
+}
+
+.icon-win-min-hover {
+    width: 16px;
+    height: 16px;
+    @include desktop-sprite(icon_win_min_hover);
+}

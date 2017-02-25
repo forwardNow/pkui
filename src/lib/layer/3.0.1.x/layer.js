@@ -1221,7 +1221,7 @@ ready.run = function(_$){
         define( function(require, exports, module) {
             var jq = require( "jquery" );
             ready.run( jq );
-            setPath( module.uri );
+            //setPath( module.uri );
             return layer;
         });
     } else {
