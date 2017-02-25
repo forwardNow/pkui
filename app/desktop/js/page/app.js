@@ -1,9 +1,9 @@
 /**
- * @fileOverview 应用（App）
+ * @fileOverview 应用（App）系统
+ * @author 吴钦飞（wuqf@pkusoft.net）
  *
  * @module module:page/app
- * @author 吴钦飞（wuqf@pkusoft.net）
- * @requires module:jquery
+ * @requires jquery
  * @requires module:page/app-dock
  * @requires module:page/app-window
  */
@@ -27,6 +27,7 @@ define( function ( require ) {
     function App( $target ) {
         this.$target = $target;
         this._init();
+        this.show();
     }
 
     /**

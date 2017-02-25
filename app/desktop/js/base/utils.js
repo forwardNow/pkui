@@ -1,8 +1,8 @@
 /**
  * @fileOverview 工具类
+ * @author 吴钦飞（wuqf@pkusoft.net）
  *
  * @module module:base/utils
- * @author 吴钦飞（wuqf@pkusoft.net）
  * @requires module:jquery
  */
 define( function ( require ) {
@@ -48,8 +48,8 @@ define( function ( require ) {
         getOptionsFromTag: function ( target, htmlProp ) {
             var $target,
                 options
-            ;
-            $target = target.jquery ? target : $( target );
+                ;
+            $target = target[ "jquery" ] ? target : $( target );
             htmlProp = htmlProp || "data-pkui-options";
 
             options = $.parseJSON( $target.attr( htmlProp ) );

@@ -1,7 +1,8 @@
 /**
  * @fileOverview  应用（App）—— 页签（AppDock）
- * @module module:page/app-dock
  * @author 吴钦飞(wuqf@pkusoft.net)
+ *
+ * @module module:page/app-dock
  * @requires module:jquery
  * @requires module:common/template
  */
