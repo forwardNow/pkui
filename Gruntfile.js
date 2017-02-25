@@ -1,28 +1,9 @@
-module.exports = function(grunt) {
+module.exports = function ( grunt ) {
 
     var pkuiConfig
         ;
 
     pkuiConfig = {
-
-        jsdoc : {
-            desktopApp : {
-                src: [
-                    "app/desktop/js/base/*.js",
-                    "app/desktop/js/common/*.js",
-                    "app/desktop/js/page/*.js",
-                    "app/desktop/js/*.js"
-                    //"app/desktop/js/base/utils.js"
-                ],
-                options: {
-                    destination: 'app/desktop/doc/_js',
-                    // template: "node_modules/minami"
-                    template: "node_modules/docdash"
-                    // template : "node_modules/ink-docstrap/template"
-                }
-            }
-        },
-
 
         // 清空 dist 目录
         clean: {
@@ -46,7 +27,7 @@ module.exports = function(grunt) {
             },
             desktopApp: {
                 files: [
-                    { src: 'app/desktop/doc/js/**' }
+                    { src: 'app/desktop/doc/_js/**' }
                 ]
             }
         },
@@ -75,24 +56,41 @@ module.exports = function(grunt) {
         // 压缩JS（参考：http://www.cnblogs.com/artwl/p/3449303.html）
         uglify: {
             buildToTemp: {//按原文件结构压缩js文件夹内所有JS文件
-                files: [{
-                    expand:true,
-                    cwd:'src',//dist目录下
-                    src:'**/*.js',//所有js文件
+                files: [ {
+                    expand: true,
+                    cwd: 'src',//dist目录下
+                    src: '**/*.js',//所有js文件
                     dest: 'dist/temp'//输出到此目录下
-                }]
+                } ]
             }
         },
 
         // 压缩css
         cssmin: {
             buildToTemp: {
-                files: [{
-                    expand:true,
-                    cwd:'src',//dist目录下
-                    src:'**/*.css',//所有js文件
+                files: [ {
+                    expand: true,
+                    cwd: 'src',//dist目录下
+                    src: '**/*.css',//所有js文件
                     dest: 'dist/temp'//输出到此目录下
-                }]
+                } ]
+            }
+        },
+        jsdoc: {
+            desktopApp: {
+                src: [
+                    "app/desktop/js/base/*.js",
+                    "app/desktop/js/common/*.js",
+                    "app/desktop/js/page/*.js",
+                    "app/desktop/js/*.js"
+                    //"app/desktop/js/base/utils.js"
+                ],
+                options: {
+                    destination: 'app/desktop/doc/_js',
+                    // template: "node_modules/minami"
+                    // template : "node_modules/ink-docstrap/template"
+                    template: "node_modules/docdash"
+                }
             }
         }
 
@@ -100,19 +98,19 @@ module.exports = function(grunt) {
 
 
     // Project configuration.
-    grunt.initConfig(pkuiConfig);
+    grunt.initConfig( pkuiConfig );
 
     // 加载插件。
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks( 'grunt-contrib-clean' );
+    grunt.loadNpmTasks( 'grunt-contrib-copy' );
     // grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+    grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
     // grunt.loadNpmTasks('grunt-shell');
-    grunt.loadNpmTasks('grunt-jsdoc');
+    grunt.loadNpmTasks( 'grunt-jsdoc' );
 
 
-    grunt.registerTask('pkui', [
+    grunt.registerTask( 'pkui', [
         'clean:init', // 清理
         'copy:srcToTemp', // 拷贝
         "clean:temp",
@@ -122,7 +120,7 @@ module.exports = function(grunt) {
         'clean:destory'
     ] );
 
-    grunt.registerTask('app-desktop', [
+    grunt.registerTask( 'app-desktop', [
         "clean:desktopApp",
         'jsdoc:desktopApp'
     ] );
