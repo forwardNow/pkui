@@ -13,6 +13,7 @@ define( function ( require ) {
 
     $ = require( "jquery" );
     layer = require( "layer" );
+    layer._offsetTopWhenMax = 46;
 
     /**
      * @classDesc 窗口（AppWindow）类
@@ -46,7 +47,7 @@ define( function ( require ) {
         title: "",
         windowWidth: "500px",
         windowHeight: "300px",
-        windowContent: "<i class='pkui-content-loading'></i>",
+        windowContent: "<i class='pkui-content-loading'></i>"
     };
 
 
@@ -77,11 +78,12 @@ define( function ( require ) {
                     // 初始化 windowIndex
                     _this.windowIndex = index;
                     // 置顶弹窗
-                    layer.setTop( windowContainer );
+                    // layer.setTop( windowContainer );
                 },
                 end: function () {
-                    //_this.windowIndex = null;
-                    console.info( "close!" );
+                    _this.windowIndex = null;
+                    _this.appInstance && ( ! _this.appInstance.isAppDestroy )
+                    && _this.appInstance.destroy();
                 }
             } );
 
@@ -93,7 +95,7 @@ define( function ( require ) {
          * @return {AppWindow} 链式调用
          */
         show: function () {
-            layer.setTop( this.windowContainer );
+            this.windowContainer.css( "z-index", ++layer.zIndex );
             return this;
         },
         /**
@@ -161,7 +163,7 @@ define( function ( require ) {
             return iconHtml + text;
         },
         /**
-         * 绑定事件
+         * 给页签（AppWindow）绑定事件
          * @private
          * @return {AppWindow} 链式调用
          */
@@ -169,10 +171,11 @@ define( function ( require ) {
             var _this
                 ;
             _this = this;
-            $( this.windowContainer ).find( ".layui-layer-close" )
-                .on( "click.close.appwindow", function () {
-                    _this.appInstance.destroy();
+
+            _this.windowContainer.on( "mousedown.show.app", function () {
+                _this.appInstance.show();
             } );
+
             return this;
         }
     } );

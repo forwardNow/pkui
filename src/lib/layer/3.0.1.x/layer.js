@@ -844,11 +844,14 @@ layer.full = function(index){
   clearTimeout(timer);
   timer = setTimeout(function(){
     var isfix = layero.css('position') === 'fixed';
+    // FIX 扩展一个参数 _offsetTopWhenMax，当最大化时，顶部保留一定空隙。
+    var _offsetTopWhenMax = layer._offsetTopWhenMax || 0;
+    var height = parseInt( win.height() ) - _offsetTopWhenMax + "px";
     layer.style(index, {
-      top: isfix ? 0 : win.scrollTop(),
+      top: isfix ? ( 0 + _offsetTopWhenMax ): win.scrollTop(),
       left: isfix ? 0 : win.scrollLeft(),
       width: win.width(),
-      height: win.height()
+      height: height
     }, true);
     layero.find('.layui-layer-min').hide();
   }, 100);

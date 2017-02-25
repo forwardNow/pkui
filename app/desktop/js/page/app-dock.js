@@ -94,6 +94,9 @@ define( function ( require ) {
             // 2. 创建target
             this._createTarget();
 
+            // 3. 绑定事件
+            this._bindEvent();
+
             return this;
         },
         /**
@@ -123,6 +126,33 @@ define( function ( require ) {
             this.$target = $target;
 
             this.show();
+
+            return this;
+        },
+        /**
+         * 给页签（AppDock）绑定事件
+         * @private
+         * @param {Object} options 参数
+         * @return {AppDock} 链式调用
+         */
+        _bindEvent: function () {
+            var _this
+            ;
+            _this = this;
+
+            // 1. 点击关闭，销毁应用
+            _this.$target.find( ".dock-item-btn" ).on( "click.close.app", function ( event ) {
+                // 阻止冒泡
+                event.stopPropagation();
+                _this.appInstance && ( ! _this.appInstance.isAppDestroy )
+                && _this.appInstance.destroy();
+            } );
+
+            // 2. 点击dock，显示应用
+            _this.$target.on( "click.show.app", function () {
+                _this.appInstance.show();
+            } );
+
 
             return this;
         }

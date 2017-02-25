@@ -110,6 +110,7 @@ define( function ( require ) {
             !this.isAppDockDestroy && this.appDock.destroy();
             !this.isAppWindowDestroy && this.appWindow.destroy();
             this.isAppDestroy = true;
+            this.$target.data( "appInstance", null );
             this.$target = null;
             this.appDock = null;
             this.appWindow = null;
