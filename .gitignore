@@ -4,6 +4,7 @@
 
 /node_modules/
 /.idea/
+/app/desktop/doc/_js
 
 ###############
 #  fixed file #
