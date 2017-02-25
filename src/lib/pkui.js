@@ -98,6 +98,7 @@
             // 预加载项
             preload: [
                 window.jQuery ? "" : "jquery",
+                isIE8 ? "" : "seajs-css",
                 isSupportES5 ? "" : "es5-sham",
                 isSupportJSON ? "" : "json3",
                 isSupportMediaQuery ? "" : "respond",
