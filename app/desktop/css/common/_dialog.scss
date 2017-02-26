@@ -51,6 +51,7 @@
 }
 .pkui-dialog-restore {
     @extend .icon-win-maxmin;
+    display: none;
 }
 .pkui-dialog-min {
     @extend .icon-win-min;

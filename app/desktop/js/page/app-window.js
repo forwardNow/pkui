@@ -33,10 +33,23 @@ define( function ( require ) {
         this.windowTitle = null;
         /** 窗体内容 */
         this.windowContent = null;
-        /** 弹框的容器 */
+        /** 弹框的容器 node */
         this.$dialogContainer = null;
         /** 弹框容器内窗体部分 .pkui-dialog */
-        this.$windowContainer = null;
+        this.$dialog = null;
+        /** 标题部分.pkui-dialog-header */
+        this.$dialogHeader = null;
+        /** 内容区域（不包含header）.pkui-dialog-content */
+        this.$dialogContent = null;
+
+        /** 最大化之前的宽度，node */
+        this.originWidth = 0;
+        /** 最大化之前的高度，node */
+        this.originHeight = 0;
+        /** 最大化之前的Top */
+        this.originTop = 0;
+        /** 最大化之前的Left */
+        this.originLeft = 0;
 
         // 初始化
         this._init( options );
@@ -81,14 +94,16 @@ define( function ( require ) {
             } );
 
             _this.$dialogContainer = $( _this.dialogInstance.node );
-            _this.$windowContainer = _this.$dialogContainer.find( ".pkui-dialog" );
-
+            _this.$dialog = _this.$dialogContainer.find( ".pkui-dialog" );
+            _this.$dialogHeader = _this.$dialogContainer.find( ".pkui-dialog-header" );
+            _this.$dialogContent = _this.$dialogContainer.find( ".pkui-dialog-content" );
             // 显示
             this.dialogInstance.show();
             // 居中
             this.dialogInstance.__center();
+
             // 可拖拽改变大小
-            Dialog.setResizable( this.dialogInstance );
+            Dialog.setResizable( this );
 
 
             return this;
@@ -99,7 +114,10 @@ define( function ( require ) {
          * @return {AppWindow} 链式调用
          */
         show: function () {
+            // 显示（ show() 里有调用了focus() 方法 ）
             this.dialogInstance.show();
+            // 置顶
+            // Dialog.setTop( this.dialogInstance );
             return this;
         },
         /**
@@ -108,8 +126,8 @@ define( function ( require ) {
          */
         destroy: function () {
 
-            this.dialogInstance.remove();
-            this.appInstance.isAppWindowDestroy = true;
+            this.dialogInstance && this.dialogInstance.remove();
+            this.appInstance && ( this.appInstance.isAppWindowDestroy = true );
 
             this.options = null;
             this.windowTitle = null;
@@ -169,7 +187,25 @@ define( function ( require ) {
          * @return {AppWindow} 链式调用
          */
         _bindEvent: function () {
+            var _this
+            ;
+            _this = this;
+            // 点击弹框关闭按钮后，进行摧毁，执行此回调销毁应用
+            this.dialogInstance.addEventListener( "remove", function () {
+                _this.dialogInstance = null;
+                _this.appInstance && !_this.appInstance.isAppDestroy
+                && _this.appInstance.destroy();
+            } );
+            // 点击弹窗时，置顶该弹窗
+            $( this.dialogInstance.node ).on( "mousedown.dock.app", function () {
+                _this.appInstance.show();
+            } );
 
+            //
+            Dialog.bindMinEvent( this );
+
+            //
+            Dialog.bindMaxEvent( this );
 
             return this;
         }

@@ -10,12 +10,14 @@
 define( function ( require ) {
 
     var $,
+        Utils,
         ArtDialog,
         Dialog
         ;
 
     $ = require( "jquery" );
     require( "jquery-ui" );
+    Utils = require( "../base/utils" );
     ArtDialog = require( "artDialog" );
 
     /**
@@ -31,24 +33,151 @@ define( function ( require ) {
          */
         create: function ( options ) {
             var opts
-            ;
+                ;
             opts = $.extend( {}, this.defaults, options );
             return ArtDialog( opts );
         },
         /**
          * 让弹窗可拖拽改变大小
          * @memberOf module:common/dialog#
-         * @param artDialogInstance {object} artDialogInstance
+         * @param appWindow {object} appWindow
          * @returns {module:common/dialog}
          */
-        setResizable: function ( artDialogInstance ) {
-            $( artDialogInstance.node ).find( ".pkui-dialog-content" ).resizable( {
-                // animate: true
+        setResizable: function ( appWindow ) {
+            appWindow.$dialogContent.resizable( {
+                /*
+                resize: function ( event, ui ) {
+                    appWindow.originWidth = ui.element.width();
+                    appWindow.originHeight = ui.element.height();
+                }
+                */
+                alsoResize: appWindow.$dialogContainer
+
             } );
             return this;
         },
-        setTop: function () {
+        /**
+         * 置顶弹窗
+         * @memberOf module:common/dialog#
+         * @param artDialogInstance {object} artDialogInstance
+         * @returns {module:common/dialog}
+         */
+        setTop: function ( artDialogInstance ) {
+            // focus() 方法重新设置了z-index值
+            artDialogInstance.focus();
+            return this;
+        },
+        /**
+         * 最小化
+         * @memberOf module:common/dialog#
+         * @param appWindow {object} appWindowIntance
+         * @returns {module:common/dialog}
+         */
+        setMin: function ( appWindow ) {
+            // 让dock处于非active状态
+            appWindow.appInstance.appDock.inactive();
+            // 关闭window
+            appWindow.dialogInstance.close();
+            return this;
+        },
+        /**
+         * 最大化
+         * @memberOf module:common/dialog#
+         * @param appWindow {object} appWindowIntance
+         * @returns {module:common/dialog}
+         */
+        setMax: function ( appWindow ) {
+            var pageWidth,
+                pageHeight,
+                topbarHeight,
+                dialogHeaderHeight
+                ;
+            pageWidth = Utils.getPageWidth();
+            pageHeight = Utils.getPageHeight();
+            topbarHeight = $( ".da-topbar" ).height();
+            dialogHeaderHeight = appWindow.$dialogHeader.height();
 
+            // 保存原始宽高和位置
+            appWindow.originWidth = appWindow.$dialogContainer.width();
+            appWindow.originHeight = appWindow.$dialogContainer.height();
+            appWindow.originTop = appWindow.$dialogContainer.css( "top" );
+            appWindow.originLeft = appWindow.$dialogContainer.css( "left" );
+
+            // 1. 设置最外围的container的宽高以及坐标
+            appWindow.$dialogContainer.css( {
+                "top": topbarHeight,
+                "left": 0,
+                "width": pageWidth,
+                "height": pageHeight - topbarHeight
+            } );
+
+            // 2. 设置内容区域的宽高 （.pkui-dialog-content）
+            appWindow.$dialogContent.css( {
+                "width": pageWidth,
+                "height": pageHeight - topbarHeight - dialogHeaderHeight
+            } );
+
+            return this;
+        },
+        /**
+         * 绑定事件：点击最小化，关闭窗口
+         * @memberOf module:common/dialog#
+         * @param appWindow {object} appWindowIntance
+         * @returns {module:common/dialog}
+         */
+        bindMinEvent: function ( appWindow ) {
+            var _this
+                ;
+            _this = this;
+            appWindow.$dialogContainer.find( ".pkui-dialog-min" )
+                .on( "click.window.app", function () {
+                    _this.setMin( appWindow );
+                } );
+            return this;
+        },
+        /**
+         * 绑定事件：点击最大化，铺满窗口
+         * @memberOf module:common/dialog#
+         * @param appWindow {object} appWindowIntance
+         * @returns {module:common/dialog}
+         */
+        bindMaxEvent: function ( appWindow ) {
+            var _this
+                ;
+            _this = this;
+            appWindow.$dialogContainer.find( ".pkui-dialog-max" )
+                .on( "click.window.app", function () {
+                    _this.setMax( appWindow );
+                    $( this ).hide()
+                        .siblings( ".pkui-dialog-restore" ).show();
+                } );
+            appWindow.$dialogContainer.find( ".pkui-dialog-restore" )
+                .on( "click.window.app", function () {
+                    _this._doRestore( appWindow );
+                    $( this ).hide()
+                        .siblings( ".pkui-dialog-max" ).show();
+                } );
+            return this;
+        },
+        /**
+         * 绑定事件：点击最大化，铺满窗口
+         * @memberOf module:common/dialog#
+         * @private
+         * @param appWindow {object} appWindowIntance
+         * @returns {module:common/dialog}
+         */
+        _doRestore: function ( appWindow ) {
+            appWindow.$dialogContent.css( {
+                "width": appWindow.originWidth,
+                "height": appWindow.originHeight -  appWindow.$dialogHeader.height()
+            } );
+            appWindow.$dialogContainer.css( {
+                "top": appWindow.originTop,
+                "left": appWindow.originLeft,
+                "width": appWindow.originWidth,
+                "height": appWindow.originHeight
+            } );
+            return this;
         }
     };
     /**

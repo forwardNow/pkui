@@ -21,6 +21,11 @@ define( function ( require ) {
          */
         _pageWidth: 0,
         /**
+         * 网页框口高度
+         * @private
+         */
+        _pageHeight: 0,
+        /**
          * 获取网页宽度
          * @memberOf module:base/utils#
          * @returns {number} 网页宽度
@@ -30,15 +35,28 @@ define( function ( require ) {
                 $window
                 ;
             _this = this;
-            $window = $( window );
             if ( this._pageWidth ) {
                 return this._pageWidth;
             } else {
+                $window = $( window );
+                $window.resize( function () {
+                    _this._pageWidth = $window.width();
+                    _this._pageHeight = $window.height();
+                } );
                 return $window.width();
             }
-            $window.resize( function () {
-                _this.pageWidth = $window.width();
-            } );
+        },
+        /**
+         * 获取网页高度
+         * @memberOf module:base/utils#
+         * @returns {number} 网页高度
+         */
+        getPageHeight: function () {
+            if ( this._pageHeight ) {
+                return this._pageHeight;
+            } else {
+                return $( window ).height();
+            }
         },
         /**
          * 从HTML标签属性中获取序列化的JSON对象，将其反序列化返回

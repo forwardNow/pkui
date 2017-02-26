@@ -1300,6 +1300,10 @@ Pagination Styles
   filter: alpha(opacity=100);
 }
 
+.pkui-dialog-restore {
+  display: none;
+}
+
 .pkui-dialog-body {
   padding: 0;
   text-align: left;

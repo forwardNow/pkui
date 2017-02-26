@@ -63,6 +63,14 @@ define( function ( require ) {
             return this;
         },
         /**
+         * 显示页签（AppDock） 即 让该dock处于非active状态。
+         * @return {AppDock} 链式调用
+         */
+        inactive: function () {
+            this.$target.removeClass( "active" );
+            return this;
+        },
+        /**
          * 销毁AppDock。
          * @returns {AppDock}
          */
