@@ -76,6 +76,9 @@
                 // 弹窗组件
                 "layer": "lib/layer/3.0.1.x/layer",
 
+                // 模块名"artDialog"已在模块内定义，请勿更改
+                "artDialog": "lib/art-dialog/6.0.4.x/dialog-plus",
+
                 // 模板引擎
                 "artTemplate": "lib/art-template/3.1.0/template"
             },

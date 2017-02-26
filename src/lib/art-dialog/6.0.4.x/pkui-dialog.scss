@@ -1,0 +1,426 @@
+/*!
+ * pkui-dialog.css
+ * Date: 2014-07-03
+ * https://github.com/aui/artDialog
+ * (c) 2009-2014 TangBin, http://www.planeArt.cn
+ *
+ * This is licensed under the GNU LGPL, version 2.1 or later.
+ * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
+ */
+.pkui-dialog {
+    *zoom:1;
+    _float: left;
+    position: relative;
+    background-color: #FFF;
+    border: 1px solid #999;
+    border-radius: 6px;
+    outline: 0;
+    background-clip: padding-box;
+    font-family: Helvetica, arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #333;
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition: -webkit-transform .15s ease-in-out, opacity .15s ease-in-out;
+    transition: transform .15s ease-in-out, opacity .15s ease-in-out;
+}
+.pkui-popup-show .pkui-dialog {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+.pkui-popup-focus .pkui-dialog {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+.pkui-popup-modal .pkui-dialog {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1), 0 0 256px rgba(255, 255, 255, .3);
+}
+.pkui-dialog-grid {
+    width: auto;
+    margin: 0;
+    border: 0 none;
+    border-collapse:collapse;
+    border-spacing: 0;
+    background: transparent;
+}
+.pkui-dialog-header,
+.pkui-dialog-body,
+.pkui-dialog-footer {
+    padding: 0;
+    border: 0 none;
+    text-align: left;
+    background: transparent;
+}
+.pkui-dialog-header {
+    white-space: nowrap;
+    border-bottom: 1px solid #E5E5E5;
+}
+.pkui-dialog-close {
+    position: relative;
+    _position: absolute;
+    float: right;
+    top: 13px;
+    right: 13px;
+    _height: 26px;
+    padding: 0 4px;
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #FFF;
+    opacity: .2;
+    filter: alpha(opacity=20);
+    cursor: pointer;
+    background: transparent;
+    _background: #FFF;
+    border: 0;
+    -webkit-appearance: none;
+}
+.pkui-dialog-close:hover,
+.pkui-dialog-close:focus {
+    color: #000000;
+    text-decoration: none;
+    cursor: pointer;
+    outline: 0;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+.pkui-dialog-title {
+    margin: 0;
+    line-height: 1.428571429;
+    min-height: 16.428571429px;
+    padding: 15px;
+    overflow:hidden; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    cursor: default;
+}
+.pkui-dialog-body {
+    padding: 20px;
+    text-align: center;
+}
+.pkui-dialog-content {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    *zoom: 1;
+    *display: inline;
+    text-align: left;
+}
+.pkui-dialog-footer {
+    padding: 0 20px 20px 20px;
+}
+.pkui-dialog-statusbar {
+    float: left;
+    margin-right: 20px;
+    padding: 6px 0;
+    line-height: 1.428571429;
+    font-size: 14px;
+    color: #888;
+    white-space: nowrap;
+}
+.pkui-dialog-statusbar label:hover {
+    color: #333;
+}
+.pkui-dialog-statusbar input,
+.pkui-dialog-statusbar .label {
+    vertical-align: middle;
+}
+.pkui-dialog-button {
+    float: right;
+    white-space: nowrap;
+}
+.pkui-dialog-footer button+button {
+    margin-bottom: 0;
+    margin-left: 5px;
+}
+.pkui-dialog-footer button {
+    width:auto;
+    overflow:visible;
+    display: inline-block;
+    padding: 6px 12px;
+    _margin-left: 5px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+       -o-user-select: none;
+          user-select: none;
+}
+
+.pkui-dialog-footer button:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.pkui-dialog-footer button:hover,
+.pkui-dialog-footer button:focus {
+  color: #333333;
+  text-decoration: none;
+}
+
+.pkui-dialog-footer button:active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+          box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.pkui-dialog-footer button[disabled] {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.pkui-dialog-footer button {
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+
+.pkui-dialog-footer button:hover,
+.pkui-dialog-footer button:focus,
+.pkui-dialog-footer button:active {
+  color: #333333;
+  background-color: #ebebeb;
+  border-color: #adadad;
+}
+
+.pkui-dialog-footer button:active{
+  background-image: none;
+}
+
+.pkui-dialog-footer button[disabled],
+.pkui-dialog-footer button[disabled]:hover,
+.pkui-dialog-footer button[disabled]:focus,
+.pkui-dialog-footer button[disabled]:active {
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+
+.pkui-dialog-footer button.pkui-dialog-autofocus {
+  color: #ffffff;
+  background-color: #428bca;
+  border-color: #357ebd;
+}
+
+.pkui-dialog-footer button.pkui-dialog-autofocus:hover,
+.pkui-dialog-footer button.pkui-dialog-autofocus:focus,
+.pkui-dialog-footer button.pkui-dialog-autofocus:active {
+  color: #ffffff;
+  background-color: #3276b1;
+  border-color: #285e8e;
+}
+
+.pkui-dialog-footer button.pkui-dialog-autofocus:active {
+  background-image: none;
+}
+.pkui-popup-top-left .pkui-dialog,
+.pkui-popup-top .pkui-dialog,
+.pkui-popup-top-right .pkui-dialog {
+    top: -8px;
+}
+.pkui-popup-bottom-left .pkui-dialog,
+.pkui-popup-bottom .pkui-dialog,
+.pkui-popup-bottom-right .pkui-dialog {
+    top: 8px;
+}
+.pkui-popup-left-top .pkui-dialog,
+.pkui-popup-left .pkui-dialog,
+.pkui-popup-left-bottom .pkui-dialog {
+    left: -8px;
+}
+.pkui-popup-right-top .pkui-dialog,
+.pkui-popup-right .pkui-dialog,
+.pkui-popup-right-bottom .pkui-dialog {
+    left: 8px;
+}
+
+.pkui-dialog-arrow-a,
+.pkui-dialog-arrow-b {
+    position: absolute;
+    display: none;
+    width: 0;
+    height: 0;
+    overflow:hidden;
+    _color:#FF3FFF;
+    _filter:chroma(color=#FF3FFF);
+    border:8px dashed transparent;
+}
+.pkui-popup-follow .pkui-dialog-arrow-a,
+.pkui-popup-follow .pkui-dialog-arrow-b{
+    display: block;
+}
+.pkui-popup-top-left .pkui-dialog-arrow-a,
+.pkui-popup-top .pkui-dialog-arrow-a,
+.pkui-popup-top-right .pkui-dialog-arrow-a {
+    bottom: -16px;
+    border-top:8px solid #7C7C7C;
+}
+.pkui-popup-top-left .pkui-dialog-arrow-b,
+.pkui-popup-top .pkui-dialog-arrow-b,
+.pkui-popup-top-right .pkui-dialog-arrow-b {
+    bottom: -15px;
+    border-top:8px solid #fff;
+}
+.pkui-popup-top-left .pkui-dialog-arrow-a,
+.pkui-popup-top-left .pkui-dialog-arrow-b  {
+    left: 15px;
+}
+.pkui-popup-top .pkui-dialog-arrow-a,
+.pkui-popup-top .pkui-dialog-arrow-b  {
+    left: 50%;
+    margin-left: -8px;
+}
+.pkui-popup-top-right .pkui-dialog-arrow-a,
+.pkui-popup-top-right .pkui-dialog-arrow-b {
+    right: 15px;
+}
+.pkui-popup-bottom-left .pkui-dialog-arrow-a,
+.pkui-popup-bottom .pkui-dialog-arrow-a,
+.pkui-popup-bottom-right .pkui-dialog-arrow-a {
+    top: -16px;
+    border-bottom:8px solid #7C7C7C;
+}
+.pkui-popup-bottom-left .pkui-dialog-arrow-b,
+.pkui-popup-bottom .pkui-dialog-arrow-b,
+.pkui-popup-bottom-right .pkui-dialog-arrow-b {
+    top: -15px;
+    border-bottom:8px solid #fff;
+}
+.pkui-popup-bottom-left .pkui-dialog-arrow-a,
+.pkui-popup-bottom-left .pkui-dialog-arrow-b {
+    left: 15px;
+}
+.pkui-popup-bottom .pkui-dialog-arrow-a,
+.pkui-popup-bottom .pkui-dialog-arrow-b {
+    margin-left: -8px;
+    left: 50%;
+}
+.pkui-popup-bottom-right .pkui-dialog-arrow-a,
+.pkui-popup-bottom-right .pkui-dialog-arrow-b {
+    right: 15px;
+}
+.pkui-popup-left-top .pkui-dialog-arrow-a,
+.pkui-popup-left .pkui-dialog-arrow-a,
+.pkui-popup-left-bottom .pkui-dialog-arrow-a {
+    right: -16px;
+    border-left:8px solid #7C7C7C;
+}
+.pkui-popup-left-top .pkui-dialog-arrow-b,
+.pkui-popup-left .pkui-dialog-arrow-b,
+.pkui-popup-left-bottom .pkui-dialog-arrow-b {
+    right: -15px;
+    border-left:8px solid #fff;
+}
+.pkui-popup-left-top .pkui-dialog-arrow-a,
+.pkui-popup-left-top .pkui-dialog-arrow-b {
+    top: 15px;
+}
+.pkui-popup-left .pkui-dialog-arrow-a,
+.pkui-popup-left .pkui-dialog-arrow-b {
+    margin-top: -8px;
+    top: 50%;
+}
+.pkui-popup-left-bottom .pkui-dialog-arrow-a,
+.pkui-popup-left-bottom .pkui-dialog-arrow-b {
+    bottom: 15px;
+}
+.pkui-popup-right-top .pkui-dialog-arrow-a,
+.pkui-popup-right .pkui-dialog-arrow-a,
+.pkui-popup-right-bottom .pkui-dialog-arrow-a {
+    left: -16px;
+    border-right:8px solid #7C7C7C;
+}
+.pkui-popup-right-top .pkui-dialog-arrow-b,
+.pkui-popup-right .pkui-dialog-arrow-b,
+.pkui-popup-right-bottom .pkui-dialog-arrow-b {
+    left: -15px;
+    border-right:8px solid #fff;
+}
+.pkui-popup-right-top .pkui-dialog-arrow-a,
+.pkui-popup-right-top .pkui-dialog-arrow-b {
+    top: 15px;
+}
+.pkui-popup-right .pkui-dialog-arrow-a,
+.pkui-popup-right .pkui-dialog-arrow-b {
+    margin-top: -8px;
+    top: 50%;
+}
+.pkui-popup-right-bottom .pkui-dialog-arrow-a,
+.pkui-popup-right-bottom .pkui-dialog-arrow-b {
+    bottom: 15px;
+}
+
+
+@-webkit-keyframes pkui-dialog-loading {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes pkui-dialog-loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.pkui-dialog-loading {
+    vertical-align: middle;
+    position: relative;
+    display: block;
+    *zoom: 1;
+    *display: inline;
+    overflow: hidden;
+    width: 32px;
+    height: 32px;
+    top: 50%;
+    margin: -16px auto 0 auto;
+    font-size: 0;
+    text-indent: -999em;
+    color: #666;
+}
+.pkui-dialog-loading {
+    width: 100%\9;
+    text-indent: 0\9;
+    line-height: 32px\9;
+    text-align: center\9;
+    font-size: 12px\9;
+}
+
+
+.pkui-dialog-loading::after {
+    position: absolute;
+    content: '';
+    width: 3px;
+    height: 3px;
+    margin: 14.5px 0 0 14.5px;
+    border-radius: 100%;
+    box-shadow: 0 -10px 0 1px #ccc, 10px 0px #ccc, 0 10px #ccc, -10px 0 #ccc, -7px -7px 0 0.5px #ccc, 7px -7px 0 1.5px #ccc, 7px 7px #ccc, -7px 7px #ccc;
+    -webkit-transform: rotate(360deg);
+    -webkit-animation: pkui-dialog-loading 1.5s infinite linear;
+    transform: rotate(360deg);
+    animation: pkui-dialog-loading 1.5s infinite linear;
+    display: none\9;
+}

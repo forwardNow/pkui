@@ -1,0 +1,32 @@
+
+.pkui-content-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+.pkui-content-loading-circle {
+    @extend .pkui-content-loading;
+    width: 60px;
+    height: 24px;
+    margin-top: -12px;
+    margin-left: -30px;
+    background-image: url("#{$image-path}/loading-0.gif");
+}
+.pkui-content-loading-asterisk {
+    @extend .pkui-content-loading;
+    width: 32px;
+    height: 32px;
+    margin-top: -16px;
+    margin-left: -16px;
+    background-image: url("#{$image-path}/loading-1.gif");
+}
+.pkui-content-loading-ring {
+    @extend .pkui-content-loading;
+    width: 32px;
+    height: 32px;
+    margin-top: -16px;
+    margin-left: -16px;
+    background-image: url("#{$image-path}/loading-2.gif");
+}

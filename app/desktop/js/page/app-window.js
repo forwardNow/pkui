@@ -4,16 +4,16 @@
  *
  * @module module:page/app-window
  * @requires jquery
- * @requires layer
+ * @requires jquery-ui
+ * @requires module:common/dialog
  */
 define( function ( require ) {
     var $,
-        layer
+        Dialog
         ;
 
     $ = require( "jquery" );
-    layer = require( "layer" );
-    layer._offsetTopWhenMax = 46;
+    Dialog = require( "../common/dialog" );
 
     /**
      * @classDesc 窗口（AppWindow）类
@@ -23,13 +23,22 @@ define( function ( require ) {
      * @param {Object} options 参数
      */
     function AppWindow( options ) {
+        /** App示例的引用 */
         this.appInstance = null;
+        /** 参数 */
         this.options = null;
-        // layer弹窗对应的index
-        this.windowIndex = null;
-        this.windowContainer = null;
+        /** 弹窗的实例的引用 */
+        this.dialogInstance = null;
+        /** 窗体标题 */
         this.windowTitle = null;
+        /** 窗体内容 */
         this.windowContent = null;
+        /** 弹框的容器 */
+        this.$dialogContainer = null;
+        /** 弹框容器内窗体部分 .pkui-dialog */
+        this.$windowContainer = null;
+
+        // 初始化
         this._init( options );
     }
 
@@ -45,9 +54,9 @@ define( function ( require ) {
     AppWindow.prototype.defaults = {
         icon: "",
         title: "",
-        windowWidth: "500px",
-        windowHeight: "300px",
-        windowContent: "<i class='pkui-content-loading'></i>"
+        windowWidth: 800,
+        windowHeight: 480,
+        windowContent: "<i class='pkui-content-loading-ring'></i>"
     };
 
 
@@ -63,29 +72,24 @@ define( function ( require ) {
 
             _this = this;
 
-            layer.open( {
-                area: [ this.options.windowWidth, this.options.windowHeight ],
-                title: this.windowTitle,
-                content: this.windowContent,
-                type: 1,//Page层类型
-                shade: 0, //遮罩透明度
-                maxmin: true, //允许全屏最小化
-                anim: 1, //0-6的动画形式，-1不开启
-                zIndex: layer.zIndex,
-                success: function ( windowContainer, index ) {
-                    // 初始化 windowContainer
-                    _this.windowContainer = windowContainer;
-                    // 初始化 windowIndex
-                    _this.windowIndex = index;
-                    // 置顶弹窗
-                    // layer.setTop( windowContainer );
-                },
-                end: function () {
-                    _this.windowIndex = null;
-                    _this.appInstance && ( ! _this.appInstance.isAppDestroy )
-                    && _this.appInstance.destroy();
-                }
+            _this.dialogInstance = Dialog.create( {
+                pku_isNotCenter: true,
+                title: _this.windowTitle,
+                content: _this.windowContent,
+                width: _this.options.windowWidth,
+                height: _this.options.windowHeight
             } );
+
+            _this.$dialogContainer = $( _this.dialogInstance.node );
+            _this.$windowContainer = _this.$dialogContainer.find( ".pkui-dialog" );
+
+            // 显示
+            this.dialogInstance.show();
+            // 居中
+            this.dialogInstance.__center();
+            // 可拖拽改变大小
+            Dialog.setResizable( this.dialogInstance );
+
 
             return this;
         },
@@ -95,7 +99,7 @@ define( function ( require ) {
          * @return {AppWindow} 链式调用
          */
         show: function () {
-            this.windowContainer.css( "z-index", ++layer.zIndex );
+            this.dialogInstance.show();
             return this;
         },
         /**
@@ -104,13 +108,10 @@ define( function ( require ) {
          */
         destroy: function () {
 
-            this.windowIndex && layer.close( this.windowIndex );
-
+            this.dialogInstance.remove();
             this.appInstance.isAppWindowDestroy = true;
 
             this.options = null;
-            this.windowIndex = null;
-            this.windowContainer = null;
             this.windowTitle = null;
             this.windowContent = null;
 
@@ -158,7 +159,7 @@ define( function ( require ) {
             icon = this.options.icon || "";
             text = this.options.title || "";
 
-            iconHtml = icon ? '<img class="layerui-layer-title-icon" src="' + icon + '">' : "";
+            iconHtml = icon ? '<img class="pkui-dialog-title-icon" src="' + icon + '">' : "";
 
             return iconHtml + text;
         },
@@ -168,13 +169,7 @@ define( function ( require ) {
          * @return {AppWindow} 链式调用
          */
         _bindEvent: function () {
-            var _this
-                ;
-            _this = this;
 
-            _this.windowContainer.on( "mousedown.show.app", function () {
-                _this.appInstance.show();
-            } );
 
             return this;
         }

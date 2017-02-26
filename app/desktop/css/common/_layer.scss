@@ -37,14 +37,3 @@
     height: 20px;
     vertical-align: middle;
 }
-
-// loading
-.pkui-content-loading {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 32px;
-    height: 32px;
-    margin: -16px 0 0 -16px;
-    background: url(#{$layui-layer-img-path}loading-2.gif);
-}

@@ -10,6 +10,9 @@
 // 基础样式
 @import "../../../src/css/base/1.0.0/base";
 
+// loading
+@import "common/loading";
+
 // 工具类
 @import "base/utilities";
 
@@ -34,9 +37,15 @@
 @import "page/topbar";
 
 // app-window
-@import "../../../src/lib/layer/3.0.1.x/skin/default/layer";
+//@import "../../../src/lib/layer/3.0.1.x/skin/default/layer";
+//@import "common/layer";
 
-@import "common/layer";
+
+// art dialog
+@import "../../../src/lib/art-dialog/6.0.4.x/pkui-dialog";
+@import "common/dialog";
+
+@import "common/jquery-ui";
 
 // 雪碧图（置于最下面，否则@extend的样式会提前）
 @import "common/css-sprite";

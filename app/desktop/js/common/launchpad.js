@@ -32,6 +32,10 @@ define( function ( require ) {
         // 定义一个参数：翻页的时间间隔
         intervalWhenSort: 1000,
         isSwippingWhenSort: false,
+        /**
+         * 启动 应用启动面板
+         * @memberOf module:common/launchpad#
+         */
         init: function () {
             this.render();
             this.bind();
@@ -71,15 +75,19 @@ define( function ( require ) {
                 scroll: false,
                 // 拖拽到页面边界会发生翻页，翻页时间间隔是1秒
                 sort: function ( event /*, ui */ ) {
-                    var x;
+                    var x,
+                        pageWidth
+                        ;
                     if ( _this.isSwippingWhenSort ) {
                         return;
                     }
                     x = event.pageX;
+                    pageWidth = Utils.getPageWidth();
+
                     if ( x === 20 ) {
                         _this.previousBtn.trigger( "click" );
                     }
-                    if ( x + 20 === Utils.getPageWidth() ) {
+                    if ( x + 20 === pageWidth ) {
                         _this.nextBtn.trigger( "click" );
                     }
 

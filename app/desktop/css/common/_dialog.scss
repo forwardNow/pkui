@@ -1,0 +1,63 @@
+
+.pkui-dialog {
+    border-radius: 0;
+    border: none 0;
+    //box-shadow: 1px 1px 10px rgba(0,0,0,.3);
+}
+
+.pkui-dialog-header {
+    background-color: #33a6e7;
+    border-bottom: none 0;
+}
+
+.pkui-dialog-title {
+    padding: 12px;
+    color: #fff;
+}
+.pkui-dialog-title-icon {
+    margin: -1px 6px 0 0;
+    height: 20px;
+    vertical-align: middle;
+}
+.pkui-dialog-header > button {
+    float: right;
+    position: static;
+    top: auto;
+    right: auto;
+    border: 0;
+    padding: 0;
+    margin: 14px 12px 0 0;
+    background-color: transparent;
+    cursor: pointer;
+    -webkit-appearance: none;
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+.pkui-dialog-close {
+    @extend .icon-win-close;
+}
+
+.pkui-dialog-close:hover,
+.pkui-dialog-close:focus {
+    //color: #000000;
+    //text-decoration: none;
+    cursor: pointer;
+    outline: 0;
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+.pkui-dialog-max {
+    @extend .icon-win-max;
+}
+.pkui-dialog-restore {
+    @extend .icon-win-maxmin;
+}
+.pkui-dialog-min {
+    @extend .icon-win-min;
+}
+
+.pkui-dialog-body {
+    padding: 0;
+    text-align: left;
+    vertical-align: top;
+}

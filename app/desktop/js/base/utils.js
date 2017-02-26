@@ -33,6 +33,8 @@ define( function ( require ) {
             $window = $( window );
             if ( this._pageWidth ) {
                 return this._pageWidth;
+            } else {
+                return $window.width();
             }
             $window.resize( function () {
                 _this.pageWidth = $window.width();
