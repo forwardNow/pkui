@@ -25,10 +25,11 @@ define( function ( require ) {
      */
     Launchpad = {
         swiper: null,
-        previousBtn: ".launchpad-pagination-previous",
-        nextBtn: ".launchpad-pagination-next",
-        pagination: ".launchpad-pagination-switchList",
-        shortcut: ".launchpad-shortcut",
+        $pageList: ".launchpad-view-pageList",
+        $previousBtn: ".launchpad-pagination-previous",
+        $nextBtn: ".launchpad-pagination-next",
+        $pagination: ".launchpad-pagination-switchList",
+        $shortcut: ".launchpad-shortcut",
         // 定义一个参数：翻页的时间间隔
         intervalWhenSort: 1000,
         isSwippingWhenSort: false,
@@ -41,9 +42,10 @@ define( function ( require ) {
             this.bind();
         },
         render: function () {
-            this.previousBtn = $( this.previousBtn );
-            this.nextBtn = $( this.nextBtn );
-            this.shortcut = $( this.shortcut );
+            this.$previousBtn = $( this.$previousBtn );
+            this.$pageList = $( this.$pageList );
+            this.$nextBtn = $( this.$nextBtn );
+            this.$shortcut = $( this.$shortcut );
         },
         bind: function () {
             var _this;
@@ -51,17 +53,21 @@ define( function ( require ) {
             this.swiper = new Swiper( ".swiper-container", {
                 // eventTarget : 'wrapper',
                 // noSwiping : true,
-                pagination: this.pagination,
+                pagination: this.$pagination,
                 loop: false,
                 grabCursor: true,
                 paginationClickable: true,
-                releaseElementsClass: "launchpad-shortcut"
+                releaseElementsClass: "launchpad-shortcut",
+                onFirstInit: function(){
+                    _this.$pageList.removeClass( "hidden" );
+                }
+
             } );
-            this.previousBtn.on( "click", function ( e ) {
+            this.$previousBtn.on( "click", function ( e ) {
                 e.preventDefault();
                 _this.swiper.swipePrev();
             } );
-            this.nextBtn.on( "click", function ( e ) {
+            this.$nextBtn.on( "click", function ( e ) {
                 e.preventDefault();
                 _this.swiper.swipeNext();
             } );
@@ -73,6 +79,7 @@ define( function ( require ) {
                 handle: ".launchpad-shortcut-icon",
                 placeholder: "launchpad-shortcut-placeholder",
                 scroll: false,
+                tolerance: "pointer",
                 // 拖拽到页面边界会发生翻页，翻页时间间隔是1秒
                 sort: function ( event /*, ui */ ) {
                     var x,
@@ -85,10 +92,10 @@ define( function ( require ) {
                     pageWidth = Utils.getPageWidth();
 
                     if ( x === 20 ) {
-                        _this.previousBtn.trigger( "click" );
+                        _this.$previousBtn.trigger( "click" );
                     }
                     if ( x + 20 === pageWidth ) {
-                        _this.nextBtn.trigger( "click" );
+                        _this.$nextBtn.trigger( "click" );
                     }
 
                     if ( x === 20 || x + 20 === Utils.getPageWidth ) {
