@@ -1316,6 +1316,11 @@ Pagination Styles
   vertical-align: top;
 }
 
+.pkui-popup-focus .pkui-dialog,
+.pkui-dialog {
+  box-shadow: 1px 1px 50px rgba(0, 0, 0, 0.3);
+}
+
 .ui-resizable {
   position: relative;
 }
