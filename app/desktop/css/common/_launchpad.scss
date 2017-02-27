@@ -73,23 +73,21 @@
     @include opacity(1);
 
 }
-.launchpad-pagination-previous {
+.launchpad-pagination-previous,
+.launchpad-pagination-next {
     position: absolute;
     z-index: 2;
     top: 50%;
-    left: 5%;
     margin-top: -30px;
     cursor: pointer;
+
+}
+.launchpad-pagination-previous {
+    left: 5%;
     @extend .icon-arrow-left;
-    @include opacity(.6);
-    &:hover {
-        @extend .launchpad-pagination-navItem-active;
-    }
 }
 .launchpad-pagination-next {
-    @extend .launchpad-pagination-previous;
     @extend .icon-arrow-right;
-    left: auto;
     right: 5%;
 }
 .launchpad-pagination-switchList {
