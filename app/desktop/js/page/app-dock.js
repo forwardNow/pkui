@@ -43,7 +43,16 @@ define( function ( require ) {
     AppDock.init = function ( options ) {
 
         this.options = $.extend( {}, this.defaults, options );
-        this.prototype.$container = $( this.options.$container );
+        this.options.$container = this.prototype.$container = $( this.options.$container );
+
+        this._bindEvent();
+    };
+
+    AppDock._bindEvent = function () {
+
+        this.options.$container.on( "addDock.app removeDock.app", function () {
+
+        } );
 
     };
 
