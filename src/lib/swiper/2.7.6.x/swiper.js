@@ -222,7 +222,11 @@ var Swiper = function (selector, params) {
         paginationVisibleClass: 'swiper-visible-switch',
 
         // FIX 扩展参数：某些元素无法拖动
-        releaseElementsClass: ""
+        releaseElementsClass: "",
+
+        // FIX 扩展参数：循环，但不在wrapper前后生成若干个slides；loop=true时设置
+        loopWithoutDuplicate: false
+
     };
     params = params || {};
     for (var prop in defaults) {
@@ -1679,10 +1683,21 @@ var Swiper = function (selector, params) {
             return;
         }
         if (!_this.isMoved || _this.positions.current > 0 || _this.positions.current < -maxPosition) {
-            _this.swipeReset();
-            if (params.onTouchEnd) _this.fireCallback(params.onTouchEnd, _this, event);
-            _this.callPlugins('onTouchEnd');
-            return;
+            // FIX 扩展参数 loopWithoutDuplicate：循环，但不在wrapper前后生成若干个slides；loop=true时设置
+            if ( params.loopWithoutDuplicate ) {
+
+                if ( _this.positions.current < -maxPosition ) {
+                    diff = -1;
+                } else if ( _this.positions.current > 0 ) {
+                    diff = +1;
+                }
+
+            } else {
+                _this.swipeReset();
+                if (params.onTouchEnd) _this.fireCallback(params.onTouchEnd, _this, event);
+                _this.callPlugins('onTouchEnd');
+                return;
+            }
         }
 
         _this.isMoved = false;
@@ -1868,6 +1883,10 @@ var Swiper = function (selector, params) {
         }
         if (newPosition < -maxWrapperPosition()) {
             newPosition = -maxWrapperPosition();
+            // FIX 扩展参数 loopWithoutDuplicate：循环，但不在wrapper前后生成若干个slides；loop=true时设置
+            if ( params.loopWithoutDuplicate ) {
+                newPosition = 0;
+            }
         }
         if (newPosition === currentPosition) return false;
         swipeToPosition(newPosition, 'next', {runCallbacks: runCallbacks});
@@ -1899,7 +1918,13 @@ var Swiper = function (selector, params) {
             newPosition = -(Math.ceil(-currentPosition / groupSize) - 1) * groupSize;
         }
 
-        if (newPosition > 0) newPosition = 0;
+        if (newPosition > 0) {
+            newPosition = 0;
+            // FIX 扩展参数 loopWithoutDuplicate：循环，但不在wrapper前后生成若干个slides；loop=true时设置
+            if ( params.loopWithoutDuplicate ) {
+                newPosition = -maxWrapperPosition();
+            }
+        }
 
         if (newPosition === currentPosition) return false;
         swipeToPosition(newPosition, 'prev', {runCallbacks: runCallbacks});

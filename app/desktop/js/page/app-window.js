@@ -23,7 +23,7 @@ define( function ( require ) {
      * @param {Object} options 参数
      */
     function AppWindow( options ) {
-        /** App示例的引用 */
+        /** App实例的引用 */
         this.appInstance = null;
         /** 参数 */
         this.options = null;

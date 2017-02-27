@@ -31,7 +31,7 @@ define( function ( require ) {
         $pagination: ".launchpad-pagination-switchList",
         $shortcut: ".launchpad-shortcut",
         // 定义一个参数：翻页的时间间隔
-        intervalWhenSort: 1000,
+        intervalWhenSort: 2000,
         isSwippingWhenSort: false,
         /**
          * 启动 应用启动面板
@@ -54,11 +54,13 @@ define( function ( require ) {
                 // eventTarget : 'wrapper',
                 // noSwiping : true,
                 pagination: this.$pagination,
-                loop: false,
+                // loop: true,
                 grabCursor: true,
                 paginationClickable: true,
+
                 releaseElementsClass: "launchpad-shortcut",
-                onFirstInit: function(){
+                loopWithoutDuplicate: true,
+                onFirstInit: function () {
                     _this.$pageList.removeClass( "hidden" );
                 }
 
@@ -91,19 +93,24 @@ define( function ( require ) {
                     x = event.pageX;
                     pageWidth = Utils.getPageWidth();
 
-                    if ( x === 20 ) {
-                        _this.$previousBtn.trigger( "click" );
-                    }
-                    if ( x + 20 === pageWidth ) {
-                        _this.$nextBtn.trigger( "click" );
-                    }
-
-                    if ( x === 20 || x + 20 === Utils.getPageWidth ) {
+                    if ( x < 20 || x + 20 > Utils.getPageWidth() ) {
                         _this.isSwippingWhenSort = true;
+                        console.info( "×...不允许翻页！！！/(ㄒoㄒ)/~~" );
                         window.setTimeout( function () {
                             _this.isSwippingWhenSort = false;
+                            console.info( "√...可以翻页！！！O(∩_∩)O~" );
                         }, _this.intervalWhenSort );
                     }
+
+                    if ( x < 20 ) {
+                        _this.$previousBtn.trigger( "click" );
+                        console.info( "<<...翻页（前）" );
+                    }
+                    if ( x + 20 > pageWidth ) {
+                        _this.$nextBtn.trigger( "click" );
+                        console.info( ">>...翻页（后）" );
+                    }
+
                 }
             } ).disableSelection();
         }

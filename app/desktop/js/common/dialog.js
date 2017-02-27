@@ -21,7 +21,9 @@ define( function ( require ) {
     ArtDialog = require( "artDialog" );
 
     /**
-     * 弹窗单例
+     * 弹窗单例，
+     * artDialog.node 决定位置
+     * .pkui-dialog-content 决定宽高
      * @exports module:common/dialog
      */
     Dialog = {
@@ -34,7 +36,8 @@ define( function ( require ) {
         create: function ( options ) {
             var opts
                 ;
-            opts = $.extend( {}, this.defaults, options );
+            opts = $.extend( {}, options );
+            opts.pkuiOptions = this;
             return ArtDialog( opts );
         },
         /**
@@ -50,8 +53,8 @@ define( function ( require ) {
                     appWindow.originWidth = ui.element.width();
                     appWindow.originHeight = ui.element.height();
                 }
-                */
                 alsoResize: appWindow.$dialogContainer
+                */
 
             } );
             return this;
@@ -103,12 +106,10 @@ define( function ( require ) {
             appWindow.originTop = appWindow.$dialogContainer.css( "top" );
             appWindow.originLeft = appWindow.$dialogContainer.css( "left" );
 
-            // 1. 设置最外围的container的宽高以及坐标
+            // 1. 设置最外围的container
             appWindow.$dialogContainer.css( {
                 "top": topbarHeight,
-                "left": 0,
-                "width": pageWidth,
-                "height": pageHeight - topbarHeight
+                "left": 0
             } );
 
             // 2. 设置内容区域的宽高 （.pkui-dialog-content）
@@ -173,9 +174,9 @@ define( function ( require ) {
             } );
             appWindow.$dialogContainer.css( {
                 "top": appWindow.originTop,
-                "left": appWindow.originLeft,
-                "width": appWindow.originWidth,
-                "height": appWindow.originHeight
+                "left": appWindow.originLeft
+                // "width": appWindow.originWidth,
+                // "height": appWindow.originHeight
             } );
             return this;
         }
