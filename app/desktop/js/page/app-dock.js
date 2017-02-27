@@ -66,7 +66,7 @@ define( function ( require ) {
          * 显示页签（AppDock） 即 让该dock处于非active状态。
          * @return {AppDock} 链式调用
          */
-        inactive: function () {
+        hide: function () {
             this.$target.removeClass( "active" );
             return this;
         },

@@ -25,29 +25,39 @@ define( function ( require ) {
      * @param {object} $target 快捷方式DOM
      */
     function App( $target ) {
-        /**
-         * 快捷方式容器
-         * @type {jQuery}
-         */
+
+        this.appId = null;
+        /** 快捷方式容器 */
         this.$target = $target;
         this.appDock = null;
         this.appWindow = null;
         this.isAppDestroy = false;
         this.isAppDockDestroy = false;
         this.isAppWindowDestroy = false;
+        App.appList.push( this );
+
         this._init();
     }
 
     /**
      * 用于App类初始化时的默认参数
      * @type {object}
-     * @property {string} hookSelector 标志快捷方式的CSS选择器
+     * @property {string} appSelector 标志快捷方式的CSS选择器
      * @property {string} optionsProp 标志快捷方式的参数的HTML属性
+     * @property {string} hideAllAppSelector 标志显示桌面的CSS选择器
      */
     App.defaults = {
-        hookSelector: '[data-pkui-app="true"]',
-        optionsProp: 'data-pkui-app-options'
+        appSelector: '[data-pkui-app="true"]',
+        optionsProp: 'data-pkui-app-options',
+        hideAllAppSelector: ".topbar-home"
     };
+
+    /**
+     * 用于存放所有App实例
+     * @type {Array}
+     */
+    App.appList = [];
+
     /**
      * App类的初始化（设置参数和绑定事件处理函数）
      * @param options
@@ -56,13 +66,21 @@ define( function ( require ) {
         this._options = $.extend( {}, App.defaults, options );
         this._bind();
     };
+    /**
+     *
+     */
+    App.hideAll = function () {
+        $.each( this.appList, function () {
+            this && this.hide && this.hide();
+        } );
+    };
 
     /**
      * 绑定事件处理函数：当点击快捷方式时，触发App的实例化
      * @private
      */
     App._bind = function () {
-        $( window.document ).on( "click.shortcut.app", this._options.hookSelector, function () {
+        $( window.document ).on( "click.shortcut.app", this._options.appSelector, function () {
             var $this,
                 appInstance
                 ;
@@ -74,7 +92,10 @@ define( function ( require ) {
                 return;
             }
             $this.data( "appInstance", new App( $this ) );
-        } );
+        } )
+            .on( "click.home.app", this._options.hideAllAppSelector , function () {
+                App.hideAll();
+            } );
     };
 
     /**
@@ -103,6 +124,15 @@ define( function ( require ) {
             return this;
         },
         /**
+         * 隐藏dock和window。
+         * @returns {App}
+         */
+        hide: function () {
+            this.appDock.hide();
+            this.appWindow.hide();
+            return this;
+        },
+        /**
          * 销毁App（关闭窗口，关闭dock）。
          * @returns {App}
          */
@@ -114,6 +144,7 @@ define( function ( require ) {
             this.$target = null;
             this.appDock = null;
             this.appWindow = null;
+            App.appList[ this.appId ] = null;
             return this;
         }
     } );
@@ -136,6 +167,10 @@ define( function ( require ) {
             // 3. 创建一个 窗口（window）
             this.appWindow = new AppWindow( this.options );
             this.appWindow.appInstance = this;
+
+            // 将实例添加到 App.appList，同时保存索引
+            this.appId = App.appList.length;
+            App.appList.push( this );
 
             return this;
         },

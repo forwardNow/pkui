@@ -3,6 +3,7 @@
  * @author 吴钦飞(wuqf@pkusoft.net)
  *
  * @module module:common/dialog
+ * @module module:base/utils
  * @requires jquery
  * @requires jquery-ui
  * @requires artDialog

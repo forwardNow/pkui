@@ -34,6 +34,7 @@ define( function ( require ) {
         /** 窗体内容 */
         this.windowContent = null;
 
+
         // 初始化
         this._init( options );
     }
@@ -74,8 +75,8 @@ define( function ( require ) {
                 width: _this.options.windowWidth,
                 height: _this.options.windowHeight,
                 onclose: function () {
-                    // 点击右上角关闭按钮，即最小化
-                    _this.appInstance.appDock.inactive();
+                    // 点击右上角最小化按钮，最小化后，使dock也隐藏
+                    _this.appInstance.appDock.hide();
                 }
             } );
 
@@ -103,6 +104,13 @@ define( function ( require ) {
             // 置顶
             // Dialog.setTop( this.dialogInstance );
             return this;
+        },
+        /**
+         * 隐藏窗口（AppWindow）。
+         * @return {AppWindow} 链式调用
+         */
+        hide: function () {
+            this.dialogInstance.close();
         },
         /**
          * 销毁AppWindow。
@@ -184,12 +192,6 @@ define( function ( require ) {
             $( this.dialogInstance.node ).on( "mousedown.dock.app", function () {
                 _this.appInstance.show();
             } );
-
-            //
-            // Dialog.bindMinEvent( this );
-
-            //
-            // Dialog.bindMaxEvent( this );
 
             return this;
         }
