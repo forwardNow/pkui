@@ -10,6 +10,9 @@
         isSupportJSON,
         isIE8,
 
+        /** 时间戳：版本控制，避免缓存 */
+        timestamp,
+
         scriptNodeList,
         currentScript,
         currentScriptPath,
@@ -23,6 +26,16 @@
     currentScriptPath = currentScript.src;
     pkuiBasePath = currentScriptPath.substring( 0, currentScriptPath.lastIndexOf( "/lib" ) );
     mainJsPath = currentScript.getAttribute( "data-main" );
+    timestamp = currentScript.getAttribute( "data-timestamp" );
+
+
+    if ( ! timestamp ) { // 没设置
+        timestamp = "v=please-set-version";
+    } else if ( timestamp == "dev" ) { // 开发模式
+        timestamp = "v=" + new Date().getTime();
+    } else if ( timestamp.indexOf( "=" ) === -1 ) { // 生产模式：但没有请求参数名
+        timestamp = "v=" + timestamp;
+    }
 
     isSupportHtml5Markup = ( function ( ver ) {
         var b = document.createElement( "b" );
@@ -40,7 +53,7 @@
     isSupportJSON = window.JSON;
 
 
-    loadJS( pkuiBasePath + "/lib/sea-modules/seajs/3.0.0.x/sea.js", function () {
+    loadJS( pkuiBasePath + "/lib/sea-modules/seajs/3.0.0.x/sea.js?" + timestamp, function () {
 
         // 配置
         seajs.config( {
@@ -96,6 +109,7 @@
             // 映射配置
             map: [
                 // [ "http://example.com/js/app/", "http://localhost/js/app/" ]
+                [ /^(.*\.(?:css|js|tpl))(.*)$/i, '$1?' + timestamp ]
             ],
 
             // 预加载项
