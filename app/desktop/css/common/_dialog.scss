@@ -31,7 +31,8 @@
     cursor: pointer;
     -webkit-appearance: none;
     opacity: 1;
-    filter: alpha(opacity=100);
+    //filter: alpha(opacity=100);
+    filter: none;
 }
 .pkui-dialog-close {
     @extend .icon-win-close;
@@ -44,7 +45,8 @@
     cursor: pointer;
     outline: 0;
     opacity: 1;
-    filter: alpha(opacity=100);
+    // filter: alpha(opacity=100);
+    filter: none;
 }
 .pkui-dialog-max {
     @extend .icon-win-max;
