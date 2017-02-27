@@ -688,6 +688,7 @@ Pagination Styles
   margin: 5px 3px 0 3px;
   height: 36px;
   width: 136px;
+  min-width: 60px;
   border-radius: 4px;
   padding-right: 26px;
   text-align: left;

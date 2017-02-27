@@ -25,6 +25,8 @@ define( function ( require ) {
      * @param {object} $target 快捷方式DOM
      */
     function App( $target ) {
+        // 如果没有初始化，就先初始化。
+        !App.isInited && App.init( null );
 
         this.appId = null;
         /** 快捷方式容器 */
@@ -34,7 +36,6 @@ define( function ( require ) {
         this.isAppDestroy = false;
         this.isAppDockDestroy = false;
         this.isAppWindowDestroy = false;
-        App.appList.push( this );
 
         this._init();
     }
@@ -58,6 +59,8 @@ define( function ( require ) {
      */
     App.appList = [];
 
+    /** 标志是否初始化，在实例化时进行判断 */
+    App.isInited = false;
     /**
      * App类的初始化（设置参数和绑定事件处理函数）
      * @param options
@@ -65,6 +68,7 @@ define( function ( require ) {
     App.init = function ( options ) {
         this._options = $.extend( {}, App.defaults, options );
         this._bind();
+        this.isInited = true;
     };
     /**
      *
@@ -157,6 +161,7 @@ define( function ( require ) {
          * @private
          */
         _init: function () {
+
             // 1. 获取参数
             this.options = $.extend( {}, this.defaults, this._getOptsFromTarget() );
 

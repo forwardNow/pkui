@@ -22,14 +22,30 @@ define( function ( require ) {
      * @param {Object} options 参数
      */
     function AppDock ( options ) {
-        if ( typeof this.$container === "string" ) {
-            this.$container = $( this.$container );
-        }
+
+        !AppDock.isInited && AppDock.init( null );
+
         this.appInstance = null;
         this.$target = null;
         this.options = null;
         this._init( options );
     }
+    AppDock.defaults = {
+        /** 包裹所有页签（AppDock）的容器的CSS选择器 */
+        $container: ".topbar-dock"
+    };
+    /** 标志是否初始化 */
+    AppDock.isInited = false;
+    /**
+     * 初始化操作，在实例化之前判断
+     * @param options
+     */
+    AppDock.init = function ( options ) {
+
+        this.options = $.extend( {}, this.defaults, options );
+        this.prototype.$container = $( this.options.$container );
+
+    };
 
     /**
      * 页签（AppDock）实例的默认参数
@@ -43,14 +59,6 @@ define( function ( require ) {
         title: "",
         dockTemplateName: ""
     };
-
-    /**
-     * 包裹所有页签（AppDock）的容器的CSS选择器
-     * @type {string}
-     */
-    AppDock.prototype.$container = ".topbar-dock";
-
-
 
     // @public
     $.extend( AppDock.prototype, /** @lends AppDock.prototype */ {
