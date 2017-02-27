@@ -33,23 +33,6 @@ define( function ( require ) {
         this.windowTitle = null;
         /** 窗体内容 */
         this.windowContent = null;
-        /** 弹框的容器 node */
-        this.$dialogContainer = null;
-        /** 弹框容器内窗体部分 .pkui-dialog */
-        this.$dialog = null;
-        /** 标题部分.pkui-dialog-header */
-        this.$dialogHeader = null;
-        /** 内容区域（不包含header）.pkui-dialog-content */
-        this.$dialogContent = null;
-
-        /** 最大化之前的宽度，node */
-        this.originWidth = 0;
-        /** 最大化之前的高度，node */
-        this.originHeight = 0;
-        /** 最大化之前的Top */
-        this.originTop = 0;
-        /** 最大化之前的Left */
-        this.originLeft = 0;
 
         // 初始化
         this._init( options );
@@ -86,11 +69,14 @@ define( function ( require ) {
             _this = this;
 
             _this.dialogInstance = Dialog.create( {
-                pku_isNotCenter: true,
                 title: _this.windowTitle,
                 content: _this.windowContent,
                 width: _this.options.windowWidth,
-                height: _this.options.windowHeight
+                height: _this.options.windowHeight,
+                onclose: function () {
+                    // 点击右上角关闭按钮，即最小化
+                    _this.appInstance.appDock.inactive();
+                }
             } );
 
             _this.$dialogContainer = $( _this.dialogInstance.node );
@@ -102,8 +88,6 @@ define( function ( require ) {
             // 居中
             this.dialogInstance.__center();
 
-            // 可拖拽改变大小
-            Dialog.setResizable( this );
 
 
             return this;
@@ -202,10 +186,10 @@ define( function ( require ) {
             } );
 
             //
-            Dialog.bindMinEvent( this );
+            // Dialog.bindMinEvent( this );
 
             //
-            Dialog.bindMaxEvent( this );
+            // Dialog.bindMaxEvent( this );
 
             return this;
         }

@@ -333,7 +333,7 @@ $.extend(Popup.prototype, {
 
         if (elem) {
             this.__follow( elem );
-        } else if ( this.options.pku_isNotCenter ) {
+        } else if ( this.options.pkuiOptions.isNotCenter ) {
             // FIX 扩展一个 参数pku_isNotCenter：reset() 和 show() 时，不居中；
             // 如果想居中则调用 __center() 实例方法
         } else {
@@ -740,6 +740,12 @@ define("dialog-config", {
     // FIX 禁止JS载入样式表
     // cssUri: '../css/ui-dialog.css',
     cssUri: '',
+
+    // FIX 添加 pkuiOptions 参数
+    pkuiOptions: {
+        isNotCenter: false // reset() 和 show() 时，不居中
+    },
+
 
     // 模板（使用 table 解决 IE7 宽度自适应的 BUG）
     // js 使用 i="***" 属性识别结构，其余的均可自定义

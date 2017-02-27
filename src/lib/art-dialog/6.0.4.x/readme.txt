@@ -11,3 +11,11 @@
 
 
     5. // FIX 添加 seajs 支持
+
+
+2017/02/27
+
+    1. // FIX 添加 pkuiOptions 参数
+
+    2. 将 参数pku_isNotCenter 更为为 isNotCenter，并置于 pkuiOptions
+
