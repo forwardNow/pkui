@@ -93,7 +93,10 @@
                 "artDialog": "lib/art-dialog/6.0.4.x/dialog-plus",
 
                 // 模板引擎
-                "artTemplate": "lib/art-template/3.1.0/template"
+                "artTemplate": "lib/art-template/3.1.0/template",
+
+                // RSA
+                "jsencrypt": "lib/jsencrypt/2.3.1.x/jsencrypt"
             },
 
             // 路径配置
