@@ -92,6 +92,15 @@ module.exports = function ( grunt ) {
                     template: "node_modules/docdash"
                 }
             }
+        },
+        concat: {
+            pkuiConfig: {
+                src: [
+                        'src/lib/sea-modules/seajs/3.0.0.x/sea.js',
+                        'src/_config.js'
+                ],
+                dest: 'src/pkui.js'
+            }
         }
 
     };
@@ -108,6 +117,7 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
     // grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks( 'grunt-jsdoc' );
+    grunt.loadNpmTasks('grunt-contrib-concat');
 
 
     grunt.registerTask( 'pkui', [
@@ -123,6 +133,10 @@ module.exports = function ( grunt ) {
     grunt.registerTask( 'app-desktop', [
         "clean:desktopApp",
         'jsdoc:desktopApp'
+    ] );
+
+    grunt.registerTask( 'pkui-config', [
+        'concat:pkuiConfig'
     ] );
 
     // 默认被执行的任务列表。
