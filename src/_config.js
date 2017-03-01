@@ -58,8 +58,7 @@
 
         // 别名配置
         alias: {
-            // 动态载入CSS文件
-            "seajs-css": "lib/sea-modules/seajs-css/1.0.0/seajs-css",
+            // "seajs-css": "lib/sea-modules/seajs-css/1.0.0/seajs-css",
             "seajs-text": "lib/sea-modules/seajs-text/1.1.1/seajs-text",
 
             // polyfill ES5 grammar
@@ -116,7 +115,6 @@
         // 预加载项
         preload: [
             window.jQuery ? "" : "jquery",
-            isIE8 ? "seajs-css" : "",
             isSupportES5 ? "" : "es5-sham",
             isSupportJSON ? "" : "json3",
             isSupportMediaQuery ? "" : "respond",
