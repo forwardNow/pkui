@@ -193,6 +193,6 @@
     };
 
     // namespace
-    window.PKUI;
+    window.PKUI = PKUI;
 
 }( window );
