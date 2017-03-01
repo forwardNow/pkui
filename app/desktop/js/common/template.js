@@ -17,10 +17,7 @@ define( function ( require ) {
      * @exports module:common/template
      */
     Template = {
-        /**
-         * 缓存模板引擎的render
-         * @private
-         */
+        /** 缓存模板引擎的render @private */
         _renderCache: {},
         /**
          * 设置模板引擎的参数
@@ -43,11 +40,12 @@ define( function ( require ) {
          * @param {object} data 传入模板的数据
          * @returns {string} 模板加数据后生成的字符串
          */
-        getTemplate: function ( templateName, data ) {
-            var templateUrl,
+        getHtmlString: function ( templateName, data ) {
+            var
+                templateUrl,
                 renderCache,
                 tpl
-            ;
+                ;
             tpl = null;
             renderCache = this._renderCache;
 
@@ -55,7 +53,7 @@ define( function ( require ) {
                 return renderCache[ templateName ]( data );
             }
 
-            templateUrl = this.options.base + templateName + this.options.extName;
+            templateUrl = this._getTemplateUrl( templateName );
 
             $.ajax( {
                 async: false,
@@ -73,6 +71,105 @@ define( function ( require ) {
             renderCache[ templateName ] = ArtTemplate.compile( tpl );
 
             return renderCache[ templateName ]( data );
+        },
+
+        get: function ( tplSrc, dataSrc, callback ) {
+
+            var Status,
+                renderCache,
+                _this
+                ;
+            _this = this;
+            renderCache = this._renderCache;
+            Status = {
+                tplRender: false,
+                data: false,
+                update: function () {
+                    var htmlString
+                        ;
+                    if ( this.tplRender && this.data ) {
+                        htmlString = this.tplRender( this.data );
+                        callback( htmlString );
+                    }
+                }
+            };
+
+            // 1. 获取模板
+            // 1.1 如果在缓存里，则取缓存里的
+            if ( renderCache[ tplSrc ] ) {
+                Status.tplRender = renderCache[ tplSrc ];
+                Status.update();
+            } else {
+                // 1.2 如果不在缓存里，则Ajax请求
+                this._ajax( {
+                    url: _this._getTemplateUrl( tplSrc ),
+                    dataType: "text"
+                } ).done( function ( data ) {
+                    Status.tplRender = ArtTemplate.compile( data );
+                    renderCache[ tplSrc ] = Status.tplRender;
+                    Status.update();
+                } ).fail( function ( jqXHR, textStatus ) {
+                    throw "/(ㄒoㄒ)/~~[ " + textStatus + " ]模板获取失败！";
+                } );
+
+            }
+
+            // 2. 获取数据
+            // 2.1 如果 dataSrc 是对象，则直接使用
+            if ( typeof dataSrc === "object" ) {
+                Status.data = dataSrc;
+                Status.update();
+                return;
+            }
+            // 2.2 如果 dataSrc 是URL，则Ajax请求
+            this._ajax( {
+                url: dataSrc
+            } ).done( function ( data ) {
+                data = window.PKUI.responseDataHandler( data );
+                if ( !data ) {
+                    throw "/(ㄒoㄒ)/~~数据获取失败！";
+                }
+                Status.data = data;
+                Status.update();
+            } ).fail( function ( jqXHR, textStatus ) {
+                throw "/(ㄒoㄒ)/~~[ " + textStatus + " ]数据获取失败！";
+            } );
+
+        },
+        /**
+         * 获取模板URL
+         * @param templateName 模板名
+         * @returns {string} 模板URL字符串
+         * @private
+         */
+        _getTemplateUrl: function ( templateName ) {
+
+            // 如果是绝对路径，则不做任何处理
+            if ( /http:|https:|(^\/)/.test( templateName ) ) {
+                return templateName;
+            }
+
+            // 如果不包含后缀名，则添加默认后缀名
+            if ( !/\.(html|tpl|txt|json|js)/.test( templateName ) ) {
+                return this.options.base + templateName + this.options.extName;
+            }
+        },
+        /**
+         *
+         * @param options
+         * @returns {jqXHR}
+         * @private
+         */
+        _ajax: function ( options ) {
+            var opts
+                ;
+            opts = $.extend( {
+                // async: false,
+                type: "GET",
+                cache: false,
+                dataType: "json" // "json"
+            }, options );
+            return $.ajax( opts );
         }
     };
     /**
@@ -83,6 +180,7 @@ define( function ( require ) {
         base: "",
         extName: ".html"
     };
+
 
     return Template;
 } );

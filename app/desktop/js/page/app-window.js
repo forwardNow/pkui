@@ -6,14 +6,17 @@
  * @requires jquery
  * @requires jquery-ui
  * @requires module:common/dialog
+ * @requires module:common/template
  */
 define( function ( require ) {
     var $,
-        Dialog
+        Dialog,
+        Template
         ;
 
     $ = require( "jquery" );
     Dialog = require( "../common/dialog" );
+    Template = require( "../common/template" );
 
     /**
      * @classDesc 窗口（AppWindow）类
@@ -28,11 +31,11 @@ define( function ( require ) {
         /** 参数 */
         this.options = null;
         /** 弹窗的实例的引用 */
-        this.dialogInstance = null;
+        this.artDialog = null;
         /** 窗体标题 */
-        this.windowTitle = null;
+        this.title = null;
         /** 窗体内容 */
-        this.windowContent = null;
+        this.content = null;
 
 
         // 初始化
@@ -46,14 +49,19 @@ define( function ( require ) {
      * @property {string} title 窗口（AppWindow）的标题
      * @property {string} windowWidth 窗口（AppWindow）的宽度
      * @property {string} windowHeight 窗口（AppWindow）的高度
-     * @property {string} windowContent 窗口（AppWindow）的内容
+     * @property {string} defaultContent 窗口（AppWindow）的内容
      */
     AppWindow.prototype.defaults = {
+        /** 从 APP 中继承 */
         icon: "",
+        /** 从 APP 中继承 */
         title: "",
-        windowWidth: 800,
-        windowHeight: 480,
-        windowContent: "<i class='pkui-content-loading-ring'></i>"
+        /** 从 APP 中继承 */
+        src: "",
+
+        width: 800,
+        height: 480,
+        content: "<i class='pkui-content-loading-ring'></i>"
     };
 
 
@@ -69,26 +77,21 @@ define( function ( require ) {
 
             _this = this;
 
-            _this.dialogInstance = Dialog.create( {
-                title: _this.windowTitle,
-                content: _this.windowContent,
-                width: _this.options.windowWidth,
-                height: _this.options.windowHeight,
+            _this.artDialog = Dialog.create( {
+                title: _this.title,
+                content: _this.content,
+                width: _this.options.width,
+                height: _this.options.height,
                 onclose: function () {
                     // 点击右上角最小化按钮，最小化后，使dock也隐藏
                     _this.appInstance.appDock.hide();
                 }
             } );
 
-            _this.$dialogContainer = $( _this.dialogInstance.node );
-            _this.$dialog = _this.$dialogContainer.find( ".pkui-dialog" );
-            _this.$dialogHeader = _this.$dialogContainer.find( ".pkui-dialog-header" );
-            _this.$dialogContent = _this.$dialogContainer.find( ".pkui-dialog-content" );
             // 显示
-            this.dialogInstance.show();
+            this.artDialog.show();
             // 居中
-            this.dialogInstance.__center();
-
+            this.artDialog.__center();
 
 
             return this;
@@ -100,9 +103,9 @@ define( function ( require ) {
          */
         show: function () {
             // 显示（ show() 里有调用了focus() 方法 ）
-            this.dialogInstance.show();
+            this.artDialog.show();
             // 置顶
-            // Dialog.setTop( this.dialogInstance );
+            // Dialog.setTop( this.artDialog );
             return this;
         },
         /**
@@ -110,7 +113,7 @@ define( function ( require ) {
          * @return {AppWindow} 链式调用
          */
         hide: function () {
-            this.dialogInstance.close();
+            this.artDialog.close();
         },
         /**
          * 销毁AppWindow。
@@ -118,12 +121,12 @@ define( function ( require ) {
          */
         destroy: function () {
 
-            this.dialogInstance && this.dialogInstance.remove();
+            this.artDialog && this.artDialog.remove();
             this.appInstance && ( this.appInstance.isAppWindowDestroy = true );
 
             this.options = null;
-            this.windowTitle = null;
-            this.windowContent = null;
+            this.title = null;
+            this.content = null;
 
 
             this.appInstance = null;
@@ -144,8 +147,8 @@ define( function ( require ) {
             this.options = $.extend( {}, this.defaults, options );
 
             // 2. 初始化实例属性
-            this.windowTitle = this._getTitle();
-            this.windowContent = this.options.windowContent;
+            this.title = this._getTitle();
+            this.content = this._getContent();
 
             // 3. 创建窗口
             this.create();
@@ -174,22 +177,61 @@ define( function ( require ) {
             return iconHtml + text;
         },
         /**
+         * 获取窗口内容，通过"src"。
+         * @returns {string|string|null|*}
+         * @private
+         */
+        _getContent: function () {
+            var _this,
+                url
+                ;
+            _this = this;
+            url = this.options.src;
+
+            if ( ! url ) {
+                return "<h1>+_+ 请设置src，如下：</h1>"
+                    + "<pre>&lt;div data-pkui-app=\"true\" \n"
+                    + "     data-pkui-app-options='{ \n"
+                    + "         \"icon\": \"./images/apps/app_01.png\", \n"
+                    + "         \"title\": \"执法监督综合应用门户\", \n"
+                    + "         \"src\": \"./tpl/system/manage.html\" }'></pre>";
+            }
+
+
+            $.ajax( {
+                type: "GET",
+                cache: false,
+                dataType: "text",
+                url: url
+            } ).done( function ( data ) {
+                var html
+                    ;
+                html = data;
+                _this.options.content = html;
+                _this.artDialog.content( html );
+            } ).fail( function ( jqXHR, textStatus ) {
+                throw "/(ㄒoㄒ)/~~[ " + textStatus + " ]获取数据失败";
+            } );
+
+            return this.options.content;
+        },
+        /**
          * 给页签（AppWindow）绑定事件
          * @private
          * @return {AppWindow} 链式调用
          */
         _bindEvent: function () {
             var _this
-            ;
+                ;
             _this = this;
             // 点击弹框关闭按钮后，进行摧毁，执行此回调销毁应用
-            this.dialogInstance.addEventListener( "remove", function () {
-                _this.dialogInstance = null;
+            this.artDialog.addEventListener( "remove", function () {
+                _this.artDialog = null;
                 _this.appInstance && !_this.appInstance.isAppDestroy
                 && _this.appInstance.destroy();
             } );
             // 点击弹窗时，置顶该弹窗
-            $( this.dialogInstance.node ).on( "mousedown.dock.app", function () {
+            $( this.artDialog.node ).on( "mousedown.dock.app", function () {
                 _this.appInstance.show();
             } );
 

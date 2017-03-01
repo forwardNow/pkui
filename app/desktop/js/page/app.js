@@ -97,22 +97,30 @@ define( function ( require ) {
             }
             $this.data( "appInstance", new App( $this ) );
         } )
-            .on( "click.home.app", this._options.hideAllAppSelector , function () {
+            .on( "click.home.app", this._options.hideAllAppSelector, function () {
                 App.hideAll();
             } );
     };
 
     /**
-     * App实例的默认参数
-     * @type {{icon: string, title: string, dockTemplateName: string}}
+     * App实例的默认参数，从 "data-pkui-app-options" 中获取
      * @property {string} icon App图标的URL（建议使用绝对路径）
      * @property {string} title App标题
-     * @property {string} dockTemplateName dock的模板文件名称
+     * @property {string} src 要载入的内容的URL
+     * @property {string} data 模板数据
+     * 当 data 为空时，不需要使用artTemplate，直接将返回的数据插入窗口主体节点
+     * 当 data 非空时，会请求src对应的模板和data对应的数据，
+     * @property {function} dataHandler 对请求到的data数据进行预处理
      */
     App.prototype.defaults = {
         icon: "",
         title: "",
-        dockTemplateName: "dock_item"
+        src: "",
+
+        //----- Deprecated ---------
+        data: "",
+        dataHandler: window.PKUI.responseDataHandler
+        //----- Deprecated ---------
     };
 
     // @public

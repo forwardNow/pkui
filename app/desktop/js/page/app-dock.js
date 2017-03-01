@@ -64,9 +64,12 @@ define( function ( require ) {
      * @property {string} dockTemplateName 页签（dock）的模板文件名
      */
     AppDock.prototype.defaults = {
+        /** 从 APP 中继承 */
         icon: "",
+        /** 从 APP 中继承 */
         title: "",
-        dockTemplateName: ""
+
+        dockTemplateName: "desktop/dockItem"
     };
 
     // @public
@@ -117,10 +120,10 @@ define( function ( require ) {
             this.options = $.extend( {}, this.defaults, options );
 
             // 2. 创建target
-            this._createTarget();
+            this._create();
 
             // 3. 绑定事件
-            this._bindEvent();
+            // this._bindEvent();
 
             return this;
         },
@@ -130,11 +133,14 @@ define( function ( require ) {
          * @private
          * @return {AppDock} 链式调用
          */
-        _createTarget: function () {
-            var html,
-                data,
-                $target
+        _create: function () {
+            var data,
+                $target,
+                _this
                 ;
+
+            _this = this;
+
             // 1. 数据 和 模板
             data = {
                 icon: this.options.icon,
@@ -142,22 +148,25 @@ define( function ( require ) {
             };
 
             // 2. 获取模板
-            html = Template.getTemplate( this.options.dockTemplateName, data );
-            $target = $( html );
+            Template.get( this.options.dockTemplateName, data, function ( htmlString ) {
 
-            // 3. 添加进 container
-            this.$container.append( $target );
+                $target = $( htmlString );
 
-            this.$target = $target;
+                // 3. 添加进 container
+                _this.$container.append( $target );
 
-            this.show();
+                _this.$target = $target;
+
+                _this.show();
+
+                _this._bindEvent();
+            } );
 
             return this;
         },
         /**
          * 给页签（AppDock）绑定事件
          * @private
-         * @param {Object} options 参数
          * @return {AppDock} 链式调用
          */
         _bindEvent: function () {

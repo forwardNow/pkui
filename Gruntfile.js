@@ -97,7 +97,8 @@ module.exports = function ( grunt ) {
             pkuiConfig: {
                 src: [
                         'src/lib/sea-modules/seajs/3.0.0.x/sea.js',
-                        'src/_config.js'
+                        'src/_config.js',
+                        'src/_pkui.js'
                 ],
                 dest: 'src/pkui.js'
             }
