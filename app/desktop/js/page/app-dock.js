@@ -83,7 +83,7 @@ define( function ( require ) {
 
      */
     AppDock.manager = {
-        $containerSelector: ".topbar-dock",
+        containerSelector: ".topbar-dock",
         $container: null,
         $dock: null,
         $dockDropmenuContainer: ".dock-dropmenu",
@@ -313,7 +313,7 @@ define( function ( require ) {
                     _this.itemNum--;
 
                     // 5.1 当删除的是 $container 里的$item
-                    if ( $this.parent().is( _this.$containerSelector ) ) {
+                    if ( $this.parent().is( _this.containerSelector ) ) {
                         // 5.1.1 当 hiddenItemNum > 0，将第一个 $hiddenItem 移动到 $container 里，
                         //          然后判断 hiddenItemNum 是否为0，为0则隐藏 $itemDropmenu，结束
                         if ( _this.hiddenItemNum > 0 ) {
