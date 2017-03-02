@@ -21,7 +21,7 @@ define( function ( require ) {
      * @constructor
      * @param {Object} options 参数
      */
-    function AppDock ( options ) {
+    function AppDock( options ) {
 
         !AppDock.isInited && AppDock.init( null );
 
@@ -30,6 +30,7 @@ define( function ( require ) {
         this.options = null;
         this._init( options );
     }
+
     AppDock.defaults = {
         /** 包裹所有页签（AppDock）的容器的CSS选择器 */
         $container: ".topbar-dock"
@@ -45,15 +46,330 @@ define( function ( require ) {
         this.options = $.extend( {}, this.defaults, options );
         this.options.$container = this.prototype.$container = $( this.options.$container );
 
-        this._bindEvent();
+        this.manager.init();
+
+        this.isInited = true;
     };
 
-    AppDock._bindEvent = function () {
+    /**
+     // 自适应
 
-        this.options.$container.on( "addDock.app removeDock.app", function () {
 
-        } );
+     // 1. 得到 $item 宽度（itemWidth）的宽度边界： minItemWidth、maxItemWidth
 
+     // 2. 计算 $container 可用宽度（availableContainerWidth），
+
+     // 3. 计算 $item 的个数（itemNum）的边界： minWidthItemNum、maxWidthItemNum
+
+     // 4. 当准备增加 $item 时
+     // 4.0 当 hiddenItemNum > 0 时，直接追加到 $itemDropmenu，结束
+     // 4.1 当 itemNum <= maxWidthItemNum 时，直接新增 $item，结束
+     // 4.2 当 itemNum > maxWidthItemNum 时，计算nowItemWidth（itemWidth - stepWith）
+     // 4.2.1 当 nowItemWidth >= minItemWidth 时，设置 $item.itemWidth = nowItemWidth，结束
+     // 4.2.2 当 nowItemWidth < minItemWidth 时，取消 $itemDropmenu 的隐藏状态
+     //       将 $item 添加进 $itemDropmenu，并更新 hiddenItemNum，结束
+
+     // 5. 当删除掉 $item 时
+     // 5.1 当删除的是 $container 里的$item
+     // 5.1.1 当 hiddenItemNum > 0，将第一个 $hiddenItem 移动到 $container 里，
+     //          然后判断 hiddenItemNum 是否为0，为0则隐藏 $itemDropmenu，结束
+     // 5.1.2 当 hiddenItemNum = 0，则 计算nowItemWidth（itemWidth + stepWith）
+     //          当 nowItemWidth >= maxItemWidth 时，不做处理，结束
+     //          当 nowItemWidth < maxItemWidth 时，设置 $item.itemWidth = nowItemWidth，结束
+
+     // 6. 当点击 $itemDropmenu 里的 $hiddenItem 时，交换其与第一个 $item的位置
+
+
+
+     */
+    AppDock.manager = {
+        $containerSelector: ".topbar-dock",
+        $container: null,
+        $dock: null,
+        $dockDropmenuContainer: ".dock-dropmenu",
+        $dockDropmenu: ".dock-dropmenu-list",
+        $indicator: ".dock-dropmenu-indicator",
+        itemSelector: ".topbar-dock-item",
+        itemMargin: 0,
+        itemPadding: 0,
+        itemGap: 0,
+        stepItemWith: 10,
+        itemWidth: 0, // width = 136, padding(水平) = 26, margin(水平) = 6
+        minItemWidth: 0,
+        maxItemWidth: 0,
+        availableContainerWidth: 0,
+        itemNum: 0,
+        displayItemNum: 0,
+        hiddenItemNum: 0,
+        minWidthItemNum: 0,
+        maxWidthItemNum: 0,
+        init: function () {
+            this._init();
+            this._calAvailableContainerWidth();
+            this._calItemNum();
+            this._bindOnAddDockItem();
+            this._bindOnClickIndicator();
+            this._bindOnRemoveDockItem();
+        },
+        /** 1. 得到 $item 宽度（itemWidth）的宽度边界： minItemWidth、maxItemWidth
+         *  $dockDropmenu 的初始化
+         */
+        _init: function () {
+            $.extend( this, {
+                itemMargin: 6,
+                itemPadding: 26,
+                itemGap: 6 + 26,
+                itemWidth: 136, // width 属性
+                minItemWidth: 60,
+                maxItemWidth: 136
+            } );
+
+            this.$dockDropmenuContainer = $( this.$dockDropmenuContainer );
+            this.$dockDropmenu = $( this.$dockDropmenu );
+            this.$indicator = $( this.$indicator );
+
+            this.$dockDropmenuContainer.appendTo( $( document.body ) );
+
+            return this;
+        },
+        /** 2. 计算 $container 可用宽度（availableContainerWidth）， */
+        _calAvailableContainerWidth: function () {
+            var $container,
+                $dock,
+                $siblings,
+                availableContainerWidth,
+                siblingWidth
+                ;
+
+            $container = AppDock.options.$container;
+            $dock = $container.parent();
+            $siblings = $container.siblings();
+
+            availableContainerWidth = $dock.width();
+
+            this.$container = $container;
+
+            // 减去兄弟的宽度
+            $siblings.each( function () {
+                var $this
+                    ;
+                $this = $( this );
+                siblingWidth = parseInt( $this.outerWidth() )
+                    + parseInt( $this.css( "margin-left" ) )
+                    + parseInt( $this.css( "margin-right" ) );
+                availableContainerWidth -= siblingWidth;
+            } );
+
+            // 减去自身的padding和margin
+            availableContainerWidth -= parseInt( $container.css( "padding-left" ) )
+                + parseInt( $container.css( "padding-right" ) )
+                + parseInt( $container.css( "margin-left" ) )
+                + parseInt( $container.css( "margin-right" ) );
+
+            // 减去10px，防止挤掉别的浮动元素；减去40px，预留给 indicator
+            this.availableContainerWidth = availableContainerWidth - 10 - 40;
+
+            console.info( "availableContainerWidth: " + this.availableContainerWidth );
+
+            return this;
+        },
+        /** 3. 计算 $item 的个数（itemNum）的边界： minWidthItemNum、maxWidthItemNum */
+        _calItemNum: function () {
+            this.itemNum = this.$container.find( this.itemSelector ).size()
+                + this.$dockDropmenu.find( this.itemSelector ).size();
+            this.minWidthItemNum = Math.floor(
+                this.availableContainerWidth / ( this.minItemWidth + this.itemGap )
+            );
+            this.maxWidthItemNum = Math.floor(
+                this.availableContainerWidth / ( this.maxItemWidth + this.itemGap )
+            );
+            console.info( "minWidthItemNum: " + this.minWidthItemNum );
+            console.info( "maxWidthItemNum: " + this.maxWidthItemNum );
+            return this;
+        },
+        /**
+         // 4. 当增加 $item 时，先隐藏
+         // 4.0 当 hiddenItemNum > 0 时，直接追加到 $itemDropmenu，结束
+         // 4.1 当 itemNum < maxWidthItemNum 时，直接新增 $item，结束
+
+         // 4.2 当 itemNum <= minWidthItemNum 时，则需调整所有 $item 的宽度，
+         //     进入循环逐步调整
+         //         循环条件：totalItemWidth >= availableContainerWidth
+         //         循环体：
+         //             nowItemWidth = itemWidth + itemGap - stepItemWith
+         //             totalItemWidth = nowItemWidth * itemNum
+         //     循环结束
+         //         currentItemWidth = nowItemWidth - itemGap，
+         //         并设置所有 $item 的width
+
+
+         // 4.3 当 itemNum > minWidthItemNum 时，
+         //         显示 $indicator
+         //         将 $dockDropmenuContainer 定位到 $indicator，并隐藏
+         //         将 $item 插入到 $dockDropmenu
+
+         */
+        _bindOnAddDockItem: function () {
+            var _this
+                ;
+            _this = this;
+            this.$container.on( "addDockItem.app", _this.itemSelector, function () {
+                var $this,
+                    nowItemWidth,
+                    totalItemWidth,
+                    currentItemWidth,
+                    indicatorPos
+                    ;
+
+                // 4. 当增加 $item 时，先隐藏（已隐藏）
+
+                $this = $( this );
+
+                _this.itemNum++;
+                _this.$dockDropmenu.addClass( "hidden" );
+
+                // 4.0 当 hiddenItemNum > 0 时，直接追加到 $itemDropmenu，结束
+                if ( _this.hiddenItemNum > 0 ) {
+                    $this.appendTo( _this.$dockDropmenu );
+                    $this.show();
+                    _this.hiddenItemNum++;
+                    return;
+                }
+
+                // 4.1 当 itemNum <= maxWidthItemNum 时，直接新增 $item，结束
+                if ( _this.itemNum <= _this.maxWidthItemNum ) {
+                    _this.displayItemNum++;
+                    $this.show();
+                    return;
+                }
+
+                // 4.2 当 itemNum <= minWidthItemNum 时，则需调整所有 $item 的宽度，
+                //     进入循环逐步调整
+                //         循环条件：totalItemWidth >= availableContainerWidth
+                //         循环体：
+                //             nowItemWidth = itemWidth + itemGap - stepItemWith
+                //             totalItemWidth = nowItemWidth * itemNum
+                //     循环结束
+                //         currentItemWidth = nowItemWidth - itemGap，
+                //         并设置所有 $item 的width
+
+                if ( _this.itemNum <= _this.minWidthItemNum ) {
+                    nowItemWidth = _this.itemWidth + _this.itemGap;
+                    do {
+                        nowItemWidth -= _this.stepItemWith;
+                        totalItemWidth = nowItemWidth * _this.itemNum;
+                    } while ( totalItemWidth >= _this.availableContainerWidth );
+                    // 循环结束后 总宽度 刚好比 可用宽度小一点点
+                    currentItemWidth = nowItemWidth - _this.itemGap - 1;
+                    if ( currentItemWidth < _this.minItemWidth ) {
+                        currentItemWidth = _this.minItemWidth;
+                    }
+                    _this.itemWidth = currentItemWidth;
+                    _this.$container.find( _this.itemSelector ).css( "width", currentItemWidth );
+                    _this.displayItemNum++;
+                    $this.show();
+                    return;
+                }
+
+                // 4.3 当 itemNum > minWidthItemNum 时，
+                //         显示 $indicator
+                //         将 $dockDropmenuContainer 定位到 $indicator，并隐藏
+                //         将 $item 插入到 $dockDropmenu
+                _this.$indicator.show();
+                indicatorPos = _this.$indicator.offset();
+                _this.$dockDropmenuContainer.css( {
+                    "top": indicatorPos.top + 30,
+                    "left": indicatorPos.left
+                } );
+                _this.$dockDropmenu.append( this );
+                _this.hiddenItemNum++;
+                $this.show();
+            } );
+        },
+        /**
+         // 5. 当删除掉 $item 时，先隐藏
+         // 5.1 当删除的是 $container 里的$item
+         // 5.1.1 当 hiddenItemNum > 0，将第一个 $hiddenItem 移动到 $container 里，
+         //          然后判断 hiddenItemNum 是否为0，为0则隐藏 $itemDropmenu，结束
+         // 5.1.2 当 hiddenItemNum = 0，则
+         //  如果 itemNum < maxWidthItemNum，则已经是最大宽度了，结束
+         //  如果 itemNum >= maxWidthItemNum，则调整，然后结束
+         //      循环条件：totalItemWidth > availableContainerWidth
+         */
+        _bindOnRemoveDockItem: function () {
+            var _this
+                ;
+            _this = this;
+            _this.$container.add( _this.$dockDropmenu )
+                .on( "removeDockItem.app", _this.itemSelector, function () {
+                    var $this,
+                        nowItemWidth,
+                        totalItemWidth,
+                        currentItemWidth
+                        ;
+                    $this = $( this );
+
+                    $this.hide();
+                    _this.itemNum--;
+
+                    // 5.1 当删除的是 $container 里的$item
+                    if ( $this.parent().is( _this.$containerSelector ) ) {
+                        // 5.1.1 当 hiddenItemNum > 0，将第一个 $hiddenItem 移动到 $container 里，
+                        //          然后判断 hiddenItemNum 是否为0，为0则隐藏 $itemDropmenu，结束
+                        if ( _this.hiddenItemNum > 0 ) {
+                            _this.$dockDropmenu.find( _this.itemSelector ).eq( 0 )
+                                .css( "width", _this.itemWidth ).appendTo( _this.$container );
+                            _this.hiddenItemNum--;
+                            if ( _this.hiddenItemNum === 0 ) {
+                                _this.$dockDropmenu.toggleClass( "hidden" );
+                                _this.$indicator.hide();
+                            }
+                            return;
+                        }
+                        // 5.1.2 当 hiddenItemNum = 0，则
+                        //  如果 itemNum < maxWidthItemNum，则已经是最大宽度了，结束
+                        //  如果 itemNum >= maxWidthItemNum，则调整，然后结束
+                        //      循环条件：totalItemWidth > availableContainerWidth
+
+                        if ( _this.itemNum < _this.maxWidthItemNum ) {
+                            _this.displayItemNum--;
+                            return;
+                        }
+                        nowItemWidth = _this.itemWidth + _this.itemGap;
+                        do {
+                            nowItemWidth += _this.stepItemWith;
+                            totalItemWidth = nowItemWidth * _this.itemNum;
+                        } while ( totalItemWidth <= _this.availableContainerWidth );
+                        // 循环结束后，总宽度比可用宽度大一个stepItemWith
+                        currentItemWidth = nowItemWidth - _this.itemGap - _this.stepItemWith - 1;
+                        if ( currentItemWidth > _this.maxItemWidth ) {
+                            currentItemWidth = _this.maxItemWidth;
+                        }
+                        _this.itemWidth = currentItemWidth;
+                        _this.$container.find( _this.itemSelector ).css( "width", currentItemWidth );
+                        _this.displayItemNum--;
+
+                        return ;
+                    }
+
+                    // 5.2 当删除的是 $dockDropmenu 中的，则直接删除
+                    _this.hiddenItemNum--;
+                    if ( _this.hiddenItemNum === 0 ) {
+                        _this.$dockDropmenu.toggleClass( "hidden" );
+                        _this.$indicator.hide();
+                    }
+
+                } );
+        },
+        _bindOnClickIndicator: function () {
+            var _this
+                ;
+            _this = this;
+            this.$indicator.on( "click.app", function () {
+                _this.$dockDropmenu.toggleClass( "hidden" );
+            } );
+            return this;
+        }
     };
 
     /**
@@ -95,6 +411,9 @@ define( function ( require ) {
          * @returns {AppDock}
          */
         destroy: function () {
+            // 派发事件 removeDockItem.app
+            this.$target && this.$target.trigger( "removeDockItem.app" );
+
             this.$target.remove();
 
             this.appInstance.isAppDockDestroy = true;
@@ -102,6 +421,7 @@ define( function ( require ) {
             this.$target = null;
             this.options = null;
             this.appInstance = null;
+
 
             return this;
         }
@@ -152,6 +472,8 @@ define( function ( require ) {
 
                 $target = $( htmlString );
 
+                $target.hide();
+
                 // 3. 添加进 container
                 _this.$container.append( $target );
 
@@ -160,6 +482,9 @@ define( function ( require ) {
                 _this.show();
 
                 _this._bindEvent();
+
+                // 派发事件
+                $target.trigger( "addDockItem.app" );
             } );
 
             return this;
@@ -171,14 +496,14 @@ define( function ( require ) {
          */
         _bindEvent: function () {
             var _this
-            ;
+                ;
             _this = this;
 
             // 1. 点击关闭，销毁应用
             _this.$target.find( ".dock-item-btn" ).on( "click.close.app", function ( event ) {
                 // 阻止冒泡
                 event.stopPropagation();
-                _this.appInstance && ( ! _this.appInstance.isAppDestroy )
+                _this.appInstance && ( !_this.appInstance.isAppDestroy )
                 && _this.appInstance.destroy();
             } );
 
@@ -191,7 +516,6 @@ define( function ( require ) {
             return this;
         }
     } );
-
 
 
     return AppDock;

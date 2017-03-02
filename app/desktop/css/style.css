@@ -696,9 +696,9 @@ Pagination Styles
   text-overflow: ellipsis;
   cursor: pointer;
   background-color: rgba(252, 252, 252, 0.4);
-  -webkit-transition: all 0.8s;
-  -o-transition: all 0.8s;
-  transition: all 0.8s;
+  -webkit-transition: background 0.3s;
+  -o-transition: background 0.3s;
+  transition: background 0.3s;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -739,6 +739,31 @@ Pagination Styles
   border-radius: 2px;
 }
 
+.dock-dropmenu {
+  position: absolute;
+  z-index: 99999;
+  left: -999px;
+}
+
+.dock-dropmenu-indicator {
+  float: right;
+  margin-top: 4px;
+}
+
+.dock-dropmenu-list {
+  width: 200px;
+}
+.dock-dropmenu-list:before, .dock-dropmenu-list:after {
+  content: " ";
+  display: table;
+}
+.dock-dropmenu-list:after {
+  clear: both;
+}
+.dock-dropmenu-list .topbar-dock-item {
+  width: 168px !important;
+}
+
 .topbar-toolbar {
   float: right;
 }
@@ -762,7 +787,7 @@ Pagination Styles
   display: inline-block;
   padding: 0 .5em;
   line-height: 24px;
-  color: #fff;
+  color: #ffffff;
 }
 
 .toolbar-message-num {
@@ -774,7 +799,7 @@ Pagination Styles
   font-size: 12px;
   line-height: 16px;
   background-color: #fe5026;
-  color: #fff;
+  color: #ffffff;
 }
 
 .toolbar-item-indicator {
@@ -1364,21 +1389,21 @@ Pagination Styles
   height: 16px;
 }
 
-.desktop-sprite, .icon-home, .topbar-home, .icon-history, .topbar-history, .icon-close, .dock-item-btn, .icon-dashboard, .icon-logout, .icon-message, .icon-more, .icon-search, .icon-user, .icon-triangle-down, .toolbar-item-indicator, .icon-add, .icon-setting, .icon-arrow-left, .launchpad-pagination-previous, .icon-arrow-right, .launchpad-pagination-next, .icon-circle-1, .icon-circle-2, .icon-win-close, .pkui-dialog-close, .icon-win-close-hover, .icon-win-max, .pkui-dialog-max, .icon-win-max-hover, .icon-win-maxmin, .pkui-dialog-restore, .icon-win-maxmin-hover, .icon-win-min, .pkui-dialog-min, .icon-win-min-hover {
-  background-image: url('../images/desktop-s8d3429f616.png');
+.desktop-sprite, .icon-home, .topbar-home, .icon-history, .topbar-history, .icon-close, .dock-item-btn, .icon-dashboard, .icon-logout, .icon-message, .icon-more, .icon-search, .icon-user, .icon-triangle-down, .toolbar-item-indicator, .icon-add, .icon-setting, .icon-arrow-left, .launchpad-pagination-previous, .icon-arrow-right, .launchpad-pagination-next, .icon-circle-1, .icon-circle-2, .icon-win-close, .pkui-dialog-close, .icon-win-close-hover, .icon-win-max, .pkui-dialog-max, .icon-win-max-hover, .icon-win-maxmin, .pkui-dialog-restore, .icon-win-maxmin-hover, .icon-win-min, .pkui-dialog-min, .icon-win-min-hover, .icon-dock-dropmenu-indicator, .dock-dropmenu-indicator {
+  background-image: url('../images/desktop-s52e2ae34c7.png');
   background-repeat: no-repeat;
 }
 
 .icon-home, .topbar-home {
   width: 20px;
   height: 46px;
-  background-position: 0 -337px;
+  background-position: 0 -377px;
 }
 
 .icon-history, .topbar-history {
   width: 19px;
   height: 16px;
-  background-position: 0 -321px;
+  background-position: 0 -361px;
 }
 
 .icon-close, .dock-item-btn {
@@ -1396,37 +1421,37 @@ Pagination Styles
 .icon-logout {
   width: 24px;
   height: 24px;
-  background-position: 0 -383px;
+  background-position: 0 -423px;
 }
 
 .icon-message {
   width: 24px;
   height: 24px;
-  background-position: 0 -407px;
+  background-position: 0 -447px;
 }
 
 .icon-more {
   width: 24px;
   height: 24px;
-  background-position: 0 -431px;
+  background-position: 0 -471px;
 }
 
 .icon-search {
   width: 24px;
   height: 24px;
-  background-position: 0 -455px;
+  background-position: 0 -495px;
 }
 
 .icon-user {
   width: 24px;
   height: 24px;
-  background-position: 0 -500px;
+  background-position: 0 -540px;
 }
 
 .icon-triangle-down, .toolbar-item-indicator {
   width: 10px;
   height: 5px;
-  background-position: 0 -495px;
+  background-position: 0 -535px;
 }
 
 .icon-add {
@@ -1438,7 +1463,7 @@ Pagination Styles
 .icon-setting {
   width: 16px;
   height: 16px;
-  background-position: 0 -479px;
+  background-position: 0 -519px;
 }
 
 .icon-arrow-left, .launchpad-pagination-previous {
@@ -1474,59 +1499,65 @@ Pagination Styles
 .icon-win-close, .pkui-dialog-close {
   width: 16px;
   height: 16px;
-  background-position: 0 -524px;
+  background-position: 0 -564px;
 }
 .icon-win-close:hover, .pkui-dialog-close:hover, .icon-win-close.icon_win_close-hover, .icon_win_close-hover.pkui-dialog-close {
-  background-position: 0 -540px;
+  background-position: 0 -580px;
 }
 
 .icon-win-close-hover {
   width: 16px;
   height: 16px;
-  background-position: 0 -540px;
+  background-position: 0 -580px;
 }
 
 .icon-win-max, .pkui-dialog-max {
   width: 16px;
   height: 16px;
-  background-position: 0 -556px;
+  background-position: 0 -596px;
 }
 .icon-win-max:hover, .pkui-dialog-max:hover, .icon-win-max.icon_win_max-hover, .icon_win_max-hover.pkui-dialog-max {
-  background-position: 0 -572px;
+  background-position: 0 -612px;
 }
 
 .icon-win-max-hover {
   width: 16px;
   height: 16px;
-  background-position: 0 -572px;
+  background-position: 0 -612px;
 }
 
 .icon-win-maxmin, .pkui-dialog-restore {
   width: 16px;
   height: 16px;
-  background-position: 0 -588px;
+  background-position: 0 -628px;
 }
 .icon-win-maxmin:hover, .pkui-dialog-restore:hover, .icon-win-maxmin.icon_win_maxmin-hover, .icon_win_maxmin-hover.pkui-dialog-restore {
-  background-position: 0 -604px;
+  background-position: 0 -644px;
 }
 
 .icon-win-maxmin-hover {
   width: 16px;
   height: 16px;
-  background-position: 0 -604px;
+  background-position: 0 -644px;
 }
 
 .icon-win-min, .pkui-dialog-min {
   width: 16px;
   height: 16px;
-  background-position: 0 -620px;
+  background-position: 0 -660px;
 }
 .icon-win-min:hover, .pkui-dialog-min:hover, .icon-win-min.icon_win_min-hover, .icon_win_min-hover.pkui-dialog-min {
-  background-position: 0 -636px;
+  background-position: 0 -676px;
 }
 
 .icon-win-min-hover {
   width: 16px;
   height: 16px;
-  background-position: 0 -636px;
+  background-position: 0 -676px;
+}
+
+.icon-dock-dropmenu-indicator, .dock-dropmenu-indicator {
+  width: 40px;
+  height: 40px;
+  background-position: 0 -321px;
 }

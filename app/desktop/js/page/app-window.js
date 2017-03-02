@@ -59,8 +59,8 @@ define( function ( require ) {
         /** 从 APP 中继承 */
         src: "",
 
-        width: 800,
-        height: 480,
+        width: 200,
+        height: 180,
         content: "<i class='pkui-content-loading-ring'></i>"
     };
 

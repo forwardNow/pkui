@@ -3,7 +3,7 @@
     @extend .icon-home;
     //@include opacity(.7);
     -webkit-transition: opacity .3s ease;
-            transition: opacity .3s ease;
+    transition: opacity .3s ease;
     //&:hover {
     //    @include opacity(1);
     //}
@@ -16,7 +16,6 @@
     @extend .icon-history;
 
 }
-
 
 .topbar-dock {
     float: left;
@@ -39,14 +38,14 @@
     text-overflow: ellipsis;
     cursor: pointer;
 
-    background-color: rgba(252,252,252,0.4);
-    @include transition(all .8s);
+    background-color: rgba(252, 252, 252, 0.4);
+    @include transition(background .3s);
 
     @include vertical-middle();
     @include user-select(none);
 
     &.active {
-        background-color: rgba(252,252,252,0.8);
+        background-color: rgba(252, 252, 252, 0.8);
     }
 }
 
@@ -58,11 +57,13 @@
     margin-right: 7px;
     margin-left: 10px;
 }
+
 .dock-item-title {
     overflow: hidden;
     color: #082849;
     text-overflow: ellipsis;
 }
+
 .dock-item-btn {
     position: absolute;
     top: 9px;
@@ -74,10 +75,31 @@
     }
 }
 
+.dock-dropmenu {
+    position: absolute;
+    z-index: 99999;
+    left: -999px;
+}
+
+.dock-dropmenu-indicator {
+    float: right;
+    margin-top: 4px;
+    @extend .icon-dock-dropmenu-indicator;
+}
+
+.dock-dropmenu-list {
+    width: 200px;
+    @include clearfix();
+    .topbar-dock-item {
+        width: 168px !important;
+    }
+
+}
 
 .topbar-toolbar {
     float: right;
 }
+
 .topbar-toolbar-item {
     position: relative;
     float: left;
@@ -87,16 +109,19 @@
         top: -1px;
     }
 }
+
 .toolbar-item-icon {
     display: inline-block;
     vertical-align: middle;
 }
+
 .toolbar-item-title {
     display: inline-block;
     padding: 0 .5em;
     line-height: 24px;
-    color: #fff;
+    color: #ffffff;
 }
+
 .toolbar-message-num {
     position: relative;
     top: -4px;
@@ -106,13 +131,15 @@
     font-size: 12px;
     line-height: 16px;
     background-color: #fe5026;
-    color: #fff;
+    color: #ffffff;
 }
+
 .toolbar-item-indicator {
     display: inline-block;
     vertical-align: middle;
     @extend .icon-triangle-down;
 }
+
 .toolbar-item-menu {
     position: relative;
     .pkui-menu {
