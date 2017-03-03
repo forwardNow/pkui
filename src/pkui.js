@@ -102,7 +102,10 @@
             "artTemplate": "lib/art-template/3.1.0/template",
 
             // RSA
-            "jsencrypt": "lib/jsencrypt/2.3.1.x/jsencrypt"
+            "jsencrypt": "lib/jsencrypt/2.3.1.x/jsencrypt",
+
+            // AOP
+            "meld": "lib/meld/1.3.1.x/meld.js"
         },
 
         // 路径配置
