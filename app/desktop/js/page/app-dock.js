@@ -428,7 +428,9 @@ define( function ( require ) {
          * @return {AppDock} 链式调用
          */
         show: function () {
-            this.$target.addClass( "active" ).siblings().removeClass( "active" );
+            this.$container.add( AppDock.manager.$dockDropmenu )
+                .find( AppDock.manager.itemSelector ).removeClass( "active" );
+            this.$target.addClass( "active" );
             return this;
         },
         /**
