@@ -52,16 +52,14 @@ define( function ( require ) {
             this._init( artDialog );
 
 
-            //
+            // 但调用 __center() 方法时，不让多个窗口完全重叠
             AOP.after( artDialog, "__center", function () {
                 var $dialogContainer,
-                    oldPos,
                     newPos,
                     leftPosList,
                     topPosList
                     ;
                 $dialogContainer = artDialog.options.pkuiOptions.$dialogContainer;
-                oldPos = $dialogContainer.offset();
                 leftPosList = [];
                 topPosList = [];
 
