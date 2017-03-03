@@ -6,17 +6,14 @@
  * @requires jquery
  * @requires jquery-ui
  * @requires module:common/dialog
- * @requires module:common/template
  */
 define( function ( require ) {
     var $,
-        Dialog,
-        Template
+        Dialog
         ;
 
     $ = require( "jquery" );
     Dialog = require( "../common/dialog" );
-    Template = require( "../common/template" );
 
     /**
      * @classDesc 窗口（AppWindow）类
@@ -36,7 +33,6 @@ define( function ( require ) {
         this.title = null;
         /** 窗体内容 */
         this.content = null;
-
 
         // 初始化
         this._init( options );
@@ -62,6 +58,7 @@ define( function ( require ) {
         width: 600,
         height: 400,
         content: "<i class='pkui-content-loading-ring'></i>"
+
     };
 
 

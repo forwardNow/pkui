@@ -418,7 +418,9 @@ define( function ( require ) {
         /** 从 APP 中继承 */
         title: "",
 
-        dockTemplateName: "desktop/dockItem"
+        dockTemplateName: "desktop/dockItem",
+        addAnimateClass: "animated flash",
+        showAnimateClass: "animated flash"
     };
 
     // @public
@@ -429,8 +431,8 @@ define( function ( require ) {
          */
         show: function () {
             this.$container.add( AppDock.manager.$dockDropmenu )
-                .find( AppDock.manager.itemSelector ).removeClass( "active" );
-            this.$target.addClass( "active" );
+                .find( AppDock.manager.itemSelector ).removeClass( "active " + this.options.showAnimateClass );
+            this.$target.addClass( "active " + this.options.showAnimateClass );
             return this;
         },
         /**
@@ -520,6 +522,7 @@ define( function ( require ) {
 
                 // 派发事件
                 $target.trigger( "addDockItem.app" );
+
             } );
 
             return this;
