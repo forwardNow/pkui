@@ -55,6 +55,9 @@ define( function ( require ) {
         /** 从 APP 中继承 */
         src: "",
 
+        /** 初始化后是否显示最大化 */
+        isMaxOnInit: true,
+
         width: 600,
         height: 400,
         content: "<i class='pkui-content-loading-ring'></i>"
@@ -69,7 +72,8 @@ define( function ( require ) {
          * @return {AppWindow} 链式调用
          */
         create: function () {
-            var _this
+            var _this,
+                pkuiOptions
                 ;
 
             _this = this;
@@ -89,6 +93,12 @@ define( function ( require ) {
             this.artDialog.show();
             // 居中
             this.artDialog.__center();
+
+            if ( this.options.isMaxOnInit ) {
+                pkuiOptions = this.artDialog.options.pkuiOptions;
+                pkuiOptions.$dialogContainer.stop();
+                pkuiOptions.$maxBtn.trigger( "click.window.app" );
+            }
 
 
             return this;

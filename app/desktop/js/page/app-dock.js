@@ -171,7 +171,7 @@ define( function ( require ) {
             // 减去10px，防止挤掉别的浮动元素；减去40px，预留给 indicator
             this.availableContainerWidth = availableContainerWidth - 10 - 40;
 
-            console.info( "availableContainerWidth: " + this.availableContainerWidth );
+            // console.info( "availableContainerWidth: " + this.availableContainerWidth );
 
             return this;
         },
@@ -185,8 +185,8 @@ define( function ( require ) {
             this.maxWidthItemNum = Math.floor(
                 this.availableContainerWidth / ( this.maxItemWidth + this.itemGap )
             );
-            console.info( "minWidthItemNum: " + this.minWidthItemNum );
-            console.info( "maxWidthItemNum: " + this.maxWidthItemNum );
+            // console.info( "minWidthItemNum: " + this.minWidthItemNum );
+            // console.info( "maxWidthItemNum: " + this.maxWidthItemNum );
             return this;
         },
         /**
@@ -332,7 +332,6 @@ define( function ( require ) {
                         //  如果 itemNum < maxWidthItemNum，则已经是最大宽度了，结束
                         //  如果 itemNum >= maxWidthItemNum，则调整，然后结束
                         //      循环条件：totalItemWidth > availableContainerWidth
-
                         if ( _this.itemNum < _this.maxWidthItemNum ) {
                             _this.displayItemNum--;
                             return;

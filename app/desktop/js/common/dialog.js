@@ -80,12 +80,11 @@ define( function ( require ) {
                     return ;
                 }
 
-                $dialogContainer.offset( newPos );
-
-                $dialogContainer.animate( {
+                $dialogContainer.offset( newPos )
+                    .animate( {
                     top: newPos.top + 10,
                     left: newPos.left + 10
-                }, "slow" )
+                }, "false" )
 
             } );
 
