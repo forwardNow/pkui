@@ -3,24 +3,26 @@
  * @author 吴钦飞(wuqf@pkusoft.net)
  *
  * @module module:common/dialog
- * @module module:base/utils
+ * @requires module:base/utils
  * @requires jquery
  * @requires jquery-ui
  * @requires artDialog
+ * @requires meld
  */
 define( function ( require ) {
 
     var $,
         Utils,
         ArtDialog,
-        Dialog
+        Dialog,
+        AOP
         ;
 
     $ = require( "jquery" );
     require( "jquery-ui" );
+    AOP = require( "meld" );
     Utils = require( "../base/utils" );
     ArtDialog = require( "artDialog" );
-
 
     /**
      * 弹窗单例，
@@ -55,13 +57,12 @@ define( function ( require ) {
          */
         _init: function ( artDialog ) {
             var pkuiOptions
-            ;
+                ;
 
             // 设置 pkuiOptions 参数
             pkuiOptions = initPkuiOptions.call( this, artDialog );
 
             artDialog.options.pkuiOptions = pkuiOptions;
-
 
 
             // 让弹窗可拖拽改变大小
@@ -79,7 +80,6 @@ define( function ( require ) {
             }
 
 
-
         },
         /**
          * 让弹窗可拖拽改变大小
@@ -88,7 +88,13 @@ define( function ( require ) {
          * @returns {module:common/dialog}
          */
         _setResizable: function ( artDialog ) {
-            artDialog.options.pkuiOptions.$dialogContent.resizable( {
+            var $dialogContent = artDialog.options.pkuiOptions.$dialogContent;
+            $dialogContent.resizable();
+            AOP.before( artDialog, "content", function () {
+                $dialogContent.resizable( "destroy" );
+            } );
+            AOP.after( artDialog, "content", function () {
+                $dialogContent.resizable();
             } );
             return this;
         },
@@ -192,11 +198,11 @@ define( function ( require ) {
          */
         _doRestore: function ( artDialog ) {
             var pkuiOptions
-            ;
+                ;
             pkuiOptions = artDialog.options.pkuiOptions;
             pkuiOptions.$dialogContent.css( {
                 "width": pkuiOptions.originWidth,
-                "height": pkuiOptions.originHeight -  pkuiOptions.$dialogHeader.height()
+                "height": pkuiOptions.originHeight - pkuiOptions.$dialogHeader.height()
             } );
             pkuiOptions.$dialogContainer.css( {
                 "top": pkuiOptions.originTop,
