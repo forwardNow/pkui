@@ -110,6 +110,8 @@ define( function ( require ) {
             this._bindOnAddDockItem();
             this._bindOnClickIndicator();
             this._bindOnRemoveDockItem();
+            this._bindClearMenu();
+            this._bindClickItenInDropmenu();
         },
         /** 1. 得到 $item 宽度（itemWidth）的宽度边界： minItemWidth、maxItemWidth
          *  $dockDropmenu 的初始化
@@ -349,7 +351,7 @@ define( function ( require ) {
                         _this.$container.find( _this.itemSelector ).css( "width", currentItemWidth );
                         _this.displayItemNum--;
 
-                        return ;
+                        return;
                     }
 
                     // 5.2 当删除的是 $dockDropmenu 中的，则直接删除
@@ -367,6 +369,37 @@ define( function ( require ) {
             _this = this;
             this.$indicator.on( "click.app", function () {
                 _this.$dockDropmenu.toggleClass( "hidden" );
+            } );
+            return this;
+        },
+        _bindClearMenu: function () {
+            var _this
+                ;
+            _this = this;
+            $( document ).on( "click.app", function ( event ) {
+                if ( event.target == _this.$indicator.get( 0 ) ) {
+                    return;
+                }
+                    _this.$dockDropmenu.addClass( "hidden" );
+            } );
+
+            return this;
+        },
+        _bindClickItenInDropmenu: function () {
+            var _this
+            ;
+            _this  = this;
+            this.$dockDropmenu.on( "click.app", this.itemSelector , function () {
+                var $this,
+                    $lastItem
+                ;
+                $this = $( this );
+                $lastItem = _this.$container.find( _this.itemSelector ).last();
+
+                $this.css( "width", _this.itemWidth );
+
+                _this.$dockDropmenu.append( $lastItem );
+                _this.$container.prepend( $this );
             } );
             return this;
         }
