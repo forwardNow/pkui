@@ -66,7 +66,7 @@ define( function ( require ) {
      * @param options
      */
     App.init = function ( options ) {
-        this._options = $.extend( {}, App.defaults, options );
+        this.options = $.extend( {}, App.defaults, options );
         this._bind();
         this.isInited = true;
     };
@@ -84,7 +84,7 @@ define( function ( require ) {
      * @private
      */
     App._bind = function () {
-        $( window.document ).on( "click.shortcut.app", this._options.appSelector, function () {
+        $( window.document ).on( "click.shortcut.app", this.options.appSelector, function () {
             var $this,
                 appInstance
                 ;
@@ -97,7 +97,7 @@ define( function ( require ) {
             }
             $this.data( "appInstance", new App( $this ) );
         } )
-            .on( "click.home.app", this._options.hideAllAppSelector, function () {
+            .on( "click.home.app", this.options.hideAllAppSelector, function () {
                 App.hideAll();
             } );
     };
@@ -194,7 +194,7 @@ define( function ( require ) {
          * @private
          */
         _getOptsFromTarget: function () {
-            var data = this.$target.attr( App._options.optionsProp );
+            var data = this.$target.attr( App.options.optionsProp );
             return $.parseJSON( data );
         }
 
