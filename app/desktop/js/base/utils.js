@@ -75,14 +75,6 @@ define( function ( require ) {
             options = $.parseJSON( $target.attr( htmlProp ) );
 
             return options;
-        },
-        /**
-         * 生成一个不重复的ID
-         * @memberOf module:base/utils#
-         * @returns {string} ID
-         */
-        getNonDuplicateID: function () {
-            return Number( Math.random().toString().substr( 3, randomLength ) + Date.now() ).toString( 36 );
         }
     };
 

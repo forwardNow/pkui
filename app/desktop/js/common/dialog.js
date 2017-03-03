@@ -39,8 +39,10 @@ define( function ( require ) {
          */
         create: function ( options ) {
             var opts,
-                artDialog
+                artDialog,
+                _this
                 ;
+            _this = this;
             opts = $.extend( {
                 width: this.defaults.width,
                 height: this.defaults.height
@@ -48,7 +50,55 @@ define( function ( require ) {
             // opts.pkuiOptions = {};
             artDialog = ArtDialog( opts );
             this._init( artDialog );
+
+
+            //
+            AOP.after( artDialog, "__center", function () {
+                var $dialogContainer,
+                    oldPos,
+                    newPos,
+                    leftPosList,
+                    topPosList
+                    ;
+                $dialogContainer = artDialog.options.pkuiOptions.$dialogContainer;
+                oldPos = $dialogContainer.offset();
+                leftPosList = [];
+                topPosList = [];
+
+                _this.getAllDialogContainer().each( function () {
+                    var pos
+                        ;
+                    pos = $( this ).offset();
+                    leftPosList.push( pos.left );
+                    topPosList.push( pos.top );
+                } );
+
+                newPos = {
+                    left: Math.max.apply( null, leftPosList ),
+                    top: Math.max.apply( null, topPosList )
+                };
+
+                if ( leftPosList.length === 1 ) {
+                    return ;
+                }
+
+                $dialogContainer.offset( newPos );
+
+                $dialogContainer.animate( {
+                    top: newPos.top + 10,
+                    left: newPos.left + 10
+                }, "slow" )
+
+            } );
+
             return artDialog;
+        },
+        /**
+         *
+         * @returns {*|jQuery}
+         */
+        getAllDialogContainer: function () {
+            return $( document.body ).children( ".pkui-popup" );
         },
         /**
          * 初始化自定义参数
@@ -60,7 +110,7 @@ define( function ( require ) {
                 ;
 
             // 设置 pkuiOptions 参数
-            pkuiOptions = initPkuiOptions.call( this, artDialog );
+            pkuiOptions = initPkuiOptions.apply( this, [ artDialog ] );
 
             artDialog.options.pkuiOptions = pkuiOptions;
 
@@ -101,7 +151,7 @@ define( function ( require ) {
         /**
          * 置顶弹窗
          * @memberOf module:common/dialog#
-         * @param artDialog {artDialog} artDialog
+         * @param artDialog {object} artDialog
          * @returns {module:common/dialog}
          */
         setTop: function ( artDialog ) {
@@ -112,7 +162,7 @@ define( function ( require ) {
         /**
          * 最大化
          * @memberOf module:common/dialog#
-         * @param artDialog {artDialog} artDialog
+         * @param artDialog {object} artDialog
          * @returns {module:common/dialog}
          */
         setMax: function ( artDialog ) {
@@ -152,7 +202,7 @@ define( function ( require ) {
         /**
          * 绑定事件：点击最小化，关闭窗口
          * @private
-         * @param artDialog {artDialog} artDialog
+         * @param artDialog {object} artDialog
          * @returns {module:common/dialog}
          */
         _bindMinEvent: function ( artDialog ) {
@@ -165,7 +215,6 @@ define( function ( require ) {
         /**
          * 绑定事件：点击最大化，铺满窗口
          * @private
-         * @param artDialog {artDialog} artDialog
          * @returns {module:common/dialog}
          */
         _bindMaxEvent: function ( artDialog ) {
@@ -193,7 +242,7 @@ define( function ( require ) {
          * 绑定事件：点击最大化，铺满窗口
          * @memberOf module:common/dialog#
          * @private
-         * @param artDialog {artDialog} artDialog
+         * @param artDialog {object} artDialog
          * @returns {module:common/dialog}
          */
         _doRestore: function ( artDialog ) {
