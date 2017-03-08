@@ -15,9 +15,15 @@ body {
     color: #333;
     font-size: 12px;
     line-height: 1.35;
-    font-family: 'QTS Font','Helvetica','Arial', "Microsoft YaHei",'Verdana','Tahoma', sans-serif;
+    font-family: /*'QTS Font','Helvetica', */"Microsoft YaHei", 'Arial','Verdana','Tahoma', sans-serif;
 }
 
 a {
     text-decoration: none;
+}
+i {
+    font-style: normal;
+}
+b {
+    font-weight: normal;
 }

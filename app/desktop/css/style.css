@@ -3197,11 +3197,19 @@ body {
   color: #333;
   font-size: 12px;
   line-height: 1.35;
-  font-family: 'QTS Font','Helvetica','Arial', "Microsoft YaHei",'Verdana','Tahoma', sans-serif;
+  font-family: "Microsoft YaHei", 'Arial','Verdana','Tahoma', sans-serif;
 }
 
 a {
   text-decoration: none;
+}
+
+i {
+  font-style: normal;
+}
+
+b {
+  font-weight: normal;
 }
 
 .pkui-menu-dark {
@@ -4182,6 +4190,7 @@ Pagination Styles
 .pkui-dialog {
   border-radius: 0;
   border: none 0;
+  font-family: inherit;
 }
 
 .pkui-dialog-header {
@@ -4277,6 +4286,131 @@ Pagination Styles
 .ui-icon {
   width: 16px;
   height: 16px;
+}
+
+.da-win {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.da-win-header {
+  height: 40px;
+  color: #cccccc;
+  background-color: #0a396f;
+}
+
+.win-aside-drawerToggler {
+  float: left;
+  padding: 0;
+  margin: 12px 0 0 20px;
+  border: none 0;
+  background: none;
+  cursor: pointer;
+}
+.win-aside-drawerToggler:focus {
+  outline: none 0;
+}
+.win-aside-drawerToggler .icon-bar {
+  display: block;
+  width: 17px;
+  height: 1px;
+  background-color: #ffffff;
+}
+.win-aside-drawerToggler .icon-bar + .icon-bar {
+  margin-top: 6px;
+}
+
+.win-header-breadcrumbs {
+  float: left;
+  margin: 10px 0 0 18px;
+}
+
+.breadcrumb > .divider {
+  margin: 0 0.5em;
+}
+.breadcrumb > a {
+  color: #33a6e7;
+}
+
+.da-win-sidebar {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  background-color: white;
+  box-shadow: 5px 0 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-menuItem {
+  border-bottom: solid 1px #f0f0f0;
+}
+.sidebar-menuItem:last-of-type {
+  border-bottom: none 0;
+}
+.sidebar-menuItem:hover > .sidebar-menuItem-anchor, .sidebar-menuItem.active > .sidebar-menuItem-anchor {
+  color: #fff;
+  background-color: #33a6e7;
+}
+
+.sidebar-menuItem-anchor {
+  display: block;
+  padding: 8px 20px;
+  line-height: 24px;
+  font-size: 16px;
+  color: #455469;
+}
+.sidebar-menuItem-anchor:before, .sidebar-menuItem-anchor:after {
+  content: " ";
+  display: table;
+}
+.sidebar-menuItem-anchor:after {
+  clear: both;
+}
+
+.sidebar-menuItem-icon {
+  float: left;
+  width: 24px;
+  vertical-align: middle;
+  margin-right: 12px;
+}
+
+.sidebar-menuItem-text {
+  float: left;
+  width: 180px;
+}
+
+.sidebar-submenu > .sidebar-menuItem {
+  border-bottom: none 0;
+  border-top: solid 1px transparent;
+}
+.sidebar-submenu > .sidebar-menuItem .sidebar-menuItem-anchor {
+  padding-left: 52px;
+}
+
+.da-win-main {
+  position: absolute;
+  top: 40px;
+  left: 300px;
+  bottom: 0;
+  right: 0;
+}
+.da-win-main.show-sidebar {
+  left: 0;
+}
+
+.win-main-heading {
+  padding: 30px 20px 12px 20px;
+  border-bottom: solid 3px #fbfbfb;
+  color: #455469;
+}
+.win-main-heading .main-heading-icon {
+  vertical-align: middle;
+  width: 24px;
+  margin-right: 12px;
 }
 
 .desktop-sprite, .icon-home, .topbar-home, .icon-history, .topbar-history, .icon-close, .dock-item-btn, .icon-dashboard, .icon-logout, .icon-message, .icon-more, .icon-search, .icon-user, .icon-triangle-down, .toolbar-item-indicator, .icon-add, .icon-setting, .icon-arrow-left, .launchpad-pagination-previous, .icon-arrow-right, .launchpad-pagination-next, .icon-circle-1, .icon-circle-2, .icon-win-close, .pkui-dialog-close, .icon-win-close-hover, .icon-win-max, .pkui-dialog-max, .icon-win-max-hover, .icon-win-maxmin, .pkui-dialog-restore, .icon-win-maxmin-hover, .icon-win-min, .pkui-dialog-min, .icon-win-min-hover, .icon-dock-dropmenu-indicator, .dock-dropmenu-indicator {

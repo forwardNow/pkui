@@ -1,0 +1,135 @@
+.da-win {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.da-win-header {
+    height: 40px;
+    color: #cccccc;
+    background-color: #0a396f;
+}
+
+.win-aside-drawerToggler {
+    float: left;
+    padding: 0;
+    margin: 12px 0 0 20px;
+    border: none 0;
+    background: none;
+    cursor: pointer;
+    &:focus {
+        outline: none 0;
+    }
+    .icon-bar {
+        display: block;
+        width: 17px;
+        height: 1px;
+        background-color: #ffffff;
+        & + .icon-bar {
+            margin-top: 6px;
+        }
+    }
+}
+
+.win-header-breadcrumbs {
+    float: left;
+    margin: 10px 0 0 18px;
+}
+
+.breadcrumb {
+    > .divider {
+        margin: 0 0.5em;
+    }
+    > a {
+        color: #33a6e7;
+    }
+}
+
+.da-win-sidebar {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    bottom: 0;
+    width: 300px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 5px 0 5px 0 rgba(0, 0, 0, .1);
+}
+
+.sidebar-menu {
+}
+
+.sidebar-menuItem {
+    border-bottom: solid 1px #f0f0f0;
+    &:last-of-type {
+        border-bottom: none 0;
+    }
+    &:hover > .sidebar-menuItem-anchor,
+    &.active > .sidebar-menuItem-anchor {
+        color: #fff;
+        background-color: #33a6e7;
+    }
+}
+
+.sidebar-menuItem-anchor {
+    display: block;
+    //width: 100%;
+    //height: 40px;
+    padding: 8px 20px;
+    line-height: 24px;
+    font-size: 16px;
+    color: #455469;
+    @include clearfix();
+}
+
+.sidebar-submenu-toggle {
+
+}
+
+.sidebar-menuItem-icon {
+    float: left;
+    width: 24px;
+    vertical-align: middle;
+    margin-right: 12px;
+}
+
+.sidebar-menuItem-text {
+    float: left;
+    width: 180px;
+}
+
+.sidebar-submenu {
+    > .sidebar-menuItem {
+        border-bottom: none 0;
+        border-top: solid 1px transparent;
+        .sidebar-menuItem-anchor {
+            padding-left: 20px + 32px;
+        }
+    }
+}
+
+.da-win-main {
+    position: absolute;
+    top: 40px;
+    left: 300px;
+    bottom: 0;
+    right: 0;
+    &.show-sidebar {
+        left: 0;
+    }
+}
+
+.win-main-heading {
+    padding: 30px 20px 12px 20px;
+    border-bottom: solid 3px #fbfbfb;
+    color: #455469;
+    .main-heading-icon {
+        vertical-align: middle;
+        width: 24px;
+        margin-right: 12px;
+    }
+}
+.win-main-body {
+
+}
