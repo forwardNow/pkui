@@ -15,7 +15,7 @@
 .win-aside-drawerToggler {
     float: left;
     padding: 0;
-    margin: 12px 0 0 20px;
+    margin: 12px 0 0 14px;
     border: none 0;
     background: none;
     cursor: pointer;
@@ -35,7 +35,7 @@
 
 .win-header-breadcrumbs {
     float: left;
-    margin: 10px 0 0 18px;
+    margin: 10px 0 0 10px;
 }
 
 .breadcrumb {
@@ -52,7 +52,7 @@
     top: 40px;
     left: 0;
     bottom: 0;
-    width: 300px;
+    width: 240px;
     background-color: rgb(255, 255, 255);
     box-shadow: 5px 0 5px 0 rgba(0, 0, 0, .1);
 }
@@ -65,7 +65,10 @@
     &:last-of-type {
         border-bottom: none 0;
     }
-    &:hover > .sidebar-menuItem-anchor,
+    &:hover > .sidebar-menuItem-anchor {
+        color: #fff;
+        background-color: lighten(#33a6e7, 15%);
+    }
     &.active > .sidebar-menuItem-anchor {
         color: #fff;
         background-color: #33a6e7;
@@ -76,9 +79,9 @@
     display: block;
     //width: 100%;
     //height: 40px;
-    padding: 8px 20px;
+    padding: 4px 10px;
     line-height: 24px;
-    font-size: 16px;
+    //font-size: 16px;
     color: #455469;
     @include clearfix();
 }
@@ -91,12 +94,12 @@
     float: left;
     width: 24px;
     vertical-align: middle;
-    margin-right: 12px;
+    margin-right: .5em;
 }
 
 .sidebar-menuItem-text {
     float: left;
-    width: 180px;
+    width: 146px;
 }
 
 .sidebar-submenu {
@@ -104,7 +107,7 @@
         border-bottom: none 0;
         border-top: solid 1px transparent;
         .sidebar-menuItem-anchor {
-            padding-left: 20px + 32px;
+            padding-left: 40px;
         }
     }
 }
@@ -112,7 +115,7 @@
 .da-win-main {
     position: absolute;
     top: 40px;
-    left: 300px;
+    left: 240px;
     bottom: 0;
     right: 0;
     &.show-sidebar {
@@ -121,7 +124,7 @@
 }
 
 .win-main-heading {
-    padding: 30px 20px 12px 20px;
+    padding: 10px 10px 6px 10px;
     border-bottom: solid 3px #fbfbfb;
     color: #455469;
     .main-heading-icon {
