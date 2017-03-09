@@ -4345,7 +4345,8 @@ Pagination Styles
   top: 40px;
   left: 0;
   bottom: 0;
-  width: 240px;
+  width: 239px;
+  border-right: solid 1px #dedede;
   background-color: white;
   box-shadow: 5px 0 5px 0 rgba(0, 0, 0, 0.1);
   -webkit-transition: left 0.3s;
@@ -4394,7 +4395,7 @@ Pagination Styles
 .sidebar-menuItem-anchor {
   display: block;
   padding: 4px 10px;
-  line-height: 24px;
+  line-height: 16px;
   color: #455469;
 }
 .sidebar-menuItem-anchor:before, .sidebar-menuItem-anchor:after {
@@ -4408,13 +4409,13 @@ Pagination Styles
 .sidebar-menuItem-icon {
   float: left;
   width: 24px;
-  vertical-align: middle;
   margin-right: .5em;
 }
 
 .sidebar-menuItem-text {
   float: left;
   width: 146px;
+  margin-top: 4px;
 }
 
 .sidebar-submenu > .sidebar-menuItem {

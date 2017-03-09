@@ -58,7 +58,8 @@
     top: 40px;
     left: 0;
     bottom: 0;
-    width: 240px;
+    width: 240px - 1;
+    border-right: solid 1px #dedede;
     background-color: rgb(255, 255, 255);
     box-shadow: 5px 0 5px 0 rgba(0, 0, 0, .1);
     @include transition( left .3s );
@@ -110,7 +111,7 @@
     //width: 100%;
     //height: 40px;
     padding: 4px 10px;
-    line-height: 24px;
+    line-height: 16px;
     //font-size: 16px;
     color: #455469;
     @include clearfix();
@@ -123,13 +124,13 @@
 .sidebar-menuItem-icon {
     float: left;
     width: 24px;
-    vertical-align: middle;
     margin-right: .5em;
 }
 
 .sidebar-menuItem-text {
     float: left;
     width: 146px;
+    margin-top: 4px;
 }
 
 .sidebar-submenu {
