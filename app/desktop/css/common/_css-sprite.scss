@@ -139,3 +139,13 @@
     height: 40px;
     @include desktop-sprite(icon_dock_dropmenu_indicator);
 }
+.icon-sidebar-toggle-on {
+    width: 16px;
+    height: 16px;
+    @include desktop-sprite(icon_sidebar_toggle_on);
+}
+.icon-sidebar-toggle-off {
+    width: 16px;
+    height: 16px;
+    @include desktop-sprite(icon_sidebar_toggle_off);
+}

@@ -1,11 +1,7 @@
 <div class="da-win">
     <!-- 页眉 -->
     <header class="da-win-header">
-        <button class="win-aside-drawerToggler" type="button" title="展开/折叠侧边栏">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
+        <button class="sidebar-collapse-toggle" type="button" title="展开/折叠侧边栏"></button>
         <p class="win-header-breadcrumbs breadcrumb">
             <b>当前位置：</b><span>执法监督平台</span><!--
             --><i class="divider">/</i><!--
@@ -98,5 +94,14 @@
     </aside>
     <!-- /侧边栏 -->
 
+    <script>
+        $( document ).ready( function () {
+            $( ".sidebar-collapse-toggle" ).click( function () {
+                $( this ).toggleClass( "collapsed" );
+                $( ".da-win-sidebar" ).toggleClass( "collapsed" );
+                $( ".da-win-main" ).toggleClass( "collapsed" );
+            } );
+        } );
+    </script>
 
 </div>

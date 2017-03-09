@@ -4294,38 +4294,43 @@ Pagination Styles
   left: 0;
   bottom: 0;
   right: 0;
+  overflow: hidden;
 }
 
 .da-win-header {
+  position: relative;
+  z-index: 2;
   height: 40px;
   color: #cccccc;
   background-color: #0a396f;
 }
 
-.win-aside-drawerToggler {
-  float: left;
-  padding: 0;
-  margin: 12px 0 0 14px;
-  border: none 0;
-  background: none;
-  cursor: pointer;
-}
-.win-aside-drawerToggler:focus {
-  outline: none 0;
-}
-.win-aside-drawerToggler .icon-bar {
-  display: block;
-  width: 17px;
-  height: 1px;
-  background-color: #ffffff;
-}
-.win-aside-drawerToggler .icon-bar + .icon-bar {
-  margin-top: 6px;
-}
+/*
 
+.win-aside-drawerToggler {
+    float: left;
+    padding: 0;
+    margin: 12px 0 0 14px;
+    border: none 0;
+    background: none;
+    cursor: pointer;
+    &:focus {
+        outline: none 0;
+    }
+    .icon-bar {
+        display: block;
+        width: 17px;
+        height: 1px;
+        background-color: #ffffff;
+        & + .icon-bar {
+            margin-top: 6px;
+        }
+    }
+}
+*/
 .win-header-breadcrumbs {
   float: left;
-  margin: 10px 0 0 10px;
+  margin: 10px 0 0 42px;
 }
 
 .breadcrumb > .divider {
@@ -4343,6 +4348,32 @@ Pagination Styles
   width: 240px;
   background-color: white;
   box-shadow: 5px 0 5px 0 rgba(0, 0, 0, 0.1);
+  -webkit-transition: left 0.3s;
+  -o-transition: left 0.3s;
+  transition: left 0.3s;
+}
+.da-win-sidebar.collapsed {
+  left: -250px;
+}
+
+.sidebar-collapse-toggle {
+  position: absolute;
+  left: 214px;
+  top: 48px;
+  border: none 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.sidebar-collapse-toggle:focus {
+  outline: none 0;
+}
+.sidebar-collapse-toggle.collapsed {
+  left: 14px;
+  top: 12px;
 }
 
 .sidebar-menuItem {
@@ -4352,11 +4383,11 @@ Pagination Styles
   border-bottom: none 0;
 }
 .sidebar-menuItem:hover > .sidebar-menuItem-anchor {
-  color: #fff;
+  color: #ffffff;
   background-color: #77c4ef;
 }
 .sidebar-menuItem.active > .sidebar-menuItem-anchor {
-  color: #fff;
+  color: #ffffff;
   background-color: #33a6e7;
 }
 
@@ -4401,23 +4432,23 @@ Pagination Styles
   bottom: 0;
   right: 0;
 }
-.da-win-main.show-sidebar {
+.da-win-main.collapsed {
   left: 0;
 }
 
 .win-main-heading {
-  padding: 10px 10px 6px 10px;
+  padding: 10px 10px 6px 12px;
   border-bottom: solid 3px #fbfbfb;
   color: #455469;
 }
 .win-main-heading .main-heading-icon {
   vertical-align: middle;
   width: 24px;
-  margin-right: 12px;
+  margin-right: 6px;
 }
 
-.desktop-sprite, .icon-home, .topbar-home, .icon-history, .topbar-history, .icon-close, .dock-item-btn, .icon-dashboard, .icon-logout, .icon-message, .icon-more, .icon-search, .icon-user, .icon-triangle-down, .toolbar-item-indicator, .icon-add, .icon-setting, .icon-arrow-left, .launchpad-pagination-previous, .icon-arrow-right, .launchpad-pagination-next, .icon-circle-1, .icon-circle-2, .icon-win-close, .pkui-dialog-close, .icon-win-close-hover, .icon-win-max, .pkui-dialog-max, .icon-win-max-hover, .icon-win-maxmin, .pkui-dialog-restore, .icon-win-maxmin-hover, .icon-win-min, .pkui-dialog-min, .icon-win-min-hover, .icon-dock-dropmenu-indicator, .dock-dropmenu-indicator {
-  background-image: url('../images/desktop-s52e2ae34c7.png');
+.desktop-sprite, .icon-home, .topbar-home, .icon-history, .topbar-history, .icon-close, .dock-item-btn, .icon-dashboard, .icon-logout, .icon-message, .icon-more, .icon-search, .icon-user, .icon-triangle-down, .toolbar-item-indicator, .icon-add, .icon-setting, .icon-arrow-left, .launchpad-pagination-previous, .icon-arrow-right, .launchpad-pagination-next, .icon-circle-1, .icon-circle-2, .icon-win-close, .pkui-dialog-close, .icon-win-close-hover, .icon-win-max, .pkui-dialog-max, .icon-win-max-hover, .icon-win-maxmin, .pkui-dialog-restore, .icon-win-maxmin-hover, .icon-win-min, .pkui-dialog-min, .icon-win-min-hover, .icon-dock-dropmenu-indicator, .dock-dropmenu-indicator, .icon-sidebar-toggle-on, .sidebar-collapse-toggle.collapsed, .icon-sidebar-toggle-off, .sidebar-collapse-toggle {
+  background-image: url('../images/desktop-saceabef4e0.png');
   background-repeat: no-repeat;
 }
 
@@ -4472,13 +4503,13 @@ Pagination Styles
 .icon-user {
   width: 24px;
   height: 24px;
-  background-position: 0 -540px;
+  background-position: 0 -572px;
 }
 
 .icon-triangle-down, .toolbar-item-indicator {
   width: 10px;
   height: 5px;
-  background-position: 0 -535px;
+  background-position: 0 -567px;
 }
 
 .icon-add {
@@ -4526,65 +4557,77 @@ Pagination Styles
 .icon-win-close, .pkui-dialog-close {
   width: 16px;
   height: 16px;
-  background-position: 0 -564px;
+  background-position: 0 -596px;
 }
 .icon-win-close:hover, .pkui-dialog-close:hover, .icon-win-close.icon_win_close-hover, .icon_win_close-hover.pkui-dialog-close {
-  background-position: 0 -580px;
+  background-position: 0 -612px;
 }
 
 .icon-win-close-hover {
   width: 16px;
   height: 16px;
-  background-position: 0 -580px;
+  background-position: 0 -612px;
 }
 
 .icon-win-max, .pkui-dialog-max {
   width: 16px;
   height: 16px;
-  background-position: 0 -596px;
+  background-position: 0 -628px;
 }
 .icon-win-max:hover, .pkui-dialog-max:hover, .icon-win-max.icon_win_max-hover, .icon_win_max-hover.pkui-dialog-max {
-  background-position: 0 -612px;
+  background-position: 0 -644px;
 }
 
 .icon-win-max-hover {
   width: 16px;
   height: 16px;
-  background-position: 0 -612px;
+  background-position: 0 -644px;
 }
 
 .icon-win-maxmin, .pkui-dialog-restore {
   width: 16px;
   height: 16px;
-  background-position: 0 -628px;
+  background-position: 0 -660px;
 }
 .icon-win-maxmin:hover, .pkui-dialog-restore:hover, .icon-win-maxmin.icon_win_maxmin-hover, .icon_win_maxmin-hover.pkui-dialog-restore {
-  background-position: 0 -644px;
+  background-position: 0 -676px;
 }
 
 .icon-win-maxmin-hover {
   width: 16px;
   height: 16px;
-  background-position: 0 -644px;
+  background-position: 0 -676px;
 }
 
 .icon-win-min, .pkui-dialog-min {
   width: 16px;
   height: 16px;
-  background-position: 0 -660px;
+  background-position: 0 -692px;
 }
 .icon-win-min:hover, .pkui-dialog-min:hover, .icon-win-min.icon_win_min-hover, .icon_win_min-hover.pkui-dialog-min {
-  background-position: 0 -676px;
+  background-position: 0 -708px;
 }
 
 .icon-win-min-hover {
   width: 16px;
   height: 16px;
-  background-position: 0 -676px;
+  background-position: 0 -708px;
 }
 
 .icon-dock-dropmenu-indicator, .dock-dropmenu-indicator {
   width: 40px;
   height: 40px;
   background-position: 0 -321px;
+}
+
+.icon-sidebar-toggle-on, .sidebar-collapse-toggle.collapsed {
+  width: 16px;
+  height: 16px;
+  background-position: 0 -551px;
+}
+
+.icon-sidebar-toggle-off, .sidebar-collapse-toggle {
+  width: 16px;
+  height: 16px;
+  background-position: 0 -535px;
 }
