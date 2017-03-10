@@ -1,8 +1,6 @@
 # PKUI
 
----
-
-# 1. 介绍
+## 1. 介绍
 
 本仓库用于存放公司外网UI框架。
 
@@ -14,11 +12,15 @@
 
 **预览**：[https://forwardnow.github.io/pkui](https://forwardnow.github.io/pkui)
 
+## 2. 后台支持
 
+使用JavaEE，提供数据支持
 
-# 2. 基于PKUI的项目
+**源码**：[https://github.com/forwardNow/javaee_pkui](https://github.com/forwardNow/javaee_pkui)
 
-## 2.1 desktop
+## 3. 基于PKUI的项目
+
+### 3.1 desktop
 
 **介绍**：类桌面软件web应用
 

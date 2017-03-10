@@ -58,6 +58,8 @@ define( function ( require ) {
         /** 初始化后是否显示最大化 */
         isMaxOnInit: true,
 
+        hasSidebar: true,
+
         width: 600,
         height: 400,
         content: "<i class='pkui-content-loading-ring'></i>"
@@ -197,11 +199,11 @@ define( function ( require ) {
 
             if ( ! url ) {
                 return "<h1>+_+ 请设置src，如下：</h1>"
-                    + "<pre>&lt;div data-pkui-app=\"true\" \n"
-                    + "     data-pkui-app-options='{ \n"
-                    + "         \"icon\": \"./images/apps/app_01.png\", \n"
-                    + "         \"title\": \"执法监督综合应用门户\", \n"
-                    + "         \"src\": \"./tpl/system/manage.html\" }'></pre>";
+                +      "<pre>&lt;div data-pkui-app=\"true\" \n"
+                +      "     data-pkui-app-options='{ \n"
+                +      "         \"icon\": \"./images/apps/app_01.png\", \n"
+                +      "         \"title\": \"执法监督综合应用门户\", \n"
+                +      "         \"src\": \"./tpl/system/manage.html\" }'></pre>";
             }
 
 
