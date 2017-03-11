@@ -273,9 +273,9 @@
             if ( typeof jsonResult === "string" ) {
                 jsonResult = PKUI.parseJSON( jsonResult );
             }
-            if ( jsonResult.success == false ) {
-                return false;
-            }
+            // if ( jsonResult.success == false ) {
+            //     return false;
+            // }
             return jsonResult;
         },
         /**
@@ -288,6 +288,85 @@
          */
         handleGridResult: function ( gridResult ) {
             return PKUI.handleJsonResult( gridResult );
+        },
+        /**
+         * 转换树结构
+         * @param options {{data: Array, rootId: string, idName: string, parentIdName: string, childrenName: string, filter: Array}}
+         * @example
+         * PKUI.getTreeList( {
+                data: [
+                    { menuId: 0, menuName: "系统管理", treeParentId: null },
+                    { menuId: 1, menuName: "用户管理", treeParentId: 0 },
+                    { menuId: 2, menuName: "单位管理", treeParentId: 0 }
+                ],
+                rootId: 0,
+                idName: "menuId",
+                parentIdName: "treeParentId",
+                childrenName: "children"
+           } );
+           返回：
+           [
+                {
+                    menuId: 0, menuName: "系统管理", treeParentId: null,
+                    children: [
+                        { menuId: 1, menuName: "用户管理", treeParentId: 0, children: null },
+                        { menuId: 2, menuName: "单位管理", treeParentId: 0, children: null }
+                    ]
+                }
+           ]
+         */
+        getTreeList: function getTreeList( options ) {
+            var
+                data = options.data,
+                rootId = options.rootId,
+                idName = options.idName || "id",
+                parentIdName = options.parentIdName || "parentId",
+                childrenName = options.childrenName || "children",
+                returnData,
+                childrenCollection = {},
+                parentId,
+                rootList
+                ;
+
+            if ( ! rootId ) {
+                rootId = data[ 0 ][ idName ];
+            }
+
+
+            PKUI.each( data, function ( index, elt ) {
+                parentId = elt[ parentIdName ];
+                childrenCollection[ parentId ] = childrenCollection[ parentId ] || [];
+                childrenCollection[ parentId ].push( elt );
+            } );
+
+            rootList = data[ rootId ];
+
+            if ( ! PKUI.isArray( rootList ) ) {
+                rootList = [ rootList ];
+            }
+
+            returnData = fmtData( rootList );
+
+            function fmtData( data ) {
+                var list = []
+                    ;
+                if ( !data || !data.length ) {
+                    return null;
+                }
+                PKUI.each( data, function ( index, elt ) {
+                    var record = elt,
+                        newRecord
+                        ;
+                    newRecord = PKUI.extend( {}, record );
+                    newRecord[ childrenName ] = fmtData( childrenCollection[ record[ idName ] ] );
+                    list.push( newRecord );
+                } );
+                return list;
+            }
+
+
+            return  returnData;
+
         }
     } ) ;
 
