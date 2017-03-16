@@ -100,10 +100,12 @@ define( function ( require ) {
                 }
             } );
 
-            // 添加loading
-            _this.artDialog.options.pkuiOptions.$dialogContent
-                .append( AppWindow.prototype.defaults.content );
 
+            // 添加loading
+            if ( this.options.mode === "iframe" ) {
+                _this.artDialog.options.pkuiOptions.$dialogContent
+                    .append( AppWindow.prototype.defaults.content );
+            }
             // 显示
             this.artDialog.show();
             // 居中
