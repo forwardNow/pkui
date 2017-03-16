@@ -6,14 +6,17 @@
  * @requires jquery
  * @requires jquery-ui
  * @requires module:common/dialog
+ * @requires module:common/template
  */
 define( function ( require ) {
     var $,
-        Dialog
+        Dialog,
+        Template
         ;
 
     $ = require( "jquery" );
     Dialog = require( "../common/dialog" );
+    Template = require( "../common/template" );
 
     /**
      * @classDesc 窗口（AppWindow）类
@@ -83,13 +86,23 @@ define( function ( require ) {
             _this.artDialog = Dialog.create( {
                 title: _this.title,
                 content: _this.content,
+                url: this.options.mode === "iframe" ? this.options.src : null,
                 width: _this.options.width,
                 height: _this.options.height,
                 onclose: function () {
                     // 点击右上角最小化按钮，最小化后，使dock也隐藏
                     _this.appInstance.appDock.hide();
+                },
+                oniframeload: function () {
+                    // 删除loading
+                    _this.artDialog.options.pkuiOptions.$dialogContent
+                        .children( ".pkui-content-loading-ring" ).remove();
                 }
             } );
+
+            // 添加loading
+            _this.artDialog.options.pkuiOptions.$dialogContent
+                .append( AppWindow.prototype.defaults.content );
 
             // 显示
             this.artDialog.show();
@@ -101,7 +114,6 @@ define( function ( require ) {
                 pkuiOptions.$dialogContainer.stop();
                 pkuiOptions.$maxBtn.trigger( "click.window.app" );
             }
-
 
             return this;
         },
@@ -157,7 +169,10 @@ define( function ( require ) {
 
             // 2. 初始化实例属性
             this.title = this._getTitle();
-            this.content = this._getContent();
+            // 如果不是iframe模式，则动态载入HTML片段
+            if ( this.options.mode === "default" ) {
+                this.content = this._getContent();
+            }
 
             // 3. 创建窗口
             this.create();
@@ -192,7 +207,9 @@ define( function ( require ) {
          */
         _getContent: function () {
             var _this,
-                url
+                url,
+                structureHtml,
+                contentHtml
                 ;
             _this = this;
             url = this.options.src;
@@ -207,18 +224,28 @@ define( function ( require ) {
             }
 
 
+            // 1. appWindow模板（面包屑导航、菜单树、主体）
+            structureHtml = Template.getHtmlString( "desktop/appWindow", {} );
+
+            // 2. 业务模板（暂定为JSP）
             $.ajax( {
                 type: "GET",
                 cache: false,
                 dataType: "text",
                 url: url
             } ).done( function ( data ) {
-                var html
-                    ;
-                html = data;
+                var html,
+                    $temp
+                ;
+                contentHtml = data;
+                $temp = $( "<div>" );
+                $temp.append( structureHtml ).find( ".win-main-body" ).html( contentHtml );
+                html = $temp.html();
                 _this.options.content = html;
                 _this.artDialog.content( html );
+                $temp = null;
             } ).fail( function ( jqXHR, textStatus ) {
+                _this.artDialog.content( "/(ㄒoㄒ)/~~[ " + textStatus + " ]获取数据失败" );
                 throw "/(ㄒoㄒ)/~~[ " + textStatus + " ]获取数据失败";
             } );
 
@@ -230,18 +257,64 @@ define( function ( require ) {
          * @return {AppWindow} 链式调用
          */
         _bindEvent: function () {
-            var _this
+            var _this,
+                pkuiOptions = this.artDialog.options.pkuiOptions
                 ;
             _this = this;
+
             // 点击弹框关闭按钮后，进行摧毁，执行此回调销毁应用
             this.artDialog.addEventListener( "remove", function () {
                 _this.artDialog = null;
                 _this.appInstance && !_this.appInstance.isAppDestroy
                 && _this.appInstance.destroy();
             } );
+
             // 点击弹窗时，置顶该弹窗
-            $( this.artDialog.node ).on( "mousedown.dock.app", function () {
+            pkuiOptions.$dialogContainer.on( "mousedown.dock.app", function () {
                 _this.appInstance.show();
+            } );
+
+            // 折叠
+            pkuiOptions.$dialogContainer.on( "click.sidebar", ".sidebar-collapse-toggle", function () {
+                $( this ).toggleClass( "collapsed" );
+                pkuiOptions.$dialogContainer.find( ".da-win-sidebar" ).toggleClass( "collapsed" );
+                pkuiOptions.$dialogContainer.find( ".da-win-main" ).toggleClass( "collapsed" );
+            } );
+            // 点击菜单树里的链接：如果是折叠链接，则折叠；如果是页面，则请求相应页面
+            pkuiOptions.$dialogContainer.on( "click.sidebar.anchor", ".sidebar-menuItem-anchor", function ( event ) {
+                var $this = $( this ),
+                    iconSrc,
+                    title
+                ;
+                event.preventDefault();
+                if ( $this.is( ".sidebar-submenu-toggle" ) ) {
+                    $this.siblings( ".sidebar-submenu" ).toggle();
+                    return;
+                }
+                // 1. 设置标题
+                iconSrc = $this.find( "img" ).attr( "src" );
+                title = $( this ).text();
+                pkuiOptions.$dialogContainer.find( ".win-main-heading" )
+                    .html( Template.getHtmlString( "desktop/winMainHeading", { iconSrc: iconSrc, title: title } ) );
+
+                // 2. 请求页面
+                pkuiOptions.$dialogContainer.find( ".win-main-body" )
+                    .html( "<i class='pkui-content-loading-ring'></i>" );
+
+                $.ajax( {
+                    type: "GET",
+                    cache: false,
+                    dataType: "text",
+                    url: $this.attr( "href" )
+                } ).done( function ( data ) {
+                    pkuiOptions.$dialogContainer.find( ".win-main-body" )
+                        .html( data );
+                } ).fail( function ( jqXHR, textStatus ) {
+                    pkuiOptions.$dialogContainer.find( ".win-main-body" ).html( "/(ㄒoㄒ)/~~[ " + textStatus + " ]获取数据失败" );
+                    throw "/(ㄒoㄒ)/~~[ " + textStatus + " ]获取数据失败";
+                } );
+
+
             } );
 
             return this;

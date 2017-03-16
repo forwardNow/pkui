@@ -107,6 +107,9 @@ define( function ( require ) {
      * @property {string} icon App图标的URL（建议使用绝对路径）
      * @property {string} title App标题
      * @property {string} src 要载入的内容的URL
+     * @property {string} mode 工作模式
+     * 当 mode = "iframe" 时，窗口主体直接通过iframe载入
+     * 当 mode = "default" 时，默认载入方式
      * @property {string} data 模板数据
      * 当 data 为空时，不需要使用artTemplate，直接将返回的数据插入窗口主体节点
      * 当 data 非空时，会请求src对应的模板和data对应的数据，
@@ -116,6 +119,7 @@ define( function ( require ) {
         icon: "",
         title: "",
         src: "",
+        mode: "default",
 
         //----- Deprecated ---------
         data: "",
