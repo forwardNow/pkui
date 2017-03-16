@@ -19,3 +19,6 @@
 
     2. 将 参数pku_isNotCenter 更为为 isNotCenter，并置于 pkuiOptions
 
+2017/03/16
+
+    1. // FIX 关闭拖拽支持

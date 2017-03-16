@@ -1616,7 +1616,8 @@ dialog.oncreate = function (api) {
         }
     }
 
-
+// FIX 关闭拖拽支持
+/*
     // 拖拽支持
     $(api.node).on(drag.types.start, '[i=title]', function (event) {
         // 排除气泡类型的对话框
@@ -1625,6 +1626,7 @@ dialog.oncreate = function (api) {
             drag.create(api.node, event);
         }
     });
+*/
 
 };
 
