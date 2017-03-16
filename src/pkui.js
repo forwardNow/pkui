@@ -129,9 +129,8 @@
             window.jQuery ? "" : "jquery",
             isSupportES5 ? "" : "es5-sham",
             isSupportJSON ? "" : "json3",
-            isSupportMediaQuery ? "" : "respond",
-            isSupportHtml5Markup ? "html5shiv" : ""
-
+            isSupportMediaQuery ? "" : "respond"
+            // isSupportHtml5Markup ? "html5shiv" : ""
         ],
 
         // 调试模式
@@ -151,15 +150,17 @@
         console.info( "“<script data-main=\"\" src=\"${ctx}/pkui/lib/pkui.js\"></script>”，没有通过“data-main”指定入口文件URL。" );
     }
 
+    if ( isIE8 ) {
+        /*loadJS( pkuiBasePath + "/lib/html5shiv/3.7.3/html5shiv.js?" + timestamp, function () {
+            // console.info( "O(∩_∩)O~[ IE8 ]：载入 html5shiv.js" );
+        } );*/
+        document.write( "<script src='" + pkuiBasePath + "/lib/html5shiv/3.7.3/html5shiv.js?" + timestamp + "'></script>" );
+        console.info( "O(∩_∩)O~[ IE8 ]：载入 html5shiv.js" );
+    }
 
     // 暴露出去
     window.isIE8 = isIE8;
 
-/*
-
-     loadJS( pkuiBasePath + "/lib/sea-modules/seajs/3.0.0.x/sea.js?" + timestamp, function () {
-
-     } );
     //---
     function loadJS( src, callback ) {
         var script = document.createElement( 'script' );
@@ -177,7 +178,7 @@
             }
         };
         head.appendChild( script );
-    }*/
+    }
 }( window );
 ;+function ( window ) {
     var
