@@ -126,6 +126,10 @@ define( function ( require ) {
                 this._bindMaxEvent( artDialog );
             }
 
+            // 可拖拽：最大化时取消拖拽
+            if ( pkuiOptions.canDragged ) {
+                this._setDraggable( artDialog );
+            }
 
         },
         /**
@@ -143,6 +147,30 @@ define( function ( require ) {
             AOP.after( artDialog, "content", function () {
                 $dialogContent.resizable();
             } );
+            return this;
+        },
+        /**
+         * 让弹窗可拖拽
+         * @private
+         * @param artDialog {artDialog} ArtDialog的实例
+         * @returns {module:common/dialog}
+         */
+        _setDraggable: function ( artDialog ) {
+            var pkuiOptions = artDialog.options.pkuiOptions,
+                _this = this
+            ;
+            pkuiOptions.$dialogContainer.draggable( {
+                handle: pkuiOptions.$dialogHeader.get(),
+                opacity: 0.35
+            } );
+
+            // 最大化时，取消拖拽；还原后，启动拖拽。
+            pkuiOptions.$dialogContainer.on( "max.pkui.dialog", function () {
+                pkuiOptions.$dialogContainer.draggable( "disable" );
+            } ).on( "restore.pkui.dialog", function () {
+                pkuiOptions.$dialogContainer.draggable( "enable" );
+            } );
+
             return this;
         },
         /**
@@ -194,6 +222,48 @@ define( function ( require ) {
                 "height": pageHeight - topbarHeight - dialogHeaderHeight
             } );
 
+            // 3. 发生一次最大化的事件
+            pkuiOptions.$dialogContainer.trigger( "max.pkui.dialog" );
+
+            return this;
+        },
+        /**
+         * 绑定事件：点击最大化，铺满窗口
+         * @memberOf module:common/dialog#
+         * @param artDialog {object} artDialog
+         * @returns {module:common/dialog}
+         */
+        doRestore: function ( artDialog ) {
+            var pkuiOptions
+                ;
+            pkuiOptions = artDialog.options.pkuiOptions;
+            pkuiOptions.$dialogContent.css( {
+                "width": pkuiOptions.originWidth,
+                "height": pkuiOptions.originHeight - pkuiOptions.$dialogHeader.height()
+            } );
+            pkuiOptions.$dialogContainer.css( {
+                "top": pkuiOptions.originTop,
+                "left": pkuiOptions.originLeft
+            } );
+            // 发生一次还原的事件
+            pkuiOptions.$dialogContainer.trigger( "restore.pkui.dialog" );
+
+            return this;
+        },
+        /**
+         * 最小化，关闭窗口
+         * @private
+         * @param artDialog {object} artDialog
+         * @returns {module:common/dialog}
+         */
+        setMin: function (artDialog) {
+            var pkuiOptions = artDialog.options.pkuiOptions
+                ;
+            artDialog.close();
+
+            // 发生一次最小化的事件
+            pkuiOptions.$dialogContainer.trigger( "min.pkui.dialog" );
+
             return this;
         },
         /**
@@ -203,10 +273,13 @@ define( function ( require ) {
          * @returns {module:common/dialog}
          */
         _bindMinEvent: function ( artDialog ) {
-            artDialog.options.pkuiOptions.$minBtn
-                .on( "click.window.app", function () {
-                    artDialog.close();
-                } );
+            var pkuiOptions = artDialog.options.pkuiOptions,
+                _this = this
+            ;
+            pkuiOptions.$minBtn.on( "click.window.app", function () {
+                _this.setMin( artDialog );
+            } );
+
             return this;
         },
         /**
@@ -229,33 +302,13 @@ define( function ( require ) {
                 } );
             pkuiOptions.$restoreBtn
                 .on( "click.window.app", function () {
-                    _this._doRestore( artDialog );
+                    _this.doRestore( artDialog );
                     $( this ).hide();
                     pkuiOptions.$maxBtn.show();
                 } );
             return this;
-        },
-        /**
-         * 绑定事件：点击最大化，铺满窗口
-         * @memberOf module:common/dialog#
-         * @private
-         * @param artDialog {object} artDialog
-         * @returns {module:common/dialog}
-         */
-        _doRestore: function ( artDialog ) {
-            var pkuiOptions
-                ;
-            pkuiOptions = artDialog.options.pkuiOptions;
-            pkuiOptions.$dialogContent.css( {
-                "width": pkuiOptions.originWidth,
-                "height": pkuiOptions.originHeight - pkuiOptions.$dialogHeader.height()
-            } );
-            pkuiOptions.$dialogContainer.css( {
-                "top": pkuiOptions.originTop,
-                "left": pkuiOptions.originLeft
-            } );
-            return this;
         }
+
     };
     /**
      * 弹窗默认参数
@@ -297,7 +350,9 @@ define( function ( require ) {
         /** 可最小化：隐藏 */
         canMinimized: true,
         /** 可最大化：最大化和恢复  */
-        canMaximized: true
+        canMaximized: true,
+        /** 可拖拽：最大化时取消拖拽 */
+        canDragged: true
     };
 
 
