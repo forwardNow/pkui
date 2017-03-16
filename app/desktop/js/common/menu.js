@@ -37,12 +37,32 @@ define( function ( require ) {
          * @private
          */
         _getData: function () {
-
+            var _this = this
+            ;
+            $.ajax( {
+                url: this.options.url,
+                type: "GET",
+                cache: false,
+                dataType: "text"
+            } ).done( function ( gridResult ) {
+                gridResult = window.PKUI.handleGridResult( gridResult );
+                if ( gridResult.success == false ) {
+                    $.error( "/(ㄒoㄒ)/~~[ 500 ]后台错误！" );
+                }
+                _this._originData = gridResult.data;
+                _this._fmtData = window.PKUI.getTreeList( {
+                    data: this._originData
+                } );
+            } ).fail( function ( jqXHR, textStatus ) {
+                $.error( "/(ㄒoㄒ)/~~[ " + textStatus + " ]菜单数据获取失败！" );
+            } );
         }
     };
     Menu.defaults = {
         /** 获取菜单数据的URL */
-        url: ""
+        url: "http://192.168.1.151:8080/pkui/admin/allSysMenuListData",
+        /** 图标的基础路径 */
+        iconBasePath: "http://localhost:6333/pkui/app/desktop/images/default/small/"
     };
 
     return Menu;
