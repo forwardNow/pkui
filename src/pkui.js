@@ -105,7 +105,10 @@
             "jsencrypt": "lib/jsencrypt/2.3.1.x/jsencrypt",
 
             // AOP
-            "meld": "lib/meld/1.3.1.x/meld.js"
+            "meld": "lib/meld/1.3.1.x/meld.js",
+
+            // bootgrid
+            "bootgrid": "lib/bootgrid/1.3.1.x/jquery.bootgrid"
         },
 
         // 路径配置
@@ -151,16 +154,13 @@
     }
 
     if ( isIE8 ) {
-        /*loadJS( pkuiBasePath + "/lib/html5shiv/3.7.3/html5shiv.js?" + timestamp, function () {
-            // console.info( "O(∩_∩)O~[ IE8 ]：载入 html5shiv.js" );
-        } );*/
         document.write( "<script src='" + pkuiBasePath + "/lib/html5shiv/3.7.3/html5shiv.js?" + timestamp + "'></script>" );
         console.info( "O(∩_∩)O~[ IE8 ]：载入 html5shiv.js" );
     }
 
     // 暴露出去
     window.isIE8 = isIE8;
-
+/*
     //---
     function loadJS( src, callback ) {
         var script = document.createElement( 'script' );
@@ -178,7 +178,7 @@
             }
         };
         head.appendChild( script );
-    }
+    }*/
 }( window );
 ;+function ( window ) {
     var

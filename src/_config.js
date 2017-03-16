@@ -96,7 +96,10 @@
             "jsencrypt": "lib/jsencrypt/2.3.1.x/jsencrypt",
 
             // AOP
-            "meld": "lib/meld/1.3.1.x/meld.js"
+            "meld": "lib/meld/1.3.1.x/meld.js",
+
+            // bootgrid
+            "bootgrid": "lib/bootgrid/1.3.1.x/jquery.bootgrid"
         },
 
         // 路径配置
