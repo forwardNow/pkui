@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../src/_pkui.js"></script>
+</head>
+<body>
+<script>
+    var zNodes = [
+        { id: 0, parentId: -1, name: "Aaaa" },
+        { id: 1, parentId: 0, name: "A" },
+        { id: 11, parentId: 1, name: "A1" },
+        { id: 12, parentId: 1, name: "A2" },
+        { id: 13, parentId: 1, name: "A3" },
+        { id: 2, parentId: 0, name: "B" },
+        { id: 21, parentId: 2, name: "B1" },
+        { id: 22, parentId: 2, name: "B2" },
+        { id: 23, parentId: 2, name: "B3" },
+        { id: 3, parentId: 0, name: "C" },
+        { id: 31, parentId: 3, name: "C1" },
+        { id: 32, parentId: 3, name: "C2" },
+        { id: 33, parentId: 3, name: "C3" },
+        { id: 34, parentId: 31, name: "x" },
+        { id: 35, parentId: 31, name: "y" },
+        { id: 36, parentId: 31, name: "z" },
+        { id: 37, parentId: 36, name: "z1123" },
+        { id: 38, parentId: 37, name: "z123123123" }
+    ];
+    function Tree( data ) {
+        this.data = data || [];
+        this._data = [];
+        this.childrenCollection = {};
+    }
+    Tree.prototype = {
+        init: function () {
+            this.getChildrenCollection();
+            this._data = this.fmtData( this.childrenCollection[ 0 ] );
+        },
+        getChildrenCollection: function () {
+            for ( var i = 0; i < this.data.length; i++ ) {
+                if ( !this.childrenCollection[ this.data[ i ].parentId ] ) {
+                    this.childrenCollection[ this.data[ i ].parentId ] = [];
+                }
+                this.childrenCollection[ this.data[ i ].parentId ].push( this.data[ i ] );
+            }
+        },
+        fmtData: function ( data ) {
+            var list = [];
+            if ( !data || !data.length ) {
+                return null;
+            }
+            for ( var i = 0; i < data.length; i++ ) {
+                var
+                    record = data[ i ],
+                    newRecord
+                    ;
+                newRecord = {
+                    id: record.id,
+                    parentId: record.parentId,
+                    name: record.name
+                };
+                newRecord.children = this.fmtData( this.childrenCollection[ record.id ] );
+                list.push( newRecord );
+            }
+            return list;
+        }
+    };
+    var tm = new Tree( zNodes )
+    tm.init( 0 );
+    //console.info( tm._data )
+    //console.info( tm.init( 0 ) );
+
+    /**
+     *
+     * @param options {{data: Array, idName: string, parentIdName: string, childrenName: string, filter: Array}}
+     */
+    function getTreeList( options ) {
+        var
+            data = options.data,
+            idName = options.idName || "id",
+            parentIdName = options.parentIdName || "parentId",
+            childrenName = options.childrenName || "children",
+            i,
+            returnData = [],
+            childrenCollection = {},
+            parentId
+            ;
+        for ( i = 0; i < data.length; i++ ) {
+            parentId = data[ i ][ parentIdName ];
+            childrenCollection[ parentId ] = childrenCollection[ parentId ] || [];
+            childrenCollection[ parentId ].push( data[ i ] );
+        }
+
+        function fmtData( data ) {
+            var i,
+                list = []
+                ;
+            if ( !data || !data.length ) {
+                return null;
+            }
+            for ( i = 0; i < data.length; i++ ) {
+                var
+                    record = data[ i ],
+                    newRecord
+                    ;
+                newRecord = {
+                    id: record.id,
+                    parentId: record.parentId,
+                    name: record.name
+                };
+                newRecord[ childrenName ] = fmtData( childrenCollection[ record[ idName ] ] );
+                list.push( newRecord );
+            }
+            return list;
+        }
+    }
+
+</script>
+</body>
+</html>
