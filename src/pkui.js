@@ -70,7 +70,8 @@
         basePath: pkuiBasePath,
         ctxPath: ctxPath,
         dicPath: ctxPath + "/dic/",
-        timestamp: timestamp
+        timestamp: timestamp,
+        component: {}
     };
 
     // 配置
@@ -119,7 +120,13 @@
             "meld": "lib/meld/1.3.1.x/meld.js",
 
             // bootgrid
-            "bootgrid": "lib/bootgrid/1.3.1.x/jquery.bootgrid"
+            "bootgrid": "lib/bootgrid/1.3.1.x/jquery.bootgrid",
+
+
+
+
+            // 数据源
+            "dataSource": "component/common/dataSource/1.0.0/dataSource.js"
         },
 
         // 路径配置
@@ -143,7 +150,8 @@
             window.jQuery ? "" : "jquery",
             isSupportES5 ? "" : "es5-sham",
             isSupportJSON ? "" : "json3",
-            isSupportMediaQuery ? "" : "respond"
+            isSupportMediaQuery ? "" : "respond",
+            "dataSource"
             // isSupportHtml5Markup ? "html5shiv" : ""
         ],
 
