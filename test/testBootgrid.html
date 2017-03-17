@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../src/lib/jquery/1.11.3.x/jquery.js"></script>
+    <script src="../src/lib/bootgrid/1.3.1.x/jquery.bootgrid.js"></script>
+    <link rel="stylesheet" href="../src/css/base/1.0.0/base.css">
+    <link rel="stylesheet" href="../src/lib/bootgrid/1.3.1.x/jquery.bootgrid.css">
+    <link rel="stylesheet" href="../src/css/font/font-awesome/4.7.0/font-awesome.css">
+    <style>
+        body {
+            font-family: "Microsoft YaHei";
+        }
+    </style>
+</head>
+<body>
+<form class="form-inline" id="sysDeptQueryForm">
+    <div class="form-group" style="width: 340px;">
+        <label>部门名称：</label>
+        <input type="text" class="form-control" name="deptName" data-operator="like" style="width: 250px;">
+    </div>
+    <div class="form-group" style="width: 240px;">
+        <label>部门级别：</label>
+        <input type="email" class="form-control js--select" name="deptLevel" style="width: 150px;">
+    </div>
+    <div class="form-group" style="width: 340px;">
+        <label>录入时间：</label>
+        <input type="text" class="form-control" name="addTime" data-operator="=" data-datatype="'4'"  style="width: 250px;">
+    </div>
+    <button type="button" class="btn btn-info js--doQuery"><i class="fa fa-search"></i> 搜索</button>
+</form>
+<table id="sysDeptDatagrid" data-pkui-widget="bootgrid"
+       data-url="http://www.20ui.cn/admin/sysDept/listData"
+       data-query-form-selector="#sysDeptQueryForm">
+    <!--
+     data-url="http://localhost:8080/admin/sysDeptListData"
+     data-url="http://www.20ui.cn/admin/sysDeptListData"
+    -->
+    <thead>
+    <tr>
+        <!--
+            data-column-id：对应bean的属性名
+            data-identifier： Boolean。data-row-id，行ID。（只对一个列使用）
+            data-visible：Boolean。此列是否可见。（可用于标记 行ID 的列）
+            data-sortable：Boolean。此列是否可排序（升序、降序），会拼接 order by 子句，发送请求
+            data-width：行宽度，可以使用百分比和数字，如 25%、200。
+            data-formatter：对内容进行格式化，使用全局函数，会传递两个参数 column、row，返回HTML字符串
+                                column.id 获取该列“data-column-id”
+                                row 该行数据，如 { deptId: 123, deptName: "某部门", ... }
+        -->
+        <th data-column-id="deptId" data-identifier="true" data-visible="true" data-sortable="false" data-width="15%">部门标识号</th>
+        <th data-column-id="deptName" data-sortable="false" data-width="30%">部门名称</th>
+        <th data-column-id="deptLevel" data-sortable="true" data-dic="deptLevelFormatter" data-width="20%">部门级别</th>
+        <th data-column-id="addTime" data-sortable="false" data-formatter="dateFormatter" data-width="20%">录入时间</th>
+        <th data-column-id="__" data-sortable="false" data-formatter="ope" data-width="20%">操作</th>
+    </tr>
+    </thead>
+
+</table>
+<br>
+<br>
+<br>
+<br>
+<script>
+
+    $("[data-pkui-widget=\"bootgrid\"]").bootgrid();
+
+    function deptLevelFormatter (column, row) {
+        return row.deptLevel + ".";
+    }
+    function ope(column, row) {
+        return "<a href='#'>详情</a>";
+    }
+
+</script>
+</body>
+</html>
