@@ -1,7 +1,7 @@
 ;+function ( window ) {
     var
 
-        PKUI = {},
+        PKUI = window.PKUI || {},
 
 
         class2type = {},

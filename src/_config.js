@@ -17,7 +17,11 @@
         currentScript,
         currentScriptPath,
         pkuiBasePath,
-        mainJsPath
+        mainJsPath,
+
+        ctxPath,
+
+        PKUI
         ;
 
 
@@ -52,6 +56,13 @@
 
     isSupportJSON = window.JSON;
 
+    ctxPath = pkuiBasePath.substring( 0, pkuiBasePath.lastIndexOf( "/" ) );
+    PKUI = {
+        basePath: pkuiBasePath,
+        ctxPath: ctxPath,
+        dicPath: ctxPath + "/dic/",
+        timestamp: timestamp
+    };
 
     // 配置
     seajs.config( {
@@ -151,6 +162,7 @@
 
     // 暴露出去
     window.isIE8 = isIE8;
+    window.PKUI = PKUI;
 /*
     //---
     function loadJS( src, callback ) {
