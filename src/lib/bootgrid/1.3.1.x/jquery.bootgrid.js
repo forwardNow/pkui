@@ -2338,7 +2338,7 @@
          * @for defaults
          **/
         css: {
-            actions: "pkui-grid-actions btn-group", // must be a unique class name or constellation of class names within the header and footer
+            actions: "pkui-grid-actions btn-group hidden", // must be a unique class name or constellation of class names within the header and footer
             center: "text-center",
             columnHeaderAnchor: "pkui-grid-columnHeaderAnchor", // must be a unique class name or constellation of class names within the column header cell
             columnHeaderText: "pkui-grid-columnHeaderText",
@@ -2505,7 +2505,7 @@
     // 设置actions的开关
     $( document ).on( "click", ".pkui-grid-setting", function () {
         var $this = $( this );
-        $this.siblings().toggle();
+        $this.siblings().toggleClass( "hidden" );
     } );
 
     /*
@@ -2566,7 +2566,7 @@
         return oredCriteria;
     }
 
-    // FIX 将该插件挂载到 window
+    // FIX 将该插件挂载到 PKUI
     window.PKUI.component.datagrid = jQuery.fn.bootgrid;
 
 }( jQuery, window );
