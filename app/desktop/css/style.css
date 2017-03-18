@@ -4348,7 +4348,6 @@ Pagination Styles
   width: 239px;
   border-right: solid 1px #dedede;
   background-color: white;
-  box-shadow: 5px 0 5px 0 rgba(0, 0, 0, 0.1);
   -webkit-transition: left 0.3s;
   -o-transition: left 0.3s;
   transition: left 0.3s;
@@ -4432,6 +4431,7 @@ Pagination Styles
   left: 240px;
   bottom: 0;
   right: 0;
+  overflow: auto;
 }
 .da-win-main.collapsed {
   left: 0;

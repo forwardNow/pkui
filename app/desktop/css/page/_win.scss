@@ -61,7 +61,7 @@
     width: 240px - 1;
     border-right: solid 1px #dedede;
     background-color: rgb(255, 255, 255);
-    box-shadow: 5px 0 5px 0 rgba(0, 0, 0, .1);
+    //box-shadow: 5px 0 5px 0 rgba(0, 0, 0, .1);
     @include transition( left .3s );
     &.collapsed {
         left: -250px;
@@ -149,6 +149,8 @@
     left: 240px;
     bottom: 0;
     right: 0;
+    overflow: auto;
+
     &.collapsed {
         left: 0;
     }
@@ -166,5 +168,4 @@
 }
 
 .win-main-body {
-
 }
