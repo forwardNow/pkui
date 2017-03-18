@@ -1,4 +1,4 @@
-;+function ( $, window ) {
+seajs.use( [ "jquery" ], function ( $ ) {
 
     var
         ns = window[ "www.pkusoft.net" ],
@@ -13,9 +13,11 @@
             // 时间戳（版本控制）v=2012-1-1
             timestamp: ns.timestamp,
             // 组件容器
-            component: {}
+            component: {},
+            // 渲染
+            render: function () {}
         }
-    ;
+        ;
 
     /**
      * 通用功能
@@ -64,16 +66,16 @@
                 parentIdName: "treeParentId",
                 childrenName: "children"
            } );
-           返回：
-           [
-                {
-                    menuId: 0, menuName: "系统管理", treeParentId: null,
-                    children: [
-                        { menuId: 1, menuName: "用户管理", treeParentId: 0, children: null },
-                        { menuId: 2, menuName: "单位管理", treeParentId: 0, children: null }
-                    ]
-                }
-           ]
+         返回：
+         [
+         {
+             menuId: 0, menuName: "系统管理", treeParentId: null,
+             children: [
+                 { menuId: 1, menuName: "用户管理", treeParentId: 0, children: null },
+                 { menuId: 2, menuName: "单位管理", treeParentId: 0, children: null }
+             ]
+         }
+         ]
          */
         getTreeList: function getTreeList( options ) {
             var
@@ -88,7 +90,7 @@
                 rootList
                 ;
 
-            if ( ! rootId ) {
+            if ( !rootId ) {
                 rootId = data[ 0 ][ idName ];
             }
 
@@ -101,7 +103,7 @@
 
             rootList = data[ rootId ];
 
-            if ( ! $.isArray( rootList ) ) {
+            if ( !$.isArray( rootList ) ) {
                 rootList = [ rootList ];
             }
 
@@ -125,14 +127,52 @@
             }
 
 
-            return  returnData;
+            return returnData;
 
         }
-    } ) ;
-
+    } );
 
 
     // 暴露到全局名称空间
     window.PKUI = PKUI;
 
-} ( jQuery, window );
+} );
+
+/**
+ * 自动渲染，自动渲染时机：
+ * 1. DOM树构建完毕
+ * 2. 调用 jquery.html( value ) 方法之后
+ * 3. 调用 jquery.append( value ) 方法之后
+ * 4. 调用 jquery.appendTo( value ) 方法之后
+ * 5. 调用 jquery.prepend( value ) 方法之后
+ * 6. 调用 jquery.prependTo( value ) 方法之后
+ * 已渲染的标志：isrendered="true"
+ */
+seajs.use( [ "jquery", "meld" ], function ( $, AOP ) {
+
+    // 1. DOM树构建完毕
+    $( document ).ready( render );
+
+    // 2. 调用 jquery.html( value ) 方法之后
+    AOP.after( $.prototype, "html", render );
+
+    // 3. 调用 jquery.append( value ) 方法之后
+    AOP.after( $.prototype, "append", render );
+
+    // 4. 调用 jquery.appendTo( value ) 方法之后
+    AOP.after( $.prototype, "appendTo", render );
+
+    // 5. 调用 jquery.prepend( value ) 方法之后
+    AOP.after( $.prototype, "prepend", render );
+
+    // 6. 调用 jquery.prependTo( value ) 方法之后
+    AOP.after( $.prototype, "prependTo", render );
+
+    window.PKUI.render = render;
+
+    function render() {
+
+    }
+
+
+} );

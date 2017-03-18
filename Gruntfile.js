@@ -104,7 +104,7 @@ module.exports = function ( grunt ) {
                 src: [
                         'src/lib/sea-modules/seajs/3.0.0.x/sea.js',
                         'src/_config.js',
-                        'src/lib/jquery/1.11.3.x/jquery.js',
+                        // 'src/lib/jquery/1.11.3.x/jquery.js',
                         'src/_pkui.js'
                 ],
                 dest: 'src/pkui.js'
@@ -144,8 +144,8 @@ module.exports = function ( grunt ) {
     ] );
 
     grunt.registerTask( 'pkui-config', [
-        'concat:pkuiConfig',
-        "uglify:buildPkui"
+        'concat:pkuiConfig'
+        // "uglify:buildPkui"
     ] );
 
     // 默认被执行的任务列表。

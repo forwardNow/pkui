@@ -27,8 +27,8 @@ seajs.config( {
         // 是IE8识别HTML5标记
         "html5shiv": "lib/html5shiv/3.7.3/html5shiv",
 
-        // jQuery，内置
-        //"jquery": "lib/jquery/1.11.3.x/jquery",
+        // jQuery
+        "jquery": "lib/jquery/1.11.3.x/jquery",
 
         // jQuery UI
         "jquery-ui": "lib/jquery/plugin/jquery-ui/1.12.1.x/jquery-ui.min",
@@ -60,7 +60,7 @@ seajs.config( {
 } );
 
 // 其他的配置
-;+function ( window ) {
++function ( window ) {
 
     var ns = window[ "www.pkusoft.net" ],
         isSupportHtml5Markup,
@@ -82,7 +82,7 @@ seajs.config( {
         ;
 
 
-    scriptNodeList = window.document.scripts;
+    scriptNodeList = window.document[ "scripts" ];
     currentScript = scriptNodeList[ scriptNodeList.length - 1 ];
     currentScriptPath = currentScript.src;
     pkuiBasePath = currentScriptPath.substring( 0, currentScriptPath.lastIndexOf( "/" ) );
@@ -137,12 +137,10 @@ seajs.config( {
 
         // 预加载项
         preload: [
-            //window.jQuery ? "" : "jquery",
-            isSupportES5 ? "" : "es5-sham",
-            isSupportJSON ? "" : "json3",
-            isSupportMediaQuery ? "" : "respond",
-            "dataSource"
-            // isSupportHtml5Markup ? "html5shiv" : ""
+            "jquery"
+            //isSupportES5 ? "" : "es5-sham",
+            //isSupportJSON ? "" : "json3",
+            //isSupportMediaQuery ? "" : "respond",
         ],
 
         // 调试模式
@@ -172,6 +170,9 @@ seajs.config( {
     ns.ctxPath = ctxPath;
     ns.timestamp = timestamp;
     ns.isIE8 = isIE8;
+    ns.isSupportES5 = isSupportES5;
+    ns.isSupportJSON = isSupportJSON;
+    ns.isSupportMediaQuery = isSupportMediaQuery;
 
 }( window );
 
