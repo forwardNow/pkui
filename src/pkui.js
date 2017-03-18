@@ -201,7 +201,9 @@ seajs.use( [ "jquery" ], function ( $ ) {
             // 时间戳（版本控制）v=2012-1-1
             timestamp: ns.timestamp,
             // 组件容器
-            component: {}
+            component: {},
+            // 渲染
+            render: function () {}
         }
         ;
 
@@ -325,15 +327,75 @@ seajs.use( [ "jquery" ], function ( $ ) {
 } );
 
 /**
- * 自动初始化
+ * 自动渲染。
+ *
+ * 自动渲染时机：
+ *
+ *      1. DOM树构建完毕
+ *      2. 调用 jquery.html( value ) 方法之后
+ *      3. 调用 jquery.append( value ) 方法之后
+ *      4. 调用 jquery.appendTo( value ) 方法之后
+ *      5. 调用 jquery.prepend( value ) 方法之后
+ *      6. 调用 jquery.prependTo( value ) 方法之后
+ *
+ * 渲染的目标（在此列出全部可被自动渲染的组件）：
+ *
+ *      <div data-pkui-component="datagrid" data-pkui-component-options='{"key":"val",...}' >
+ *
+ * 已渲染的标志（添加 isrendered="true"）：
+ *
+ *      <div data-pkui-component="datagrid" isrendered="true">
  */
 seajs.use( [ "jquery", "meld" ], function ( $, AOP ) {
 
-    AOP.after( $.prototype, "html", init );
+    // 1. DOM树构建完毕
+    $( document ).ready( render );
 
+    // 2. 调用 jquery.html( value ) 方法之后
+    AOP.after( $.prototype, "html", render );
 
-    function init() {
+    // 3. 调用 jquery.append( value ) 方法之后
+    AOP.after( $.prototype, "append", render );
 
+    // 4. 调用 jquery.appendTo( value ) 方法之后
+    AOP.after( $.prototype, "appendTo", render );
+
+    // 5. 调用 jquery.prepend( value ) 方法之后
+    AOP.after( $.prototype, "prepend", render );
+
+    // 6. 调用 jquery.prependTo( value ) 方法之后
+    AOP.after( $.prototype, "prependTo", render );
+
+    window.PKUI.render = render;
+
+    function render() {
+        var
+            $component = $( "[data-pkui-component]" )
+        ;
+        $component.each( function () {
+            var
+                $this = $( this ),
+                componentName = $this.data( "pkui-component" ),
+                componentOptions = $this.data( "pkui-component-options" ) || null,
+                component = window.PKUI.component[ componentName ],
+
+                moduleId = componentName
+            ;
+
+            // 如果没有，则载入，再初始化
+            if ( !component ) {
+                switch ( componentName ) {
+                    case "datagrid": moduleId = "bootgrid"; break;
+                }
+                seajs.use( [ moduleId ], function () {
+                    window.PKUI.component[ componentName ].apply( $this, componentOptions );
+                } );
+                return;
+            }
+
+            component.apply( $this, componentOptions );
+        } );
     }
+
 
 } );
