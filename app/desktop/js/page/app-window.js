@@ -293,13 +293,17 @@ define( function ( require ) {
                     $this.siblings( ".sidebar-submenu" ).toggle();
                     return;
                 }
-                // 1. 设置标题
+
+                // 1. 高亮
+                $this.parent().addClass( "active" ).siblings().removeClass( "active" );
+
+                // 2. 设置标题
                 iconSrc = $this.find( "img" ).attr( "src" );
                 title = $( this ).text();
                 pkuiOptions.$dialogContainer.find( ".win-main-heading" )
                     .html( Template.getHtmlString( "desktop/winMainHeading", { iconSrc: iconSrc, title: title } ) );
 
-                // 2. 请求页面
+                // 3. 请求页面
                 pkuiOptions.$dialogContainer.find( ".win-main-body" )
                     .html( "<i class='pkui-content-loading-ring'></i>" );
 
