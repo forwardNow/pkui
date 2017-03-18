@@ -1808,6 +1808,8 @@
                 if ( !instance ) {
                     $this.data( namespace, (instance = new Grid( this, options )) );
                     init.call( instance );
+                    // FIX 初始化完毕，则添加HTML属性 isrendered="true"
+                    $this.attr( "isrendered", "true" );
                 }
                 if ( typeof option === "string" ) {
                     if ( option.indexOf( "get" ) === 0 && index === 0 ) {
@@ -2564,7 +2566,9 @@
         return oredCriteria;
     }
 
-}( jQuery, window );
+    // FIX 将该插件挂载到 window
+    window.PKUI.component.datagrid = jQuery.fn.bootgrid;
 
+}( jQuery, window );
 
 
