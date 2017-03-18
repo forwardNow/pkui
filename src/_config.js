@@ -2,9 +2,68 @@
  * @file 配置文件
  * @author 吴钦飞(wuqf@pkusoft.net)
  */
+
+// namespace
+window[ "www.pkusoft.net" ] = {};
+
+// 组件别名（模块ID）
+seajs.config( {
+
+    // 别名配置
+    alias: {
+        // "seajs-css": "lib/sea-modules/seajs-css/1.0.0/seajs-css",
+        "seajs-text": "lib/sea-modules/seajs-text/1.1.1/seajs-text",
+
+        // polyfill ES5 grammar
+        "es5-shim": "lib/es5-shim/4.5.9.x/es5-shim",
+        "es5-sham": "lib/es5-shim/4.5.9.x/es5-sham",
+
+        // polyfill JSON（JSON.parse、JSON.stringify）
+        "json3": "lib/json3/3.3.2/json3",
+
+        // polyfill for min/max-width CSS3 Media Queries (for IE 6-8, and more)
+        "respond": "lib/respond/1.4.2/respond",
+
+        // 是IE8识别HTML5标记
+        "html5shiv": "lib/html5shiv/3.7.3/html5shiv",
+
+        // jQuery，内置
+        //"jquery": "lib/jquery/1.11.3.x/jquery",
+
+        // jQuery UI
+        "jquery-ui": "lib/jquery/plugin/jquery-ui/1.12.1.x/jquery-ui.min",
+
+        // 轮播图组件
+        "swiper": "lib/swiper/2.7.6.x/swiper",
+
+        // 弹窗组件
+        "layer": "lib/layer/3.0.1.x/layer",
+
+        // 模块名"artDialog"已在模块内定义，请勿更改
+        "artDialog": "lib/art-dialog/6.0.4.x/dialog-plus",
+
+        // 模板引擎
+        "artTemplate": "lib/art-template/3.1.0/template",
+
+        // RSA
+        "jsencrypt": "lib/jsencrypt/2.3.1.x/jsencrypt",
+
+        // AOP
+        "meld": "lib/meld/1.3.1.x/meld.js",
+
+        // bootgrid
+        "bootgrid": "lib/bootgrid/1.3.1.x/jquery.bootgrid",
+
+        // 数据源
+        "dataSource": "component/common/dataSource/1.0.0/dataSource.js"
+    }
+} );
+
+// 其他的配置
 ;+function ( window ) {
 
-    var isSupportHtml5Markup,
+    var ns = window[ "www.pkusoft.net" ],
+        isSupportHtml5Markup,
         isSupportMediaQuery,
         isSupportES5,
         isSupportJSON,
@@ -19,9 +78,7 @@
         pkuiBasePath,
         mainJsPath,
 
-        ctxPath,
-
-        PKUI
+        ctxPath
         ;
 
 
@@ -52,73 +109,15 @@
     isSupportMediaQuery = window.matchMedia && window.matchMedia( "only all" ) !== null
         && window.matchMedia( "only all" ).matches;
 
-    isSupportES5 = Function.prototype.bind;
+    isSupportES5 = !!Function.prototype.bind;
 
     isSupportJSON = window.JSON;
 
     ctxPath = pkuiBasePath.substring( 0, pkuiBasePath.lastIndexOf( "/" ) );
-    PKUI = {
-        basePath: pkuiBasePath,
-        ctxPath: ctxPath,
-        dicPath: ctxPath + "/dic/",
-        timestamp: timestamp,
-        component: {}
-    };
+
 
     // 配置
     seajs.config( {
-
-        // 别名配置
-        alias: {
-            // "seajs-css": "lib/sea-modules/seajs-css/1.0.0/seajs-css",
-            "seajs-text": "lib/sea-modules/seajs-text/1.1.1/seajs-text",
-
-            // polyfill ES5 grammar
-            "es5-shim": "lib/es5-shim/4.5.9.x/es5-shim",
-            "es5-sham": "lib/es5-shim/4.5.9.x/es5-sham",
-
-            // polyfill JSON（JSON.parse、JSON.stringify）
-            "json3": "lib/json3/3.3.2/json3",
-
-            // polyfill for min/max-width CSS3 Media Queries (for IE 6-8, and more)
-            "respond": "lib/respond/1.4.2/respond",
-
-            // 是IE8识别HTML5标记
-            "html5shiv": "lib/html5shiv/3.7.3/html5shiv",
-
-            // jQuery
-            "jquery": "lib/jquery/1.11.3.x/jquery",
-
-            // jQuery UI
-            "jquery-ui": "lib/jquery/plugin/jquery-ui/1.12.1.x/jquery-ui.min",
-
-            // 轮播图组件
-            "swiper": "lib/swiper/2.7.6.x/swiper",
-
-            // 弹窗组件
-            "layer": "lib/layer/3.0.1.x/layer",
-
-            // 模块名"artDialog"已在模块内定义，请勿更改
-            "artDialog": "lib/art-dialog/6.0.4.x/dialog-plus",
-
-            // 模板引擎
-            "artTemplate": "lib/art-template/3.1.0/template",
-
-            // RSA
-            "jsencrypt": "lib/jsencrypt/2.3.1.x/jsencrypt",
-
-            // AOP
-            "meld": "lib/meld/1.3.1.x/meld.js",
-
-            // bootgrid
-            "bootgrid": "lib/bootgrid/1.3.1.x/jquery.bootgrid",
-
-
-
-
-            // 数据源
-            "dataSource": "component/common/dataSource/1.0.0/dataSource.js"
-        },
 
         // 路径配置
         paths: {
@@ -138,7 +137,7 @@
 
         // 预加载项
         preload: [
-            window.jQuery ? "" : "jquery",
+            //window.jQuery ? "" : "jquery",
             isSupportES5 ? "" : "es5-sham",
             isSupportJSON ? "" : "json3",
             isSupportMediaQuery ? "" : "respond",
@@ -168,26 +167,12 @@
         console.info( "O(∩_∩)O~[ IE8 ]：载入 html5shiv.js" );
     }
 
-    // 暴露出去
-    window.isIE8 = isIE8;
-    window.PKUI = PKUI;
-/*
-    //---
-    function loadJS( src, callback ) {
-        var script = document.createElement( 'script' );
-        var head = document.getElementsByTagName( 'head' )[ 0 ];
-        var isLoaded;
+    // 暴露到名称空间，
+    ns.pkuiBasePath = pkuiBasePath;
+    ns.ctxPath = ctxPath;
+    ns.timestamp = timestamp;
+    ns.isIE8 = isIE8;
 
-        script.src = src;
-        script.charset = "utf-8";
-
-        script.onload = script.onreadystatechange = function () {
-            if ( !isLoaded && (!script.readyState || /loaded|complete/.test( script.readyState )) ) {
-                script.onload = script.onreadystatechange = null;
-                isLoaded = true;
-                callback();
-            }
-        };
-        head.appendChild( script );
-    }*/
 }( window );
+
+/* function loadJS( src, callback ) { var script = document.createElement( 'script' ); var head = document.getElementsByTagName( 'head' )[ 0 ]; var isLoaded; script.src = src; script.charset = "utf-8"; script.onload = script.onreadystatechange = function () { if ( !isLoaded && (!script.readyState || /loaded|complete/.test( script.readyState )) ) { script.onload = script.onreadystatechange = null; isLoaded = true; callback(); } }; head.appendChild( script ); }*/
