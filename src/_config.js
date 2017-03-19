@@ -51,6 +51,12 @@ seajs.config( {
         // AOP
         "meld": "lib/meld/1.3.1.x/meld.js",
 
+        // 表格列宽，拖拽调整（被 bootgrid 依赖）
+        "colResizable": "lib/jquery/plugin/colResizable/1.6.0/colResizable",
+
+        // bootstrap dropdown menu（被 bootgrid 依赖）
+        "bootstrap-dropdown": "lib/jquery/plugin/bootstrap/3.3.6/dropdown",
+
         // bootgrid
         "bootgrid": "lib/bootgrid/1.3.1.x/jquery.bootgrid",
 
