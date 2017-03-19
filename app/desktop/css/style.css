@@ -4448,6 +4448,27 @@ Pagination Styles
   margin-right: 6px;
 }
 
+.win-main-body {
+  padding: 0 12px;
+}
+
+.win-btnGroup {
+  padding: 12px;
+  margin: 0 -12px;
+  border-bottom: solid 1px #fbfbfb;
+}
+.win-btnGroup:before, .win-btnGroup:after {
+  content: " ";
+  display: table;
+}
+.win-btnGroup:after {
+  clear: both;
+}
+.win-btnGroup .btn {
+  float: left;
+  margin-right: 6px;
+}
+
 .border-box, .pkui-grid-table *, .pkui-grid-header *, .pkui-grid-footer * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -5188,6 +5209,192 @@ input[type="button"].btn-block {
 .btn {
   padding-top: 2px;
   padding-bottom: 2px;
+  border-radius: 1px;
+}
+
+.btn-default-2 {
+  color: #fff;
+  background-color: #a4a4a4;
+  border-color: #979797;
+}
+.btn-default-2:focus, .btn-default-2.focus {
+  color: #fff;
+  background-color: #8b8b8b;
+  border-color: #585858;
+}
+.btn-default-2:hover {
+  color: #fff;
+  background-color: #8b8b8b;
+  border-color: #797979;
+}
+.btn-default-2:active, .btn-default-2.active, .open > .btn-default-2.dropdown-toggle {
+  color: #fff;
+  background-color: #8b8b8b;
+  border-color: #797979;
+}
+.btn-default-2:active:hover, .btn-default-2:active:focus, .btn-default-2:active.focus, .btn-default-2.active:hover, .btn-default-2.active:focus, .btn-default-2.active.focus, .open > .btn-default-2.dropdown-toggle:hover, .open > .btn-default-2.dropdown-toggle:focus, .open > .btn-default-2.dropdown-toggle.focus {
+  color: #fff;
+  background-color: #797979;
+  border-color: #585858;
+}
+.btn-default-2:active, .btn-default-2.active, .open > .btn-default-2.dropdown-toggle {
+  background-image: none;
+}
+.btn-default-2.disabled:hover, .btn-default-2.disabled:focus, .btn-default-2.disabled.focus, .btn-default-2[disabled]:hover, .btn-default-2[disabled]:focus, .btn-default-2[disabled].focus, fieldset[disabled] .btn-default-2:hover, fieldset[disabled] .btn-default-2:focus, fieldset[disabled] .btn-default-2.focus {
+  background-color: #a4a4a4;
+  border-color: #979797;
+}
+.btn-default-2 .badge {
+  color: #a4a4a4;
+  background-color: #fff;
+}
+
+.btn-primary-2 {
+  color: #fff;
+  background-color: #4199e1;
+  border-color: #2b8dde;
+}
+.btn-primary-2:focus, .btn-primary-2.focus {
+  color: #fff;
+  background-color: #2180ce;
+  border-color: #134976;
+}
+.btn-primary-2:hover {
+  color: #fff;
+  background-color: #2180ce;
+  border-color: #1c6db0;
+}
+.btn-primary-2:active, .btn-primary-2.active, .open > .btn-primary-2.dropdown-toggle {
+  color: #fff;
+  background-color: #2180ce;
+  border-color: #1c6db0;
+}
+.btn-primary-2:active:hover, .btn-primary-2:active:focus, .btn-primary-2:active.focus, .btn-primary-2.active:hover, .btn-primary-2.active:focus, .btn-primary-2.active.focus, .open > .btn-primary-2.dropdown-toggle:hover, .open > .btn-primary-2.dropdown-toggle:focus, .open > .btn-primary-2.dropdown-toggle.focus {
+  color: #fff;
+  background-color: #1c6db0;
+  border-color: #134976;
+}
+.btn-primary-2:active, .btn-primary-2.active, .open > .btn-primary-2.dropdown-toggle {
+  background-image: none;
+}
+.btn-primary-2.disabled:hover, .btn-primary-2.disabled:focus, .btn-primary-2.disabled.focus, .btn-primary-2[disabled]:hover, .btn-primary-2[disabled]:focus, .btn-primary-2[disabled].focus, fieldset[disabled] .btn-primary-2:hover, fieldset[disabled] .btn-primary-2:focus, fieldset[disabled] .btn-primary-2.focus {
+  background-color: #4199e1;
+  border-color: #2b8dde;
+}
+.btn-primary-2 .badge {
+  color: #4199e1;
+  background-color: #fff;
+}
+
+.btn-info-2 {
+  color: #fff;
+  background-color: #40b2cc;
+  border-color: #33a5bf;
+}
+.btn-info-2:focus, .btn-info-2.focus {
+  color: #fff;
+  background-color: #2e94ab;
+  border-color: #184e5b;
+}
+.btn-info-2:hover {
+  color: #fff;
+  background-color: #2e94ab;
+  border-color: #267c8f;
+}
+.btn-info-2:active, .btn-info-2.active, .open > .btn-info-2.dropdown-toggle {
+  color: #fff;
+  background-color: #2e94ab;
+  border-color: #267c8f;
+}
+.btn-info-2:active:hover, .btn-info-2:active:focus, .btn-info-2:active.focus, .btn-info-2.active:hover, .btn-info-2.active:focus, .btn-info-2.active.focus, .open > .btn-info-2.dropdown-toggle:hover, .open > .btn-info-2.dropdown-toggle:focus, .open > .btn-info-2.dropdown-toggle.focus {
+  color: #fff;
+  background-color: #267c8f;
+  border-color: #184e5b;
+}
+.btn-info-2:active, .btn-info-2.active, .open > .btn-info-2.dropdown-toggle {
+  background-image: none;
+}
+.btn-info-2.disabled:hover, .btn-info-2.disabled:focus, .btn-info-2.disabled.focus, .btn-info-2[disabled]:hover, .btn-info-2[disabled]:focus, .btn-info-2[disabled].focus, fieldset[disabled] .btn-info-2:hover, fieldset[disabled] .btn-info-2:focus, fieldset[disabled] .btn-info-2.focus {
+  background-color: #40b2cc;
+  border-color: #33a5bf;
+}
+.btn-info-2 .badge {
+  color: #40b2cc;
+  background-color: #fff;
+}
+
+.btn-success-2 {
+  color: #fff;
+  background-color: #9bcc3f;
+  border-color: #8ebf33;
+}
+.btn-success-2:focus, .btn-success-2.focus {
+  color: #fff;
+  background-color: #7fab2d;
+  border-color: #435a18;
+}
+.btn-success-2:hover {
+  color: #fff;
+  background-color: #7fab2d;
+  border-color: #6a8e26;
+}
+.btn-success-2:active, .btn-success-2.active, .open > .btn-success-2.dropdown-toggle {
+  color: #fff;
+  background-color: #7fab2d;
+  border-color: #6a8e26;
+}
+.btn-success-2:active:hover, .btn-success-2:active:focus, .btn-success-2:active.focus, .btn-success-2.active:hover, .btn-success-2.active:focus, .btn-success-2.active.focus, .open > .btn-success-2.dropdown-toggle:hover, .open > .btn-success-2.dropdown-toggle:focus, .open > .btn-success-2.dropdown-toggle.focus {
+  color: #fff;
+  background-color: #6a8e26;
+  border-color: #435a18;
+}
+.btn-success-2:active, .btn-success-2.active, .open > .btn-success-2.dropdown-toggle {
+  background-image: none;
+}
+.btn-success-2.disabled:hover, .btn-success-2.disabled:focus, .btn-success-2.disabled.focus, .btn-success-2[disabled]:hover, .btn-success-2[disabled]:focus, .btn-success-2[disabled].focus, fieldset[disabled] .btn-success-2:hover, fieldset[disabled] .btn-success-2:focus, fieldset[disabled] .btn-success-2.focus {
+  background-color: #9bcc3f;
+  border-color: #8ebf33;
+}
+.btn-success-2 .badge {
+  color: #9bcc3f;
+  background-color: #fff;
+}
+
+.btn-danger-2 {
+  color: #fff;
+  background-color: #fa8a48;
+  border-color: #f97a2f;
+}
+.btn-danger-2:focus, .btn-danger-2.focus {
+  color: #fff;
+  background-color: #f96a16;
+  border-color: #a54004;
+}
+.btn-danger-2:hover {
+  color: #fff;
+  background-color: #f96a16;
+  border-color: #e55906;
+}
+.btn-danger-2:active, .btn-danger-2.active, .open > .btn-danger-2.dropdown-toggle {
+  color: #fff;
+  background-color: #f96a16;
+  border-color: #e55906;
+}
+.btn-danger-2:active:hover, .btn-danger-2:active:focus, .btn-danger-2:active.focus, .btn-danger-2.active:hover, .btn-danger-2.active:focus, .btn-danger-2.active.focus, .open > .btn-danger-2.dropdown-toggle:hover, .open > .btn-danger-2.dropdown-toggle:focus, .open > .btn-danger-2.dropdown-toggle.focus {
+  color: #fff;
+  background-color: #e55906;
+  border-color: #a54004;
+}
+.btn-danger-2:active, .btn-danger-2.active, .open > .btn-danger-2.dropdown-toggle {
+  background-image: none;
+}
+.btn-danger-2.disabled:hover, .btn-danger-2.disabled:focus, .btn-danger-2.disabled.focus, .btn-danger-2[disabled]:hover, .btn-danger-2[disabled]:focus, .btn-danger-2[disabled].focus, fieldset[disabled] .btn-danger-2:hover, fieldset[disabled] .btn-danger-2:focus, fieldset[disabled] .btn-danger-2.focus {
+  background-color: #fa8a48;
+  border-color: #f97a2f;
+}
+.btn-danger-2 .badge {
+  color: #fa8a48;
+  background-color: #fff;
 }
 
 .desktop-sprite, .icon-home, .topbar-home, .icon-history, .topbar-history, .icon-close, .dock-item-btn, .icon-dashboard, .icon-logout, .icon-message, .icon-more, .icon-search, .icon-user, .icon-triangle-down, .toolbar-item-indicator, .icon-add, .icon-setting, .icon-arrow-left, .launchpad-pagination-previous, .icon-arrow-right, .launchpad-pagination-next, .icon-circle-1, .icon-circle-2, .icon-win-close, .pkui-dialog-close, .icon-win-close-hover, .icon-win-max, .pkui-dialog-max, .icon-win-max-hover, .icon-win-maxmin, .pkui-dialog-restore, .icon-win-maxmin-hover, .icon-win-min, .pkui-dialog-min, .icon-win-min-hover, .icon-dock-dropmenu-indicator, .dock-dropmenu-indicator, .icon-sidebar-toggle-on, .sidebar-collapse-toggle.collapsed, .icon-sidebar-toggle-off, .sidebar-collapse-toggle {

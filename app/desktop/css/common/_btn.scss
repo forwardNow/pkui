@@ -1,4 +1,22 @@
 .btn {
     padding-top: 2px;
     padding-bottom: 2px;
+    border-radius: 1px;
+}
+.btn-default-2 {
+    //@include button-variant($btn-info-color, $btn-info-bg, $btn-info-border);
+    @include button-variant(#fff, #a4a4a4, darken(#a4a4a4, 5%));
+}
+
+.btn-primary-2 {
+    @include button-variant(#fff, #4199e1, darken(#4199e1, 5%));
+}
+.btn-info-2 {
+    @include button-variant(#fff, #40b2cc, darken(#40b2cc, 5%));
+}
+.btn-success-2 {
+    @include button-variant(#fff, #9bcc3f, darken(#9bcc3f, 5%));
+}
+.btn-danger-2 {
+    @include button-variant(#fff, #fa8a48, darken(#fa8a48, 5%));
 }

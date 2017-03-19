@@ -168,4 +168,15 @@
 }
 
 .win-main-body {
+    padding: 0 12px;
+}
+.win-btnGroup {
+    padding: 12px;
+    margin: 0 -12px;
+    border-bottom: solid 1px #fbfbfb;
+    @include clearfix();
+    .btn {
+        float: left;
+        margin-right: 6px;
+    }
 }
