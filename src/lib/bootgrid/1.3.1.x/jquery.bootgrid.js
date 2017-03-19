@@ -7,6 +7,7 @@ define( function( require ) {
     require( "jquery" );
     require( "colResizable" );
     require( "bootstrap-dropdown" );
+    var DataSource = require( "dataSource" );
 
 ;(function ( $, window, undefined ) {
     /*jshint validthis: true */
@@ -114,7 +115,7 @@ define( function( require ) {
                     // FIX 允许在全局环境查找 formatter
                     formatter: that.options.formatters[ data.formatter ] || window[ data.formatter ] || null,
                     // FIX 字典翻译
-                    //dic:
+                    dic: data.dic,
                     order: (!sorted && (data.order === "asc" || data.order === "desc")) ? data.order : null,
                     searchable: !(data.searchable === false), // default: true
                     sortable: !(data.sortable === false), // default: true
@@ -554,6 +555,16 @@ define( function( require ) {
                                 column.formatter.call( that, column, row ) :
                                 column.converter.to( row[ column.id ] ),
                             cssClass = (column.cssClass.length > 0) ? " " + column.cssClass : "";
+
+                        // FIX 字典翻译
+                        try {
+                            if ( column.dic ) {
+                                value = DataSource.getDicValue( column.dic, value );
+                            }
+                        } catch( e ) {
+                            console.info( "/(ㄒoㄒ)/~~字典翻译出错：["+column.dic+"]["+value+"]", e  );
+                        }
+
                         cells += tpl.cell.resolve( getParams.call( that, {
                             content: (value == null || value === "") ? "&nbsp;" : value,
                             css: ((column.align === "right") ? css.right : (column.align === "center") ?
