@@ -3,6 +3,11 @@
  * Copyright (c) 2014-2015 Rafael Staib (http://www.jquery-bootgrid.com)
  * Licensed under MIT http://www.opensource.org/licenses/MIT
  */
+define( function( require ) {
+    require( "jquery" );
+    require( "colResizable" );
+    require( "bootstrap-dropdown" );
+
 ;(function ( $, window, undefined ) {
     /*jshint validthis: true */
     "use strict";
@@ -1810,6 +1815,9 @@
                     init.call( instance );
                     // FIX 初始化完毕，则添加HTML属性 isrendered="true"
                     $this.attr( "isrendered", "true" );
+
+                    // FIX 列宽可拖拽调整
+                    $this.colResizable();
                 }
                 if ( typeof option === "string" ) {
                     if ( option.indexOf( "get" ) === 0 && index === 0 ) {
@@ -1839,358 +1847,32 @@
     // $( "[data-toggle=\"bootgrid\"]" ).bootgrid();
 })( jQuery, window );
 
-/* ========================================================================
- * Bootstrap: dropdown.js v3.3.6
- * http://getbootstrap.com/javascript/#dropdowns
- * ========================================================================
- * Copyright 2011-2016 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
 
 
-+function ( $ ) {
-    'use strict';
 
-    // DROPDOWN CLASS DEFINITION
-    // =========================
-
-    var backdrop = '.dropdown-backdrop'
-    var toggle = '[data-toggle="dropdown"]'
-    var Dropdown = function ( element ) {
-        $( element ).on( 'click.bs.dropdown', this.toggle )
-    }
-
-    Dropdown.VERSION = '3.3.6'
-
-    function getParent( $this ) {
-        var selector = $this.attr( 'data-target' )
-
-        if ( !selector ) {
-            selector = $this.attr( 'href' )
-            selector = selector && /#[A-Za-z]/.test( selector ) && selector.replace( /.*(?=#[^\s]*$)/, '' ) // strip for ie7
-        }
-
-        var $parent = selector && $( selector )
-
-        return $parent && $parent.length ? $parent : $this.parent()
-    }
-
-    function clearMenus( e ) {
-        if ( e && e.which === 3 ) return
-        $( backdrop ).remove()
-        $( toggle ).each( function () {
-            var $this = $( this )
-            var $parent = getParent( $this )
-            var relatedTarget = { relatedTarget: this }
-
-            if ( !$parent.hasClass( 'open' ) ) return
-
-            if ( e && e.type == 'click' && /input|textarea/i.test( e.target.tagName ) && $.contains( $parent[ 0 ], e.target ) ) return
-
-            $parent.trigger( e = $.Event( 'hide.bs.dropdown', relatedTarget ) )
-
-            if ( e.isDefaultPrevented() ) return
-
-            $this.attr( 'aria-expanded', 'false' )
-            $parent.removeClass( 'open' ).trigger( $.Event( 'hidden.bs.dropdown', relatedTarget ) )
-        } )
-    }
-
-    Dropdown.prototype.toggle = function ( e ) {
-        var $this = $( this )
-
-        if ( $this.is( '.disabled, :disabled' ) ) return
-
-        var $parent = getParent( $this )
-        var isActive = $parent.hasClass( 'open' )
-
-        clearMenus()
-
-        if ( !isActive ) {
-            if ( 'ontouchstart' in document.documentElement && !$parent.closest( '.navbar-nav' ).length ) {
-                // if mobile we use a backdrop because click events don't delegate
-                $( document.createElement( 'div' ) )
-                    .addClass( 'dropdown-backdrop' )
-                    .insertAfter( $( this ) )
-                    .on( 'click', clearMenus )
-            }
-
-            var relatedTarget = { relatedTarget: this }
-            $parent.trigger( e = $.Event( 'show.bs.dropdown', relatedTarget ) )
-
-            if ( e.isDefaultPrevented() ) return
-
-            $this
-                .trigger( 'focus' )
-                .attr( 'aria-expanded', 'true' )
-
-            $parent
-                .toggleClass( 'open' )
-                .trigger( $.Event( 'shown.bs.dropdown', relatedTarget ) )
-        }
-
-        return false
-    }
-
-    Dropdown.prototype.keydown = function ( e ) {
-        if ( !/(38|40|27|32)/.test( e.which ) || /input|textarea/i.test( e.target.tagName ) ) return
-
-        var $this = $( this )
-
-        e.preventDefault()
-        e.stopPropagation()
-
-        if ( $this.is( '.disabled, :disabled' ) ) return
-
-        var $parent = getParent( $this )
-        var isActive = $parent.hasClass( 'open' )
-
-        if ( !isActive && e.which != 27 || isActive && e.which == 27 ) {
-            if ( e.which == 27 ) $parent.find( toggle ).trigger( 'focus' )
-            return $this.trigger( 'click' )
-        }
-
-        var desc = ' li:not(.disabled):visible a'
-        var $items = $parent.find( '.dropdown-menu' + desc )
-
-        if ( !$items.length ) return
-
-        var index = $items.index( e.target )
-
-        if ( e.which == 38 && index > 0 ) index--         // up
-        if ( e.which == 40 && index < $items.length - 1 ) index++         // down
-        if ( !~index ) index = 0
-
-        $items.eq( index ).trigger( 'focus' )
-    }
-
-
-    // DROPDOWN PLUGIN DEFINITION
-    // ==========================
-
-    function Plugin( option ) {
-        return this.each( function () {
-            var $this = $( this )
-            var data = $this.data( 'bs.dropdown' )
-
-            if ( !data ) $this.data( 'bs.dropdown', (data = new Dropdown( this )) )
-            if ( typeof option == 'string' ) data[ option ].call( $this )
-        } )
-    }
-
-    var old = $.fn.dropdown
-
-    $.fn.dropdown = Plugin
-    $.fn.dropdown.Constructor = Dropdown
-
-
-    // DROPDOWN NO CONFLICT
-    // ====================
-
-    $.fn.dropdown.noConflict = function () {
-        $.fn.dropdown = old
-        return this
-    }
-
-
-    // APPLY TO STANDARD DROPDOWN ELEMENTS
-    // ===================================
-
-    $( document )
-        .on( 'click.bs.dropdown.data-api', clearMenus )
-        .on( 'click.bs.dropdown.data-api', '.dropdown form', function ( e ) {
-            e.stopPropagation()
-        } )
-        .on( 'click.bs.dropdown.data-api', toggle, Dropdown.prototype.toggle )
-        .on( 'keydown.bs.dropdown.data-api', toggle, Dropdown.prototype.keydown )
-        .on( 'keydown.bs.dropdown.data-api', '.dropdown-menu', Dropdown.prototype.keydown )
-
-}( jQuery );
-
-;+function ( $, window ) {
+//FIX 修改
++function ( $, window ) {
 
     var Grid = $.fn.bootgrid.Constructor;
 
-    /**
-     * An object that represents the default settings.
-     *
-     * @static
-     * @class defaults
-     * @for Grid
-     * @example
-     *   // Global approach
-     *   $.bootgrid.defaults.selection = true;
-     * @example
-     *   // Initialization approach
-     *   $("#bootgrid").bootgrid({ selection = true });
-     **/
-    Grid.defaults = {
+    $.extend( Grid.defaults, {
         navigation: 3, // it's a flag: 0 = none, 1 = top, 2 = bottom, 3 = both (top and bottom)
         padding: 4, // page padding (pagination)
         columnSelection: true,
         rowCount: [ 10, 15, 20, 25, 30 ], // rows per page int or array of int (-1 represents "All")
 
-        /**
-         * Enables row selection (to enable multi selection see also `multiSelect`). Default value is `false`.
-         *
-         * @property selection
-         * @type Boolean
-         * @default false
-         * @for defaults
-         * @since 1.0.0
-         **/
-        selection: false,
-
-        /**
-         * Enables multi selection (`selection` must be set to `true` as well). Default value is `false`.
-         *
-         * @property multiSelect
-         * @type Boolean
-         * @default false
-         * @for defaults
-         * @since 1.0.0
-         **/
-        multiSelect: false,
-
-        /**
-         * Enables entire row click selection (`selection` must be set to `true` as well). Default value is `false`.
-         *
-         * @property rowSelect
-         * @type Boolean
-         * @default false
-         * @for defaults
-         * @since 1.1.0
-         **/
-        rowSelect: false,
-
-        /**
-         * Defines whether the row selection is saved internally on filtering, paging and sorting
-         * (even if the selected rows are not visible).
-         *
-         * @property keepSelection
-         * @type Boolean
-         * @default false
-         * @for defaults
-         * @since 1.1.0
-         **/
-        keepSelection: false,
-
-        highlightRows: false, // highlights new rows (find the page of the first new row)
-        sorting: true,
-        multiSort: false,
-
-        /**
-         * General search settings to configure the search field behaviour.
-         *
-         * @property searchSettings
-         * @type Object
-         * @for defaults
-         * @since 1.2.0
-         **/
-        searchSettings: {
-            /**
-             * The time in milliseconds to wait before search gets executed.
-             *
-             * @property delay
-             * @type Number
-             * @default 250
-             * @for searchSettings
-             **/
-            delay: 250,
-
-            /**
-             * The characters to type before the search gets executed.
-             *
-             * @property characters
-             * @type Number
-             * @default 1
-             * @for searchSettings
-             **/
-            characters: 1
-        },
-
-        /**
-         * Defines whether the data shall be loaded via an asynchronous HTTP (Ajax) request.
-         *
-         * @property ajax
-         * @type Boolean
-         * @default false
-         * @for defaults
-         **/
         ajax: true,
 
-        /**
-         * Ajax request settings that shall be used for server-side communication.
-         * All setting except data, error, success and url can be overridden.
-         * For the full list of settings go to http://api.jquery.com/jQuery.ajax/.
-         *
-         * @property ajaxSettings
-         * @type Object
-         * @for defaults
-         * @since 1.2.0
-         **/
+
         ajaxSettings: {
-            /**
-             * Specifies the HTTP method which shall be used when sending data to the server.
-             * Go to http://api.jquery.com/jQuery.ajax/ for more details.
-             * This setting is overriden for backward compatibility.
-             *
-             * @property method
-             * @type String
-             * @default "POST"
-             * @for ajaxSettings
-             **/
+
             method: "POST",
             //cache: false,
             dataType: "json"
 
         },
 
-        /**
-         * Enriches the request object with additional properties. Either a `PlainObject` or a `Function`
-         * that returns a `PlainObject` can be passed. Default value is `{}`.
-         *
-         * @property post
-         * @type Object|Function
-         * @default function (request) { return request; }
-         * @for defaults
-         * @deprecated Use instead `requestHandler`
-         **/
-        post: {}, // or use function () { return {}; } (reserved properties are "current", "rowCount", "sort" and "searchPhrase")
 
-        /**
-         * Sets the data URL to a data service (e.g. a REST service). Either a `String` or a `Function`
-         * that returns a `String` can be passed. Default value is `""`.
-         *
-         * @property url
-         * @type String|Function
-         * @default ""
-         * @for defaults
-         **/
-        url: "", // or use function () { return ""; }
-
-        /**
-         * Defines whether the search is case sensitive or insensitive.
-         *
-         * @property caseSensitive
-         * @type Boolean
-         * @default true
-         * @for defaults
-         * @since 1.1.0
-         **/
-        caseSensitive: true,
-
-        // note: The following properties should not be used via data-api attributes
-
-        /**
-         * Transforms the JSON request object in what ever is needed on the server-side implementation.
-         *
-         * @property requestHandler
-         * @type Function
-         * @default function (request) { return request; }
-         * @for defaults
-         * @since 1.1.0
-         **/
         requestHandler: function ( request ) {
             var txtQuery = {
                 "oredCriteria": _getOredCriteria( this.queryFormSelector ),
@@ -2259,15 +1941,6 @@
             return request;
         },
 
-        /**
-         * Transforms the response object into the expected JSON response object.
-         *
-         * @property responseHandler
-         * @type Function
-         * @default function (response) { return response; }
-         * @for defaults
-         * @since 1.1.0
-         **/
         responseHandler: function ( response ) {
             // 将服务器返回的数据进行格式转换
             var _response = {
@@ -2302,33 +1975,6 @@
             return _response;
         },
 
-        /**
-         * A list of converters.
-         *
-         * @property converters
-         * @type Object
-         * @for defaults
-         * @since 1.0.0
-         **/
-        converters: {
-            numeric: {
-                from: function ( value ) {
-                    return +value;
-                }, // converts from string to numeric
-                to: function ( value ) {
-                    return value + "";
-                } // converts from numeric to string
-            },
-            string: {
-                // default converter
-                from: function ( value ) {
-                    return value;
-                },
-                to: function ( value ) {
-                    return value;
-                }
-            }
-        },
 
         /**
          * Contains all css classes.
@@ -2425,51 +2071,6 @@
             search: "搜索"
         },
 
-        /**
-         * Specifies the mapping between status and contextual classes to color rows.
-         *
-         * @property statusMapping
-         * @type Object
-         * @for defaults
-         * @since 1.2.0
-         **/
-        statusMapping: {
-            /**
-             * Specifies a successful or positive action.
-             *
-             * @property 0
-             * @type String
-             * @for statusMapping
-             **/
-            0: "success",
-
-            /**
-             * Specifies a neutral informative change or action.
-             *
-             * @property 1
-             * @type String
-             * @for statusMapping
-             **/
-            1: "info",
-
-            /**
-             * Specifies a warning that might need attention.
-             *
-             * @property 2
-             * @type String
-             * @for statusMapping
-             **/
-            2: "warning",
-
-            /**
-             * Specifies a dangerous or potentially negative action.
-             *
-             * @property 3
-             * @type String
-             * @for statusMapping
-             **/
-            3: "danger"
-        },
 
         /**
          * Contains all templates.
@@ -2500,7 +2101,7 @@
             search: "<!--<div class=\"{{css.search}}\"><div class=\"pkui-grid-input-group\"><span class=\"{{css.icon}} pkui-grid-input-group-addon {{css.iconSearch}}\"></span> <input type=\"text\" class=\"{{css.searchField}}\" placeholder=\"{{lbl.search}}\" /></div></div>-->",
             select: "<input name=\"select\" type=\"{{ctx.type}}\" class=\"{{css.selectBox}}\" value=\"{{ctx.value}}\" {{ctx.checked}} />"
         }
-    };
+    } );
 
     // 设置actions的开关
     $( document ).on( "click", ".pkui-grid-setting", function () {
@@ -2572,3 +2173,4 @@
 }( jQuery, window );
 
 
+});

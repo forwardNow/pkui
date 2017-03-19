@@ -9,3 +9,7 @@
     1. // FIX 初始化完毕，则添加HTML属性 isrendered="true"
 
     2. // FIX 将该插件挂载到 PKUI
+
+2017/03/19
+
+    1. // FIX 列宽可拖拽调整
