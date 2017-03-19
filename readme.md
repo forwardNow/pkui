@@ -24,6 +24,6 @@
 
 **介绍**：类桌面软件web应用
 
-**预览**：[https://forwardnow.github.io/pkui/app/desktop/index.html](https://forwardnow.github.io/pkui/app/desktop/index.html（动态数据访问受限）)
+**预览**：[https://forwardnow.github.io/pkui/app/desktop/index.html（动态数据访问受限）](https://forwardnow.github.io/pkui/app/desktop/index.html)
 
 **预览**：[http://www.20ui.cn/static/desktop/index.html](http://www.20ui.cn/static/desktop/index.html)
