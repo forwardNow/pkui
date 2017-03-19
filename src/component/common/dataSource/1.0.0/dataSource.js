@@ -122,6 +122,15 @@ define( function ( require ) {
             extCache[ extType ][ dicName ] = extDataList;
 
             return extDataList;
+        },
+        /**
+         * 通过字典名称和code获取value
+         * @param dicName
+         * @param code
+         * @returns {*}
+         */
+        getDicValue: function( dicName, code ) {
+            return this.getDataSet(dicName)[ code ];
         }
 
     } );
@@ -218,7 +227,7 @@ define( function ( require ) {
                 );
             }
             // 缓存数据
-            listCache[ url ] = DataSource.utils.convertXmlDocToDataList( xmlDoc );
+            listCache[ dicName ] = DataSource.utils.convertXmlDocToDataList( xmlDoc );
         },
         handleRequestDicError: function ( dicName ) {
             console.info( dicName, "\t字典获取失败: 网络原因/路径错误。" );
