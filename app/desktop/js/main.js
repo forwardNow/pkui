@@ -21,7 +21,7 @@ define( function ( require ) {
     $( document ).ready( function () {
 
         // 设置模板引擎的参数
-        Template.setOptions( { base: "/pkui/app/desktop/tpl/" } );
+        Template.setOptions( { base: "./tpl/" } );
 
         // 启动 Launchpad
         Launchpad.init();
