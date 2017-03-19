@@ -119,7 +119,7 @@ seajs.config( {
 
     isSupportJSON = window.JSON;
 
-    ctxPath = pkuiBasePath.substring( 0, pkuiBasePath.lastIndexOf( "/" ) );
+    ctxPath = pkuiBasePath.substring( 0, pkuiBasePath.lastIndexOf( "/static" ) );
 
 
     // 配置

@@ -4,10 +4,10 @@ seajs.use( [ "jquery" ], function ( $ ) {
         ns = window[ "www.pkusoft.net" ],
 
         PKUI = {
-            // pkui的基本路径
-            basePath: ns.pkuiBasePath,
             // CTX路径
             ctxPath: ns.ctxPath,
+            // pkui的基本路径
+            basePath: ns.pkuiBasePath,
             // 字典路径
             dicPath: ns.ctxPath + "/static/dic/",
             // 时间戳（版本控制）v=2012-1-1
