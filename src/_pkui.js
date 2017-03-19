@@ -9,7 +9,7 @@ seajs.use( [ "jquery" ], function ( $ ) {
             // CTX路径
             ctxPath: ns.ctxPath,
             // 字典路径
-            dicPath: ns.ctxPath + "/dic/",
+            dicPath: ns.ctxPath + "/static/dic/",
             // 时间戳（版本控制）v=2012-1-1
             timestamp: ns.timestamp,
             // 组件容器
@@ -18,6 +18,12 @@ seajs.use( [ "jquery" ], function ( $ ) {
             render: function () {}
         }
         ;
+
+    if ( location.href.indexOf( "localhost" ) !== -1 ) {
+        PKUI.ctxPath = "http://localhost:8080/pkui";
+        PKUI.dicPath = "http://localhost:8080/pkui/static/dic/";
+    }
+
 
     /**
      * 通用功能
