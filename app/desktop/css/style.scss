@@ -63,8 +63,8 @@
 @import "../../../src/css/common/btn";
 @import "common/btn";
 
-// 网格系统
-@import "../../../src/css/common/grid";
+// 网格系统（得用在边框盒模型中）
+//@import "../../../src/css/common/grid";
 
 // drawer
 @import "../../../src/component/common/drawer/1.0.0/drawer";
