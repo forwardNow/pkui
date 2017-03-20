@@ -4450,6 +4450,7 @@ Pagination Styles
 
 .win-main-body {
   padding: 0 12px;
+  min-height: 100%;
 }
 
 .win-btnGroup {
