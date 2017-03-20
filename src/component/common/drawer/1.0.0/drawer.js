@@ -160,6 +160,19 @@
             if ( options.overflowHiddenWhenOpen ) {
                 options.$parentContainer.closest( options.overflowHiddenWhenOpen ).addClass( Drawer.clazz.open );
             }
+
+            if ( options.ajax && options.url ) {
+                $.ajax( {
+                    url: options.url,
+                    type: "POST",
+                    dataType: "text"
+                } ).done( function( responseData ) {
+                    options.$drawerContent.html( responseData );
+                } ).fail( function( jqXHR, textStatus ) {
+                    throw "/(ㄒoㄒ)/~~[ " + textStatus + " ]网络错误。";
+                } );
+
+            }
         },
         hide: function () {
             var
