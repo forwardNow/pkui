@@ -64,6 +64,9 @@
 @import "../../../src/css/common/btn";
 @import "common/btn";
 
+// drawer
+@import "../../../src/component/common/drawer/1.0.0/drawer";
+
 // 雪碧图（置于最下面，否则@extend的样式会提前）
 @import "common/css-sprite";
 
