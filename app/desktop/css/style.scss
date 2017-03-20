@@ -6,7 +6,6 @@
 // 变量
 @import "page/variables";
 
-
 // 基础样式
 @import "../../../src/css/base/1.0.0/base";
 
@@ -63,6 +62,9 @@
 // 按钮
 @import "../../../src/css/common/btn";
 @import "common/btn";
+
+// 网格系统
+@import "../../../src/css/common/grid";
 
 // drawer
 @import "../../../src/component/common/drawer/1.0.0/drawer";
