@@ -305,7 +305,7 @@ define( function ( require ) {
 
                 // 3. 请求页面
                 pkuiOptions.$dialogContainer.find( ".win-main-body" )
-                    .html( "<i class='pkui-content-loading-ring'></i>" );
+                    .append( "<i class='pkui-content-loading-ring'></i>" );
 
                 $.ajax( {
                     type: "GET",
