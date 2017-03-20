@@ -1,3 +1,7 @@
+// 引入字体图标样式文件
+seajs.use( "css/font/font-awesome/4.7.0/font-awesome.css" );
+
+// 配置
 seajs.use( [ "jquery" ], function ( $ ) {
 
     var
@@ -19,7 +23,8 @@ seajs.use( [ "jquery" ], function ( $ ) {
         }
         ;
 
-    if ( location.href.indexOf( "localhost" ) !== -1 ) {
+    // 如果是在WebStorm里跑 PKUI项目，则更改 ctxPath 和 dicPath
+    if ( location.href.indexOf( "localhost" ) !== -1 && ns.pkuiBasePath.indexOf( "static" ) === -1 ) {
         PKUI.ctxPath = "http://localhost:8080/pkui";
         PKUI.dicPath = "http://localhost:8080/pkui/static/dic/";
     }
