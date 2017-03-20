@@ -60,8 +60,16 @@ seajs.config( {
         // bootgrid
         "bootgrid": "lib/bootgrid/1.3.1.x/jquery.bootgrid",
 
+        // loading
+        "loading": "lib/loading/1.2.0.x/loading.js",
+
+
         // 数据源
-        "dataSource": "component/common/dataSource/1.0.0/dataSource.js"
+        "dataSource": "component/common/dataSource/1.0.0/dataSource",
+
+        // 抽屉式弹窗
+        "drawer": "component/common/drawer/1.0.0/drawer"
+
     }
 } );
 
