@@ -867,7 +867,8 @@ define( function( require ) {
         this.origin = this.element.clone();
         this.options = $.extend( true, {}, Grid.defaults, this.element.data(), options );
         // overrides rowCount explicitly because deep copy ($.extend) leads to strange behaviour
-        var rowCount = this.options.rowCount = this.element.data().rowCount || options.rowCount || this.options.rowCount;
+        // FIX 修复当 options 为 null时，options.rowCount 报错的情况
+        var rowCount = this.options.rowCount = this.element.data().rowCount || this.options.rowCount;
         this.columns = [];
         this.current = 1;
         this.currentRows = [];
