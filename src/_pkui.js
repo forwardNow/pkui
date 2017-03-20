@@ -211,7 +211,7 @@ seajs.use( [ "jquery", "meld" ], function ( $, AOP ) {
                 moduleId = componentName
                 ;
 
-            // 如果没有，则载入，再初始化
+            // 如果没有注册该组件，则载入，再初始化
             if ( !component ) {
                 switch ( componentName ) {
                     case "datagrid":
@@ -226,8 +226,15 @@ seajs.use( [ "jquery", "meld" ], function ( $, AOP ) {
                 } );
                 return;
             }
+            // 如果已经渲染过，则退出
+            if ( $this.attr( "isrendered" ) ) {
+                return;
+            }
 
+            // 如果没渲染过，则渲染；渲染完毕添加 isrendered="true" 标志
             component.apply( $this, componentOptions );
+            $this.attr( "isrendered", true );
+
         } );
     }
 
