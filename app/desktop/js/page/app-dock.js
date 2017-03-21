@@ -4,16 +4,19 @@
  *
  * @module module:page/app-dock
  * @requires module:jquery
- * @requires module:common/template
+ * @requires artTemplate
  */
 define( function ( require ) {
     var $,
-        Template
+        ArtTemplate,
+        dockItemTpl,
+        dockItemTplRender
         ;
 
     $ = require( "jquery" );
-    Template = require( "../common/template" );
-
+    ArtTemplate = require( "artTemplate" );
+    dockItemTpl = require( "../../tpl/desktop/dockItem.html" );
+    dockItemTplRender = ArtTemplate.compile( dockItemTpl );
     /**
      * @classDesc 页签（AppDock）类
      * @exports module:page/app-dock
@@ -30,6 +33,14 @@ define( function ( require ) {
         this.options = null;
         this._init( options );
     }
+
+    AppDock.namespace = "pkui.app.dock";
+    AppDock.events = {
+        "remove": "remove." + AppDock.namespace,
+        "add": "add." + AppDock.namespace,
+        "close": "click.close." + AppDock.namespace,
+        "show": "click.show." + AppDock.namespace
+    };
 
     AppDock.defaults = {
         /** 包裹所有页签（AppDock）的容器的CSS选择器 */
@@ -215,7 +226,7 @@ define( function ( require ) {
             var _this
                 ;
             _this = this;
-            this.$container.on( "addDockItem.app", _this.itemSelector, function () {
+            this.$container.on( AppDock.events.add, _this.itemSelector, function () {
                 var $this,
                     nowItemWidth,
                     totalItemWidth,
@@ -303,7 +314,7 @@ define( function ( require ) {
                 ;
             _this = this;
             _this.$container.add( _this.$dockDropmenu )
-                .on( "removeDockItem.app", _this.itemSelector, function () {
+                .on( AppDock.events.remove, _this.itemSelector, function () {
                     var $this,
                         nowItemWidth,
                         totalItemWidth,
@@ -447,8 +458,9 @@ define( function ( require ) {
          * @returns {AppDock}
          */
         destroy: function () {
-            // 派发事件 removeDockItem.app
-            this.$target && this.$target.trigger( "removeDockItem.app" );
+
+            // 派发事件
+            this.$target && this.$target.trigger( AppDock.events.remove );
 
             this.$target.remove();
 
@@ -492,7 +504,8 @@ define( function ( require ) {
         _create: function () {
             var data,
                 $target,
-                _this
+                _this,
+                htmlString
                 ;
 
             _this = this;
@@ -504,25 +517,24 @@ define( function ( require ) {
             };
 
             // 2. 获取模板
-            Template.get( this.options.dockTemplateName, data, function ( htmlString ) {
+            htmlString = dockItemTplRender( data );
 
-                $target = $( htmlString );
 
-                $target.hide();
+            $target = $( htmlString );
 
-                // 3. 添加进 container
-                _this.$container.append( $target );
+            $target.hide();
 
-                _this.$target = $target;
+            // 3. 添加进 container
+            _this.$container.append( $target );
 
-                _this.show();
+            _this.$target = $target;
 
-                _this._bindEvent();
+            _this.show();
 
-                // 派发事件
-                $target.trigger( "addDockItem.app" );
+            _this._bindEvent();
 
-            } );
+            // 派发事件
+            $target.trigger( AppDock.events.add );
 
             return this;
         },
@@ -537,7 +549,7 @@ define( function ( require ) {
             _this = this;
 
             // 1. 点击关闭，销毁应用
-            _this.$target.find( ".dock-item-btn" ).on( "click.close.app", function ( event ) {
+            _this.$target.find( ".dock-item-btn" ).on( AppDock.events.close, function ( event ) {
                 // 阻止冒泡
                 event.stopPropagation();
                 _this.appInstance && ( !_this.appInstance.isAppDestroy )
@@ -545,7 +557,7 @@ define( function ( require ) {
             } );
 
             // 2. 点击dock，显示应用
-            _this.$target.on( "click.show.app", function () {
+            _this.$target.on( AppDock.events.show, function () {
                 _this.appInstance.show();
             } );
 
