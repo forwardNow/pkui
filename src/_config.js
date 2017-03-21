@@ -61,7 +61,7 @@ seajs.config( {
         "bootgrid": "lib/bootgrid/1.3.1.x/jquery.bootgrid",
 
         // loading
-        "loading": "lib/loading/1.2.0.x/loading.js",
+        "isLoading": "lib/isloading/1.0.6.x/isloading",
 
 
         // 数据源
