@@ -1,25 +1,55 @@
 <form class="da-form">
     <div class="da-form-heading">添加单位</div>
     <div class="da-form-body">
-        <table class="da-form-table">
+        <table class="da-form-table da-table da-table-striped">
+            <colgroup>
+                <col width="10%">
+                <col width="40%">
+                <col width="10%">
+                <col width="40%">
+            </colgroup>
             <tr>
-                <td><label class="da-form-label">单位级别：</label></td>
+                <td class="text-right"><label class="da-control-label">单位级别：</label></td>
                 <td>
-                    <label><input type="radio">省级</label>
-                    <label><input type="radio">市级</label>
-                    <label><input type="radio">支队</label>
-                    <label><input type="radio">大队</label>
+                    <div class="da-form-radio">
+                        <label><input type="radio">省级</label>
+                        <label><input type="radio">市级</label>
+                        <label><input type="radio">支队</label>
+                        <label><input type="radio">大队</label>
+                    </div>
                 </td>
-                <td><label class="da-form-label">主管单位：</label></td>
+                <td class="text-right"><label class="da-control-label">主管单位：</label></td>
                 <td>
-                    <label><input type="checkbox">是</label>
-                    <label><input type="checkbox">否</label>
-                    （注：是否为当前单位级别中行政级别最高的单位）
+                    <div class="da-form-checkbox">
+                        <label><input type="checkbox">是</label>
+                        <label><input type="checkbox" checked>否</label>
+                        <span class="help-inline">（注：是否为当前单位级别中行政级别最高的单位）</span>
+                    </div>
                 </td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label" >上级单位：</label></td>
+                <td><input type="text" class="da-form-control"></td>
+
+                <td class="text-right"><label class="da-control-label">电　　话：<!--全角空格--></label></td>
+                <td><input type="text" class="da-form-control"></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">单位编码：</label></td>
+                <td><input type="text" class="da-form-control"></td>
+
+                <td class="text-right"><label class="da-control-label">传　　真：<!--全角空格--></label></td>
+                <td><input type="text" class="da-form-control"></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">单位名称：</label></td>
+                <td><input type="text" class="da-form-control"></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
             </tr>
         </table>
     </div>
-    <div class="da-form-footer text-center">
+    <div class="da-form-footer">
         <button type="button" class="btn btn-success-2">确定</button>
     </div>
 </form>
