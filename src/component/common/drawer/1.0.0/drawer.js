@@ -1,25 +1,11 @@
-( function ( root, factory ) {
-    "use strict";
-    if ( typeof define === "function" && define.amd ) {
-        // AMD
-        define( [ "jquery" ], factory );
-    } else if ( typeof module === "object" && module.exports ) {
-        // CommonJS
-        module.exports = factory( require( "jquery" ) );
-    } else if ( typeof define === "function" && define.cmd ) {
-        // CMD
-        define( function ( require, exports, module ) {
-            module.exports = factory( require( "jquery" ) );
-        } );
-    } else {
-        // Browser globals (root is window)
-        root.Drawer = factory( root.Drawer );
-    }
-}( this, function ( $ ) {
+define( function( require ) {
     "use strict";
     var
+        $ = require( "jquery" ),
         Drawer = {}
         ;
+
+    require( "isLoading" );
 
     Drawer.namespace = "pkui.drawer";
 
@@ -31,13 +17,10 @@
         state: false,
         isCreated: false,
 
-        // 指定当抽屉层打开时，指定那个会显示滚动条的祖先元素，让其 overflow="hidden"
-        overflowHiddenWhenOpen: null,
-
-        // 祖先元素
-        parentContainerSelector: ".pkui-drawer-parent",
-        // 初始化时，根据 parentContainerSelector 生成
-        $parentContainer: null,
+        // 放置抽屉层的 容器（查找规则：以body为上下文查找，如果有多个 则改为从当前节点往上找到最近的那个）
+        container: ".drawer-container",
+        // 初始化时，根据 container 生成
+        $container: null,
         // 抽屉层，
         $drawer: null,
         // 抽屉层主体
@@ -67,16 +50,19 @@
                 $this = $( this ),
                 data = $this.data( Drawer.namespace ),
                 options = data.options,
-                $parentContainer,
+                $container,
                 $drawer
                 ;
 
             // 父容器
-            $parentContainer = $this.closest( options.parentContainerSelector );
-            options.$parentContainer = $parentContainer;
+            $container = $( options.container );
+            if ( $container.size() > 1 ) {
+                $container = $this.closest( options.container );
+            }
+            options.$container = $container;
 
-            if ( $parentContainer.css( "position" ) == "static" ) {
-                $parentContainer.css( "position", "relative" );
+            if ( $container.css( "position" ) == "static" ) {
+                $container.css( "position", "relative" );
             }
 
             // 遮罩层
@@ -89,7 +75,7 @@
                 +           '<button href="#" class="pkui-drawer-button">&#215;</button>'
                 +           '<div class="pkui-drawer-content"></div>'
                 +        '</div>' )
-                .addClass( Drawer.clazz.drawer ).appendTo( $parentContainer );
+                .addClass( Drawer.clazz.drawer ).appendTo( $container );
 
             options.$drawer = $drawer;
 
@@ -128,6 +114,8 @@
                 $this.on( "click." + Drawer.namespace, function () {
                     $this.drawer( "open" );
                 } );
+
+                $this.attr( "isrendered", true );
             } );
         },
         getOptions: function() {
@@ -154,14 +142,11 @@
                     }
                     $this.trigger( "open." + Drawer.namespace );
                 } );
-            options.$parentContainer
+            options.$container
                 .addClass( Drawer.clazz.open );
 
-            if ( options.overflowHiddenWhenOpen ) {
-                options.$parentContainer.closest( options.overflowHiddenWhenOpen ).addClass( Drawer.clazz.open );
-            }
-
             if ( options.ajax && options.url ) {
+                options.$drawer.isLoading();
                 $.ajax( {
                     url: options.url,
                     type: "POST",
@@ -170,6 +155,8 @@
                     options.$drawerContent.html( responseData );
                 } ).fail( function( jqXHR, textStatus ) {
                     throw "/(ㄒoㄒ)/~~[ " + textStatus + " ]网络错误。";
+                } ).always( function() {
+                    options.$drawer.isLoading( "hide" );
                 } );
 
             }
@@ -182,11 +169,11 @@
             options.$drawer.animate( { left: "100%" }, function() {
                 var hideCallback = options.onHide
                     ;
-                options.$parentContainer
+                options.$container
                     .removeClass( Drawer.clazz.open );
 
                 if ( options.overflowHiddenWhenOpen ) {
-                    options.$parentContainer.closest( options.overflowHiddenWhenOpen ).removeClass( Drawer.clazz.open );
+                    options.$container.closest( options.overflowHiddenWhenOpen ).removeClass( Drawer.clazz.open );
                 }
 
                 // 隐藏遮罩层
@@ -206,11 +193,11 @@
             options.$drawer.animate( { left: "100%" }, function() {
                 var destroyCallback = options.onDestroy
                     ;
-                options.$parentContainer
+                options.$container
                     .removeClass( Drawer.clazz.open );
 
                 if ( options.overflowHiddenWhenOpen ) {
-                    options.$parentContainer.closest( options.overflowHiddenWhenOpen ).removeClass( Drawer.clazz.open );
+                    options.$container.closest( options.overflowHiddenWhenOpen ).removeClass( Drawer.clazz.open );
                 }
                 // 销毁 drawer DOM
                 options.$drawer.remove();
@@ -232,7 +219,7 @@
                 options = $this.data( Drawer.namespace ).options
             ;
             options.$overlay = $overlay;
-            options.$parentContainer.append( $overlay );
+            options.$container.append( $overlay );
             return $this;
         }
     } );
@@ -253,4 +240,6 @@
     window.PKUI.component.drawer = $.fn.drawer;
 
     return {};
-} ));
+
+
+} );
