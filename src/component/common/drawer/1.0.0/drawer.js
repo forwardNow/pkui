@@ -149,7 +149,8 @@ define( function( require ) {
                 options.$drawer.isLoading();
                 $.ajax( {
                     url: options.url,
-                    type: "POST",
+                    type: "GET",
+                    cache: false,
                     dataType: "text"
                 } ).done( function( responseData ) {
                     options.$drawerContent.html( responseData );
