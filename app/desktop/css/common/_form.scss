@@ -1,0 +1,107 @@
+.da-form {
+    font-size: 12px;
+}
+
+.da-form-heading {
+    padding: 20px 0;
+    color: #33a6e7;
+    font-size: 16px;
+    text-align: center;
+}
+
+.da-form-body {
+
+    padding: 0 24px 24px 24px;
+}
+
+.da-form-footer {
+    text-align: center;
+}
+
+.da-form-table {
+}
+
+.da-form-label {
+    text-align: right;
+}
+.da-form-control {
+    @include box-sizing( border-box );
+    display: block;
+    width: 100%;
+    height: 28px;
+    padding: 4px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    &:focus,
+    &:active,
+    &:hover {
+        border-color: #66afe9;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+    }
+}
+.da-table {
+    width: 100%;
+    max-width: 100%;
+    border: solid 1px #dddddd;
+    border-spacing: 0;
+    border-collapse: collapse;
+    background-color: transparent;
+    > tbody > tr > td {
+        padding: 12px 6px;
+    }
+}
+
+.da-table-striped {
+    > tbody > tr:nth-of-type(even) {
+        background-color: #e5eaee;
+    }
+}
+
+.da-form-checkbox,
+.da-form-radio {
+    position: relative;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.da-form-checkbox label,
+.da-form-radio label {
+    display: inline-block;
+    max-width: 100%;
+    min-height: 20px;
+    padding-left: 20px;
+    margin-bottom: 0;
+    margin-right: 12px;
+    font-weight: 400;
+    cursor: pointer;
+}
+.da-form-checkbox input[type=checkbox],
+.da-form-radio input[type=radio] {
+    position: absolute;
+    margin: 3px 0 0 -20px;
+    margin-top: 4px\9;
+    line-height: normal;
+}
+.help-inline {
+    display: inline;
+}
+.help-block {
+    display: block;
+}
+.help-inline,
+.help-block {
+    font-size: 90%;
+    color: #888;
+}
