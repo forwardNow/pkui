@@ -299,7 +299,9 @@ define( function ( require ) {
 
                 // 2. 设置标题
                 iconSrc = $this.find( "img" ).attr( "src" );
-                title = $( this ).text();
+                title = $this.text();
+                // 清空其他节点
+                pkuiOptions.$dialogContainer.find(".da-win-main").children().not( ".win-main-heading,.win-main-body" ).remove();
                 pkuiOptions.$dialogContainer.find( ".win-main-heading" )
                     .html( Template.getHtmlString( "desktop/winMainHeading", { iconSrc: iconSrc, title: title } ) );
 
