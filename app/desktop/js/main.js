@@ -20,8 +20,8 @@ define( function ( require ) {
     // DOM树构建完毕后执行
     $( document ).ready( function () {
 
-        // 设置模板引擎的参数
-        Template.setOptions( { base: "./tpl/" } );
+        // 设置模板引擎的参数 （不好用）
+        // Template.setOptions( { base: "./tpl/" } );
 
         // 启动 Launchpad
         Launchpad.init();
