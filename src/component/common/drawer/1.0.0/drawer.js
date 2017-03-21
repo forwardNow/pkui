@@ -134,7 +134,7 @@ define( function( require ) {
 
             options.$drawer
                 .addClass( Drawer.clazz.open )
-                .animate( { left: "2%" }, function() {
+                .animate( { left: "0" }, function() {
                     var openCallback = options.onOpen
                     ;
                     if ( window[ openCallback ] && typeof window[ openCallback ] === "function" ) {
