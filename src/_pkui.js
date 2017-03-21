@@ -168,15 +168,25 @@ seajs.use( [ "jquery" ], function ( $ ) {
  *
  * 渲染的目标（在此列出全部可被自动渲染的组件）：
  *
- *      <div data-pkui-component="datagrid" data-pkui-component-options='{"key":"val",...}' >
- *      <div data-pkui-component="drawer" data-pkui-component-options='{"key":"val",...}' >
+ *      <div data-pkui-component="datagrid"
+ *           data-pkui-component-options='{"key":"val",...}' >
+ *      <div data-pkui-component="drawer"
+ *           data-pkui-component-options='{"key":"val",...}' >
+ *      <div data-pkui-component="validator|form"
+ *           data-pkui-component-options='[{"key":"val",...},{"key":"val",...}]' >
  *
  * 已渲染的标志（添加 isrendered="true"）：
  *
  *      <div data-pkui-component="datagrid" isrendered="true">
+ *
+ *      渲染标志的添加由组件自身添加
  */
 seajs.use( [ "jquery", "meld" ], function ( $, AOP ) {
-
+    var 
+        PKUI = window.PKUI
+    ;
+    
+    
     // 1. DOM树构建完毕
     $( document ).ready( render );
 
@@ -195,45 +205,62 @@ seajs.use( [ "jquery", "meld" ], function ( $, AOP ) {
     // 6. 调用 jquery.prependTo( value ) 方法之后
     AOP.after( $.prototype, "prependTo", render );
 
-    window.PKUI.render = render;
+    PKUI.render = render;
 
     function render() {
         var
             $component = $( "[data-" + PKUI.componentMarkupProp + "]" )
+                         .not('[isrendered]')
         ;
+
         $component.each( function () {
             var
                 $this = $( this ),
                 componentName = $this.data( PKUI.componentMarkupProp ),
-                componentOptions = $this.data( PKUI.optionsMarkupProp ) || null,
-                component = window.PKUI.component[ componentName ],
-
-                moduleId = componentName
+                // jQuery自动转为JSON对象了
+                componentOptions = $this.data( PKUI.optionsMarkupProp ) || {},
+                componentNameList
                 ;
 
-            // 如果没有注册该组件，则载入，再初始化
-            if ( !component ) {
-                switch ( componentName ) {
-                    case "datagrid":
-                        moduleId = "bootgrid";
-                        break;
-                    case "drawer":
-                        moduleId = "drawer";
-                        break;
-                }
-                seajs.use( [ moduleId ], function () {
-                    window.PKUI.component[ componentName ].call( $this, componentOptions );
-                } );
-                return;
-            }
-            // 如果已经渲染过，则退出
-            if ( $this.attr( "isrendered" ) ) {
-                return;
+            if ( $.isArray( componentOptions ) && $.isArray( componentOptions ) ) {
+                componentNameList = componentName.split("|");
+            } else {
+                componentNameList = [ componentName ];
+                componentOptions = [ componentOptions ];
             }
 
-            // 如果没渲染过，则渲染；渲染完毕添加 isrendered="true" 标志
-            component.apply( $this, componentOptions );
-            $this.attr( "isrendered", true );
+            $.each( componentNameList, function( index, componentName ) {
+                var
+                    options = componentOptions[ index ],
+                    component = PKUI.component[ componentName ],
+                    moduleId = componentName
+                    ;
+                // 如果没有注册该组件，则载入，再初始化
+                if ( !component ) {
+                    switch ( componentName ) {
+                        case "datagrid":
+                            moduleId = "bootgrid";
+                            break;
+                        case "drawer":
+                            moduleId = "drawer";
+                            break;
+                        case "form":
+                            moduleId = "form";
+                            break;
+                        case "validator":
+                            moduleId = "validator";
+                            break;
+                    }
+                    seajs.use( [ moduleId ], function () {
+                        PKUI.component[ componentName ].call( $this, options );
+                    } );
+                }
+                // 如果已注册，则初始化
+                else {
+                    component.call( $this, options );
+                }
+            } );
+
 
         } );
     }
