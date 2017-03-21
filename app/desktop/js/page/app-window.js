@@ -6,17 +6,28 @@
  * @requires jquery
  * @requires jquery-ui
  * @requires module:common/dialog
- * @requires module:common/template
+ * @requires artTemplate
+ * @requires isLoading
  */
 define( function ( require ) {
     var $,
         Dialog,
-        Template
+        ArtTemplate,
+        appWindowTpl,
+        appWindowTplRender,
+        appWindowMainTpl,
+        appWindowMainTplRender
         ;
 
     $ = require( "jquery" );
     Dialog = require( "../common/dialog" );
-    Template = require( "../common/template" );
+    ArtTemplate = require( "artTemplate" );
+    appWindowTpl = require( "../../tpl/desktop/appWindow.html" );
+    appWindowTplRender = ArtTemplate.compile( appWindowTpl );
+    appWindowMainTpl = require( "../../tpl/desktop/appWindowMain.html" );
+    appWindowMainTplRender = ArtTemplate.compile( appWindowMainTpl );
+
+    require( "isLoading" );
 
     /**
      * @classDesc 窗口（AppWindow）类
@@ -227,7 +238,7 @@ define( function ( require ) {
 
 
             // 1. appWindow模板（面包屑导航、菜单树、主体）
-            structureHtml = Template.getHtmlString( "desktop/appWindow", {} );
+            structureHtml = appWindowTplRender( {} );
 
             // 2. 业务模板（暂定为JSP）
             $.ajax( {
@@ -286,7 +297,9 @@ define( function ( require ) {
             pkuiOptions.$dialogContainer.on( "click.sidebar.anchor", ".sidebar-menuItem-anchor", function ( event ) {
                 var $this = $( this ),
                     iconSrc,
-                    title
+                    title,
+                    $winMain,
+                    $winMainBody
                 ;
                 event.preventDefault();
                 if ( $this.is( ".sidebar-submenu-toggle" ) ) {
@@ -297,17 +310,17 @@ define( function ( require ) {
                 // 1. 高亮
                 $this.parent().addClass( "active" ).siblings().removeClass( "active" );
 
-                // 2. 设置标题
+                // 2. 装载主体
                 iconSrc = $this.find( "img" ).attr( "src" );
                 title = $this.text();
-                // 清空其他节点
-                pkuiOptions.$dialogContainer.find(".da-win-main").children().not( ".win-main-heading,.win-main-body" ).remove();
-                pkuiOptions.$dialogContainer.find( ".win-main-heading" )
-                    .html( Template.getHtmlString( "desktop/winMainHeading", { iconSrc: iconSrc, title: title } ) );
+                $winMain = $( appWindowMainTplRender( { iconSrc: iconSrc, title: title } ) );
+
+                pkuiOptions.$dialogContainer.find(".da-win-main").replaceWith( $winMain );
+
+                $winMainBody = $winMain.children( ".win-main-body" );
 
                 // 3. 请求页面
-                pkuiOptions.$dialogContainer.find( ".win-main-body" )
-                    .append( "<i class='pkui-content-loading-ring'></i>" );
+                $winMainBody.isLoading();
 
                 $.ajax( {
                     type: "GET",
@@ -315,11 +328,12 @@ define( function ( require ) {
                     dataType: "text",
                     url: $this.attr( "href" )
                 } ).done( function ( data ) {
-                    pkuiOptions.$dialogContainer.find( ".win-main-body" )
-                        .html( data );
+                    $winMainBody.html( data );
                 } ).fail( function ( jqXHR, textStatus ) {
-                    pkuiOptions.$dialogContainer.find( ".win-main-body" ).html( "/(ㄒoㄒ)/~~[ " + textStatus + " ]获取数据失败" );
+                    $winMainBody.html( "/(ㄒoㄒ)/~~[ " + textStatus + " ]获取数据失败" );
                     throw "/(ㄒoㄒ)/~~[ " + textStatus + " ]获取数据失败";
+                } ).always( function() {
+                    $winMainBody.isLoading( "hide" );
                 } );
 
 
