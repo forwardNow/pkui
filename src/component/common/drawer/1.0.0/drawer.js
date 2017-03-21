@@ -155,7 +155,8 @@ define( function( require ) {
                 } ).done( function( responseData ) {
                     options.$drawerContent.html( responseData );
                 } ).fail( function( jqXHR, textStatus ) {
-                    throw "/(ㄒoㄒ)/~~[ " + textStatus + " ]网络错误。";
+                    options.$drawerContent.html( "/(ㄒoㄒ)/~~[ " + textStatus + " ]网络错误。" );
+                    console.info(  "/(ㄒoㄒ)/~~[ " + textStatus + " ]网络错误。" );
                 } ).always( function() {
                     options.$drawer.isLoading( "hide" );
                 } );
