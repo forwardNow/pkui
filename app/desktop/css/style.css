@@ -3151,38 +3151,6 @@ a.bg-danger:focus {
   animation-name: slideOutUp;
 }
 
-.pkui-content-loading, .pkui-content-loading-circle, .pkui-content-loading-asterisk, .pkui-content-loading-ring {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  background-repeat: no-repeat;
-  background-position: 0 0;
-}
-
-.pkui-content-loading-circle {
-  width: 60px;
-  height: 24px;
-  margin-top: -12px;
-  margin-left: -30px;
-  background-image: url("../images/loading-0.gif");
-}
-
-.pkui-content-loading-asterisk {
-  width: 32px;
-  height: 32px;
-  margin-top: -16px;
-  margin-left: -16px;
-  background-image: url("../images/loading-1.gif");
-}
-
-.pkui-content-loading-ring {
-  width: 32px;
-  height: 32px;
-  margin-top: -16px;
-  margin-left: -16px;
-  background-image: url("../images/loading-2.gif");
-}
-
 /**
  * @file 该网站基本样式
  */
