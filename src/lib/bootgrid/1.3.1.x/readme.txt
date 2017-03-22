@@ -19,3 +19,9 @@
 2017/03/20
 
     1. // FIX 修复当 options 为 null时，options.rowCount 报错的情况
+
+2017/03/22
+
+    1. // FIX 给cell添加title
+
+    2. // FIX 给cell包裹<p class="pkui-grid-cell">

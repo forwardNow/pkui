@@ -205,7 +205,7 @@
     }
     th,
     td {
-        padding: 12px;
+        //padding: 12px;
     }
     tr:hover {
         td {
@@ -359,5 +359,18 @@
 }
 .pkui-grid-selectCell {
 
+}
+
+.pkui-grid-columnHeaderAnchor,
+.pkui-grid-cell {
+    padding: 12px 6px;
+}
+
+.pkui-grid-cell {
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 

@@ -562,14 +562,20 @@ define( function( require ) {
                                 value = DataSource.getDicValue( column.dic, value );
                             }
                         } catch( e ) {
-                            console.info( "/(ㄒoㄒ)/~~字典翻译出错：["+column.dic+"]["+value+"]", e  );
+                            console.info( "/(ㄒoㄒ)/~~字典翻译出错：[" + column.dic + "][" + value + "]", e );
                         }
 
+                        // FIX 给cell添加title
+                        var
+                            content = (value == null || value === "") ? "&nbsp;" : value,
+                            title = String( content ).replace(/<.*>/g, "")
+                        ;
                         cells += tpl.cell.resolve( getParams.call( that, {
-                            content: (value == null || value === "") ? "&nbsp;" : value,
+                            content: content,
                             css: ((column.align === "right") ? css.right : (column.align === "center") ?
                                     css.center : css.left) + cssClass,
-                            style: (column.width == null) ? "" : "width:" + column.width + ";"
+                            style: (column.width == null) ? "" : "width:" + column.width + ";",
+                            title: title
                         } ) );
                     }
                 } );
@@ -2054,7 +2060,8 @@ define( function( require ) {
             // ----
 
             actionButton: "pkui-grid-actionRefreshButton",
-            actionDropDownButton: "pkui-grid-actionDropDownButton"
+            actionDropDownButton: "pkui-grid-actionDropDownButton",
+            cell: "pkui-grid-cell"
         },
 
         /**
@@ -2098,7 +2105,7 @@ define( function( require ) {
             actionDropDownCheckboxItem: "<li><label class=\"{{css.dropDownItem}}\"><input name=\"{{ctx.name}}\" type=\"checkbox\" value=\"1\" class=\"{{css.dropDownItemCheckbox}}\" {{ctx.checked}} /> {{ctx.label}}</label></li>",
             actions: "<div class=\"{{css.actions}}\"></div>",
             body: "<tbody></tbody>",
-            cell: "<td class=\"{{ctx.css}}\" style=\"{{ctx.style}}\">{{ctx.content}}</td>",
+            cell: "<td class=\"{{ctx.css}}\" style=\"{{ctx.style}}\"><p class=\"{{css.cell}}\" title=\"{{ctx.title}}\">{{ctx.content}}</p></td>",
             footer: "<div id=\"{{ctx.id}}\" class=\"{{css.footer}}\"><p class=\"{{css.pagination}}\"></p><p class=\"{{css.infos}}\"></p></div>",
             header: "<div id=\"{{ctx.id}}\" class=\"{{css.header}}\"><p class=\"{{css.search}}\"></p><p class=\"{{css.actions}}\"></p><p class=\"pkui-grid-setting fa fa-gear\"></p></div>",
             headerCell: "<th data-column-id=\"{{ctx.column.id}}\" class=\"{{ctx.css}}\" style=\"{{ctx.style}}\"><a href=\"javascript:void(0);\" class=\"{{css.columnHeaderAnchor}} {{ctx.sortable}}\"><span class=\"{{css.columnHeaderText}}\">{{ctx.column.text}}{{ctx.icon}}</span></a></th>",
