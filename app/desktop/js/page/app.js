@@ -113,7 +113,6 @@ define( function ( require ) {
      * @property {string} data 模板数据
      * 当 data 为空时，不需要使用artTemplate，直接将返回的数据插入窗口主体节点
      * 当 data 非空时，会请求src对应的模板和data对应的数据，
-     * @property {function} dataHandler 对请求到的data数据进行预处理
      */
     App.prototype.defaults = {
         icon: "",
@@ -122,8 +121,7 @@ define( function ( require ) {
         mode: "default",
 
         //----- Deprecated ---------
-        data: "",
-        dataHandler: window.PKUI.responseDataHandler
+        data: ""
         //----- Deprecated ---------
     };
 
