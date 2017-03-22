@@ -133,7 +133,7 @@ define( function( require ) {
             }
 
             options.$drawer
-                .addClass( Drawer.clazz.open )
+                // .addClass( Drawer.clazz.open )
                 .animate( { left: "0" }, function() {
                     var openCallback = options.onOpen
                     ;
