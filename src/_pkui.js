@@ -235,7 +235,7 @@ define( [
             $.each( componentNameList, function( index, componentName ) {
                 var
                     options = componentOptions[ index ],
-                    component = PKUI.component[ componentName ],
+                    component = PKUI.component[ $.trim( componentName ) ],
                     moduleId = componentName
                     ;
                 // 如果没有注册该组件，则载入，再初始化
