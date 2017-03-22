@@ -3851,10 +3851,6 @@ a.bg-danger:focus {
   background-color: #f9f9f9;
   border-bottom: solid 2px #fff;
 }
-.pkui-grid-table th,
-.pkui-grid-table td {
-  padding: 12px;
-}
 .pkui-grid-table tr:hover td {
   color: #fff;
   background-color: #455469;
@@ -3969,6 +3965,19 @@ a.bg-danger:focus {
   font-size: 14px;
   line-height: 32px;
   margin-right: 24px;
+}
+
+.pkui-grid-columnHeaderAnchor,
+.pkui-grid-cell {
+  padding: 12px 6px;
+}
+
+.pkui-grid-cell {
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /*!
