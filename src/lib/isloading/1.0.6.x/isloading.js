@@ -225,7 +225,4 @@
         'disableOthers': []
     } );
 
-    // FIX 注册到 PKUI
-    window.PKUI.component.isLoading = $.fn.isLoading;
-
 })( jQuery, window, document );
