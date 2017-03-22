@@ -102,10 +102,13 @@ module.exports = function ( grunt ) {
         concat: {
             pkuiConfig: {
                 src: [
-                        'src/lib/sea-modules/seajs/3.0.0.x/sea.js',
-                        'src/_config.js',
+                        'src/lib/sea-modules/seajs/3.0.0/sea.js',
+                        "src/lib/sea-modules/seajs-preload/1.0.0/seajs-preload.js",
+                        "src/lib/sea-modules/seajs-css/1.0.0/seajs-css.js",
+                        "src/lib/sea-modules/seajs-text/1.1.1/seajs-text.js",
+                        'src/_config.js'
                         // 'src/lib/jquery/1.11.3.x/jquery.js',
-                        'src/_pkui.js'
+                        //'src/_pkui.js'
                 ],
                 dest: 'src/pkui.js'
             }
