@@ -224,17 +224,23 @@ define( [
                 componentOptions = $this.data( PKUI.optionsMarkupProp ) || {},
                 componentNameList
                 ;
+            if ( $.trim( componentName ) === "" ) {
+                return ;
+            }
 
-            if ( $.isArray( componentOptions ) && $.isArray( componentOptions ) ) {
-                componentNameList = componentName.split("|");
+            if ( componentName.indexOf( "|" ) !== -1 ) {
+                componentNameList = componentName.split( "|" );
             } else {
                 componentNameList = [ componentName ];
+            }
+
+            if ( ! $.isArray( componentOptions ) ) {
                 componentOptions = [ componentOptions ];
             }
 
             $.each( componentNameList, function( index, componentName ) {
                 var
-                    options = componentOptions[ index ],
+                    options = componentOptions[ index ] || {},
                     component = PKUI.component[ $.trim( componentName ) ],
                     moduleId = componentName
                     ;
@@ -255,7 +261,7 @@ define( [
                             break;
                     }
                     seajs.use( [ moduleId ], function () {
-                        PKUI.component[ componentName ].call( $this, options );
+                        PKUI.component[ $.trim( componentName ) ].call( $this, options );
                     } );
                 }
                 // 如果已注册，则初始化
@@ -296,19 +302,20 @@ define( [
             setAutoRender.pointcutHandlerList = [
 
                 // 1. 调用 jquery.html( value ) 方法之后
-                AOP.after( $.prototype, "html", render ),
+                AOP.after( $.prototype, "html", render )
+                // ,
 
                 // 2. 调用 jquery.append( value ) 方法之后
-                AOP.after( $.prototype, "append", render ),
+                //AOP.after( $.prototype, "append", render ),
 
                 // 3. 调用 jquery.appendTo( value ) 方法之后
-                AOP.after( $.prototype, "appendTo", render ),
+                //AOP.after( $.prototype, "appendTo", render ),
 
                 // 4. 调用 jquery.prepend( value ) 方法之后
-                AOP.after( $.prototype, "prepend", render ),
+                //AOP.after( $.prototype, "prepend", render ),
 
                 // 5. 调用 jquery.prependTo( value ) 方法之后
-                AOP.after( $.prototype, "prependTo", render )
+                //AOP.after( $.prototype, "prependTo", render )
 
             ];
 
