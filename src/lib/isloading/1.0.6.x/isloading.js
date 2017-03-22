@@ -37,7 +37,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-;(function ( $, window, document, undefined ) {
+define( function ( require ) {
+
+    var
+        $ = require( "jquery" ),
+        window = window
+    ;
 
     // Create the defaults once
     var pluginName = "isLoading",
@@ -225,4 +230,4 @@
         'disableOthers': []
     } );
 
-})( jQuery, window, document );
+} );
