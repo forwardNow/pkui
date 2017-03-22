@@ -1519,4 +1519,57 @@
 			window.opera.postError(msg);
 		}
 	}
+
+
+	// FIX 注册到 PKUI
+    /**
+	 *
+     * @param $this
+     * @param options
+     */
+	PKUI.component.form = function ( options ) {
+		var
+			$this = this
+		;
+		if ( ! $this.is( "form" ) ) {
+			throw "/(ㄒoㄒ)/~~ 请把 form 组件注册到 form标签";
+		}
+		var
+			opts = $this.data(),
+			doneCallback = opts.doneCallback && window[ opts.doneCallback ],
+			failCallback = opts.failCallback && window[ opts.failCallback ],
+			alwaysCallback = opts.alwaysCallback && window[ opts.alwaysCallback ],
+            xhr
+		;
+		// FIX 监听 "ajaxSubmit.pkui.validator"
+        $this.off( "ajaxSubmit.pkui.validator" ).on( "ajaxSubmit.pkui.validator", function () {
+        	if ( $this.attr( "isAjaxSubmitting" ) ) {
+        		console.info( "/(ㄒoㄒ)/~~正则提交..." );
+        		return;
+			}
+        	$this.ajaxSubmit( options );
+            $this.attr( "isAjaxSubmitting", true );
+            xhr = $this.data('jqxhr');
+            xhr.done( function ( responseData ) {
+				if ( typeof doneCallback === "function" ) {
+                    doneCallback.call( $this, responseData );
+				}
+			} )
+			.fail( function () {
+                if ( typeof failCallback === "function" ) {
+                    failCallback.call( $this );
+                }
+			} )
+			.always( function () {
+                $this.removeAttr( "isAjaxSubmitting" );
+                if ( typeof alwaysCallback === "function" ) {
+                    alwaysCallback.call( $this );
+                }
+			} );
+		} );
+
+        $this.attr( "isrendered", true );
+	};
+
+
 }));
