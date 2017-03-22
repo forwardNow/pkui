@@ -407,7 +407,11 @@ seajs.config( {
         // loading
         "isLoading": "lib/isloading/1.0.6.x/isloading",
 
+        // 表单验证
         "validator": "lib/validator/1.0.10.x/jquery.validator",
+
+        // 表单提交
+        "form": "lib/form/4.2.0.x/jquery.form",
 
         // 数据源
         "dataSource": "component/common/dataSource/1.0.0/dataSource",
