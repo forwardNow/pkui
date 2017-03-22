@@ -88,7 +88,11 @@
             formClass: 'n-default',
             validClass: 'n-valid',
             invalidClass: 'n-invalid',
-            bindClassTo: null
+            bindClassTo: null,
+
+            // FIX 扩展参数：标志验证通过，准备提交表单，发送一个 submit.pkui.validator 的事件
+            _isAjaxSubmit: true
+
         },
         fieldDefaults = {
             // FIX 更改实时验证
@@ -585,8 +589,10 @@
 
                     if (!isValid) return;
                     // For jquery.form plugin
-                    if (me.vetoed) {
-                        $(form).ajaxSubmit(me.ajaxFormOptions);
+                    // FIX ajaxSubmit.pkui.validator
+                    if (me.vetoed || opt._isAjaxSubmit ) {
+                        // $(form).ajaxSubmit(me.ajaxFormOptions);
+                        $(form).trigger( "ajaxSubmit.pkui.validator" );
                     }
                     else if (canSubmit && !me.isAjaxSubmit) {
                         document.createElement('form').submit.call(form);

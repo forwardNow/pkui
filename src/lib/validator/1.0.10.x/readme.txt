@@ -13,3 +13,5 @@
     6. // FIX 设置默认主题
 
     7. // FIX 更改实时验证
+
+    8. // FIX 扩展参数：标志验证通过，准备提交表单，发送一个 ajaxSubmit.pkui.validator 的事件
