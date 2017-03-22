@@ -1,18 +1,18 @@
 
-// 配置
-define( "pkui", [
-
+// PKUI 核心模块
+define( [
     "jquery",
 
     "meld",
 
-    // 字体图标样式文件
+
+    //------------------------------------------
     "css/font/font-awesome/4.7.0/font-awesome.css",
 
     "isLoading"
 
-], function ( require ) {
-
+],function ( require ) {
+    "use strict";
     var
         $ = require( "jquery" ),
 
@@ -321,5 +321,7 @@ define( "pkui", [
         }
 
     }
+
+    PKUI._init();
 
 } );
