@@ -11,8 +11,9 @@ seajs.config( {
 
     // 别名配置
     alias: {
-        // "seajs-css": "lib/sea-modules/seajs-css/1.0.0/seajs-css",
-        "seajs-text": "lib/sea-modules/seajs-text/1.1.1/seajs-text",
+
+        // core
+        "_pkui": "_pkui",
 
         // polyfill ES5 grammar
         "es5-shim": "lib/es5-shim/4.5.9.x/es5-shim",
@@ -152,7 +153,7 @@ seajs.config( {
 
         // 预加载项
         preload: [
-            "pkui"
+            "_pkui"
             //isSupportES5 ? "" : "es5-sham",
             //isSupportJSON ? "" : "json3",
             //isSupportMediaQuery ? "" : "respond",
