@@ -1,13 +1,345 @@
 /*! Sea.js 3.0.0 | seajs.org/LICENSE.md */
 !function(a,b){function c(a){return function(b){return{}.toString.call(b)=="[object "+a+"]"}}function d(){return A++}function e(a){return a.match(D)[0]}function f(a){for(a=a.replace(E,"/"),a=a.replace(G,"$1/");a.match(F);)a=a.replace(F,"/");return a}function g(a){var b=a.length-1,c=a.charCodeAt(b);return 35===c?a.substring(0,b):".js"===a.substring(b-2)||a.indexOf("?")>0||47===c?a:a+".js"}function h(a){var b=v.alias;return b&&x(b[a])?b[a]:a}function i(a){var b=v.paths,c;return b&&(c=a.match(H))&&x(b[c[1]])&&(a=b[c[1]]+c[2]),a}function j(a){var b=v.vars;return b&&a.indexOf("{")>-1&&(a=a.replace(I,function(a,c){return x(b[c])?b[c]:a})),a}function k(a){var b=v.map,c=a;if(b)for(var d=0,e=b.length;e>d;d++){var f=b[d];if(c=z(f)?f(a)||a:a.replace(f[0],f[1]),c!==a)break}return c}function l(a,b){var c,d=a.charCodeAt(0);if(J.test(a))c=a;else if(46===d)c=(b?e(b):v.cwd)+a;else if(47===d){var g=v.cwd.match(K);c=g?g[0]+a.substring(1):a}else c=v.base+a;return 0===c.indexOf("//")&&(c=location.protocol+c),f(c)}function m(a,b){if(!a)return"";a=h(a),a=i(a),a=h(a),a=j(a),a=h(a),a=g(a),a=h(a);var c=l(a,b);return c=h(c),c=k(c)}function n(a){return a.hasAttribute?a.src:a.getAttribute("src",4)}function o(a,b,c){var d;try{importScripts(a)}catch(e){d=e}b(d)}function p(a,b,c){var d=Y.createElement("script");if(c){var e=z(c)?c(a):c;e&&(d.charset=e)}q(d,b,a),d.async=!0,d.src=a,bb=d,ab?_.insertBefore(d,ab):_.appendChild(d),bb=null}function q(a,b,c){function d(c){a.onload=a.onerror=a.onreadystatechange=null,v.debug||_.removeChild(a),a=null,b(c)}var e="onload"in a;e?(a.onload=d,a.onerror=function(){C("error",{uri:c,node:a}),d(!0)}):a.onreadystatechange=function(){/loaded|complete/.test(a.readyState)&&d()}}function r(){if(bb)return bb;if(cb&&"interactive"===cb.readyState)return cb;for(var a=_.getElementsByTagName("script"),b=a.length-1;b>=0;b--){var c=a[b];if("interactive"===c.readyState)return cb=c}}function s(a){function b(){l=a.charAt(k++)}function c(){return/\s/.test(l)}function d(){return'"'==l||"'"==l}function e(){var c=k,d=l,e=a.indexOf(d,c);if(-1==e)k=m;else if("\\"!=a.charAt(e-1))k=e+1;else for(;m>k;)if(b(),"\\"==l)k++;else if(l==d)break;o&&(r.push(a.slice(c,k-1)),o=0)}function f(){for(k--;m>k;)if(b(),"\\"==l)k++;else{if("/"==l)break;if("["==l)for(;m>k;)if(b(),"\\"==l)k++;else if("]"==l)break}}function g(){return/[a-z_$]/i.test(l)}function h(){var b=a.slice(k-1),c=/^[\w$]+/.exec(b)[0];p={"if":1,"for":1,"while":1,"with":1}[c],n={"break":1,"case":1,"continue":1,"debugger":1,"delete":1,"do":1,"else":1,"false":1,"if":1,"in":1,"instanceof":1,"return":1,"typeof":1,"void":1}[c],o=/^require\s*\(\s*(['"]).+?\1\s*\)/.test(b),o?(c=/^require\s*\(\s*['"]/.exec(b)[0],k+=c.length-2):k+=/^[\w$]+(?:\s*\.\s*[\w$]+)*/.exec(b)[0].length-1}function i(){return/\d/.test(l)||"."==l&&/\d/.test(a.charAt(k))}function j(){var b=a.slice(k-1),c;c="."==l?/^\.\d+(?:E[+-]?\d*)?\s*/i.exec(b)[0]:/^0x[\da-f]*/i.test(b)?/^0x[\da-f]*\s*/i.exec(b)[0]:/^\d+\.?\d*(?:E[+-]?\d*)?\s*/i.exec(b)[0],k+=c.length-1,n=0}if(-1==a.indexOf("require"))return[];for(var k=0,l,m=a.length,n=1,o=0,p=0,q=[],r=[];m>k;)b(),c()||(d()?(e(),n=1):"/"==l?(b(),"/"==l?(k=a.indexOf("\n",k),-1==k&&(k=a.length)):"*"==l?(k=a.indexOf("*/",k),-1==k?k=m:k+=2):n?(f(),n=0):(k--,n=1)):g()?h():i()?j():"("==l?(q.push(p),n=1):")"==l?n=q.pop():(n="]"!=l,o=0));return r}function t(a,b){this.uri=a,this.dependencies=b||[],this.deps={},this.status=0,this._entry=[]}if(!a.seajs){var u=a.seajs={version:"3.0.0"},v=u.data={},w=c("Object"),x=c("String"),y=Array.isArray||c("Array"),z=c("Function"),A=0,B=v.events={};u.on=function(a,b){var c=B[a]||(B[a]=[]);return c.push(b),u},u.off=function(a,b){if(!a&&!b)return B=v.events={},u;var c=B[a];if(c)if(b)for(var d=c.length-1;d>=0;d--)c[d]===b&&c.splice(d,1);else delete B[a];return u};var C=u.emit=function(a,b){var c=B[a];if(c){c=c.slice();for(var d=0,e=c.length;e>d;d++)c[d](b)}return u},D=/[^?#]*\//,E=/\/\.\//g,F=/\/[^/]+\/\.\.\//,G=/([^:/])\/+\//g,H=/^([^/:]+)(\/.+)$/,I=/{([^{]+)}/g,J=/^\/\/.|:\//,K=/^.*?\/\/.*?\//;u.resolve=m;var L="undefined"==typeof window&&"undefined"!=typeof importScripts&&z(importScripts),M=/^(about|blob):/,N,O,P=!location.href||M.test(location.href)?"":e(location.href);if(L){var Q;try{var R=Error();throw R}catch(S){Q=S.stack.split("\n")}Q.shift();for(var T,U=/.*?((?:http|https|file)(?::\/{2}[\w]+)(?:[\/|\.]?)(?:[^\s"]*)).*?/i,V=/(.*?):\d+:\d+\)?$/;Q.length>0;){var W=Q.shift();if(T=U.exec(W),null!=T)break}var X;if(null!=T)var X=V.exec(T[1])[1];O=X,N=e(X||P),""===P&&(P=N)}else{var Y=document,Z=Y.scripts,$=Y.getElementById("seajsnode")||Z[Z.length-1];O=n($),N=e(O||P)}if(L)u.request=o;else{var Y=document,_=Y.head||Y.getElementsByTagName("head")[0]||Y.documentElement,ab=_.getElementsByTagName("base")[0],bb;u.request=p}var cb,db=u.cache={},eb,fb={},gb={},hb={},ib=t.STATUS={FETCHING:1,SAVED:2,LOADING:3,LOADED:4,EXECUTING:5,EXECUTED:6,ERROR:7};t.prototype.resolve=function(){for(var a=this,b=a.dependencies,c=[],d=0,e=b.length;e>d;d++)c[d]=t.resolve(b[d],a.uri);return c},t.prototype.pass=function(){for(var a=this,b=a.dependencies.length,c=0;c<a._entry.length;c++){for(var d=a._entry[c],e=0,f=0;b>f;f++){var g=a.deps[a.dependencies[f]];g.status<ib.LOADED&&!d.history.hasOwnProperty(g.uri)&&(d.history[g.uri]=!0,e++,g._entry.push(d),g.status===ib.LOADING&&g.pass())}e>0&&(d.remain+=e-1,a._entry.shift(),c--)}},t.prototype.load=function(){var a=this;if(!(a.status>=ib.LOADING)){a.status=ib.LOADING;var c=a.resolve();C("load",c);for(var d=0,e=c.length;e>d;d++)a.deps[a.dependencies[d]]=t.get(c[d]);if(a.pass(),a._entry.length)return a.onload(),b;var f={},g;for(d=0;e>d;d++)g=db[c[d]],g.status<ib.FETCHING?g.fetch(f):g.status===ib.SAVED&&g.load();for(var h in f)f.hasOwnProperty(h)&&f[h]()}},t.prototype.onload=function(){var a=this;a.status=ib.LOADED;for(var b=0,c=(a._entry||[]).length;c>b;b++){var d=a._entry[b];0===--d.remain&&d.callback()}delete a._entry},t.prototype.error=function(){var a=this;a.onload(),a.status=ib.ERROR},t.prototype.exec=function(){function a(b){var d=c.deps[b]||t.get(a.resolve(b));if(d.status==ib.ERROR)throw Error("module was broken: "+d.uri);return d.exec()}var c=this;if(c.status>=ib.EXECUTING)return c.exports;if(c.status=ib.EXECUTING,c._entry&&!c._entry.length&&delete c._entry,!c.hasOwnProperty("factory"))return c.non=!0,b;var e=c.uri;a.resolve=function(a){return t.resolve(a,e)},a.async=function(b,c){return t.use(b,c,e+"_async_"+d()),a};var f=c.factory,g=z(f)?f(a,c.exports={},c):f;return g===b&&(g=c.exports),delete c.factory,c.exports=g,c.status=ib.EXECUTED,C("exec",c),c.exports},t.prototype.fetch=function(a){function c(){u.request(g.requestUri,g.onRequest,g.charset)}function d(a){delete fb[h],gb[h]=!0,eb&&(t.save(f,eb),eb=null);var b,c=hb[h];for(delete hb[h];b=c.shift();)a===!0?b.error():b.load()}var e=this,f=e.uri;e.status=ib.FETCHING;var g={uri:f};C("fetch",g);var h=g.requestUri||f;return!h||gb.hasOwnProperty(h)?(e.load(),b):fb.hasOwnProperty(h)?(hb[h].push(e),b):(fb[h]=!0,hb[h]=[e],C("request",g={uri:f,requestUri:h,onRequest:d,charset:z(v.charset)?v.charset(h)||"utf-8":v.charset}),g.requested||(a?a[g.requestUri]=c:c()),b)},t.resolve=function(a,b){var c={id:a,refUri:b};return C("resolve",c),c.uri||u.resolve(c.id,b)},t.define=function(a,c,d){var e=arguments.length;1===e?(d=a,a=b):2===e&&(d=c,y(a)?(c=a,a=b):c=b),!y(c)&&z(d)&&(c=b===s?[]:s(""+d));var f={id:a,uri:t.resolve(a),deps:c,factory:d};if(!L&&!f.uri&&Y.attachEvent&&b!==r){var g=r();g&&(f.uri=g.src)}C("define",f),f.uri?t.save(f.uri,f):eb=f},t.save=function(a,b){var c=t.get(a);c.status<ib.SAVED&&(c.id=b.id||a,c.dependencies=b.deps||[],c.factory=b.factory,c.status=ib.SAVED,C("save",c))},t.get=function(a,b){return db[a]||(db[a]=new t(a,b))},t.use=function(b,c,d){var e=t.get(d,y(b)?b:[b]);e._entry.push(e),e.history={},e.remain=1,e.callback=function(){for(var b=[],d=e.resolve(),f=0,g=d.length;g>f;f++)b[f]=db[d[f]].exec();c&&c.apply(a,b),delete e.callback,delete e.history,delete e.remain,delete e._entry},e.load()},u.use=function(a,b){return t.use(a,b,v.cwd+"_use_"+d()),u},t.define.cmd={},a.define=t.define,u.Module=t,v.fetchedList=gb,v.cid=d,u.require=function(a){var b=t.get(t.resolve(a));return b.status<ib.EXECUTING&&(b.onload(),b.exec()),b.exports},v.base=N,v.dir=N,v.loader=O,v.cwd=P,v.charset="utf-8",u.config=function(a){for(var b in a){var c=a[b],d=v[b];if(d&&w(d))for(var e in c)d[e]=c[e];else y(d)?c=d.concat(c):"base"===b&&("/"!==c.slice(-1)&&(c+="/"),c=l(c)),v[b]=c}return C("config",a),u}}}(this);
 
-/* seajs-preload */
 !function(){var a=seajs.data,b=document;seajs.Module.preload=function(b){var c=a.preload,d=c.length;d?seajs.Module.use(c,function(){c.splice(0,d),seajs.Module.preload(b)},a.cwd+"_preload_"+a.cid()):b()},seajs.use=function(b,c){return seajs.Module.preload(function(){seajs.Module.use(b,c,a.cwd+"_use_"+a.cid())}),seajs},a.preload=function(){var a=[],c=location.search.replace(/(seajs-\w+)(&|$)/g,"$1=1$2");return c+=" "+b.cookie,c.replace(/(seajs-\w+)=1/g,function(b,c){a.push(c)}),a}(),define("seajs/seajs-preload/1.0.0/seajs-preload",[],{})}();
+/**
+ * util-request.js - The utilities for requesting script and style files
+ * ref: tests/research/load-js-css/test.html
+ */
 
-/* seajs-css */
-!function(){function a(a){return function(b){return{}.toString.call(b)=="[object "+a+"]"}}function b(a){return"[object Function]"=={}.toString.call(a)}function c(a,c,e,f){var g=u.test(a),h=r.createElement(g?"link":"script");if(e){var i=b(e)?e(a):e;i&&(h.charset=i)}void 0!==f&&h.setAttribute("crossorigin",f),d(h,c,g,a),g?(h.rel="stylesheet",h.href=a):(h.async=!0,h.src=a),p=h,t?s.insertBefore(h,t):s.appendChild(h),p=null}function d(a,b,c,d){function f(){a.onload=a.onerror=a.onreadystatechange=null,c||seajs.data.debug||s.removeChild(a),a=null,b()}var g="onload"in a;return!c||!v&&g?(g?(a.onload=f,a.onerror=function(){seajs.emit("error",{uri:d,node:a}),f()}):a.onreadystatechange=function(){/loaded|complete/.test(a.readyState)&&f()},void 0):(setTimeout(function(){e(a,b)},1),void 0)}function e(a,b){var c,d=a.sheet;if(v)d&&(c=!0);else if(d)try{d.cssRules&&(c=!0)}catch(f){"NS_ERROR_DOM_SECURITY_ERR"===f.name&&(c=!0)}setTimeout(function(){c?b():e(a,b)},20)}function f(a){return a.match(x)[0]}function g(a){for(a=a.replace(y,"/"),a=a.replace(A,"$1/");a.match(z);)a=a.replace(z,"/");return a}function h(a){var b=a.length-1,c=a.charAt(b);return"#"===c?a.substring(0,b):".js"===a.substring(b-2)||a.indexOf("?")>0||".css"===a.substring(b-3)||"/"===c?a:a+".js"}function i(a){var b=w.alias;return b&&q(b[a])?b[a]:a}function j(a){var b,c=w.paths;return c&&(b=a.match(B))&&q(c[b[1]])&&(a=c[b[1]]+b[2]),a}function k(a){var b=w.vars;return b&&a.indexOf("{")>-1&&(a=a.replace(C,function(a,c){return q(b[c])?b[c]:a})),a}function l(a){var c=w.map,d=a;if(c)for(var e=0,f=c.length;f>e;e++){var g=c[e];if(d=b(g)?g(a)||a:a.replace(g[0],g[1]),d!==a)break}return d}function m(a,b){var c,d=a.charAt(0);if(D.test(a))c=a;else if("."===d)c=g((b?f(b):w.cwd)+a);else if("/"===d){var e=w.cwd.match(E);c=e?e[0]+a.substring(1):a}else c=w.base+a;return 0===c.indexOf("//")&&(c=location.protocol+c),c}function n(a,b){if(!a)return"";a=i(a),a=j(a),a=k(a),a=h(a);var c=m(a,b);return c=l(c)}function o(a){return a.hasAttribute?a.src:a.getAttribute("src",4)}var p,q=a("String"),r=document,s=r.head||r.getElementsByTagName("head")[0]||r.documentElement,t=s.getElementsByTagName("base")[0],u=/\.css(?:\?|$)/i,v=+navigator.userAgent.replace(/.*(?:AppleWebKit|AndroidWebKit)\/?(\d+).*/i,"$1")<536;seajs.request=c;var w=seajs.data,x=/[^?#]*\//,y=/\/\.\//g,z=/\/[^/]+\/\.\.\//,A=/([^:/])\/+\//g,B=/^([^/:]+)(\/.+)$/,C=/{([^{]+)}/g,D=/^\/\/.|:\//,E=/^.*?\/\/.*?\//,r=document,F=location.href&&0!==location.href.indexOf("about:")?f(location.href):"",G=r.scripts,H=r.getElementById("seajsnode")||G[G.length-1];f(o(H)||F),seajs.resolve=n,define("seajs/seajs-css/1.0.5/seajs-css",[],{})}();
+function isType(type) {
+  return function(obj) {
+    return {}.toString.call(obj) == "[object " + type + "]"
+  }
+}
 
-/* seajs-text */
+var isString = isType("String")
+
+var doc = document
+var head = doc.head || doc.getElementsByTagName("head")[0] || doc.documentElement
+var baseElement = head.getElementsByTagName("base")[0]
+
+var IS_CSS_RE = /\.css(?:\?|$)/i
+var currentlyAddingScript
+var interactiveScript
+
+// `onload` event is not supported in WebKit < 535.23 and Firefox < 9.0
+// ref:
+//  - https://bugs.webkit.org/show_activity.cgi?id=38995
+//  - https://bugzilla.mozilla.org/show_bug.cgi?id=185236
+//  - https://developer.mozilla.org/en/HTML/Element/link#Stylesheet_load_events
+var isOldWebKit = +navigator.userAgent
+  .replace(/.*(?:AppleWebKit|AndroidWebKit)\/?(\d+).*/i, "$1") < 536
+
+function isFunction(obj) {
+  return {}.toString.call(obj) == "[object Function]"
+}
+function request(url, callback, charset, crossorigin) {
+  var isCSS = IS_CSS_RE.test(url)
+  var node = doc.createElement(isCSS ? "link" : "script")
+
+  if (charset) {
+    var cs = isFunction(charset) ? charset(url) : charset
+    if (cs) {
+      node.charset = cs
+    }
+  }
+
+  if (crossorigin !== void 0) {
+    node.setAttribute("crossorigin", crossorigin)
+  }
+
+  addOnload(node, callback, isCSS, url)
+
+  if (isCSS) {
+    node.rel = "stylesheet"
+    node.href = url
+  }
+  else {
+    node.async = true
+    node.src = url
+  }
+
+  // For some cache cases in IE 6-8, the script executes IMMEDIATELY after
+  // the end of the insert execution, so use `currentlyAddingScript` to
+  // hold current node, for deriving url in `define` call
+  currentlyAddingScript = node
+
+  // ref: #185 & http://dev.jquery.com/ticket/2709
+  baseElement ?
+    head.insertBefore(node, baseElement) :
+    head.appendChild(node)
+
+  currentlyAddingScript = null
+}
+
+function addOnload(node, callback, isCSS, url) {
+  var supportOnload = "onload" in node
+
+  // for Old WebKit and Old Firefox
+  if (isCSS && (isOldWebKit || !supportOnload)) {
+    setTimeout(function() {
+      pollCss(node, callback)
+    }, 1) // Begin after node insertion
+    return
+  }
+
+  if (supportOnload) {
+    node.onload = onload
+    node.onerror = function() {
+      seajs.emit("error", { uri: url, node: node })
+      onload()
+    }
+  }
+  else {
+    node.onreadystatechange = function() {
+      if (/loaded|complete/.test(node.readyState)) {
+        onload()
+      }
+    }
+  }
+
+  function onload() {
+    // Ensure only run once and handle memory leak in IE
+    node.onload = node.onerror = node.onreadystatechange = null
+
+    // Remove the script to reduce memory leak
+    if (!isCSS && !seajs.data.debug) {
+      head.removeChild(node)
+    }
+
+    // Dereference the node
+    node = null
+
+    callback()
+  }
+}
+
+function pollCss(node, callback) {
+  var sheet = node.sheet
+  var isLoaded
+
+  // for WebKit < 536
+  if (isOldWebKit) {
+    if (sheet) {
+      isLoaded = true
+    }
+  }
+  // for Firefox < 9.0
+  else if (sheet) {
+    try {
+      if (sheet.cssRules) {
+        isLoaded = true
+      }
+    } catch (ex) {
+      // The value of `ex.name` is changed from "NS_ERROR_DOM_SECURITY_ERR"
+      // to "SecurityError" since Firefox 13.0. But Firefox is less than 9.0
+      // in here, So it is ok to just rely on "NS_ERROR_DOM_SECURITY_ERR"
+      if (ex.name === "NS_ERROR_DOM_SECURITY_ERR") {
+        isLoaded = true
+      }
+    }
+  }
+
+  setTimeout(function() {
+    if (isLoaded) {
+      // Place callback here to give time for style rendering
+      callback()
+    }
+    else {
+      pollCss(node, callback)
+    }
+  }, 20)
+}
+
+
+// For Developers
+seajs.request = request
+
+
+
+/**
+ * util-path.js - The utilities for operating path such as id, uri
+ */
+var data = seajs.data
+
+var DIRNAME_RE = /[^?#]*\//
+
+var DOT_RE = /\/\.\//g
+var DOUBLE_DOT_RE = /\/[^/]+\/\.\.\//
+var MULTI_SLASH_RE = /([^:/])\/+\//g
+
+// Extract the directory portion of a path
+// dirname("a/b/c.js?t=123#xx/zz") ==> "a/b/"
+// ref: http://jsperf.com/regex-vs-split/2
+function dirname(path) {
+  return path.match(DIRNAME_RE)[0]
+}
+
+// Canonicalize a path
+// realpath("http://test.com/a//./b/../c") ==> "http://test.com/a/c"
+function realpath(path) {
+  // /a/b/./c/./d ==> /a/b/c/d
+  path = path.replace(DOT_RE, "/")
+
+  /*
+   @author wh1100717
+   a//b/c ==> a/b/c
+   a///b/////c ==> a/b/c
+   DOUBLE_DOT_RE matches a/b/c//../d path correctly only if replace // with / first
+   */
+  path = path.replace(MULTI_SLASH_RE, "$1/")
+
+  // a/b/c/../../d  ==>  a/b/../d  ==>  a/d
+  while (path.match(DOUBLE_DOT_RE)) {
+    path = path.replace(DOUBLE_DOT_RE, "/")
+  }
+
+  return path
+}
+
+// Normalize an id
+// normalize("path/to/a") ==> "path/to/a.js"
+// NOTICE: substring is faster than negative slice and RegExp
+function normalize(path) {
+  var last = path.length - 1
+  var lastC = path.charAt(last)
+
+  // If the uri ends with `#`, just return it without '#'
+  if (lastC === "#") {
+    return path.substring(0, last)
+  }
+
+  return (path.substring(last - 2) === ".js" ||
+    path.indexOf("?") > 0 ||
+    path.substring(last - 3) === ".css" ||
+    lastC === "/") ? path : path + ".js"
+}
+
+
+var PATHS_RE = /^([^/:]+)(\/.+)$/
+var VARS_RE = /{([^{]+)}/g
+
+function parseAlias(id) {
+  var alias = data.alias
+  return alias && isString(alias[id]) ? alias[id] : id
+}
+
+function parsePaths(id) {
+  var paths = data.paths
+  var m
+
+  if (paths && (m = id.match(PATHS_RE)) && isString(paths[m[1]])) {
+    id = paths[m[1]] + m[2]
+  }
+
+  return id
+}
+
+function parseVars(id) {
+  var vars = data.vars
+
+  if (vars && id.indexOf("{") > -1) {
+    id = id.replace(VARS_RE, function(m, key) {
+      return isString(vars[key]) ? vars[key] : m
+    })
+  }
+
+  return id
+}
+
+function parseMap(uri) {
+  var map = data.map
+  var ret = uri
+
+  if (map) {
+    for (var i = 0, len = map.length; i < len; i++) {
+      var rule = map[i]
+
+      ret = isFunction(rule) ?
+        (rule(uri) || uri) :
+        uri.replace(rule[0], rule[1])
+
+      // Only apply the first matched rule
+      if (ret !== uri) break
+    }
+  }
+
+  return ret
+}
+
+
+var ABSOLUTE_RE = /^\/\/.|:\//
+var ROOT_DIR_RE = /^.*?\/\/.*?\//
+
+function addBase(id, refUri) {
+  var ret
+  var first = id.charAt(0)
+
+  // Absolute
+  if (ABSOLUTE_RE.test(id)) {
+    ret = id
+  }
+  // Relative
+  else if (first === ".") {
+    ret = realpath((refUri ? dirname(refUri) : data.cwd) + id)
+  }
+  // Root
+  else if (first === "/") {
+    var m = data.cwd.match(ROOT_DIR_RE)
+    ret = m ? m[0] + id.substring(1) : id
+  }
+  // Top-level
+  else {
+    ret = data.base + id
+  }
+
+  // Add default protocol when uri begins with "//"
+  if (ret.indexOf("//") === 0) {
+    ret = location.protocol + ret
+  }
+
+  return ret
+}
+
+function id2Uri(id, refUri) {
+  if (!id) return ""
+
+  id = parseAlias(id)
+  id = parsePaths(id)
+  id = parseVars(id)
+  id = normalize(id)
+
+  var uri = addBase(id, refUri)
+  uri = parseMap(uri)
+
+  return uri
+}
+
+
+var doc = document
+var cwd = (!location.href || location.href.indexOf('about:') === 0) ? '' : dirname(location.href)
+var scripts = doc.scripts
+
+// Recommend to add `seajsnode` id for the `sea.js` script element
+var loaderScript = doc.getElementById("seajsnode") ||
+  scripts[scripts.length - 1]
+
+// When `sea.js` is inline, set loaderDir to current working directory
+var loaderDir = dirname(getScriptAbsoluteSrc(loaderScript) || cwd)
+
+function getScriptAbsoluteSrc(node) {
+  return node.hasAttribute ? // non-IE6/7
+    node.src :
+    // see http://msdn.microsoft.com/en-us/library/ms536429(VS.85).aspx
+    node.getAttribute("src", 4)
+}
+
+
+// For Developers
+seajs.resolve = id2Uri
+
+
 !function(){function a(a){h[a.name]=a}function b(a){return a&&h.hasOwnProperty(a)}function c(a){for(var c in h)if(b(c)){var d=","+h[c].ext.join(",")+",";if(d.indexOf(","+a+",")>-1)return c}}function d(a,b){var c=g.XMLHttpRequest?new g.XMLHttpRequest:new g.ActiveXObject("Microsoft.XMLHTTP");return c.open("GET",a,!0),c.onreadystatechange=function(){if(4===c.readyState){if(c.status>399&&c.status<600)throw new Error("Could not load: "+a+", status = "+c.status);b(c.responseText)}},c.send(null)}function e(a){a&&/\S/.test(a)&&(g.execScript||function(a){(g.eval||eval).call(g,a)})(a)}function f(a){return a.replace(/(["\\])/g,"\\$1").replace(/[\f]/g,"\\f").replace(/[\b]/g,"\\b").replace(/[\n]/g,"\\n").replace(/[\t]/g,"\\t").replace(/[\r]/g,"\\r").replace(/[\u2028]/g,"\\u2028").replace(/[\u2029]/g,"\\u2029")}var g=window,h={},i={};a({name:"text",ext:[".tpl",".html"],exec:function(a,b){e('define("'+a+'#", [], "'+f(b)+'")')}}),a({name:"json",ext:[".json"],exec:function(a,b){e('define("'+a+'#", [], '+b+")")}}),a({name:"handlebars",ext:[".handlebars"],exec:function(a,b){var c=['define("'+a+'#", ["handlebars"], function(require, exports, module) {','  var source = "'+f(b)+'"','  var Handlebars = require("handlebars")["default"]',"  module.exports = function(data, options) {","    options || (options = {})","    options.helpers || (options.helpers = {})","    for (var key in Handlebars.helpers) {","      options.helpers[key] = options.helpers[key] || Handlebars.helpers[key]","    }","    return Handlebars.compile(source)(data, options)","  }","})"].join("\n");e(c)}}),seajs.on("resolve",function(a){var d=a.id;if(!d)return"";var e,f;(f=d.match(/^(\w+)!(.+)$/))&&b(f[1])?(e=f[1],d=f[2]):(f=d.match(/[^?]+(\.\w+)(?:\?|#|$)/))&&(e=c(f[1])),e&&-1===d.indexOf("#")&&(d+="#");var g=seajs.resolve(d,a.refUri);e&&(i[g]=e),a.uri=g}),seajs.on("request",function(a){var b=i[a.uri];b&&(d(a.requestUri,function(c){h[b].exec(a.uri,c),a.onRequest()}),a.requested=!0)}),define("seajs/seajs-text/1.1.1/seajs-text",[],{})}();
 /**
  * @file 配置文件
@@ -22,8 +354,9 @@ seajs.config( {
 
     // 别名配置
     alias: {
-        // "seajs-css": "lib/sea-modules/seajs-css/1.0.0/seajs-css",
-        "seajs-text": "lib/sea-modules/seajs-text/1.1.1/seajs-text",
+
+        // core
+        "_pkui": "_pkui",
 
         // polyfill ES5 grammar
         "es5-shim": "lib/es5-shim/4.5.9.x/es5-shim",
@@ -163,7 +496,7 @@ seajs.config( {
 
         // 预加载项
         preload: [
-            "jquery"
+            "_pkui"
             //isSupportES5 ? "" : "es5-sham",
             //isSupportJSON ? "" : "json3",
             //isSupportMediaQuery ? "" : "respond",
@@ -203,324 +536,3 @@ seajs.config( {
 }( window );
 
 /* function loadJS( src, callback ) { var script = document.createElement( 'script' ); var head = document.getElementsByTagName( 'head' )[ 0 ]; var isLoaded; script.src = src; script.charset = "utf-8"; script.onload = script.onreadystatechange = function () { if ( !isLoaded && (!script.readyState || /loaded|complete/.test( script.readyState )) ) { script.onload = script.onreadystatechange = null; isLoaded = true; callback(); } }; head.appendChild( script ); }*/
-
-// 配置
-seajs.use( [
-
-    "jquery",
-
-    "meld",
-
-    // 字体图标样式文件
-    "css/font/font-awesome/4.7.0/font-awesome.css",
-
-    "isLoading"
-
-], function ( $, AOP ) {
-
-    var
-        ns = window[ "www.pkusoft.net" ],
-
-        PKUI = {
-            // <div data-pkui-component>
-            componentMarkupProp: "pkui-component",
-
-            // <div data-pkui-component-options>
-            optionsMarkupProp: "pkui-component-options",
-
-            // CTX路径
-            ctxPath: ns.ctxPath,
-
-            // pkui的基本路径
-            basePath: ns.pkuiBasePath,
-
-            // 字典路径
-            dicPath: ns.ctxPath + "/static/dic/",
-
-            // 时间戳（版本控制）v=2012-1-1
-            timestamp: ns.timestamp,
-
-            // 组件容器
-            component: {},
-
-            // 载入模块（seajs.use方法的别名）
-            load: seajs.use,
-
-            // 渲染
-            render: render,
-
-            // 自动渲染标志
-            isAutoRender: true,
-
-            // 设置自动渲染（true/false）
-            setAutoRender: setAutoRender
-        }
-        ;
-
-    // 如果是在WebStorm里跑 PKUI项目，则更改 ctxPath 和 dicPath
-    if ( location.href.indexOf( "localhost" ) !== -1 && ns.pkuiBasePath.indexOf( "static" ) === -1 ) {
-        PKUI.ctxPath = "http://localhost:8080/pkui";
-        PKUI.dicPath = "http://localhost:8080/pkui/static/dic/";
-    }
-
-    /**
-     * 初始化
-     * @private
-     */
-    PKUI._init = function _init() {
-
-        // DOM树构建完毕，执行一次渲染
-        $( document ).ready( render );
-
-        // 设置自动渲染
-        this.setAutoRender( this.isAutoRender );
-
-        // 暴露到全局名称空间
-        window.PKUI = PKUI;
-    };
-
-    /**
-     * 通用功能
-     */
-    $.extend( PKUI, {
-        /**
-         * @example
-         * public class JsonResult {
-         *     private boolean success = false;
-         *     private String message = "";
-         *     private Object data;
-         * }
-         */
-        handleJsonResult: function ( jsonResult ) {
-            if ( typeof jsonResult === "string" ) {
-                jsonResult = $.parseJSON( jsonResult );
-            }
-            // if ( jsonResult.success == false ) {
-            //     return false;
-            // }
-            return jsonResult;
-        },
-        /**
-         * @example
-         * public class GridResult {
-         *     private boolean success = true;
-         *     private int totalRecords = 0;
-         *     private List<?> data;
-         * }
-         */
-        handleGridResult: function ( gridResult ) {
-            return PKUI.handleJsonResult( gridResult );
-        },
-        /**
-         * 转换树结构
-         * @param options {{data: Array, rootId: string, idName: string, parentIdName: string, childrenName: string, filter: Array}}
-         * @example
-         * PKUI.getTreeList( {
-                data: [
-                    { menuId: 0, menuName: "系统管理", treeParentId: null },
-                    { menuId: 1, menuName: "用户管理", treeParentId: 0 },
-                    { menuId: 2, menuName: "单位管理", treeParentId: 0 }
-                ],
-                rootId: 0,
-                idName: "menuId",
-                parentIdName: "treeParentId",
-                childrenName: "children"
-           } );
-         返回：
-         [
-         {
-             menuId: 0, menuName: "系统管理", treeParentId: null,
-             children: [
-                 { menuId: 1, menuName: "用户管理", treeParentId: 0, children: null },
-                 { menuId: 2, menuName: "单位管理", treeParentId: 0, children: null }
-             ]
-         }
-         ]
-         */
-        getTreeList: function getTreeList( options ) {
-            var
-                data = options.data,
-                rootId = options.rootId,
-                idName = options.idName || "id",
-                parentIdName = options.parentIdName || "parentId",
-                childrenName = options.childrenName || "children",
-                returnData,
-                childrenCollection = {},
-                parentId,
-                rootList
-                ;
-
-            if ( !rootId ) {
-                rootId = data[ 0 ][ idName ];
-            }
-
-
-            $.each( data, function ( index, elt ) {
-                parentId = elt[ parentIdName ];
-                childrenCollection[ parentId ] = childrenCollection[ parentId ] || [];
-                childrenCollection[ parentId ].push( elt );
-            } );
-
-            rootList = data[ rootId ];
-
-            if ( !$.isArray( rootList ) ) {
-                rootList = [ rootList ];
-            }
-
-            returnData = fmtData( rootList );
-
-            function fmtData( data ) {
-                var list = []
-                    ;
-                if ( !data || !data.length ) {
-                    return null;
-                }
-                $.each( data, function ( index, elt ) {
-                    var record = elt,
-                        newRecord
-                        ;
-                    newRecord = $.extend( {}, record );
-                    newRecord[ childrenName ] = fmtData( childrenCollection[ record[ idName ] ] );
-                    list.push( newRecord );
-                } );
-                return list;
-            }
-
-
-            return returnData;
-
-        }
-    } );
-
-
-    /**
-     * 渲染。
-     *
-     * 渲染的目标（在此列出全部可被自动渲染的组件）：
-     *
-     *      <div data-pkui-component="datagrid"
-     *           data-pkui-component-options='{"key":"val",...}' >
-     *      <div data-pkui-component="drawer"
-     *           data-pkui-component-options='{"key":"val",...}' >
-     *      <div data-pkui-component="validator|form"
-     *           data-pkui-component-options='[{"key":"val",...},{"key":"val",...}]' >
-     *
-     * 已渲染的标志（添加 isrendered="true"）：
-     *
-     *      <div data-pkui-component="datagrid" isrendered="true">
-     *
-     *      渲染标志的添加由组件自身添加
-     */
-    function render() {
-        var
-            $component = $( "[data-" + PKUI.componentMarkupProp + "]" )
-                .not('[isrendered]')
-            ;
-
-        $component.each( function () {
-            var
-                $this = $( this ),
-                componentName = $this.data( PKUI.componentMarkupProp ),
-                // jQuery自动转为JSON对象了
-                componentOptions = $this.data( PKUI.optionsMarkupProp ) || {},
-                componentNameList
-                ;
-
-            if ( $.isArray( componentOptions ) && $.isArray( componentOptions ) ) {
-                componentNameList = componentName.split("|");
-            } else {
-                componentNameList = [ componentName ];
-                componentOptions = [ componentOptions ];
-            }
-
-            $.each( componentNameList, function( index, componentName ) {
-                var
-                    options = componentOptions[ index ],
-                    component = PKUI.component[ componentName ],
-                    moduleId = componentName
-                    ;
-                // 如果没有注册该组件，则载入，再初始化
-                if ( !component ) {
-                    switch ( componentName ) {
-                        case "datagrid":
-                            moduleId = "bootgrid";
-                            break;
-                        case "drawer":
-                            moduleId = "drawer";
-                            break;
-                        case "form":
-                            moduleId = "form";
-                            break;
-                        case "validator":
-                            moduleId = "validator";
-                            break;
-                    }
-                    seajs.use( [ moduleId ], function () {
-                        PKUI.component[ componentName ].call( $this, options );
-                    } );
-                }
-                // 如果已注册，则初始化
-                else {
-                    component.call( $this, options );
-                }
-            } );
-
-
-        } );
-    }
-
-    /**
-     * 开启/关闭 自动渲染。
-     *
-     * 自动渲染时机：
-     *
-     *      1. 调用 jquery.html( value ) 方法之后
-     *      2. 调用 jquery.append( value ) 方法之后
-     *      3. 调用 jquery.appendTo( value ) 方法之后
-     *      4. 调用 jquery.prepend( value ) 方法之后
-     *      5. 调用 jquery.prependTo( value ) 方法之后
-     *
-     * @param isAutoRender {boolean} true-开启，false-关闭。
-     *
-     */
-    function setAutoRender ( isAutoRender ) {
-
-        if ( arguments.length === 0 ) {
-            console.info( "/(ㄒoㄒ)/~~ 请设置参数。" );
-            return;
-        }
-
-        PKUI.isAutoRender = Boolean( isAutoRender );
-
-        if ( isAutoRender ) {
-
-            setAutoRender.pointcutHandlerList = [
-
-                // 1. 调用 jquery.html( value ) 方法之后
-                AOP.after( $.prototype, "html", render ),
-
-                // 2. 调用 jquery.append( value ) 方法之后
-                AOP.after( $.prototype, "append", render ),
-
-                // 3. 调用 jquery.appendTo( value ) 方法之后
-                AOP.after( $.prototype, "appendTo", render ),
-
-                // 4. 调用 jquery.prepend( value ) 方法之后
-                AOP.after( $.prototype, "prepend", render ),
-
-                // 5. 调用 jquery.prependTo( value ) 方法之后
-                AOP.after( $.prototype, "prependTo", render )
-
-            ];
-
-        } else {
-
-            $.each( setAutoRender.pointcutHandlerList, function ( index, pointcutHandler ) {
-                pointcutHandler.remove();
-            } );
-
-        }
-
-    }
-
-} );
