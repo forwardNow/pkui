@@ -1,4 +1,9 @@
-<form class="da-form">
+<form class="da-form" action="..."
+    data-pkui-component="validator|form"
+    data-done-callback="sysDeptEditDoneCallback"
+    data-fail-callback="sysDeptEditFailCallback"
+    data-always-callback="sysDeptEditAlwaysCallback" >
+
     <div class="da-form-heading">添加单位</div>
     <div class="da-form-body">
         <table class="da-form-table da-table da-table-striped">
@@ -12,44 +17,56 @@
                 <td class="text-right"><label class="da-control-label">单位级别：</label></td>
                 <td>
                     <div class="da-form-radio">
-                        <label><input type="radio" data-rule="checked">省级</label>
-                        <label><input type="radio">市级</label>
-                        <label><input type="radio">支队</label>
-                        <label><input type="radio">大队</label>
+                        <label><input type="radio" name="deptLevel" data-rule="checked">省级</label>
+                        <label><input type="radio" name="deptLevel">市级</label>
+                        <label><input type="radio" name="deptLevel">支队</label>
+                        <label><input type="radio" name="deptLevel">大队</label>
                     </div>
                 </td>
                 <td class="text-right"><label class="da-control-label">主管单位：</label></td>
                 <td>
                     <div class="da-form-checkbox">
-                        <label><input type="checkbox">是</label>
-                        <label><input type="checkbox" checked>否</label>
+                        <label><input type="checkbox" name="isMainDept">是</label>
+                        <label><input type="checkbox" name="isMainDept" checked>否</label>
                         <span class="help-inline">（注：是否为当前单位级别中行政级别最高的单位）</span>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td class="text-right"><label class="da-control-label" >上级单位：</label></td>
-                <td><input type="text" class="da-form-control"></td>
+                <td><input type="text" class="da-form-control" name="parentDeptId" data-rule="required"></td>
 
                 <td class="text-right"><label class="da-control-label">电　　话：<!--全角空格--></label></td>
-                <td><input type="text" class="da-form-control"></td>
+                <td><input type="text" class="da-form-control" name="tel" data-rule="required"></td>
             </tr>
             <tr>
                 <td class="text-right"><label class="da-control-label">单位编码：</label></td>
-                <td><input type="text" class="da-form-control"></td>
+                <td><input type="text" class="da-form-control" name="deptId" data-rule="required"></td>
 
                 <td class="text-right"><label class="da-control-label">传　　真：<!--全角空格--></label></td>
-                <td><input type="text" class="da-form-control"></td>
+                <td><input type="text" class="da-form-control" name="fax"></td>
             </tr>
             <tr>
                 <td class="text-right"><label class="da-control-label">单位名称：</label></td>
-                <td><input type="text" class="da-form-control"></td>
+                <td><input type="text" class="da-form-control" name="deptName" data-rule="required"></td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>
         </table>
     </div>
     <div class="da-form-footer">
-        <button type="button" class="btn btn-success-2">确定</button>
+        <button type="submit" class="btn btn-success-2">确定</button>
     </div>
 </form>
+<script >
+    function sysDeptEditDoneCallback($form, responseData) {
+
+        console.info( "sysDeptEditDoneCallback", $form, responseData);
+    }
+    function sysDeptEditFailCallback() {
+        console.info( "sysDeptEditFailCallback" );
+    }
+    function sysDeptEditAlwaysCallback() {
+        console.info( "sysDeptEditAlwaysCallback" );
+    }
+</script>
