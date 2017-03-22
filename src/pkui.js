@@ -203,11 +203,20 @@ seajs.config( {
 }( window );
 
 /* function loadJS( src, callback ) { var script = document.createElement( 'script' ); var head = document.getElementsByTagName( 'head' )[ 0 ]; var isLoaded; script.src = src; script.charset = "utf-8"; script.onload = script.onreadystatechange = function () { if ( !isLoaded && (!script.readyState || /loaded|complete/.test( script.readyState )) ) { script.onload = script.onreadystatechange = null; isLoaded = true; callback(); } }; head.appendChild( script ); }*/
-// 引入字体图标样式文件
-seajs.use( "css/font/font-awesome/4.7.0/font-awesome.css" );
 
 // 配置
-seajs.use( [ "jquery" ], function ( $ ) {
+seajs.use( [
+
+    "jquery",
+
+    "meld",
+
+    // 字体图标样式文件
+    "css/font/font-awesome/4.7.0/font-awesome.css",
+
+    "isLoading"
+
+], function ( $, AOP ) {
 
     var
         ns = window[ "www.pkusoft.net" ],
@@ -215,21 +224,36 @@ seajs.use( [ "jquery" ], function ( $ ) {
         PKUI = {
             // <div data-pkui-component>
             componentMarkupProp: "pkui-component",
+
             // <div data-pkui-component-options>
             optionsMarkupProp: "pkui-component-options",
+
             // CTX路径
             ctxPath: ns.ctxPath,
+
             // pkui的基本路径
             basePath: ns.pkuiBasePath,
+
             // 字典路径
             dicPath: ns.ctxPath + "/static/dic/",
+
             // 时间戳（版本控制）v=2012-1-1
             timestamp: ns.timestamp,
+
             // 组件容器
             component: {},
+
+            // 载入模块（seajs.use方法的别名）
+            load: seajs.use,
+
             // 渲染
-            render: function () {
-            }
+            render: render,
+
+            // 自动渲染标志
+            isAutoRender: true,
+
+            // 设置自动渲染（true/false）
+            setAutoRender: setAutoRender
         }
         ;
 
@@ -239,6 +263,21 @@ seajs.use( [ "jquery" ], function ( $ ) {
         PKUI.dicPath = "http://localhost:8080/pkui/static/dic/";
     }
 
+    /**
+     * 初始化
+     * @private
+     */
+    PKUI._init = function _init() {
+
+        // DOM树构建完毕，执行一次渲染
+        $( document ).ready( render );
+
+        // 设置自动渲染
+        this.setAutoRender( this.isAutoRender );
+
+        // 暴露到全局名称空间
+        window.PKUI = PKUI;
+    };
 
     /**
      * 通用功能
@@ -354,69 +393,29 @@ seajs.use( [ "jquery" ], function ( $ ) {
     } );
 
 
-    // 暴露到全局名称空间
-    window.PKUI = PKUI;
-
-} );
-
-/**
- * 自动渲染。
- *
- * 自动渲染时机：
- *
- *      1. DOM树构建完毕
- *      2. 调用 jquery.html( value ) 方法之后
- *      3. 调用 jquery.append( value ) 方法之后
- *      4. 调用 jquery.appendTo( value ) 方法之后
- *      5. 调用 jquery.prepend( value ) 方法之后
- *      6. 调用 jquery.prependTo( value ) 方法之后
- *
- * 渲染的目标（在此列出全部可被自动渲染的组件）：
- *
- *      <div data-pkui-component="datagrid"
- *           data-pkui-component-options='{"key":"val",...}' >
- *      <div data-pkui-component="drawer"
- *           data-pkui-component-options='{"key":"val",...}' >
- *      <div data-pkui-component="validator|form"
- *           data-pkui-component-options='[{"key":"val",...},{"key":"val",...}]' >
- *
- * 已渲染的标志（添加 isrendered="true"）：
- *
- *      <div data-pkui-component="datagrid" isrendered="true">
- *
- *      渲染标志的添加由组件自身添加
- */
-seajs.use( [ "jquery", "meld" ], function ( $, AOP ) {
-    var 
-        PKUI = window.PKUI
-    ;
-    
-    
-    // 1. DOM树构建完毕
-    $( document ).ready( render );
-
-    // 2. 调用 jquery.html( value ) 方法之后
-    AOP.after( $.prototype, "html", render );
-
-    // 3. 调用 jquery.append( value ) 方法之后
-    AOP.after( $.prototype, "append", render );
-
-    // 4. 调用 jquery.appendTo( value ) 方法之后
-    AOP.after( $.prototype, "appendTo", render );
-
-    // 5. 调用 jquery.prepend( value ) 方法之后
-    AOP.after( $.prototype, "prepend", render );
-
-    // 6. 调用 jquery.prependTo( value ) 方法之后
-    AOP.after( $.prototype, "prependTo", render );
-
-    PKUI.render = render;
-
+    /**
+     * 渲染。
+     *
+     * 渲染的目标（在此列出全部可被自动渲染的组件）：
+     *
+     *      <div data-pkui-component="datagrid"
+     *           data-pkui-component-options='{"key":"val",...}' >
+     *      <div data-pkui-component="drawer"
+     *           data-pkui-component-options='{"key":"val",...}' >
+     *      <div data-pkui-component="validator|form"
+     *           data-pkui-component-options='[{"key":"val",...},{"key":"val",...}]' >
+     *
+     * 已渲染的标志（添加 isrendered="true"）：
+     *
+     *      <div data-pkui-component="datagrid" isrendered="true">
+     *
+     *      渲染标志的添加由组件自身添加
+     */
     function render() {
         var
             $component = $( "[data-" + PKUI.componentMarkupProp + "]" )
-                         .not('[isrendered]')
-        ;
+                .not('[isrendered]')
+            ;
 
         $component.each( function () {
             var
@@ -470,5 +469,58 @@ seajs.use( [ "jquery", "meld" ], function ( $, AOP ) {
         } );
     }
 
+    /**
+     * 开启/关闭 自动渲染。
+     *
+     * 自动渲染时机：
+     *
+     *      1. 调用 jquery.html( value ) 方法之后
+     *      2. 调用 jquery.append( value ) 方法之后
+     *      3. 调用 jquery.appendTo( value ) 方法之后
+     *      4. 调用 jquery.prepend( value ) 方法之后
+     *      5. 调用 jquery.prependTo( value ) 方法之后
+     *
+     * @param isAutoRender {boolean} true-开启，false-关闭。
+     *
+     */
+    function setAutoRender ( isAutoRender ) {
+
+        if ( arguments.length === 0 ) {
+            console.info( "/(ㄒoㄒ)/~~ 请设置参数。" );
+            return;
+        }
+
+        PKUI.isAutoRender = Boolean( isAutoRender );
+
+        if ( isAutoRender ) {
+
+            setAutoRender.pointcutHandlerList = [
+
+                // 1. 调用 jquery.html( value ) 方法之后
+                AOP.after( $.prototype, "html", render ),
+
+                // 2. 调用 jquery.append( value ) 方法之后
+                AOP.after( $.prototype, "append", render ),
+
+                // 3. 调用 jquery.appendTo( value ) 方法之后
+                AOP.after( $.prototype, "appendTo", render ),
+
+                // 4. 调用 jquery.prepend( value ) 方法之后
+                AOP.after( $.prototype, "prepend", render ),
+
+                // 5. 调用 jquery.prependTo( value ) 方法之后
+                AOP.after( $.prototype, "prependTo", render )
+
+            ];
+
+        } else {
+
+            $.each( setAutoRender.pointcutHandlerList, function ( index, pointcutHandler ) {
+                pointcutHandler.remove();
+            } );
+
+        }
+
+    }
 
 } );

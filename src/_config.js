@@ -152,7 +152,7 @@ seajs.config( {
 
         // 预加载项
         preload: [
-            "jquery"
+            "pkui"
             //isSupportES5 ? "" : "es5-sham",
             //isSupportJSON ? "" : "json3",
             //isSupportMediaQuery ? "" : "respond",
