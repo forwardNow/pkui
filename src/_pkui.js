@@ -66,6 +66,9 @@ define( function ( require ) {
         // DOM树构建完毕，执行一次渲染
         $( document ).ready( render );
 
+        // 处理所有Ajax请求
+        fmtAjaxUrl();
+
         // 设置自动渲染
         this.setAutoRender( this.isAutoRender );
 
@@ -322,6 +325,23 @@ define( function ( require ) {
 
         }
 
+    }
+
+    /**
+     * 格式化 $.ajax 的 url，如果包含“__CTX__” 则，替换为 PKUI.ctxPath
+     */
+    function fmtAjaxUrl () {
+        AOP.before( $, "ajax", function ( url, options ) {
+            // If url is an object, simulate pre-1.5 signature
+            if ( typeof url === "object" ) {
+                options = url;
+                url = undefined;
+            }
+
+            if ( options.url.indexOf( "__CTX__" ) !== -1 ) {
+                options.url = options.url.replace( "__CTX__", PKUI.ctxPath );
+            }
+        } );
     }
 
     PKUI._init();
