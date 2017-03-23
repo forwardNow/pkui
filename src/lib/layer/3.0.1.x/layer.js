@@ -1221,28 +1221,13 @@ ready.run = function(_$){
     //加载方式
     // sea.js模块加载
     if ( typeof define === "function" && define.cmd ) {
-        define( function(require, exports, module) {
-            var jq = require( "jquery" );
-            ready.run( jq );
-            //setPath( module.uri );
-            return layer;
-        });
+        seajs.use( "jquery", function ( $ ) {
+            ready.run( $ );
+        } )
     } else {
         //普通script标签加载
         ready.run(window.jQuery);
         layer.ready();
-    }
-
-    function setPath( absPath ) {
-        var layerPath,
-            pos
-            ;
-        layerPath = absPath;
-        pos = layerPath.lastIndexOf( "layer" );
-        layerPath = layerPath.substring( 0, pos );
-        layer.config( {
-            path: layerPath
-        } );
     }
 
 }(window);

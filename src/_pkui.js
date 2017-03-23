@@ -1,18 +1,13 @@
 
 // PKUI 核心模块
-define( [
-    "jquery",
-
-    "meld",
-
-
-    //------------------------------------------
-    "css/font/font-awesome/4.7.0/font-awesome.css",
-
-    "isLoading"
-
-],function ( require ) {
+define( function ( require ) {
     "use strict";
+
+    require( "isLoading" );
+    require( "css/font/font-awesome/4.7.0/font-awesome.css" );
+    require( "layer" );
+    require( "lib/layer/3.0.1.x/skin/default/layer.css" );
+
     var
         $ = require( "jquery" ),
 

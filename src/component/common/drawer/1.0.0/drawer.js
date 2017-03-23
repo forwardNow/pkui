@@ -174,10 +174,6 @@ define( function( require ) {
                 options.$container
                     .removeClass( Drawer.clazz.open );
 
-                if ( options.overflowHiddenWhenOpen ) {
-                    options.$container.closest( options.overflowHiddenWhenOpen ).removeClass( Drawer.clazz.open );
-                }
-
                 // 隐藏遮罩层
                 options.$overlay.hide();
 
@@ -198,9 +194,6 @@ define( function( require ) {
                 options.$container
                     .removeClass( Drawer.clazz.open );
 
-                if ( options.overflowHiddenWhenOpen ) {
-                    options.$container.closest( options.overflowHiddenWhenOpen ).removeClass( Drawer.clazz.open );
-                }
                 // 销毁 drawer DOM
                 options.$drawer.remove();
                 // 销毁遮罩层

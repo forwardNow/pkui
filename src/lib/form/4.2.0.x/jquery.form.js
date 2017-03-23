@@ -1547,24 +1547,30 @@
         		console.info( "/(ㄒoㄒ)/~~正则提交..." );
         		return;
 			}
+			// 提交
         	$this.ajaxSubmit( options );
+        	// 遮罩
+        	$this.isLoading();
+        	// 标志正则提交
             $this.attr( "isAjaxSubmitting", true );
+            // 获取xhr，进行相应处理
             xhr = $this.data('jqxhr');
-            xhr.done( function ( responseData ) {
+			xhr.done( function ( responseData ) {
 				if ( typeof doneCallback === "function" ) {
-                    doneCallback.call( $this, responseData );
+					doneCallback( $this, responseData );
 				}
 			} )
 			.fail( function () {
-                if ( typeof failCallback === "function" ) {
-                    failCallback.call( $this );
-                }
+				if ( typeof failCallback === "function" ) {
+					failCallback( $this );
+				}
 			} )
 			.always( function () {
-                $this.removeAttr( "isAjaxSubmitting" );
-                if ( typeof alwaysCallback === "function" ) {
-                    alwaysCallback.call( $this );
-                }
+				$this.removeAttr( "isAjaxSubmitting" );
+				$this.isLoading( "hide" );
+				if ( typeof alwaysCallback === "function" ) {
+					alwaysCallback( $this );
+				}
 			} );
 		} );
 
