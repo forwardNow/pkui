@@ -1216,7 +1216,9 @@
                     if (container) {
                         $msgbox.appendTo(container);
                     } else {
-                        $msgbox[!msgOpt.pos || msgOpt.pos === 'right' ? 'insertAfter' : 'insertBefore']($el);
+                        // $msgbox[!msgOpt.pos || msgOpt.pos === 'right' ? 'insertAfter' : 'insertBefore']($el);
+                        // FIX 当 pos = "top" 时，让其显示右边
+                        $msgbox[!msgOpt.pos || msgOpt.pos === 'right' || msgOpt.pos === 'top' ? 'insertAfter' : 'insertBefore']($el);
                     }
                 }
             }

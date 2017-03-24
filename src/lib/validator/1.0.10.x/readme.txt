@@ -17,3 +17,8 @@
     7. // FIX 更改实时验证
 
     8. // FIX 扩展参数：标志验证通过，准备提交表单，发送一个 ajaxSubmit.pkui.validator 的事件
+
+
+2017/03/24
+
+    1. // FIX 当 pos = "top" 时，让其显示右边
