@@ -7,47 +7,35 @@ module.exports = function ( grunt ) {
 
         // 清空 dist 目录
         clean: {
-            init: {
-                files: [
-                    { src: 'dist/pkui/**' },
-                    { src: 'dist/temp/**' }
-                ]
-            },
-            temp: {
-                files: [
-                    { src: 'dist/temp/**/*.scss' },
-                    { src: 'dist/temp/**/*.css' },
-                    { src: 'dist/temp/**/*.js' }
-                ]
-            },
-            destory: {
-                files: [
-                    { src: 'dist/temp/**' }
-                ]
-            },
-            desktopApp: {
-                files: [
-                    { src: 'app/desktop/doc/_js/**' }
-                ]
-            }
+            dist_pkui: [ "dist/pkui/**" ],
+            dist_pkui_scss: [ "dist/pkui/**/*.scss" ],
+            dist_pkui_js: [ "dist/pkui/**/*.js" ],
+            dist_pkui_css: [ "dist/pkui/**/*.css" ],
+
+            app_desktop_doc__js: [ "app/desktop/doc/_js/**" ],
+
+            dist_desktop: [ "dist/desktop/**" ],
+            dist_desktop_scss: [ "dist/desktop/**/*.scss" ],
+            dist_desktop_js: [ "dist/desktop/**/*.js" ],
+            dist_desktop_css: [ "dist/desktop/**/*.css" ],
         },
         copy: {
-            srcToTemp: {
+            srcToDist: {
                 files: [
                     {
                         cwd: 'src',
-                        src: [ '**' ],
-                        dest: 'dist/temp',
+                        src: [ "**" ],
+                        dest: 'dist/pkui',
                         expand: true
                     }
                 ]
             },
-            tempToPkui: {
+            desktopToDist: {
                 files: [
                     {
-                        cwd: 'dist/temp',
-                        src: [ '**' ],
-                        dest: 'dist/pkui',
+                        cwd: 'app/desktop',
+                        src: [ "**" ],
+                        dest: 'dist/desktop',
                         expand: true
                     }
                 ]
@@ -55,30 +43,40 @@ module.exports = function ( grunt ) {
         },
         // 压缩JS（参考：http://www.cnblogs.com/artwl/p/3449303.html）
         uglify: {
-            buildToTemp: {//按原文件结构压缩js文件夹内所有JS文件
+            srcToDist: {//按原文件结构压缩js文件夹内所有JS文件
                 files: [ {
                     expand: true,
                     cwd: 'src',//dist目录下
                     src: '**/*.js',//所有js文件
-                    dest: 'dist/temp'//输出到此目录下
+                    dest: 'dist/pkui'//输出到此目录下
                 } ]
             },
-            buildPkui: {
+            desktopToDist: {
                 files: [ {
-                    src: 'src/pkui.js',//所有js文件
-                    dest: 'src/pkui.js'//输出到此目录下
+                    expand: true,
+                    cwd: 'app/desktop',//dist目录下
+                    src: '**/*.js',//所有js文件
+                    dest: 'dist/desktop'//输出到此目录下
                 } ]
             }
         },
 
         // 压缩css
         cssmin: {
-            buildToTemp: {
+            srcToDist: {
                 files: [ {
                     expand: true,
                     cwd: 'src',//dist目录下
                     src: '**/*.css',//所有js文件
-                    dest: 'dist/temp'//输出到此目录下
+                    dest: 'dist/pkui'//输出到此目录下
+                } ]
+            },
+            desktopToDist: {
+                files: [ {
+                    expand: true,
+                    cwd: 'app/desktop',//dist目录下
+                    src: '**/*.css',//所有js文件
+                    dest: 'dist/desktop'//输出到此目录下
                 } ]
             }
         },
@@ -131,22 +129,32 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks('grunt-contrib-concat');
 
 
-    grunt.registerTask( 'pkui', [
-        'clean:init', // 清理
-        'copy:srcToTemp', // 拷贝
-        "clean:temp",
-        'uglify:buildToTemp', // 压缩js到临时目录
-        'cssmin:buildToTemp', // 压缩css到临时目录
-        'copy:tempToPkui', // 拷贝
-        'clean:destory'
+    grunt.registerTask( 'build_pkui', [
+        "clean:dist_pkui",
+        "copy:srcToDist",
+        "clean:dist_pkui_scss",
+
+        "clean:dist_pkui_js",
+        "uglify:srcToDist",
+
+        "clean:dist_pkui_css",
+        "cssmin:srcToDist"
     ] );
 
-    grunt.registerTask( 'app-desktop', [
-        "clean:desktopApp",
-        'jsdoc:desktopApp'
+    grunt.registerTask( 'build_desktop', [
+        "clean:dist_desktop",
+        "copy:desktopToDist",
+        "clean:dist_desktop_scss",
+
+        "clean:dist_desktop_js",
+        "uglify:desktopToDist",
+
+        "clean:dist_desktop_css",
+        "cssmin:desktopToDist"
     ] );
 
-    grunt.registerTask( 'pkui-config', [
+
+    grunt.registerTask( 'concat-pkui-config', [
         'concat:pkuiConfig'
         // "uglify:buildPkui"
     ] );
