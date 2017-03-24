@@ -1,0 +1,1 @@
+define(function(a){var b=a("jquery"),c=a("./common/launchpad"),d=a("./page/app");a("./common/template");window.isIE8&&seajs.use("./css/page/ie8-hack.css"),b(document).ready(function(){c.init(),d.init()})});
