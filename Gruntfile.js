@@ -110,6 +110,20 @@ module.exports = function ( grunt ) {
                 ],
                 dest: 'src/pkui.js'
             }
+        },
+        shell: {
+            copyToEclipse: {
+                command: [
+                    // $EclipseWorkspace$/pkui/WebContent/static
+                    "cd /Users/forwardNow/develop/workspace/pkui/WebContent/static",
+                    "rm -Rf ./pkui/*",
+                    "rm -Rf ./desktop/*",
+                    "cp -R /Users/forwardNow/develop/work/pkusoft/pkui/src/* ./pkui/",
+                    "cp -R /Users/forwardNow/develop/work/pkusoft/pkui/app/desktop/* ./desktop/",
+                    // sed -i '' 's/..\/..\/src\/pkui.js/..\/pkui\/pkui.js/g' ./desktop/index.html
+                    "sed -i '' 's/..\\/..\\/src\\/pkui.js/..\\/pkui\\/pkui.js/g' ./desktop/index.html"
+                ].join('&&')
+            }
         }
 
     };
@@ -124,7 +138,7 @@ module.exports = function ( grunt ) {
     // grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks( 'grunt-contrib-uglify' );
     grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
-    // grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks( 'grunt-jsdoc' );
     grunt.loadNpmTasks('grunt-contrib-concat');
 
@@ -156,6 +170,11 @@ module.exports = function ( grunt ) {
 
     grunt.registerTask( 'concat-pkui-config', [
         'concat:pkuiConfig'
+        // "uglify:buildPkui"
+    ] );
+
+    grunt.registerTask( 'build_eclipse', [
+        'shell:copyToEclipse'
         // "uglify:buildPkui"
     ] );
 
