@@ -28,12 +28,17 @@
 </div>
 
 <table id="sysDeptDatagrid" data-pkui-component="datagrid"
+       data-pkui-component-options='{
+            "selection": true,
+            "multiSelect": true
+       }'
        data-url="__CTX__/admin/sysDeptListData"
        data-query-form-selector="#queryForm">
     <!--
      data-url="http://localhost:8080/pkui/admin/sysDeptListData"
     -->
     <thead>
+
     <tr>
         <!--
             data-column-id：对应bean的属性名
@@ -59,11 +64,7 @@
 <br>
 <br>
 <script>
-
-    //$("[data-pkui-widget=\"bootgrid\"]").bootgrid();
-
     function ope(column, row) {
         return "<a href='#'>详情</a>";
     }
-
 </script>
