@@ -4808,6 +4808,10 @@ input[type="button"].btn-block {
   color: #f8fdff;
 }
 
+.n-yellow .n-top .msg-wrap {
+  right: -10px;
+}
+
 /**
  * @file 该网站基本样式
  */
