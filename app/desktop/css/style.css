@@ -4556,6 +4556,7 @@ input[type="button"].btn-block {
   margin-right: 24px;
 }
 
+th.pkui-grid-selectCell,
 .pkui-grid-columnHeaderAnchor,
 .pkui-grid-cell {
   padding: 12px 6px;
