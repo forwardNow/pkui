@@ -34,7 +34,14 @@
             "multiSelect": true
        }'
        data-url="__CTX__/admin/sysDeptListData"
-       data-query-form-selector="#queryForm">
+       data-query-form-selector="#queryForm"
+       data-selected-callback="sysDeptListSelectedCallback"
+       data-deselected-callback="sysDeptListDeselectedCallback"
+       data-dblclick-callback="sysDeptListDbclickCallback"
+       data-beforeload-callback="sysDeptListBeforeloadCallback"
+       data-afterload-callback="sysDeptListAfterloadCallback"
+       data-failload-callback="sysDeptListFailloadCallback"
+       >
     <!--
      data-url="http://localhost:8080/pkui/admin/sysDeptListData"
     -->
@@ -67,5 +74,27 @@
 <script>
     function ope(column, row) {
         return "<a href='#'>详情</a>";
+    }
+    /**
+     * 勾选checkbox后的回调函数
+     * this: instance
+     * @param selectedRows {Array} 勾选对应行的复选框，返回对应行的数据对象；勾选"全选"，返回所有被勾选的
+     * @example
+     *  selectedRows = [
+     *      { addTime : 1477108871000, addUserId : 5, addUserName : "超级管理员",...},
+     *  ]
+     */
+    function sysDeptListSelectedCallback ( selectedRows ) {
+        console.info( this );
+        console.info( selectedRows );
+        console.info( this.getSelectedRowsDataList() );
+    }
+    function sysDeptListDeselectedCallback ( deselectedRows ) {
+        console.info( this );
+        console.info( deselectedRows );
+    }
+    function sysDeptListDbclickCallback ( $row, dblClickRowData ) {
+        console.info( $row );
+        console.info( dblClickRowData );
     }
 </script>
