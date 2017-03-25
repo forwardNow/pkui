@@ -29,3 +29,11 @@
 2017/03/25
 
     1. //FIX 给checkbox的cell设置width=20px，title="";
+
+    2. // FIX 当数据获取失败时的提示
+
+    3. // FIX options.$element 指向<table>
+
+    4. // FIX 扩展方法，获取被选中的行对应的数据
+
+    5. // FIX 事件处理

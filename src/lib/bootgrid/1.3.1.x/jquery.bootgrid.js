@@ -82,6 +82,51 @@ define( function( require ) {
         loadData.call( this );
 
         this.element.trigger( "initialized" + namespace );
+
+        // FIX 事件处理
+        _handleEvent( this );
+    }
+
+    // FIX 事件处理
+    function _handleEvent( instance ) {
+        var
+            $element = instance.element,
+            options = instance.options
+        ;
+        if ( options.selectedCallback && typeof window[ options.selectedCallback ] === "function" ) {
+            $element.on( "selected" + namespace, function ( e, selectedRows ) {
+                window[ options.selectedCallback ].call( instance, selectedRows );
+            } );
+        }
+        if ( options.deselectedCallback && typeof window[ options.deselectedCallback ] === "function" ) {
+            $element.on( "deselected" + namespace, function ( e, deselectedRows ) {
+                window[ options.deselectedCallback ].call( instance, deselectedRows );
+            } );
+        }
+        if ( options.beforeloadCallback && typeof window[ options.beforeloadCallback ] === "function" ) {
+            $element.on( "load" + namespace, function ( e ) {
+                window[ options.beforeloadCallback ].call( instance );
+            } );
+        }
+        if ( options.afterloadCallback && typeof window[ options.afterloadCallback ] === "function" ) {
+            $element.on( "loaded" + namespace, function ( e ) {
+                window[ options.afterloadCallback ].call( instance );
+            } );
+        }
+        if ( options.failloadCallback && typeof window[ options.failloadCallback ] === "function" ) {
+            $element.on( "failload" + namespace, function ( e ) {
+                window[ options.failloadCallback ].call( instance );
+            } );
+        }
+        if ( options.dblclickCallback && typeof window[ options.dblclickCallback ] === "function" ) {
+            $element.on( "dblclick" + namespace, "tr[data-row-id]", function ( e ) {
+                var
+                    $this = $( this ),
+                    dblClickRowData = instance.currentRows[ $this.index() ]
+                ;
+                window[ options.dblclickCallback ].call( instance, $this, dblClickRowData );
+            } );
+        }
     }
 
     function highlightAppendedRows( rows ) {
@@ -878,6 +923,8 @@ define( function( require ) {
         // overrides rowCount explicitly because deep copy ($.extend) leads to strange behaviour
         // FIX 修复当 options 为 null时，options.rowCount 报错的情况
         var rowCount = this.options.rowCount = this.element.data().rowCount || this.options.rowCount;
+        // FIX options.$element 指向<table>
+        this.options.$element = this.element;
         this.columns = [];
         this.current = 1;
         this.currentRows = [];
@@ -1838,7 +1885,7 @@ define( function( require ) {
                     $this.attr( "isrendered", "true" );
 
                     // FIX 列宽可拖拽调整
-                    // $this.colResizable();
+                    $this.colResizable();
                 }
                 if ( typeof option === "string" ) {
                     if ( option.indexOf( "get" ) === 0 && index === 0 ) {
@@ -1875,6 +1922,7 @@ define( function( require ) {
 +function ( $, window ) {
 
     var Grid = $.fn.bootgrid.Constructor;
+    var namespace = ".rs.jquery.bootgrid";
 
     $.extend( Grid.defaults, {
         navigation: 3, // it's a flag: 0 = none, 1 = top, 2 = bottom, 3 = both (top and bottom)
@@ -1893,7 +1941,7 @@ define( function( require ) {
 
         },
 
-
+        // this = options
         requestHandler: function ( request ) {
             var txtQuery = {
                 "oredCriteria": _getOredCriteria( this.queryFormSelector ),
@@ -1914,11 +1962,9 @@ define( function( require ) {
                 current,
                 rowCount,
                 sort,
-                orderByClause,
-                $this
+                orderByClause
                 ;
 
-            $this = $( this );
 
             current = request.current;
             rowCount = request.rowCount;
@@ -1928,7 +1974,7 @@ define( function( require ) {
             limit = current * rowCount;
             pageSize = rowCount;
 
-            $this.data( "requestPage", current );
+            this.requestPage = current;
 
             // replace(/([A-Z])/g,"_$1").toUpperCase();
             orderByClause = "";
@@ -1961,7 +2007,7 @@ define( function( require ) {
 
             return request;
         },
-
+        // this = options
         responseHandler: function ( response ) {
             // 将服务器返回的数据进行格式转换
             var _response = {
@@ -1973,18 +2019,20 @@ define( function( require ) {
                 "total": 1123
             };
 
-            var $this,
+            var
                 requestPage
                 ;
 
             //
             if ( ! response.data ) {
-                alert( "获取数据失败!" );
-                console.info( "获取数据失败!" );
+                // FIX 当数据获取失败时的提示
+                window.layer && window.layer.msg( "获取数据失败，请刷新数据表格！" );
+                this.$element.trigger( "failload" + namespace );
+                throw  "获取数据失败!" ;
+                //console.info( "获取数据失败!" );
             }
 
-            $this = $( this );
-            requestPage = $this.data( "requestPage" );
+            requestPage = this.requestPage;
 
             _response = {
                 "current": requestPage,
@@ -2188,6 +2236,27 @@ define( function( require ) {
 
         return oredCriteria;
     }
+
+    // FIX 扩展方法，获取被选中的行对应的数据
+    /**
+     * 获取被选中的行对应的数据
+     */
+    Grid.prototype.getSelectedRowsDataList = function () {
+        var
+            $element = this.element,
+            currentRows = this.currentRows,
+            rowIdList = this.getSelectedRows(),
+            dataList = []
+        ;
+        $.each( rowIdList, function ( index, rowId ) {
+            var
+                $row = $element.find( 'tr[data-row-id="'+rowId+'"]' ),
+                data = currentRows[ $row.index() ]
+            ;
+            dataList.push( data );
+        } );
+        return dataList;
+    };
 
     // FIX 将该插件挂载到 PKUI
     window.PKUI.component.datagrid = jQuery.fn.bootgrid;
