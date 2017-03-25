@@ -536,7 +536,8 @@ define( function( require ) {
                     var selected = ($.inArray( row[ that.identifier ], that.selectedRows ) !== -1),
                         selectBox = tpl.select.resolve( getParams.call( that,
                             { type: "checkbox", value: row[ that.identifier ], checked: selected } ) );
-                    cells += tpl.cell.resolve( getParams.call( that, { content: selectBox, css: css.selectCell } ) );
+                    //FIX 给checkbox的cell设置width=20px，title="";
+                    cells += tpl.cell.resolve( getParams.call( that, { content: selectBox, css: css.selectCell, style: "width: 20px;", title: "" } ) );
                     allRowsSelected = (allRowsSelected && selected);
                     if ( selected ) {
                         rowCss += css.selected;
@@ -701,7 +702,9 @@ define( function( require ) {
                 tpl.select.resolve( getParams.call( that, { type: "checkbox", value: "all" } ) ) : "";
             html += tpl.rawHeaderCell.resolve( getParams.call( that, {
                 content: selectBox,
-                css: css.selectCell
+                css: css.selectCell,
+                //FIX 给checkbox的cell设置width=20px;
+                style: "width: 20px;"
             } ) );
         }
 
@@ -1264,7 +1267,7 @@ define( function( require ) {
          * @type Object
          * @for defaults
          **/
-        templates: {
+        __templates: {
             actionButton: "<button class=\"btn btn-default\" type=\"button\" title=\"{{ctx.text}}\">{{ctx.content}}</button>",
             actionDropDown: "<div class=\"{{css.dropDownMenu}}\"><button class=\"btn btn-default dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\"><span class=\"{{css.dropDownMenuText}}\">{{ctx.content}}</span> <span class=\"caret\"></span></button><ul class=\"{{css.dropDownMenuItems}}\" role=\"menu\"></ul></div>",
             actionDropDownItem: "<li><a data-action=\"{{ctx.action}}\" class=\"{{css.dropDownItem}} {{css.dropDownItemButton}}\">{{ctx.text}}</a></li>",
@@ -1835,7 +1838,7 @@ define( function( require ) {
                     $this.attr( "isrendered", "true" );
 
                     // FIX 列宽可拖拽调整
-                    $this.colResizable();
+                    // $this.colResizable();
                 }
                 if ( typeof option === "string" ) {
                     if ( option.indexOf( "get" ) === 0 && index === 0 ) {
@@ -2115,7 +2118,7 @@ define( function( require ) {
             noResults: "<tr><td colspan=\"{{ctx.columns}}\" class=\"no-results\">{{lbl.noResults}}</td></tr>",
             pagination: "<ul class=\"{{css.pagination}}\"></ul>",
             paginationItem: "<li class=\"{{ctx.css}}\"><a data-page=\"{{ctx.page}}\" class=\"{{css.paginationButton}}\">{{ctx.text}}</a></li>",
-            rawHeaderCell: "<th class=\"{{ctx.css}}\">{{ctx.content}}</th>", // Used for the multi select box
+            rawHeaderCell: "<th class=\"{{ctx.css}}\" style=\"{{ctx.style}}\">{{ctx.content}}</th>", // Used for the multi select box
             row: "<tr{{ctx.attr}}>{{ctx.cells}}</tr>",
             search: "<!--<div class=\"{{css.search}}\"><div class=\"pkui-grid-input-group\"><span class=\"{{css.icon}} pkui-grid-input-group-addon {{css.iconSearch}}\"></span> <input type=\"text\" class=\"{{css.searchField}}\" placeholder=\"{{lbl.search}}\" /></div></div>-->",
             select: "<input name=\"select\" type=\"{{ctx.type}}\" class=\"{{css.selectBox}}\" value=\"{{ctx.value}}\" {{ctx.checked}} />"

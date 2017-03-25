@@ -25,3 +25,7 @@
     1. // FIX 给cell添加title
 
     2. // FIX 给cell包裹<p class="pkui-grid-cell">
+
+2017/03/25
+
+    1. //FIX 给checkbox的cell设置width=20px，title="";
