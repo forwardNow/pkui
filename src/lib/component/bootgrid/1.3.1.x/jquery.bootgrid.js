@@ -1935,7 +1935,7 @@ define( function( require ) {
 
         ajaxSettings: {
 
-            method: "POST",
+            type: "POST",
             //cache: false,
             dataType: "json"
 
