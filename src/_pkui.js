@@ -51,7 +51,11 @@ define( function ( require ) {
             isAutoRender: true,
 
             // 设置自动渲染（true/false）
-            setAutoRender: setAutoRender
+            setAutoRender: setAutoRender,
+
+            __isrendering: false,
+            __renderedTimes: 0
+
         }
         ;
 
@@ -220,7 +224,13 @@ define( function ( require ) {
             $component = $( "[data-" + PKUI.componentMarkupProp + "]" )
                 .not('[isrendered]')
                 .not( "[notrecognized='not reg']" )
+
             ;
+        if ( PKUI.__isrendering ) {
+            console.info( moment().format( "YYYY年MM月DD日 HH:MM:SS" ), "正在渲染..." );
+            return;
+        }
+        PKUI.__renderedTimes++;
 
         $component.each( function () {
             var
@@ -285,6 +295,9 @@ define( function ( require ) {
 
 
         } );
+
+
+        PKUI.__isrendering = false;
     }
     /**
      * 开启/关闭 自动渲染。
