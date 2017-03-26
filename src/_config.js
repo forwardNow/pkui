@@ -12,70 +12,76 @@ seajs.config( {
     // 别名配置
     alias: {
 
-        // core
+        //【core】
         "_pkui": "_pkui",
 
-        // polyfill ES5 grammar
-        "es5-shim": "lib/es5-shim/4.5.9.x/es5-shim",
-        "es5-sham": "lib/es5-shim/4.5.9.x/es5-sham",
+        //【lib/polyfill】 ES5 grammar
+        "es5-shim": "lib/polyfill/es5-shim/4.5.9.x/es5-shim",
+        "es5-sham": "lib/polyfill/es5-shim/4.5.9.x/es5-sham",
 
-        // polyfill JSON（JSON.parse、JSON.stringify）
-        "json3": "lib/json3/3.3.2/json3",
+        //【lib/polyfill】 JSON（JSON.parse、JSON.stringify）
+        "json3": "lib/polyfill/json3/3.3.2/json3",
 
-        // polyfill for min/max-width CSS3 Media Queries (for IE 6-8, and more)
-        "respond": "lib/respond/1.4.2/respond",
+        //【lib/polyfill】 for min/max-width CSS3 Media Queries (for IE 6-8, and more)
+        "respond": "lib/polyfill/respond/1.4.2/respond",
 
-        // 是IE8识别HTML5标记
-        "html5shiv": "lib/html5shiv/3.7.3/html5shiv",
+        //【lib/polyfill】使IE8识别HTML5标记（在下方被 document.write 硬编码，请同步修改）
+        "html5shiv": "lib/polyfill/html5shiv/3.7.3/html5shiv",
 
-        // jQuery
+        //【lib/utils】模板引擎
+        "artTemplate": "lib/utils/art-template/3.1.0/template",
+
+        //【lib/utils】RSA
+        "jsencrypt": "lib/utils/jsencrypt/2.3.1.x/jsencrypt",
+
+        //【lib/utils】AOP
+        "meld": "lib/utils/meld/1.3.1.x/meld.js",
+
+        //【lib/utils】表单提交
+        "form": "lib/utils/form/4.2.0.x/jquery.form",
+
+        //【lib/utils】日期处理工具
+        "moment": "lib/utils/moment/2.18.0.x/moment",
+        "moment-local-zh": "lib/utils/moment/2.18.0.x/locale/zh-cn",
+
+        //【lib/jQuery】
         "jquery": "lib/jquery/1.11.3.x/jquery",
 
-        // jQuery UI
+        //【lib/jQuery/plugin】jQuery UI
         "jquery-ui": "lib/jquery/plugin/jquery-ui/1.12.1.x/jquery-ui.min",
 
-        // 轮播图组件
-        "swiper": "lib/swiper/2.7.6.x/swiper",
-
-        // 弹窗组件
-        "layer": "lib/layer/3.0.1.x/layer",
-
-        // 模块名"artDialog"已在模块内定义，请勿更改
-        "artDialog": "lib/art-dialog/6.0.4.x/dialog-plus",
-
-        // 模板引擎
-        "artTemplate": "lib/art-template/3.1.0/template",
-
-        // RSA
-        "jsencrypt": "lib/jsencrypt/2.3.1.x/jsencrypt",
-
-        // AOP
-        "meld": "lib/meld/1.3.1.x/meld.js",
-
-        // 表格列宽，拖拽调整（被 bootgrid 依赖）
+        //【lib/jQuery/plugin】表格列宽，拖拽调整（被 bootgrid 依赖）
         "colResizable": "lib/jquery/plugin/colResizable/1.6.0/colResizable",
 
-        // bootstrap dropdown menu（被 bootgrid 依赖）
+        //【lib/jQuery/plugin】bootstrap dropdown menu（被 bootgrid 依赖）
         "bootstrap-dropdown": "lib/jquery/plugin/bootstrap/3.3.6/dropdown",
 
-        // bootgrid
-        "bootgrid": "lib/bootgrid/1.3.1.x/jquery.bootgrid",
+        //【lib/component】轮播图组件
+        "swiper": "lib/component/swiper/2.7.6.x/swiper",
 
-        // loading
-        "isLoading": "lib/isloading/1.0.6.x/isloading",
+        //【lib/component】弹窗组件，在 _pkui.js 硬编码引入样式文件
+        "layer": "lib/component/layer/3.0.1.x/layer",
 
-        // 表单验证
-        "validator": "lib/validator/1.0.10.x/jquery.validator",
+        //【lib/component】模块名"artDialog"已在模块内定义，请勿更改
+        "artDialog": "lib/component/art-dialog/6.0.4.x/dialog-plus",
 
-        // 表单提交
-        "form": "lib/form/4.2.0.x/jquery.form",
+        //【lib/component】bootgrid
+        "bootgrid": "lib/component/bootgrid/1.3.1.x/jquery.bootgrid",
 
-        // 数据源
+        //【lib/component】loading
+        "isLoading": "lib/component/isloading/1.0.6.x/isloading",
+
+        //【lib/component】表单验证
+        "validator": "lib/component/validator/1.0.10.x/jquery.validator",
+
+        //【component/common 】 数据源
         "dataSource": "component/common/dataSource/1.0.0/dataSource",
 
-        // 抽屉式弹窗
+        //【component/common 】抽屉式弹窗
         "drawer": "component/common/drawer/1.0.0/drawer"
 
+
+        //
     }
 } );
 
@@ -181,7 +187,7 @@ seajs.config( {
     }
 
     if ( isIE8 ) {
-        document.write( "<script src='" + pkuiBasePath + "/lib/html5shiv/3.7.3/html5shiv.js?" + timestamp + "'></script>" );
+        document.write( "<script src='" + pkuiBasePath + "/lib/polyfill/html5shiv/3.7.3/html5shiv.js?" + timestamp + "'></script>" );
         console.info( "O(∩_∩)O~[ IE8 ]：载入 html5shiv.js" );
     }
 

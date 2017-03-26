@@ -6,12 +6,14 @@ define( function ( require ) {
     require( "isLoading" );
     require( "css/font/font-awesome/4.7.0/font-awesome.css" );
     require( "layer" );
-    require( "lib/layer/3.0.1.x/skin/default/layer.css" );
+    require( "lib/component/layer/3.0.1.x/skin/default/layer.css" );
+    require( "moment-local-zh" );
 
     var
         $ = require( "jquery" ),
 
         AOP = require( "meld" ),
+        moment = require( "moment" ),
 
         ns = window[ "www.pkusoft.net" ],
 
@@ -217,6 +219,7 @@ define( function ( require ) {
         var
             $component = $( "[data-" + PKUI.componentMarkupProp + "]" )
                 .not('[isrendered]')
+                .not( "[notrecognized='not reg']" )
             ;
 
         $component.each( function () {
@@ -262,6 +265,13 @@ define( function ( require ) {
                         case "validator":
                             moduleId = "validator";
                             break;
+                        default:
+                            console.info();
+                            var errorMessage = " 未被注册的组件[" + componentName + "]";
+                            console.info( moment().format("YYYY年MM月DD日 HH:MM:SS"), errorMessage );
+                            window.layer.msg( errorMessage );
+                            $this.attr( "notrecognized", "not reg" );
+                            return;
                     }
                     seajs.use( [ moduleId ], function () {
                         PKUI.component[ $.trim( componentName ) ].call( $this, options );
@@ -276,7 +286,6 @@ define( function ( require ) {
 
         } );
     }
-
     /**
      * 开启/关闭 自动渲染。
      *
