@@ -53,7 +53,9 @@ define( function ( require ) {
             // 设置自动渲染（true/false）
             setAutoRender: setAutoRender,
 
+            // 是否正在渲染
             __isrendering: false,
+            // 渲染次数（render()被调用的次数）
             __renderedTimes: 0
 
         }
@@ -230,7 +232,10 @@ define( function ( require ) {
             console.info( moment().format( "YYYY年MM月DD日 HH:MM:SS" ), "正在渲染..." );
             return;
         }
+
+
         PKUI.__renderedTimes++;
+        console.info( moment().format( "YYYY年MM月DD日 HH:MM:SS" ), "渲染次数：" + PKUI.__renderedTimes);
 
         $component.each( function () {
             var
@@ -277,7 +282,7 @@ define( function ( require ) {
                             break;
                         default:
                             console.info();
-                            var errorMessage = " 未被注册的组件[" + componentName + "]";
+                            var errorMessage = "未被注册的组件[" + componentName + "]";
                             console.info( moment().format("YYYY年MM月DD日 HH:MM:SS"), errorMessage );
                             window.layer.msg( errorMessage );
                             $this.attr( "notrecognized", "not reg" );
