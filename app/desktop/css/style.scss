@@ -4,38 +4,38 @@
 //【app/desktop】变量
 @import "base/variables";
 
-//【pkui/css】bootstrap mixins
+//【pkui/css/bootstrap】bootstrap mixins
 @import "../../../src/css/bootstrap/3.3.6/bootstrap/mixins";
 
-//【pkui/css】 base - 基础样式
+//【pkui/css/base】 base - 基础样式
 @import "../../../src/css/base/1.0.0/base";
 
-//【pkui/css】base - CSS3动画
+//【pkui/css/base】base - CSS3动画
 @import "../../../src/css/base/animate/3.5.1/animate";
 
-//【pkui/css】bootstrap - 按钮
+//【pkui/css/bootstrap】bootstrap - 按钮
 @import "../../../src/css/bootstrap/3.3.6/button";
 
-//【pkui/css】bootstrap - 按钮组
+//【pkui/css/bootstrap】bootstrap - 按钮组
 @import "../../../src/css/bootstrap/3.3.6/button-groups";
 
-//【pkui/css】bootstrap - 下拉菜单
+//【pkui/css/bootstrap】bootstrap - 下拉菜单
 @import "../../../src/css/bootstrap/3.3.6/dropdowns";
 
 //【pkui/component】drawer
 @import "../../../src/component/common/drawer/1.0.0/drawer";
 
-//【pkui/lib】art dialog
-@import "../../../src/lib/art-dialog/6.0.4.x/pkui-dialog";
+//【pkui/lib/component】art dialog
+@import "../../../src/lib/component/art-dialog/6.0.4.x/pkui-dialog";
 
-//【pkui/lib】bootgrid
-@import "../../../src/lib/bootgrid/1.3.1.x/jquery.bootgrid";
+//【pkui/lib/component】bootgrid
+@import "../../../src/lib/component/bootgrid/1.3.1.x/jquery.bootgrid";
 
-//【pkui/lib】isloading
-@import "../../../src/lib/isloading/1.0.6.x/isloading";
+//【pkui/lib/component】isloading
+@import "../../../src/lib/component/isloading/1.0.6.x/isloading";
 
-//【pkui/lib】validator
-@import "../../../src/lib/validator/1.0.10.x/jquery.validator";
+//【pkui/lib/component】validator
+@import "../../../src/lib/component/validator/1.0.10.x/jquery.validator";
 
 //【app/desktop】工具类
 @import "base/utilities";
