@@ -51,7 +51,7 @@ seajs.config( {
         "jquery-ui": "lib/jquery/plugin/jquery-ui/1.12.1.x/jquery-ui.min",
 
         //【lib/jQuery/plugin】表格列宽，拖拽调整（被 bootgrid 依赖）
-        "colResizable": "lib/jquery/plugin/colResizable/1.6.0/colResizable",
+        "colResizable": "lib/jquery/plugin/colResizable/1.6.0.x/colResizable",
 
         //【lib/jQuery/plugin】bootstrap dropdown menu（被 bootgrid 依赖）
         "bootstrap-dropdown": "lib/jquery/plugin/bootstrap/3.3.6/dropdown",

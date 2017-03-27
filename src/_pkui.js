@@ -296,7 +296,6 @@ define( function ( require ) {
                             moduleId = "validator";
                             break;
                         default:
-                            console.info();
                             var errorMessage = "未被注册的组件[" + componentName + "]";
                             console.info( moment().format("YYYY年MM月DD日 HH:MM:SS"), errorMessage );
                             window.layer.msg( errorMessage );
