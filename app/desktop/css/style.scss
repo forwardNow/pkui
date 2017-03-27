@@ -64,7 +64,6 @@
 //【app/desktop】按钮
 @import "common/btn";
 
-
 //【app/desktop】应用启动面板
 @import "page/launchpad";
 
@@ -77,7 +76,5 @@
 //【app/desktop】窗口相关
 @import "page/win";
 
-
 //【app/desktop】雪碧图（置于最下面，否则@extend的样式会提前）
 @import "common/css-sprite";
-
