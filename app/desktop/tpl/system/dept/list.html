@@ -101,18 +101,35 @@
         console.info( dblClickRowData );
     }
 
+    /**
+     * 单行删除
+     */
     function doDeleteSysDept() {
+        var
+            $table = jQuery( "#addSysDeptBtn" ),
+            seletedRowIds = $table.bootgrid( "getSelectedRows" )
+        ;
+
+        if ( seletedRowIds.length === 0 ) {
+            layer.alert( '请选中一条记录进行删除！', { icon: 0 } );
+            return;
+        }
+
+        if ( seletedRowIds.length > 1 ) {
+            layer.alert( '只能选择一条记录进行删除！', { icon: 0 } );
+            return;
+        }
 
         jQuery.ajax( {
             url: "__CTX__/admin/sysDeptDelete",
-            type: "POST",
-            dataType: "json"
+            data: { deptId: seletedRowIds[ 0 ] }
         } ).done( function ( jsonResult ) {
             // 服务器端处理成功
             if ( jsonResult.success ) {
                 // 提示
                 layer.alert( jsonResult.message || "删除成功！", { icon: 1 } );
                 // 标志删除的那行
+                $table.bootgrid( "deleteRow", seletedRowIds );
             }
             // 服务器端处理失败
             else {
