@@ -186,10 +186,14 @@
   margin-right: 24px;
 }
 
-th.pkui-grid-selectCell,
+.pkui-grid-selectLabel,
 .pkui-grid-columnHeaderAnchor,
 .pkui-grid-cell {
   padding: 12px 6px;
+}
+
+.pkui-grid-cell > .pkui-grid-selectLabel {
+  padding: 0;
 }
 
 .pkui-grid-cell {

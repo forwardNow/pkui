@@ -43,3 +43,5 @@
     1. // FIX loading时，保持表格大小
 
     2. // FIX noresult时，保持表格大小
+
+    3. 修复当resize时，给td th设置padding导致的问题
