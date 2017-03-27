@@ -441,7 +441,16 @@ define( function( require ) {
         if ( this.selection ) {
             count = count + 1;
         }
-        tbody.html( tpl.noResults.resolve( getParams.call( this, { columns: count } ) ) );
+
+        // FIX noresult时，保持表格大小
+        var
+            width = tbody.width(),
+            height = tbody.height() || 100,
+            style = "width:" + width + "px;"
+            +       "height:" + height + "px;"
+        ;
+
+        tbody.html( tpl.noResults.resolve( getParams.call( this, { columns: count, style: style } ) ) );
     }
 
     function renderPagination() {
@@ -854,17 +863,36 @@ define( function( require ) {
                 var tpl = that.options.templates,
                     thead = that.element.children( "thead" ).first(),
                     tbody = that.element.children( "tbody" ).first(),
-                    firstCell = tbody.find( "tr > td" ).first(),
-                    padding = (that.element.height() - thead.height()) - (firstCell.height() + 20),
+                    // firstCell = tbody.find( "tr > td" ).first(),
+                    // padding = (that.element.height() - thead.height()) - (firstCell.height() + 20),
                     count = that.columns.where( isVisible ).length;
 
                 if ( that.selection ) {
                     count = count + 1;
                 }
-                tbody.html( tpl.loading.resolve( getParams.call( that, { columns: count } ) ) );
+                // FIX loading时，保持表格大小
+                var
+                    width = tbody.width(),
+                    rowCount = that.rowCount !== -1 ? 8 : that.rowCount,
+                    rowHeight = that.options.rowHeight || 24,
+                    height = tbody.height(),
+                    style
+                ;
+
+
+                if ( height < 100 ) {
+                    height = rowCount * rowHeight;
+                }
+
+                style = "width: " + width + "px;"
+                +       "height: " + height + "px";
+
+                tbody.html( tpl.loading.resolve( getParams.call( that, { columns: count, style: style  } ) ) );
+                /*
                 if ( that.rowCount !== -1 && padding > 0 ) {
                     tbody.find( "tr > td" ).css( "padding", "20px 0 " + padding + "px" );
                 }
+                */
             }
         }, 250 );
     }
@@ -2162,8 +2190,8 @@ define( function( require ) {
             headerCell: "<th data-column-id=\"{{ctx.column.id}}\" class=\"{{ctx.css}}\" style=\"{{ctx.style}}\"><a href=\"javascript:void(0);\" class=\"{{css.columnHeaderAnchor}} {{ctx.sortable}}\"><span class=\"{{css.columnHeaderText}}\">{{ctx.column.text}}{{ctx.icon}}</span></a></th>",
             icon: "<span class=\"{{css.icon}} {{ctx.iconCss}}\"></span>",
             infos: "<div class=\"{{css.infos}}\">{{lbl.infos}}</div>",
-            loading: "<tr><td colspan=\"{{ctx.columns}}\" class=\"loading\">{{lbl.loading}}</td></tr>",
-            noResults: "<tr><td colspan=\"{{ctx.columns}}\" class=\"no-results\">{{lbl.noResults}}</td></tr>",
+            loading: "<tr><td colspan=\"{{ctx.columns}}\" class=\"loading\" style=\"{{ctx.style}}\">{{lbl.loading}}</td></tr>",
+            noResults: "<tr><td colspan=\"{{ctx.columns}}\" class=\"no-results\" style=\"{{ctx.style}}\">{{lbl.noResults}}</td></tr>",
             pagination: "<ul class=\"{{css.pagination}}\"></ul>",
             paginationItem: "<li class=\"{{ctx.css}}\"><a data-page=\"{{ctx.page}}\" class=\"{{css.paginationButton}}\">{{ctx.text}}</a></li>",
             rawHeaderCell: "<th class=\"{{ctx.css}}\" style=\"{{ctx.style}}\">{{ctx.content}}</th>", // Used for the multi select box
