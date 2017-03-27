@@ -1458,31 +1458,26 @@ define( function( require ) {
     Grid.prototype.remove = function ( rowIds ) {
         if ( this.identifier != null ) {
             var that = this;
+            // FIX: 修改 remove方法
+            rowIds = rowIds || this.selectedRows;
+            var id,
+                removedRows = [];
 
-            if ( this.options.ajax ) {
-                // todo: implement ajax DELETE
-            }
-            else {
-                rowIds = rowIds || this.selectedRows;
-                var id,
-                    removedRows = [];
+            for ( var i = 0; i < rowIds.length; i++ ) {
+                id = rowIds[ i ];
 
-                for ( var i = 0; i < rowIds.length; i++ ) {
-                    id = rowIds[ i ];
-
-                    for ( var j = 0; j < this.rows.length; j++ ) {
-                        if ( this.rows[ j ][ this.identifier ] === id ) {
-                            removedRows.push( this.rows[ j ] );
-                            this.rows.splice( j, 1 );
-                            break;
-                        }
+                for ( var j = 0; j < this.rows.length; j++ ) {
+                    if ( this.rows[ j ][ this.identifier ] === id ) {
+                        removedRows.push( this.rows[ j ] );
+                        this.rows.splice( j, 1 );
+                        break;
                     }
                 }
-
-                this.current = 1; // reset
-                loadData.call( this );
-                this.element.trigger( "removed" + namespace, [ removedRows ] );
             }
+
+            this.current = 1; // reset
+            loadData.call( this );
+            this.element.trigger( "removed" + namespace, [ removedRows ] );
         }
 
         return this;
@@ -2285,6 +2280,47 @@ define( function( require ) {
             dataList.push( data );
         } );
         return dataList;
+    };
+
+    /**
+     * 标志那行被删除：
+     *      1. 添加 pkui-grid-deleted CSS类
+     *      2. 阻止事件（click、dblclick）的冒泡
+     *      3. 删除 a,input,button，保留第一个cell的复选框
+     * @param rowIds {Array}
+     * @example
+     * 调用前：
+     *      <tr data-row-id="100000000000">...</tr>
+     *
+     * 调用后：
+     *      <tr data-row-id="100000000000" class="deleted">...</tr>
+     *
+     */
+    Grid.prototype.deleteRow = function ( rowIds ) {
+        var
+            $table = this.element
+        ;
+
+        if ( ! $.isArray( rowIds ) && typeof rowIds === "string" ) {
+            rowIds = [ rowIds ];
+        }
+        $.each( rowIds, function ( index, rowId ) {
+            var
+                $tr = $table.find( "tr[data-row-id='" + rowId + "']" ),
+                selectBox =  "." + Grid.defaults.css.selectBox
+            ;
+            $tr
+                .addClass( "deleted" )
+                .on( "click dblclick", function ( event ) {
+                    event.stopPropagation();
+                } )
+                .find( selectBox ).attr( "disabled", true )
+                .end()
+                .find( "a,input,button" ).not( selectBox ).remove()
+            ;
+
+        } );
+
     };
 
     // FIX 将该插件挂载到 PKUI
