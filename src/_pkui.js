@@ -20,19 +20,19 @@ define( function ( require ) {
         $doc = $( window.document ),
 
         PKUI = {
-            // <div data-pkui-component>
-            componentMarkupProp: "pkui-component",
+            // 标识组件类型的HTML属性：<div data-pkui-component>
+            componentHtmlAttr: "pkui-component",
 
-            // <div data-pkui-component-options>
-            optionsMarkupProp: "pkui-component-options",
+            // 标识组件参数的HTML属性：<div data-pkui-component-options>
+            componentOptionsHtmlAttr: "pkui-component-options",
 
-            // CTX路径
+            // CTX路径：${ ctx }（http://localhost:8080/projname）
             ctxPath: ns.ctxPath,
 
-            // pkui的基本路径
+            // pkui的基本路径：${ ctx }/static/pkui
             basePath: ns.pkuiBasePath,
 
-            // 字典路径
+            // 字典路径：${ ctx }/static/dic/
             dicPath: ns.ctxPath + "/static/dic/",
 
             // 时间戳（版本控制）v=2012-1-1
@@ -44,7 +44,7 @@ define( function ( require ) {
             // 载入模块（seajs.use方法的别名）
             load: seajs.use,
 
-            // 渲染
+            // 渲染标识为组件的元素
             render: render,
 
             // 自动渲染标志
@@ -76,18 +76,19 @@ define( function ( require ) {
         // DOM树构建完毕，执行一次渲染
         $( document ).ready( render );
 
-        // 处理所有Ajax请求
-        fmtAjaxUrl();
-
         // 全局的简单事件处理
         regGlobalEventHandler();
 
         // 设置自动渲染
-        this.setAutoRender( this.isAutoRender );
+        setAutoRender( this.isAutoRender );
+
+        // 全局Ajax设置
+        doAjaxSetting();
 
         // 暴露到全局名称空间
         window.PKUI = PKUI;
     };
+
 
     /**
      * 通用功能
@@ -206,28 +207,42 @@ define( function ( require ) {
     /**
      * 渲染。
      *
-     * 渲染的目标（在此列出全部可被自动渲染的组件）：
-     *
+     * 渲染的目标：
+     *      // datagrid
      *      <div data-pkui-component="datagrid"
      *           data-pkui-component-options='{"key":"val",...}' >
-     *      <div data-pkui-component="drawer"
-     *           data-pkui-component-options='{"key":"val",...}' >
-     *      <div data-pkui-component="validator|form"
-     *           data-pkui-component-options='[{"key":"val",...},{"key":"val",...}]' >
+     *
+     *      // drawer
+     *      <div data-pkui-component="drawer" ...></div>
+     *
+     *      // form|validator
+     *      <div data-pkui-component="form|validator" ...></div>
+     *
      *
      * 已渲染的标志（添加 isrendered="true"）：
      *
      *      <div data-pkui-component="datagrid" isrendered="true">
      *
      *      渲染标志的添加由组件自身添加
+     *
+     * 不识别的组件（添加 notrecognized="not reg"）
+     *
+     *      <div data-pkui-component="xxx" notrecognized="not reg">
      */
     function render() {
         var
-            $component = $( "[data-" + PKUI.componentMarkupProp + "]" )
+            $component = $( "[data-" + PKUI.componentHtmlAttr + "]" )
                 .not('[isrendered]')
                 .not( "[notrecognized='not reg']" )
 
             ;
+
+        // 找不到标识为组件的
+        if ( $component.size() === 0 ) {
+            return;
+        }
+
+        // 正在渲染时
         if ( PKUI.__isrendering ) {
             console.info( moment().format( "YYYY年MM月DD日 HH:MM:SS" ), "正在渲染..." );
             return;
@@ -240,9 +255,9 @@ define( function ( require ) {
         $component.each( function () {
             var
                 $this = $( this ),
-                componentName = $this.data( PKUI.componentMarkupProp ),
+                componentName = $this.data( PKUI.componentHtmlAttr ),
                 // jQuery自动转为JSON对象了
-                componentOptions = $this.data( PKUI.optionsMarkupProp ) || {},
+                componentOptions = $this.data( PKUI.componentOptionsHtmlAttr ) || {},
                 componentNameList
                 ;
             if ( $.trim( componentName ) === "" ) {
@@ -360,23 +375,6 @@ define( function ( require ) {
     }
 
     /**
-     * 格式化 $.ajax 的 url，如果包含“__CTX__” 则，替换为 PKUI.ctxPath
-     */
-    function fmtAjaxUrl () {
-        AOP.before( $, "ajax", function ( url, options ) {
-            // If url is an object, simulate pre-1.5 signature
-            if ( typeof url === "object" ) {
-                options = url;
-                url = undefined;
-            }
-
-            if ( options.url.indexOf( "__CTX__" ) !== -1 ) {
-                options.url = options.url.replace( "__CTX__", PKUI.ctxPath );
-            }
-        } );
-    }
-
-    /**
      * 全局的事件处理，通过类名。
      * 类名格式：名称空间-事件类型-处理后的结果
      * @example
@@ -393,6 +391,37 @@ define( function ( require ) {
 
     }
 
+    /**
+     * ajax 相关的全局（默认）设置
+     * @example
+     * options = {
+     *      method: "POST", // 1.9.0 版本后用 "method"
+     *      dataType: "json"
+     * }
+     *
+     */
+    function doAjaxSetting() {
+
+        // 默认参数设置
+        $.ajaxSetup( {
+            type: "POST",   // 1.9.0 版本使用 "type"
+            method: "POST", // 1.9.0 版本后用 "method"
+            dataType: "json"
+        } );
+
+        // 格式化 $.ajax 的 url，如果包含“__CTX__” 则，替换为 PKUI.ctxPath
+        AOP.before( $, "ajax", function ( url, options ) {
+            // If url is an object, simulate pre-1.5 signature
+            if ( typeof url === "object" ) {
+                options = url;
+            }
+
+            if ( options.url.indexOf( "__CTX__" ) !== -1 ) {
+                options.url = options.url.replace( "__CTX__", PKUI.ctxPath );
+            }
+        } );
+
+    }
 
     PKUI._init();
 
