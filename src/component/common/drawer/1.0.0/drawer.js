@@ -107,7 +107,7 @@ define( function( require ) {
                 }
 
                 // 参数
-                options = $.extend( {}, Drawer.defaults, $this.data( PKUI.optionsMarkupProp ) );
+                options = $.extend( {}, Drawer.defaults, $this.data( window.PKUI.componentOptionsHtmlAttr ) );
                 $this.data( Drawer.namespace, { options: options } );
 
                 // toggle
