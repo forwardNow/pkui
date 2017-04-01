@@ -47,3 +47,7 @@
     3. 修复当resize时，给td th设置padding导致的问题
 
     4. // FIX: 修改 remove方法
+
+2017/04/01
+
+    1. 将 checkbox 的宽度设置为 32px

@@ -591,7 +591,7 @@ define( function( require ) {
                         selectBox = tpl.select.resolve( getParams.call( that,
                             { type: "checkbox", value: row[ that.identifier ], checked: selected } ) );
                     //FIX 给checkbox的cell设置width=20px，title="";
-                    cells += tpl.cell.resolve( getParams.call( that, { content: selectBox, css: css.selectCell, style: "width: 20px;", title: "" } ) );
+                    cells += tpl.cell.resolve( getParams.call( that, { content: selectBox, css: css.selectCell, style: "width: 32px;", title: "" } ) );
                     allRowsSelected = (allRowsSelected && selected);
                     if ( selected ) {
                         rowCss += css.selected;
@@ -758,7 +758,7 @@ define( function( require ) {
                 content: selectBox,
                 css: css.selectCell,
                 //FIX 给checkbox的cell设置width=20px;
-                style: "width: 20px;"
+                style: "width: 32px;"
             } ) );
         }
 
