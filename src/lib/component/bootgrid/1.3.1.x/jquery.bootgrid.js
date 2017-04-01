@@ -1908,7 +1908,12 @@ define( function( require ) {
                     $this.attr( "isrendered", "true" );
 
                     // FIX 列宽可拖拽调整
-                    $this.colResizable();
+                    $this.colResizable( {
+                        // 实时显示拖拽后的表格
+                        liveDrag:true,
+                        // 设置拖拽的标志
+                        gripInnerHtml:"<div class='pkui-grid-colresizable-grip' title='可拖拽调整列宽'></div>"
+                    } );
                 }
                 if ( typeof option === "string" ) {
                     if ( option.indexOf( "get" ) === 0 && index === 0 ) {
