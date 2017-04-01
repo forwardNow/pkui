@@ -2287,7 +2287,7 @@ define( function( require ) {
      *      1. 添加 pkui-grid-deleted CSS类
      *      2. 阻止事件（click、dblclick）的冒泡
      *      3. 删除 a,input,button，保留第一个cell的复选框
-     * @param rowIds {Array}
+     * @param rowIds {Array} 字符串数组
      * @example
      * 调用前：
      *      <tr data-row-id="100000000000">...</tr>
@@ -2298,6 +2298,7 @@ define( function( require ) {
      */
     Grid.prototype.deleteRow = function ( rowIds ) {
         var
+            _this = this,
             $table = this.element
         ;
 
@@ -2314,11 +2315,11 @@ define( function( require ) {
                 .on( "click dblclick", function ( event ) {
                     event.stopPropagation();
                 } )
-                .find( selectBox ).attr( "disabled", true )
+                .find( selectBox ).attr( "disabled", true ).removeAttr( "checked" )
                 .end()
                 .find( "a,input,button" ).not( selectBox ).remove()
             ;
-
+            _this.deselect( [ rowId + "" ] );
         } );
 
     };

@@ -2,6 +2,7 @@ define( function( require ) {
     "use strict";
     var
         $ = require( "jquery" ),
+        ArtTemplate = require( "artTemplate" ),
         Drawer = {}
         ;
 
@@ -9,9 +10,73 @@ define( function( require ) {
 
     Drawer.namespace = "pkui.drawer";
 
+    Drawer._renderCache = {};
+    Drawer.getModelAndView = function ( viewUrl, modelUrl, callback ) {
+        var Status,
+            renderCache
+            ;
+        renderCache = this._renderCache;
+        Status = {
+            tplRender: false,
+            data: false,
+            update: function () {
+                var htmlString
+                    ;
+                if ( this.tplRender && this.data ) {
+                    htmlString = this.tplRender( this.data );
+                    callback( htmlString );
+                }
+            }
+        };
+
+        // 1. 获取模板
+        // 1.1 如果在缓存里，则取缓存里的
+        if ( renderCache[ viewUrl ] ) {
+            Status.tplRender = renderCache[ viewUrl ];
+            Status.update();
+        } else {
+            // 1.2 如果不在缓存里，则Ajax请求
+            $.ajax( {
+                url: viewUrl,
+                type: "GET",
+                dataType: "text"
+            } ).done( function ( data ) {
+                Status.tplRender = ArtTemplate.compile( data );
+                renderCache[ viewUrl ] = Status.tplRender;
+                Status.update();
+            } ).fail( function ( jqXHR, textStatus ) {
+                throw "/(ㄒoㄒ)/~~[ " + textStatus + " ]模板获取失败！";
+            } );
+
+        }
+
+        // 2. 获取数据
+        // 2.1 如果 modelUrl 是对象，则直接使用
+        if ( typeof modelUrl === "object" ) {
+            Status.data = modelUrl;
+            Status.update();
+            return;
+        }
+        // 2.2 如果 modelUrl 是URL，则Ajax请求
+        $.ajax( {
+            url: modelUrl
+        } ).done( function ( data ) {
+            data = window.PKUI.handleJsonResult( data );
+            if ( !data || ! data.success ) {
+                throw "/(ㄒoㄒ)/~~数据获取失败！";
+            }
+            Status.data = data.data;
+            Status.update();
+        } ).fail( function ( jqXHR, textStatus ) {
+            throw "/(ㄒoㄒ)/~~[ " + textStatus + " ]数据获取失败！";
+        } );
+
+    };
+
     Drawer.defaults = {
         ajax: true,
         url: "",
+        model: "",
         showOverlay: true,
 
         state: false,
@@ -145,8 +210,11 @@ define( function( require ) {
             options.$container
                 .addClass( Drawer.clazz.open );
 
-            if ( options.ajax && options.url ) {
-                options.$drawer.isLoading();
+            // 开启 loading
+            options.$drawer.isLoading();
+
+            // 后端mvc
+            if ( options.ajax && options.url && ! options.model ) {
                 $.ajax( {
                     url: options.url,
                     type: "GET",
@@ -159,6 +227,17 @@ define( function( require ) {
                     console.info(  "/(ㄒoㄒ)/~~[ " + textStatus + " ]网络错误。" );
                 } ).always( function() {
                     options.$drawer.isLoading( "hide" );
+                } );
+
+            }
+            // 前端mvc
+            else if ( options.url && options.model ) {
+
+                Drawer.getModelAndView( options.url, options.model, function ( htmlString ) {
+                    // 关闭 loading
+                    options.$drawer.isLoading( "hide" );
+
+                    options.$drawerContent.html( htmlString );
                 } );
 
             }

@@ -416,7 +416,7 @@ define( function ( require ) {
             }
 
             if ( options.url.indexOf( "__CTX__" ) !== -1 ) {
-                options.url = options.url.replace( "__CTX__", PKUI.ctxPath );
+                options.url = options.url.replace( /.*__CTX__/, PKUI.ctxPath );
             }
         } );
 
