@@ -16,18 +16,28 @@
             <tr>
                 <td class="text-right"><label class="da-control-label">单位级别：</label></td>
                 <td>
+                    <!--
                     <div class="da-form-radio">
                         <label><input type="radio" name="deptLevel" value="1" data-rule="checked">省级</label>
                         <label><input type="radio" name="deptLevel" value="2">市级</label>
                         <label><input type="radio" name="deptLevel" value="3">支队</label>
                         <label><input type="radio" name="deptLevel" value="4">大队</label>
                     </div>
+                    -->
+                    <select name="deptLevel"
+                            data-pkui-component="chosen"
+                            data-pkui-component-options='{
+                                "dic":"DIC_DEPT_LEVEL",
+                                "defaultCode": "4"
+                            }'
+                            data-rule="required"
+                    ></select>
                 </td>
                 <td class="text-right"><label class="da-control-label">主管单位：</label></td>
                 <td>
-                    <div class="da-form-checkbox">
-                        <label><input type="checkbox" name="isMainDept" value="1">是</label>
-                        <label><input type="checkbox" name="isMainDept" value="0" checked>否</label>
+                    <div class="da-form-radio">
+                        <label><input type="radio" name="isMainDept" value="1">是</label>
+                        <label><input type="radio" name="isMainDept" value="0" checked>否</label>
                         <span class="help-inline">（注：是否为当前单位级别中行政级别最高的单位）</span>
                     </div>
                 </td>
