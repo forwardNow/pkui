@@ -646,7 +646,8 @@ define(function( require ) {
       } else {
         this.container.html('<a class="chosen-single chosen-default"><span>' + this.default_text + '</span><div><b></b></div></a><div class="chosen-drop"><div class="chosen-search"><input type="text" autocomplete="off" /></div><ul class="chosen-results"></ul></div>');
       }
-      this.form_field_jq.hide().after(this.container);
+      // FIX 将 容器 放在 select的前面，避免错误提示位置错误。
+      this.form_field_jq.hide().before(this.container);
       this.dropdown = this.container.find('div.chosen-drop').first();
       this.search_field = this.container.find('input').first();
       this.search_results = this.container.find('ul.chosen-results').first();
