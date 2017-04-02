@@ -320,7 +320,7 @@ define( function ( require ) {
         }
     };
 
-    window.PKUI.component.DataSource = DataSource;
+    //window.PKUI.component.DataSource = DataSource;
 
     return DataSource;
 } );
