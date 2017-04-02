@@ -593,7 +593,7 @@ define(function( require ) {
           return;
         }
         if (!(chosen instanceof Chosen)) {
-          // 标志已注册
+          // FIX 标志已注册
           $this.attr( "isrendered", true );
 
           // FIX 添加字典支持
