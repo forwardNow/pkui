@@ -13,7 +13,12 @@ define( function ( require ) {
         $ = require( "jquery" ),
 
         AOP = require( "meld" ),
+
         moment = require( "moment" ),
+
+        ArtTemplate = require( "artTemplate" ),
+
+        DataSource = require( "dataSource" ),
 
         ns = window[ "www.pkusoft.net" ],
 
@@ -84,6 +89,9 @@ define( function ( require ) {
 
         // 全局Ajax设置
         doAjaxSetting();
+
+        // 模板帮助函数（类比JSP中的自定义表情）
+        setTemplateHelper();
 
         // 暴露到全局名称空间
         window.PKUI = PKUI;
@@ -431,6 +439,20 @@ define( function ( require ) {
             }
         } );
 
+    }
+
+
+    /**
+     * 模板帮助函数（类比JSP中的自定义表情）
+     */
+    function setTemplateHelper() {
+        // 类比 <pku:dicValue>
+        ArtTemplate.helper( "dicValue", function ( code, dicName ) {
+            return DataSource.getDicValue( dicName, code );
+        } );
+        ArtTemplate.helper( "dateFormat", function ( date, format ) {
+            return moment( date ).format( format )
+        } );
     }
 
     PKUI._init();
