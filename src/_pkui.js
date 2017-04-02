@@ -237,86 +237,97 @@ define( function ( require ) {
 
             ;
 
-        // 找不到标识为组件的
-        if ( $component.size() === 0 ) {
-            return;
-        }
+        try {
 
-        // 正在渲染时
-        if ( PKUI.__isrendering ) {
-            console.info( moment().format( "YYYY年MM月DD日 HH:MM:SS" ), "正在渲染..." );
-            return;
-        }
-
-
-        PKUI.__renderedTimes++;
-        console.info( moment().format( "YYYY年MM月DD日 HH:MM:SS" ), "渲染次数：" + PKUI.__renderedTimes);
-
-        $component.each( function () {
-            var
-                $this = $( this ),
-                componentName = $this.data( PKUI.componentHtmlAttr ),
-                // jQuery自动转为JSON对象了
-                componentOptions = $this.data( PKUI.componentOptionsHtmlAttr ) || {},
-                componentNameList
-                ;
-            if ( $.trim( componentName ) === "" ) {
-                return ;
+            // 找不到标识为组件的
+            if ( $component.size() === 0 ) {
+                return;
+            }
+            // 正在渲染时
+            if ( PKUI.__isrendering ) {
+                console.info( moment().format( "YYYY年MM月DD日 HH:MM:SS" ), "正在渲染..." );
+                return;
             }
 
-            if ( componentName.indexOf( "|" ) !== -1 ) {
-                componentNameList = componentName.split( "|" );
-            } else {
-                componentNameList = [ componentName ];
-            }
+            PKUI.__isrendering = true;
 
-            if ( ! $.isArray( componentOptions ) ) {
-                componentOptions = [ componentOptions ];
-            }
 
-            $.each( componentNameList, function( index, componentName ) {
+            PKUI.__renderedTimes++;
+            console.info( moment().format( "YYYY年MM月DD日 HH:MM:SS" ), "渲染次数：" + PKUI.__renderedTimes);
+
+            $component.each( function () {
                 var
-                    options = componentOptions[ index ] || {},
-                    component = PKUI.component[ $.trim( componentName ) ],
-                    moduleId = componentName
+                    $this = $( this ),
+                    componentName = $this.data( PKUI.componentHtmlAttr ),
+                    // jQuery自动转为JSON对象了
+                    componentOptions = $this.data( PKUI.componentOptionsHtmlAttr ) || {},
+                    componentNameList
                     ;
-                // 如果没有注册该组件，则载入，再初始化
-                if ( !component ) {
-                    switch ( componentName ) {
-                        case "datagrid":
-                            moduleId = "bootgrid";
-                            break;
-                        case "drawer":
-                            moduleId = "drawer";
-                            break;
-                        case "form":
-                            moduleId = "form";
-                            break;
-                        case "validator":
-                            moduleId = "validator";
-                            break;
-                        default:
-                            var errorMessage = "未被注册的组件[" + componentName + "]";
-                            console.info( moment().format("YYYY年MM月DD日 HH:MM:SS"), errorMessage );
-                            window.layer.msg( errorMessage );
-                            $this.attr( "notrecognized", "not reg" );
-                            return;
+                if ( $.trim( componentName ) === "" ) {
+                    return ;
+                }
+
+                if ( componentName.indexOf( "|" ) !== -1 ) {
+                    componentNameList = componentName.split( "|" );
+                } else {
+                    componentNameList = [ componentName ];
+                }
+
+                if ( ! $.isArray( componentOptions ) ) {
+                    componentOptions = [ componentOptions ];
+                }
+
+                $.each( componentNameList, function( index, componentName ) {
+                    var
+                        options = componentOptions[ index ] || {},
+                        component = PKUI.component[ $.trim( componentName ) ],
+                        moduleId = componentName
+                        ;
+                    // 如果没有注册该组件，则载入，再初始化
+                    if ( !component ) {
+                        switch ( componentName ) {
+                            case "datagrid":
+                                moduleId = "bootgrid";
+                                break;
+                            case "drawer":
+                                moduleId = "drawer";
+                                break;
+                            case "form":
+                                moduleId = "form";
+                                break;
+                            case "validator":
+                                moduleId = "validator";
+                                break;
+                            case "chosen":
+                                moduleId = "chosen";
+                                break;
+                            default:
+                                var errorMessage = "未被注册的组件[" + componentName + "]";
+                                console.info( moment().format("YYYY年MM月DD日 HH:MM:SS"), errorMessage );
+                                window.layer.msg( errorMessage );
+                                $this.attr( "notrecognized", "not reg" );
+                                return;
+                        }
+                        seajs.use( [ moduleId ], function () {
+                            PKUI.component[ $.trim( componentName ) ].call( $this, options );
+                        } );
                     }
-                    seajs.use( [ moduleId ], function () {
-                        PKUI.component[ $.trim( componentName ) ].call( $this, options );
-                    } );
-                }
-                // 如果已注册，则初始化
-                else {
-                    component.call( $this, options );
-                }
+                    // 如果已注册，则初始化
+                    else {
+                        component.call( $this, options );
+                    }
+                } );
+
+
             } );
 
+        } catch ( e ) {
+            throw e;
+        } finally {
+            PKUI.__isrendering = false;
+        }
 
-        } );
 
-
-        PKUI.__isrendering = false;
     }
     /**
      * 开启/关闭 自动渲染。

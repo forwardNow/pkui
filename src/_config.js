@@ -74,6 +74,9 @@ seajs.config( {
         //【lib/component】表单验证
         "validator": "lib/component/validator/1.0.10.x/jquery.validator",
 
+        //【lib/component】chosen
+        "chosen": "lib/component/chosen/1.6.2.x/chosen",
+
         //【component/common 】 数据源
         "dataSource": "component/common/dataSource/1.0.0/dataSource",
 
