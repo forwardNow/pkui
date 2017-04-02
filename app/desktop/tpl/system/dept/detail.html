@@ -11,9 +11,15 @@
             </colgroup>
             <tr>
                 <td class="text-right"><label class="da-control-label">单位级别：</label></td>
-                <td>{{deptLevel}}</td>
+                <td>{{deptLevel | dicValue:"DIC_DEPT_LEVEL"}}</td>
                 <td class="text-right"><label class="da-control-label">主管单位：</label></td>
-                <td>{{isMainDept}}</td>
+                <td>
+                    {{if isMainDept == 1}}
+                    是
+                    {{else if isMainDept == 0}}
+                    否
+                    {{/if}}
+                </td>
             </tr>
             <tr>
                 <td class="text-right"><label class="da-control-label" >上级单位：</label></td>
@@ -32,8 +38,8 @@
             <tr>
                 <td class="text-right"><label class="da-control-label">单位名称：</label></td>
                 <td>{{deptName}}</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td class="text-right"><label class="da-control-label">添加时间：</label></td>
+                <td>{{addTime | dateFormat : "YYYY年MM月DD日 HH时mm分ss秒"}}</td>
             </tr>
         </table>
     </div>
