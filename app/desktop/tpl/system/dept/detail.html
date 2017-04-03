@@ -11,7 +11,7 @@
             </colgroup>
             <tr>
                 <td class="text-right"><label class="da-control-label">单位级别：</label></td>
-                <td>{{deptLevel | dicValue:"DIC_DEPT_LEVEL"}}</td>
+                <td>{{deptLevel | dicValue: "DIC_DEPT_LEVEL" }}</td>
                 <td class="text-right"><label class="da-control-label">主管单位：</label></td>
                 <td>
                     {{if isMainDept == 1}}
@@ -23,7 +23,7 @@
             </tr>
             <tr>
                 <td class="text-right"><label class="da-control-label" >上级单位：</label></td>
-                <td>{{parentDeptId}}</td>
+                <td>{{parentDeptId | dicValue: "DIC_DEPT" }}</td>
 
                 <td class="text-right"><label class="da-control-label">电　　话：<!--全角空格--></label></td>
                 <td>{{tel}}</td>
