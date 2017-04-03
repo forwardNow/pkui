@@ -158,7 +158,7 @@ define( function( require ) {
                     cssClass: data.cssClass || "",
                     headerCssClass: data.headerCssClass || "",
                     // FIX 允许在全局环境查找 formatter
-                    formatter: that.options.formatters[ data.formatter ] || window[ data.formatter ] || null,
+                    formatter: that.options.formatters[ data.formatter ] || window[ data.formatter ] || window.PKUI.bootgridFormatter[ data.formatter ] || null,
                     // FIX 字典翻译
                     dic: data.dic,
                     order: (!sorted && (data.order === "asc" || data.order === "desc")) ? data.order : null,

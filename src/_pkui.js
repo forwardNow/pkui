@@ -93,6 +93,9 @@ define( function ( require ) {
         // 模板帮助函数（类比JSP中的自定义表情）
         setTemplateHelper();
 
+        // 预定义几个formatter
+        setBootgridFormatter();
+
         // 暴露到全局名称空间
         window.PKUI = PKUI;
     };
@@ -453,6 +456,24 @@ define( function ( require ) {
         ArtTemplate.helper( "dateFormat", function ( date, format ) {
             return moment( date ).format( format )
         } );
+    }
+
+    /**
+     * 预设 bootgrid formatter
+     */
+    function setBootgridFormatter() {
+        PKUI.bootgridFormatter = {
+            // 日期 转 格式化后的年月日
+            dateFormatter: function ( column, row ) {
+                var date = row[ column.id ];
+                return moment( date ).format( "YYYY年MM月DD日" )
+            },
+            // 日期 转 格式化后的年月日时分秒
+            datetimeFormatter: function ( column, row ) {
+                var date = row[ column.id ];
+                return moment( date ).format( "YYYY年MM月DD日 HH时mm分ss秒" )
+            }
+        }
     }
 
     PKUI._init();
