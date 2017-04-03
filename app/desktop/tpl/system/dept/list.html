@@ -1,21 +1,3 @@
-<!--
-
-<form  id="queryForm">
-    <div class="form-group" style="width: 340px;">
-        <label>部门名称：</label>
-        <input type="text" class="form-control" name="deptName" data-operator="like" style="width: 250px;">
-    </div>
-    <div class="form-group" style="width: 240px;">
-        <label>部门级别：</label>
-        <input type="email" class="form-control js&#45;&#45;select" name="deptLevel" style="width: 150px;">
-    </div>
-    <div class="form-group" style="width: 340px;">
-        <label>录入时间：</label>
-        <input type="text" class="form-control" name="addTime" data-operator="=" data-datatype="'4'"  style="width: 250px;">
-    </div>
-    <button type="button" class="btn btn-info js&#45;&#45;doQuery"><i class="fa fa-search"></i> 搜索</button>
-</form>
--->
 
 <div class="win-btnGroup">
     <button type="button" class="btn btn-success-2"
@@ -29,6 +11,15 @@
     <button type="button" class="btn btn-danger-2" onclick="doDeleteSysDept()"><i class="fa fa-trash-o"></i> 删除</button>
     <button type="button" class="btn btn-primary-2" onclick="doCreateDeptDic(this)"><i class="fa fa-book"></i> 生成字典</button>
     <button type="button" class="btn btn-default-2"><i class="fa fa-search"></i> 高级查询</button>
+
+    <form id="sysDeptQueryForm">
+        <div class="input-group pull-right" style="width: 280px;">
+            <input type="text" class="da-form-control" placeholder="单位名称" name="deptName" data-operator="like">
+            <span class="input-group-btn">
+                <button class="btn btn-info-2" type="button" onclick="doSysDeptBootgridReload()"><i class="fa fa-search"></i></button>
+            </span>
+        </div>
+    </form>
 </div>
 
 <table id="sysDeptDatagrid"
@@ -38,7 +29,7 @@
             "multiSelect": true
        }'
        data-url="__CTX__/admin/sysDeptListData"
-       data-query-form-selector="#queryForm"
+       data-query-form-selector="#sysDeptQueryForm"
        data-selected-callback="sysDeptListSelectedCallback"
        data-deselected-callback="sysDeptListDeselectedCallback"
        data-dblclick-callback="sysDeptListDbclickCallback"
@@ -84,7 +75,7 @@
         +           ' data-pkui-component-options=\'{'
         +               '"url":"__CTX__/static/desktop/tpl/system/dept/detail.html",'
         +               '"model":"__CTX__/admin/sysDeptModel?deptId=' + row.deptId + '",'
-        +               '"container": ".da-win-main"}\'>详情</a> '
+        +               '"container": ".da-win-main"}\'><i class="fa fa-file-o"></i> 查看</a>　'
 
         +       '<a href="javascript:void(0)" '
         +           ' id=editSysDetp_' + row.deptId
@@ -92,13 +83,8 @@
         +           ' data-pkui-component-options=\'{'
         +               '"url":"__CTX__/static/desktop/tpl/system/dept/edit.html",'
         +               '"model":"__CTX__/admin/sysDeptModel?deptId=' + row.deptId + '",'
-        +               '"container": ".da-win-main"}\'>编辑</a>';
+        +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>';
     }
-
-    function doViewSysDeptDetail( deptId ) {
-
-    }
-
 
     /**
      * 勾选checkbox后的回调函数
@@ -129,8 +115,7 @@
     function doDeleteSysDept() {
         var
             $table = jQuery( "#sysDeptDatagrid" ),
-            seletedRowIds = $table.bootgrid( "getSelectedRows" ),
-            $row
+            seletedRowIds = $table.bootgrid( "getSelectedRows" )
         ;
 
         if ( seletedRowIds.length === 0 ) {
@@ -143,8 +128,6 @@
             return;
         }
 
-        // 那一行显示 loading
-        $row
 
         jQuery.ajax( {
             url: "__CTX__/admin/sysDeptDelete",
@@ -196,5 +179,9 @@
             $button.removeAttr( "disabled" );
             $buttonIcon.attr( "class", originIconClass );
         } );
+    }
+
+    function doSysDeptBootgridReload() {
+        jQuery( "#sysDeptDatagrid" ).bootgrid( "reload" );
     }
 </script>

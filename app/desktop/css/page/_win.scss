@@ -182,4 +182,7 @@
         float: left;
         margin-right: 6px;
     }
+    * {
+        @include box-sizing(border-box);
+    }
 }
