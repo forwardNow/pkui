@@ -92,7 +92,7 @@
                 layer.close( index );
                 // 关闭抽屉层
                 //$( "#addSysDeptBtn" ).drawer( "destroy" );
-                $form.closest( ".pkui-drawer-button" ).trigger( "click" );
+                $form.closest( ".pkui-drawer" ).find( ".pkui-drawer-button" ).trigger( "click" );
             } );
         }
         // 服务器端处理失败
