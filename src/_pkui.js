@@ -77,6 +77,11 @@ define( function ( require ) {
      * @private
      */
     PKUI._init = function _init() {
+        // 暴露到全局名称空间
+        window.PKUI = PKUI;
+
+        // 注册组件
+        regComponent();
 
         // DOM树构建完毕，执行一次渲染
         $( document ).ready( render );
@@ -96,8 +101,6 @@ define( function ( require ) {
         // 预定义几个formatter
         setBootgridFormatter();
 
-        // 暴露到全局名称空间
-        window.PKUI = PKUI;
     };
 
 
@@ -474,6 +477,16 @@ define( function ( require ) {
                 return moment( date ).format( "YYYY年MM月DD日 HH时mm分ss秒" )
             }
         }
+    }
+
+    /**
+     * 注册组件
+     */
+    function regComponent() {
+        // DataSource
+        PKUI.component.DataSource = DataSource;
+        DataSource.init();
+
     }
 
     PKUI._init();
