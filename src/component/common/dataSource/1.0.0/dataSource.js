@@ -7,7 +7,14 @@ define( function ( require ) {
         $ = require( "jquery" )
     ;
 
-    DataSource = {};
+    DataSource = {
+        // 在 _pkui.js 注册组件时，再设置
+        timestamp: undefined
+    };
+
+    DataSource.init = function () {
+        this.timestamp = window.PKUI.timestamp;
+    };
 
     // 缓存
     DataSource.cache = {
@@ -131,7 +138,35 @@ define( function ( require ) {
          */
         getDicValue: function( dicName, code ) {
             return this.getDataSet(dicName)[ code ];
+        },
+        /**
+         * 清空缓存。
+         * 如果指定了字典名称（key）则删除指定的字典，否则删除所有。
+         * 通常用于字典内容变化后，进行数据源的刷新
+         * @param dicName {string}
+         */
+        clearCache: function ( dicName ) {
+            var cache = DataSource.cache
+            ;
+
+            // 更新时间戳，避免使用缓存字典文件
+            this.timestamp = "v=" + ( new Date() ).getTime();
+
+            if ( ! dicName ) {
+                cache = {
+                    "list": {},
+                    "set": {}
+                };
+                return;
+            }
+            if ( cache[ "list" ].hasOwnProperty( dicName ) ) {
+                delete cache[ "list" ][ dicName ];
+            }
+            if ( cache[ "set" ].hasOwnProperty( dicName ) ) {
+                delete cache[ "set" ][ dicName ];
+            }
         }
+
 
     } );
 
@@ -242,10 +277,11 @@ define( function ( require ) {
          * @returns {*}
          */
         getDicUrl: function ( dicName ) {
-            if ( dicName.indexOf( "DIC_" ) === 0 ) {
-                return window.PKUI.dicPath + dicName + ".xml?" + window.PKUI.timestamp;
+            // 不以"DIC_"打头的字典，不添加时间戳
+            if ( dicName.indexOf( "DIC_" ) !== 0 ){
+                return dicName;
             }
-            return dicName;
+            return window.PKUI.dicPath + dicName + ".xml?" + DataSource.timestamp;
         },
         /**
          * 将xml文档对象转换成标准的dataList
