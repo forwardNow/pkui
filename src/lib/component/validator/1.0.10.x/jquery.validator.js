@@ -102,7 +102,27 @@
             ignoreBlank: false,
             showOk: true,
             // Translate ajax response to validation result
+            // FIX 修改 dataFilter
+            /*
             dataFilter: function (data) {
+                if ( isString(data) || ( isObject(data) && ('error' in data || 'ok' in data) ) ) {
+                    return data;
+                }
+            },
+            */
+            dataFilter: function ( jsonResult ) {
+                var
+                    data
+                ;
+                if ( jsonResult.success ) {
+                    data = {
+                        "ok": jsonResult.message || "远程验证通过"
+                    }
+                } else {
+                    data = {
+                        "error": jsonResult.message || "远程验证失败"
+                    }
+                }
                 if ( isString(data) || ( isObject(data) && ('error' in data || 'ok' in data) ) ) {
                     return data;
                 }
