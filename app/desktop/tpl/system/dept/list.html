@@ -110,28 +110,31 @@
     }
 
     /**
-     * 单行删除
+     * 删除（可批量删除）
      */
     function doDeleteSysDept() {
         var
             $table = jQuery( "#sysDeptDatagrid" ),
-            seletedRowIds = $table.bootgrid( "getSelectedRows" )
+            seletedRowIds = $table.bootgrid( "getSelectedRows" ),
+            data = ""
         ;
 
         if ( seletedRowIds.length === 0 ) {
-            layer.alert( '请选中一条记录进行删除！', { icon: 0 } );
+            layer.alert( '请选中一条或多条记录进行删除！', { icon: 0 } );
             return;
         }
 
-        if ( seletedRowIds.length > 1 ) {
-            layer.alert( '只能选择一条记录进行删除！', { icon: 0 } );
-            return;
-        }
-
+        // 将 [ 1, 2, 3 ] 转换为 "deptId=1&deptId=2&deptId=3"
+        $.each( seletedRowIds, function ( index, deptId ) {
+            if ( index > 0 ) {
+                data += "&";
+            }
+            data += "deptId=" + deptId
+        } );
 
         jQuery.ajax( {
             url: "__CTX__/admin/sysDeptDelete",
-            data: { deptId: seletedRowIds[ 0 ] }
+            data: data
         } ).done( function ( jsonResult ) {
             // 服务器端处理成功
             if ( jsonResult.success ) {
@@ -143,7 +146,7 @@
             // 服务器端处理失败
             else {
                 // 提示
-                layer.alert( jsonResult.message || "删除失败", { icon: 2 } );
+                layer.alert( "删除失败：" + ( jsonResult.message || "未知的错误" ), { icon: 2 } );
             }
         } ).fail( function () {
             // 提示网络错误
@@ -151,6 +154,10 @@
         } );
     }
 
+    /**
+     * 生成单位字典
+     * @param button
+     */
     function doCreateDeptDic( button ) {
         var
             $button = jQuery( button ),
@@ -167,6 +174,8 @@
             url: "__CTX__/admin/sysDeptCreateDic?dicName=DIC_DEPT"
         } ).done( function ( jsonResult ) {
             if ( jsonResult && jsonResult.success ) {
+                // 清空"DIC_DEPT"缓存
+                window.PKUI.component.DataSource.clearCache( "DIC_DEPT" );
                 layer.msg( "单位字典生成成功！" );
             }
             else {
