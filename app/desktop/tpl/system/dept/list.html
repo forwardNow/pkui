@@ -62,12 +62,12 @@
     </thead>
 
 </table>
-<br>
-<br>
-<br>
-<br>
+
 <script>
 
+    /**
+     * 操作
+     */
     function ope(column, row) {
         return '<a href="javascript:void(0)" '
         +           ' id=viewSysDept_' + row.deptId
@@ -190,6 +190,9 @@
         } );
     }
 
+    /**
+     * 刷新（重新载入）数据表格
+     */
     function doSysDeptBootgridReload() {
         jQuery( "#sysDeptDatagrid" ).bootgrid( "reload" );
     }
