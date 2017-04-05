@@ -15,7 +15,7 @@
                 <col width="40%">
             </colgroup>
             <tr>
-                <td class="text-right"><label class="da-control-label">单位级别：</label></td>
+                <td class="text-right"><label class="da-control-label required">单位级别：</label></td>
                 <td>
                     <!--
                     <div class="da-form-radio">
@@ -34,7 +34,7 @@
                             data-rule="required"
                     ></select>
                 </td>
-                <td class="text-right"><label class="da-control-label">主管单位：</label></td>
+                <td class="text-right"><label class="da-control-label required">主管单位：</label></td>
                 <td>
                     <div class="da-form-radio">
                         <label><input type="radio" name="isMainDept" value="1">是</label>
@@ -44,7 +44,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="text-right"><label class="da-control-label" >上级单位：</label></td>
+                <td class="text-right"><label class="da-control-label required" >上级单位：</label></td>
                 <td>
                     <!--<input type="text" class="da-form-control" name="parentDeptId" data-rule="required">-->
                     <select name="parentDeptId"
@@ -57,18 +57,18 @@
                 </td>
 
                 <td class="text-right"><label class="da-control-label">电　　话：<!--全角空格--></label></td>
-                <td><input type="text" class="da-form-control" name="tel" data-rule="required"></td>
+                <td><input type="text" class="da-form-control" name="tel" data-rule="tel" data-rule-tel="[/[0-9_]{3,}/, '合法的电话号码']"></td>
             </tr>
             <tr>
-                <td class="text-right"><label class="da-control-label">单位编码：</label></td>
+                <td class="text-right"><label class="da-control-label required">单位编码：</label></td>
                 <td><input type="text" class="da-form-control" name="deptId"
                            data-rule='required'></td>
 
                 <td class="text-right"><label class="da-control-label">传　　真：<!--全角空格--></label></td>
-                <td><input type="text" class="da-form-control" name="fax"></td>
+                <td><input type="text" class="da-form-control" name="fax" data-rule="tel" data-rule-tel="[/[0-9_]{3,}/, '合法的传真号码']"></td>
             </tr>
             <tr>
-                <td class="text-right"><label class="da-control-label">单位名称：</label></td>
+                <td class="text-right"><label class="da-control-label required">单位名称：</label></td>
                 <td><input type="text" class="da-form-control" name="deptName"
                            data-rule="required;remote(__CTX__/admin/sysDeptCheckInfo, fieldName=deptName, fieldValue:deptName)"></td>
                 <td>&nbsp;</td>

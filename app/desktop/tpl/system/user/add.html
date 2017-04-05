@@ -1,11 +1,11 @@
 <form class="da-form"
-    action="__CTX__/admin/sysDeptSave" method="post"
+    action="__CTX__/admin/sysUserSave" method="post"
     data-pkui-component="validator|form"
-    data-done-callback="addSysDeptDoneCallback"
-    data-fail-callback="addSysDeptFailCallback"
-    data-always-callback="addSysDeptAlwaysCallback" >
+    data-done-callback="addSysUserDoneCallback"
+    data-fail-callback="addSysUserFailCallback"
+    data-always-callback="addSysUserAlwaysCallback" >
 
-    <div class="da-form-heading">添加单位</div>
+    <div class="da-form-heading">添加用户</div>
     <div class="da-form-body">
         <table class="da-form-table da-table da-table-striped">
             <colgroup>
@@ -15,62 +15,52 @@
                 <col width="40%">
             </colgroup>
             <tr>
-                <td class="text-right"><label class="da-control-label">单位级别：</label></td>
-                <td>
-                    <!--
-                    <div class="da-form-radio">
-                        <label><input type="radio" name="deptLevel" value="1" data-rule="checked">省级</label>
-                        <label><input type="radio" name="deptLevel" value="2">市级</label>
-                        <label><input type="radio" name="deptLevel" value="3">支队</label>
-                        <label><input type="radio" name="deptLevel" value="4">大队</label>
-                    </div>
-                    -->
-                    <select name="deptLevel"
-                            data-pkui-component="chosen"
-                            data-pkui-component-options='{
-                                "dic":"DIC_DEPT_LEVEL",
-                                "defaultCode": "4"
-                            }'
-                            data-rule="required"
-                    ></select>
-                </td>
-                <td class="text-right"><label class="da-control-label">主管单位：</label></td>
-                <td>
-                    <div class="da-form-radio">
-                        <label><input type="radio" name="isMainDept" value="1">是</label>
-                        <label><input type="radio" name="isMainDept" value="0" checked>否</label>
-                        <span class="help-inline">（注：是否为当前单位级别中行政级别最高的单位）</span>
+                <td class="text-right"><label class="da-control-label required">所属角色：</label></td>
+                <td colspan="3">
+                    <div class="da-form-checkbox">
+                        {{ each roleList as role index }}
+                            {{if index === 0 }}
+                                <label><input type="checkbox" name="roleId" value="{{ role.roleId }}" data-rule="checked">{{ role.roleName }}</label>
+                            {{else}}
+                                <label><input type="checkbox" name="roleId" value="{{ role.roleId }}">{{ role.roleName }}</label>
+                            {{/if}}
+                        {{ /each }}
                     </div>
                 </td>
             </tr>
             <tr>
-                <td class="text-right"><label class="da-control-label" >上级单位：</label></td>
+                <td class="text-right"><label class="da-control-label required">登录名：</label></td>
+                <td><input type="text" class="da-form-control" name="loginName" data-rule='required;length(6~)'></td>
+
+                <td class="text-right"><label class="da-control-label required">警　　号：<!--全角空格--></label></td>
+                <td><input type="text" class="da-form-control" name="policeCode" data-rule="required"></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">真实姓名：</label></td>
+                <td><input type="text" class="da-form-control" name="userName" data-rule='required;chinese'></td>
+
+                <td class="text-right"><label class="da-control-label required">用户状态：</label></td>
                 <td>
-                    <!--<input type="text" class="da-form-control" name="parentDeptId" data-rule="required">-->
-                    <select name="parentDeptId"
+                    <div class="da-form-radio">
+                        <label><input type="radio" name="status" value="1" checked>正常</label>
+                        <label><input type="radio" name="status" value="0">停用</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">所属单位：</label></td>
+                <td>
+                    <select name="deptId"
                             data-pkui-component="chosen"
                             data-pkui-component-options='{
-                                "dic":"DIC_DEPT"
+                                "dic":"__CTX__/admin/sysDeptDic?deptId={{_pku_user.deptId}}&releType=2"
                             }'
                             data-rule="required"
                     ></select>
                 </td>
 
-                <td class="text-right"><label class="da-control-label">电　　话：<!--全角空格--></label></td>
-                <td><input type="text" class="da-form-control" name="tel" data-rule="required"></td>
-            </tr>
-            <tr>
-                <td class="text-right"><label class="da-control-label">单位编码：</label></td>
-                <td><input type="text" class="da-form-control" name="deptId" data-rule="required"></td>
-
-                <td class="text-right"><label class="da-control-label">传　　真：<!--全角空格--></label></td>
-                <td><input type="text" class="da-form-control" name="fax"></td>
-            </tr>
-            <tr>
-                <td class="text-right"><label class="da-control-label">单位名称：</label></td>
-                <td><input type="text" class="da-form-control" name="deptName" data-rule="required"></td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td class="text-right"><label class="da-control-label">身份证号：</label></td>
+                <td><input type="text" class="da-form-control" name="idcard" data-rule="IDcard"></td>
             </tr>
         </table>
     </div>
@@ -81,35 +71,35 @@
 <script>
 
     // 请求发送成功，对服务器端返回的数据进行处理
-    function addSysDeptDoneCallback($form, jsonResult) {
+    function addSysUserDoneCallback($form, jsonResult) {
         console.info( jsonResult );
         jsonResult = window.PKUI.handleJsonResult( jsonResult );
         console.info( jsonResult );
         // 服务器端处理成功
         if ( jsonResult.success ) {
             // 提示
-            layer.alert( '添加单位成功！', { icon: 1 }, function ( index ) {
+            layer.alert( '添加用户成功！', { icon: 1 }, function ( index ) {
                 layer.close( index );
                 // 关闭抽屉层
-                //$( "#addSysDeptBtn" ).drawer( "destroy" );
+                //$( "#addSysUserBtn" ).drawer( "destroy" );
                 $form.closest( ".pkui-drawer" ).find( ".pkui-drawer-button" ).trigger( "click" );
             } );
         }
         // 服务器端处理失败
         else {
             // 提示
-            layer.alert( '添加单位失败！', { icon: 2 } );
+            layer.alert( '添加用户失败！', { icon: 2 } );
         }
     }
 
     // 请求发送失败
-    function addSysDeptFailCallback($form) {
+    function addSysUserFailCallback($form) {
         // 提示网络错误
         layer.alert( '网络错误！', { icon: 0 } );
     }
 
     // 无论请求发送成功与否
-    function addSysDeptAlwaysCallback($form) {
+    function addSysUserAlwaysCallback($form) {
         // 无论
     }
 </script>

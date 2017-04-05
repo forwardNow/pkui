@@ -57,7 +57,7 @@
         <th data-column-id="deptName" data-sortable="false" data-width="30%">部门名称</th>
         <th data-column-id="deptLevel" data-sortable="true" data-dic="DIC_DEPT_LEVEL" data-width="10%">部门级别</th>
         <th data-column-id="addTime" data-sortable="false" data-formatter="dateFormatter" data-width="20%">录入时间</th>
-        <th data-column-id="__" data-sortable="false" data-formatter="ope">操作</th>
+        <th data-column-id="__" data-sortable="false" data-formatter="sysDeptOpe">操作</th>
     </tr>
     </thead>
 
@@ -68,7 +68,7 @@
     /**
      * 操作
      */
-    function ope(column, row) {
+    function sysDeptOpe(column, row) {
         return '<a href="javascript:void(0)" '
         +           ' id=viewSysDept_' + row.deptId
         +           ' data-pkui-component="drawer"'

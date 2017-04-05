@@ -1,45 +1,42 @@
 
 <div class="win-btnGroup">
     <button type="button" class="btn btn-success-2"
-            id="addSysDeptBtn"
+            id="addSysUserBtn"
             data-pkui-component="drawer"
             data-pkui-component-options='{
-                "url":"./tpl/system/dept/add.html",
+                "url": "__CTX__/static/desktop/tpl/system/user/add.html",
+                "model": "__CTX__/admin/sysUserRole",
                 "container": ".da-win-main"}'
             ><i class="fa fa-plus"></i> 添加</button>
     <!--<button type="button" class="btn btn-info-2"><i class="fa fa-pencil"></i> 修改</button>-->
-    <button type="button" class="btn btn-danger-2" onclick="doDeleteSysDept()"><i class="fa fa-trash-o"></i> 删除</button>
-    <button type="button" class="btn btn-primary-2" onclick="doCreateDeptDic(this)"><i class="fa fa-book"></i> 生成字典</button>
+    <button type="button" class="btn btn-danger-2" onclick="doDeleteSysUser()"><i class="fa fa-trash-o"></i> 删除</button>
     <button type="button" class="btn btn-default-2"><i class="fa fa-search"></i> 高级查询</button>
 
-    <form id="sysDeptQueryForm">
+    <form id="sysUserQueryForm">
         <div class="input-group pull-right" style="width: 280px;">
-            <input type="text" class="da-form-control" placeholder="单位名称" name="deptName" data-operator="like">
+            <input type="text" class="da-form-control" placeholder="真实姓名" name="userName" data-operator="like">
             <span class="input-group-btn">
-                <button class="btn btn-info-2" type="button" onclick="doSysDeptBootgridReload()"><i class="fa fa-search"></i></button>
+                <button class="btn btn-info-2" type="button" onclick="doSysUserBootgridReload()"><i class="fa fa-search"></i></button>
             </span>
         </div>
     </form>
 </div>
 
-<table id="sysDeptDatagrid"
+<table id="sysUserDatagrid"
        data-pkui-component="datagrid"
        data-pkui-component-options='{
             "selection": true,
             "multiSelect": true
        }'
-       data-url="__CTX__/admin/sysDeptListData"
-       data-query-form-selector="#sysDeptQueryForm"
-       data-selected-callback="sysDeptListSelectedCallback"
-       data-deselected-callback="sysDeptListDeselectedCallback"
-       data-dblclick-callback="sysDeptListDbclickCallback"
-       data-beforeload-callback="sysDeptListBeforeloadCallback"
-       data-afterload-callback="sysDeptListAfterloadCallback"
-       data-failload-callback="sysDeptListFailloadCallback"
+       data-url="__CTX__/admin/sysUserListData"
+       data-query-form-selector="#sysUserQueryForm"
+       data-selected-callback="sysUserListSelectedCallback"
+       data-deselected-callback="sysUserListDeselectedCallback"
+       data-dblclick-callback="sysUserListDbclickCallback"
+       data-beforeload-callback="sysUserListBeforeloadCallback"
+       data-afterload-callback="sysUserListAfterloadCallback"
+       data-failload-callback="sysUserListFailloadCallback"
        >
-    <!--
-     data-url="http://localhost:8080/pkui/admin/sysDeptListData"
-    -->
     <thead>
 
     <tr>
@@ -53,11 +50,17 @@
                                 column.id 获取该列“data-column-id”
                                 row 该行数据，如 { deptId: 123, deptName: "某部门", ... }
         -->
-        <th data-column-id="deptId" data-identifier="true" data-visible="true" data-sortable="false" data-width="15%">部门标识号</th>
-        <th data-column-id="deptName" data-sortable="false" data-width="30%">部门名称</th>
-        <th data-column-id="deptLevel" data-sortable="true" data-dic="DIC_DEPT_LEVEL" data-width="10%">部门级别</th>
-        <th data-column-id="addTime" data-sortable="false" data-formatter="dateFormatter" data-width="20%">录入时间</th>
-        <th data-column-id="__" data-sortable="false" data-formatter="ope">操作</th>
+        <th data-column-id="userId" data-identifier="true" data-visible="false" data-sortable="false">用户标识号</th>
+        <th data-column-id="loginName" data-sortable="false" data-width="120">登录名</th>
+        <th data-column-id="userName" data-sortable="false" data-width="120">真实姓名</th>
+        <th data-column-id="policeCode" data-sortable="false" data-width="100">警号</th>
+        <th data-column-id="deptId" data-sortable="false" data-dic="DIC_DEPT">所属单位</th>
+        <th data-column-id="userType" data-sortable="true" data-dic="DIC_USER_TYPE" data-width="100">用户类型</th>
+        <th data-column-id="status" data-sortable="true" data-formatter="statusFormatter" data-width="80">状态</th>
+        <th data-column-id="addTime" data-sortable="true" data-formatter="dateFormatter" data-width="140">录入时间</th>
+
+        <th data-column-id="__" data-sortable="false" data-formatter="sysUserOpe" data-width="160">操作</th>
+
     </tr>
     </thead>
 
@@ -68,21 +71,21 @@
     /**
      * 操作
      */
-    function ope(column, row) {
+    function sysUserOpe(column, row) {
         return '<a href="javascript:void(0)" '
-        +           ' id=viewSysDept_' + row.deptId
+        +           ' id=viewSysUser_' + row.deptId
         +           ' data-pkui-component="drawer"'
         +           ' data-pkui-component-options=\'{'
-        +               '"url":"__CTX__/static/desktop/tpl/system/dept/detail.html",'
-        +               '"model":"__CTX__/admin/sysDeptModel?deptId=' + row.deptId + '",'
+        +               '"url":"__CTX__/static/desktop/tpl/system/user/detail.html",'
+        +               '"model":"__CTX__/admin/sysUserModel?deptId=' + row.deptId + '",'
         +               '"container": ".da-win-main"}\'><i class="fa fa-file-o"></i> 查看</a>　'
 
         +       '<a href="javascript:void(0)" '
         +           ' id=editSysDetp_' + row.deptId
         +           ' data-pkui-component="drawer"'
         +           ' data-pkui-component-options=\'{'
-        +               '"url":"__CTX__/static/desktop/tpl/system/dept/edit.html",'
-        +               '"model":"__CTX__/admin/sysDeptModel?deptId=' + row.deptId + '",'
+        +               '"url":"__CTX__/static/desktop/tpl/system/user/edit.html",'
+        +               '"model":"__CTX__/admin/sysUserModel?deptId=' + row.deptId + '",'
         +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>';
     }
 
@@ -95,16 +98,16 @@
      *      { addTime : 1477108871000, addUserId : 5, addUserName : "超级管理员",...},
      *  ]
      */
-    function sysDeptListSelectedCallback ( selectedRows ) {
+    function sysUserListSelectedCallback ( selectedRows ) {
         console.info( this );
         console.info( selectedRows );
         console.info( this.getSelectedRowsDataList() );
     }
-    function sysDeptListDeselectedCallback ( deselectedRows ) {
+    function sysUserListDeselectedCallback ( deselectedRows ) {
         console.info( this );
         console.info( deselectedRows );
     }
-    function sysDeptListDbclickCallback ( $row, dblClickRowData ) {
+    function sysUserListDbclickCallback ( $row, dblClickRowData ) {
         console.info( $row );
         console.info( dblClickRowData );
     }
@@ -112,9 +115,9 @@
     /**
      * 删除（可批量删除）
      */
-    function doDeleteSysDept() {
+    function doDeleteSysUser() {
         var
-            $table = jQuery( "#sysDeptDatagrid" ),
+            $table = jQuery( "#sysUserDatagrid" ),
             seletedRowIds = $table.bootgrid( "getSelectedRows" ),
             data = ""
         ;
@@ -124,16 +127,16 @@
             return;
         }
 
-        // 将 [ 1, 2, 3 ] 转换为 "deptId=1&deptId=2&deptId=3"
-        $.each( seletedRowIds, function ( index, deptId ) {
+        // 将 [ 1, 2, 3 ] 转换为 "userId=1&userId=2&userId=3"
+        $.each( seletedRowIds, function ( index, userId ) {
             if ( index > 0 ) {
                 data += "&";
             }
-            data += "deptId=" + deptId
+            data += "userId=" + userId;
         } );
 
         jQuery.ajax( {
-            url: "__CTX__/admin/sysDeptDelete",
+            url: "__CTX__/admin/sysUserDelete",
             data: data
         } ).done( function ( jsonResult ) {
             // 服务器端处理成功
@@ -171,7 +174,7 @@
         $button.attr( "disabled", true );
         $buttonIcon.attr( "class", loadingIconClass );
         jQuery.ajax( {
-            url: "__CTX__/admin/sysDeptCreateDic?dicName=DIC_DEPT"
+            url: "__CTX__/admin/sysUserCreateDic?dicName=DIC_DEPT"
         } ).done( function ( jsonResult ) {
             if ( jsonResult && jsonResult.success ) {
                 // 清空"DIC_DEPT"缓存
@@ -193,7 +196,7 @@
     /**
      * 刷新（重新载入）数据表格
      */
-    function doSysDeptBootgridReload() {
-        jQuery( "#sysDeptDatagrid" ).bootgrid( "reload" );
+    function doSysUserBootgridReload() {
+        jQuery( "#sysUserDatagrid" ).bootgrid( "reload" );
     }
 </script>

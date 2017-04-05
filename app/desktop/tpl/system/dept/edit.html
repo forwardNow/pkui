@@ -8,6 +8,7 @@
     <!-- oldDeptId 标志修改 -->
     <input type="hidden" name="oldDeptId" value="{{deptId}}">
 
+
     <div class="da-form-heading">编辑单位</div>
     <div class="da-form-body">
         <table class="da-form-table da-table da-table-striped">
@@ -18,16 +19,8 @@
                 <col width="40%">
             </colgroup>
             <tr>
-                <td class="text-right"><label class="da-control-label">单位级别：</label></td>
+                <td class="text-right"><label class="da-control-label required">单位级别：</label></td>
                 <td>
-                    <!--
-                    <div class="da-form-radio">
-                        <label><input type="radio" name="deptLevel" value="1" data-rule="checked">省级</label>
-                        <label><input type="radio" name="deptLevel" value="2">市级</label>
-                        <label><input type="radio" name="deptLevel" value="3">支队</label>
-                        <label><input type="radio" name="deptLevel" value="4">大队</label>
-                    </div>
-                    -->
                     <select name="deptLevel"
                             data-pkui-component="chosen"
                             data-pkui-component-options='{
@@ -37,7 +30,7 @@
                             data-rule="required"
                     ></select>
                 </td>
-                <td class="text-right"><label class="da-control-label">主管单位：</label></td>
+                <td class="text-right"><label class="da-control-label required">主管单位：</label></td>
                 <td>
                     <div class="da-form-radio">
                         <label><input type="radio" name="isMainDept" value="1" {{if isMainDept == 1}}checked{{/if}}>是</label>
@@ -47,7 +40,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="text-right"><label class="da-control-label" >上级单位：</label></td>
+                <td class="text-right"><label class="da-control-label required" >上级单位：</label></td>
                 <td>
                     <!--<input type="text" class="da-form-control" name="parentDeptId" data-rule="required">-->
                     <select name="parentDeptId"
@@ -61,18 +54,18 @@
                 </td>
 
                 <td class="text-right"><label class="da-control-label">电　　话：<!--全角空格--></label></td>
-                <td><input type="text" class="da-form-control" name="tel" data-rule="required" value="{{tel}}"></td>
+                <td><input type="text" class="da-form-control" name="tel" value="{{tel}}" data-rule="tel" data-rule-tel="[/[0-9_]{3,}/, '合法的电话号码']"></td>
             </tr>
             <tr>
-                <td class="text-right"><label class="da-control-label">单位编码：</label></td>
+                <td class="text-right"><label class="da-control-label required">单位编码：</label></td>
                 <td><input type="text" class="da-form-control" name="deptId" value="{{deptId}}"
                            data-rule='required'></td>
 
                 <td class="text-right"><label class="da-control-label">传　　真：<!--全角空格--></label></td>
-                <td><input type="text" class="da-form-control" name="fax" value="{{fax}}"></td>
+                <td><input type="text" class="da-form-control" name="fax" value="{{fax}}" data-rule="tel" data-rule-tel="[/[0-9_]{3,}/, '合法的传真号码']"></td>
             </tr>
             <tr>
-                <td class="text-right"><label class="da-control-label">单位名称：</label></td>
+                <td class="text-right"><label class="da-control-label required">单位名称：</label></td>
                 <td><input type="text" class="da-form-control" name="deptName" value="{{deptName}}"
                            data-rule="required;remote(__CTX__/admin/sysDeptCheckInfo, deptId=oldDeptId, fieldName=deptName, fieldValue:deptName)"></td>
                 <td>&nbsp;</td>
@@ -84,6 +77,7 @@
         <button type="submit" class="btn btn-success-2">确定</button>
     </div>
 </form>
+
 
 <script>
     // 请求发送成功，对服务器端返回的数据进行处理
