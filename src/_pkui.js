@@ -191,10 +191,25 @@ define( function ( require ) {
                 datetimeFormatter: function ( column, row ) {
                     var date = row[ column.id ];
                     return moment( date ).format( "YYYY年MM月DD日 HH时mm分ss秒" )
+                },
+                // 标志状态（正常/停用）
+                statusFormatter: function ( column, row ) {
+                    var
+                        status = row[ column.id ]
+                        ;
+                    // 正常
+                    if ( status === "1" ) {
+                        return '<span class="text-success"><i class="fa fa-circle"></i> 正常</span>';
+                    }
+                    // 停用
+                    else {
+                        return '<span class="text-success"><i class="fa fa-circle text-danger"></i> 停用</span>';
+                    }
                 }
             }
         }
     } );
+
 
     /**
      * 核心功能
