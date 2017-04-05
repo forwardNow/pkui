@@ -172,6 +172,8 @@
     min-height: 100%;
     height: 100%;
     overflow: auto;
+    @include box-sizing(border-box);
+    padding-bottom: 50px;
 }
 .win-btnGroup {
     padding: 12px;

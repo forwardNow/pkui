@@ -6817,6 +6817,10 @@ Pagination Styles
   min-height: 100%;
   height: 100%;
   overflow: auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-bottom: 50px;
 }
 
 .win-btnGroup {
