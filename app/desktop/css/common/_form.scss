@@ -110,3 +110,9 @@
     color: #888;
 }
 
+.required {
+    &:before {
+        content: "*";
+        color: #eb5252;
+    }
+}

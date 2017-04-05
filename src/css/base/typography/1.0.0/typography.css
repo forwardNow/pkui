@@ -49,7 +49,7 @@ a.text-primary:focus {
 }
 
 .text-success {
-  color: #3c763d;
+  color: #2cb663;
 }
 
 a.text-success:hover,
@@ -76,7 +76,7 @@ a.text-warning:focus {
 }
 
 .text-danger {
-  color: #a94442;
+  color: #c24f4e;
 }
 
 a.text-danger:hover,
@@ -131,27 +131,4 @@ a.bg-warning:focus {
 a.bg-danger:hover,
 a.bg-danger:focus {
   background-color: #e4b9b9;
-}
-
-.page-header {
-  padding-bottom: 9px;
-  margin: 40px 0 20px;
-  border-bottom: 1px solid #eeeeee;
-}
-
-.list-unstyled {
-  padding-left: 0;
-  list-style: none;
-}
-
-.list-inline {
-  padding-left: 0;
-  list-style: none;
-  margin-left: -5px;
-}
-
-.list-inline > li {
-  display: inline-block;
-  padding-left: 5px;
-  padding-right: 5px;
 }
