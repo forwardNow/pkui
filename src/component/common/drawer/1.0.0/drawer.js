@@ -44,8 +44,9 @@ define( function( require ) {
                 Status.tplRender = ArtTemplate.compile( data );
                 renderCache[ viewUrl ] = Status.tplRender;
                 Status.update();
-            } ).fail( function ( jqXHR, textStatus ) {
-                throw "/(ㄒoㄒ)/~~[ " + textStatus + " ]模板获取失败！";
+            } ).fail( function () {
+                //throw "/(ㄒoㄒ)/~~[ " + textStatus + " ]模板获取失败！";
+                window.PKUI.console.error( "[drawer]模板获取失败！", true )
             } );
 
         }
@@ -63,12 +64,14 @@ define( function( require ) {
         } ).done( function ( data ) {
             data = window.PKUI.handleJsonResult( data );
             if ( !data || ! data.success ) {
-                throw "/(ㄒoㄒ)/~~数据获取失败！";
+                // throw "/(ㄒoㄒ)/~~数据获取失败！";
+                window.PKUI.console.error( "[drawer]模型获取失败！", true )
             }
             Status.data = data.data;
             Status.update();
-        } ).fail( function ( jqXHR, textStatus ) {
-            throw "/(ㄒoㄒ)/~~[ " + textStatus + " ]数据获取失败！";
+        } ).fail( function ( /*jqXHR, textStatus */) {
+            //throw "/(ㄒoㄒ)/~~[ " + textStatus + " ]数据获取失败！";
+            window.PKUI.console.error( "[drawer]模型获取失败！", true )
         } );
 
     };
@@ -223,8 +226,9 @@ define( function( require ) {
                 } ).done( function( responseData ) {
                     options.$drawerContent.html( responseData );
                 } ).fail( function( jqXHR, textStatus ) {
-                    options.$drawerContent.html( "/(ㄒoㄒ)/~~[ " + textStatus + " ]网络错误。" );
-                    console.info(  "/(ㄒoㄒ)/~~[ " + textStatus + " ]网络错误。" );
+                    //options.$drawerContent.html( "/(ㄒoㄒ)/~~[ " + textStatus + " ]网络错误。" );
+                    //console.info(  "/(ㄒoㄒ)/~~[ " + textStatus + " ]网络错误。" );
+                    window.PKUI.console.error( "[drawer]网络错误。", true )
                 } ).always( function() {
                     options.$drawer.isLoading( "hide" );
                 } );
