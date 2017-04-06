@@ -1,51 +1,51 @@
 
 <div class="win-btnGroup">
     <button type="button" class="btn btn-success-2"
-            id="addSysDeptBtn"
+            id="addSysDicListBtn"
             data-pkui-component="drawer"
             data-pkui-component-options='{
-                "url":"__CTX__/static/desktop/tpl/system/dept/add.html",
+                "url":"__CTX__/static/desktop/tpl/system/dicList/add.html",
                 "container": ".da-win-main"}'
             ><i class="fa fa-plus"></i> 添加</button>
     <!--<button type="button" class="btn btn-info-2"><i class="fa fa-pencil"></i> 修改</button>-->
     <button type="button" class="btn btn-danger-2"
             data-pkui-component="datagrid-delete"
             data-pkui-component-options='{
-                "datagridSelector": "#sysDeptDatagrid",
-                "PKName": "deptId",
-                "url": "__CTX__/admin/sysDeptDelete"
+                "datagridSelector": "#sysDicListDatagrid",
+                "PKName": "dicName",
+                "url": "__CTX__/admin/sysDicListDelete"
             }'
             ><i class="fa fa-trash-o"></i> 删除</button>
-    <button type="button" class="btn btn-primary-2" onclick="doCreateDeptDic(this)"><i class="fa fa-book"></i> 生成字典</button>
+    <button type="button" class="btn btn-primary-2" onclick="doCreateDicListDic(this)"><i class="fa fa-book"></i> 生成字典</button>
     <button type="button" class="btn btn-default-2"><i class="fa fa-search"></i> 高级查询</button>
 
-    <form id="sysDeptQueryForm">
+    <form id="sysDicListQueryForm">
         <div class="input-group pull-right" style="width: 280px;">
-            <input type="text" class="da-form-control" placeholder="单位名称" name="deptName" data-operator="like">
+            <input type="text" class="da-form-control" placeholder="字典描述" name="dicDesc" data-operator="like">
             <span class="input-group-btn">
-                <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysDeptDatagrid" ).bootgrid( "reload" );'><i class="fa fa-search"></i></button>
+                <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysDicListDatagrid" ).bootgrid( "reload" );'><i class="fa fa-search"></i></button>
             </span>
         </div>
     </form>
 </div>
 
-<table id="sysDeptDatagrid"
+<table id="sysDicListDatagrid"
        data-pkui-component="datagrid"
        data-pkui-component-options='{
             "selection": true,
             "multiSelect": true
        }'
-       data-url="__CTX__/admin/sysDeptListData"
-       data-query-form-selector="#sysDeptQueryForm"
-       data-selected-callback="sysDeptListSelectedCallback"
-       data-deselected-callback="sysDeptListDeselectedCallback"
-       data-dblclick-callback="sysDeptListDbclickCallback"
-       data-beforeload-callback="sysDeptListBeforeloadCallback"
-       data-afterload-callback="sysDeptListAfterloadCallback"
-       data-failload-callback="sysDeptListFailloadCallback"
+       data-url="__CTX__/admin/sysDicListListData"
+       data-query-form-selector="#sysDicListQueryForm"
+       data-selected-callback="sysDicListListSelectedCallback"
+       data-deselected-callback="sysDicListListDeselectedCallback"
+       data-dblclick-callback="sysDicListListDbclickCallback"
+       data-beforeload-callback="sysDicListListBeforeloadCallback"
+       data-afterload-callback="sysDicListListAfterloadCallback"
+       data-failload-callback="sysDicListListFailloadCallback"
        >
     <!--
-     data-url="http://localhost:8080/pkui/admin/sysDeptListData"
+     data-url="http://localhost:8080/pkui/admin/sysDicListListData"
     -->
     <thead>
 
@@ -58,13 +58,15 @@
             data-width：行宽度，可以使用百分比和数字，如 25%、200。
             data-formatter：对内容进行格式化，使用全局函数，会传递两个参数 column、row，返回HTML字符串
                                 column.id 获取该列“data-column-id”
-                                row 该行数据，如 { deptId: 123, deptName: "某部门", ... }
+                                row 该行数据，如 { dicListId: 123, dicListName: "某部门", ... }
         -->
-        <th data-column-id="deptId" data-identifier="true" data-visible="true" data-sortable="false" data-width="15%">部门标识号</th>
-        <th data-column-id="deptName" data-sortable="false" data-width="30%">部门名称</th>
-        <th data-column-id="deptLevel" data-sortable="true" data-dic="DIC_DEPT_LEVEL" data-width="10%">部门级别</th>
-        <th data-column-id="addTime" data-sortable="false" data-formatter="dateFormatter" data-width="20%">录入时间</th>
-        <th data-column-id="__" data-sortable="false" data-formatter="sysDeptOpe">操作</th>
+        <th data-column-id="dicName" data-identifier="true" data-visible="true" data-sortable="true" data-width="">字典名称</th>
+        <th data-column-id="dicDesc" data-sortable="true" data-width="">字典描述</th>
+        <th data-column-id="dicStandard" data-sortable="true"  data-width="">字典标准</th>
+        <th data-column-id="visiable" data-sortable="true" data-dic="DIC_YESORNO" data-width="">是否有效</th>
+        <th data-column-id="editable" data-sortable="true" data-dic="DIC_YESORNO" data-width="">是否可编辑</th>
+
+        <th data-column-id="__" data-sortable="false" data-formatter="sysDicListOpe">操作</th>
     </tr>
     </thead>
 
@@ -75,21 +77,21 @@
     /**
      * 操作
      */
-    function sysDeptOpe(column, row) {
+    function sysDicListOpe(column, row) {
         return '<a href="javascript:void(0)" '
-        +           ' id=viewSysDept_' + row.deptId
+        +           ' id=viewSysDicList_' + row.dicListId
         +           ' data-pkui-component="drawer"'
         +           ' data-pkui-component-options=\'{'
-        +               '"url":"__CTX__/static/desktop/tpl/system/dept/detail.html",'
-        +               '"model":"__CTX__/admin/sysDeptModel?deptId=' + row.deptId + '",'
+        +               '"url":"__CTX__/static/desktop/tpl/system/dicList/detail.html",'
+        +               '"model":"__CTX__/admin/sysDicListModel?dicName=' + row.dicName + '",'
         +               '"container": ".da-win-main"}\'><i class="fa fa-file-o"></i> 查看</a>　'
 
         +       '<a href="javascript:void(0)" '
-        +           ' id=editSysDept_' + row.deptId
+        +           ' id=editSysDicList_' + row.dicName
         +           ' data-pkui-component="drawer"'
         +           ' data-pkui-component-options=\'{'
-        +               '"url":"__CTX__/static/desktop/tpl/system/dept/edit.html",'
-        +               '"model":"__CTX__/admin/sysDeptModel?deptId=' + row.deptId + '",'
+        +               '"url":"__CTX__/static/desktop/tpl/system/dicList/edit.html",'
+        +               '"model":"__CTX__/admin/sysDicListModel?dicName=' + row.dicName + '",'
         +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>';
     }
 
@@ -102,16 +104,16 @@
      *      { addTime : 1477108871000, addUserId : 5, addUserName : "超级管理员",...},
      *  ]
      */
-    function sysDeptListSelectedCallback ( selectedRows ) {
+    function sysDicListListSelectedCallback ( selectedRows ) {
         console.info( this );
         console.info( selectedRows );
         console.info( this.getSelectedRowsDataList() );
     }
-    function sysDeptListDeselectedCallback ( deselectedRows ) {
+    function sysDicListListDeselectedCallback ( deselectedRows ) {
         console.info( this );
         console.info( deselectedRows );
     }
-    function sysDeptListDbclickCallback ( $row, dblClickRowData ) {
+    function sysDicListListDbclickCallback ( $row, dblClickRowData ) {
         console.info( $row );
         console.info( dblClickRowData );
     }
@@ -120,7 +122,7 @@
      * 生成单位字典
      * @param button
      */
-    function doCreateDeptDic( button ) {
+    function doCreateDicListDic( button ) {
         var
             $button = jQuery( button )
         ;
@@ -132,7 +134,7 @@
         $button.isLoading( { position: "insideButton" } );
 
         jQuery.ajax( {
-            url: "__CTX__/admin/sysDeptCreateDic?dicName=DIC_DEPT"
+            url: "__CTX__/admin/sysDicListCreateDic?dicName=DIC_DEPT"
         } ).done( function ( jsonResult ) {
             if ( jsonResult && jsonResult.success ) {
                 // 清空"DIC_DEPT"缓存

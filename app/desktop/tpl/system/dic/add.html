@@ -1,0 +1,116 @@
+<form class="da-form"
+    action="__CTX__/admin/sysDeptSave" method="post"
+    data-pkui-component="validator|form"
+    data-done-callback="addSysDeptDoneCallback"
+    data-fail-callback="addSysDeptFailCallback"
+    data-always-callback="addSysDeptAlwaysCallback" >
+
+    <div class="da-form-heading">添加单位</div>
+    <div class="da-form-body">
+        <table class="da-form-table da-table da-table-striped">
+            <colgroup>
+                <col width="10%">
+                <col width="40%">
+                <col width="10%">
+                <col width="40%">
+            </colgroup>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">单位级别：</label></td>
+                <td>
+                    <!--
+                    <div class="da-form-radio">
+                        <label><input type="radio" name="deptLevel" value="1" data-rule="checked">省级</label>
+                        <label><input type="radio" name="deptLevel" value="2">市级</label>
+                        <label><input type="radio" name="deptLevel" value="3">支队</label>
+                        <label><input type="radio" name="deptLevel" value="4">大队</label>
+                    </div>
+                    -->
+                    <select name="deptLevel"
+                            data-pkui-component="chosen"
+                            data-pkui-component-options='{
+                                "dic":"DIC_DEPT_LEVEL"
+                            }'
+                            data-rule='“单位级别”: required'
+                    ></select>
+                </td>
+                <td class="text-right"><label class="da-control-label required">主管单位：</label></td>
+                <td>
+                    <div class="da-form-radio">
+                        <label><input type="radio" name="isMainDept" value="1">是</label>
+                        <label><input type="radio" name="isMainDept" value="0" checked>否</label>
+                        <span class="help-inline">（注：是否为当前单位级别中行政级别最高的单位）</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required" >上级单位：</label></td>
+                <td>
+                    <!--<input type="text" class="da-form-control" name="parentDeptId" data-rule="required">-->
+                    <select name="parentDeptId"
+                            data-pkui-component="chosen"
+                            data-pkui-component-options='{
+                                "dic":"DIC_DEPT"
+                            }'
+                            data-rule="“上级单位”: required"
+                    ></select>
+                </td>
+
+                <td class="text-right"><label class="da-control-label">电　　话：<!--全角空格--></label></td>
+                <td><input type="text" class="da-form-control" name="tel" data-rule="“电话”: phone" data-rule-phone="[/[0-9_]{3,}/, '合法的电话号码']"></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">单位编码：</label></td>
+                <td><input type="text" class="da-form-control" name="deptId"
+                           data-rule='“单位编码”: required'></td>
+
+                <td class="text-right"><label class="da-control-label">传　　真：<!--全角空格--></label></td>
+                <td><input type="text" class="da-form-control" name="fax" data-rule="“传真”: fax" data-rule-fax="[/[0-9_]{3,}/, '合法的传真号码']"></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">单位名称：</label></td>
+                <td><input type="text" class="da-form-control" name="deptName"
+                           data-rule="“单位名称”: required;remote(__CTX__/admin/sysDeptCheckInfo, fieldName=deptName, fieldValue:deptName)"></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        </table>
+    </div>
+    <div class="da-form-footer">
+        <button type="submit" class="btn btn-success-2">确定</button>
+    </div>
+</form>
+<script>
+
+    // 请求发送成功，对服务器端返回的数据进行处理
+    function addSysDeptDoneCallback($form, jsonResult) {
+        console.info( jsonResult );
+        jsonResult = window.PKUI.handleJsonResult( jsonResult );
+        console.info( jsonResult );
+        // 服务器端处理成功
+        if ( jsonResult.success ) {
+            // 提示
+            layer.alert( '添加单位成功！', { icon: 1 }, function ( index ) {
+                layer.close( index );
+                // 关闭抽屉层
+                //$( "#addSysDeptBtn" ).drawer( "destroy" );
+                $form.closest( ".pkui-drawer" ).find( ".pkui-drawer-button" ).trigger( "click" );
+            } );
+        }
+        // 服务器端处理失败
+        else {
+            // 提示
+            layer.alert( '添加单位失败！', { icon: 2 } );
+        }
+    }
+
+    // 请求发送失败
+    function addSysDeptFailCallback($form) {
+        // 提示网络错误
+        layer.alert( '网络错误！', { icon: 0 } );
+    }
+
+    // 无论请求发送成功与否
+    function addSysDeptAlwaysCallback($form) {
+        // 无论
+    }
+</script>
