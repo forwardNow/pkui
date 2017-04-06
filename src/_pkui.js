@@ -328,6 +328,9 @@ define( function ( require ) {
                                 case "datagrid":
                                     moduleId = "bootgrid";
                                     break;
+                                case "datagrid-delete":
+                                    moduleId = "datagrid-delete";
+                                    break;
                                 case "drawer":
                                     moduleId = "drawer";
                                     break;
@@ -342,7 +345,7 @@ define( function ( require ) {
                                     break;
                                 default:
                                     var errorMessage = "未被注册的组件[" + componentName + "]";
-                                    console.info( moment().format("YYYY年MM月DD日 HH:MM:SS"), errorMessage );
+                                    PKUI.console.info( moment().format("YYYY年MM月DD日 HH:MM:SS") + " " + errorMessage );
                                     window.layer.msg( errorMessage );
                                     $this.attr( "notrecognized", "not reg" );
                                     return;
