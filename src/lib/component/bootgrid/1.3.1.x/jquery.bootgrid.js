@@ -1518,14 +1518,19 @@ define( function( require ) {
         if ( this.selection ) {
             rowIds = rowIds || this.currentRows.propValues( this.identifier );
 
-            var id, i,
+            var id, i, rowId,
                 selectedRows = [];
 
             while ( rowIds.length > 0 && !(!this.options.multiSelect && selectedRows.length === 1) ) {
                 id = rowIds.pop();
                 if ( $.inArray( id, this.selectedRows ) === -1 ) {
                     for ( i = 0; i < this.currentRows.length; i++ ) {
-                        if ( this.currentRows[ i ][ this.identifier ] === id ) {
+                        // FIX 修复当rowId为数字时，字符串和数字相严格比较出错的问题。
+                        rowId = this.currentRows[ i ][ this.identifier ];
+                        if ( typeof rowId === "number" && typeof id === "string") {
+                            rowId += "";
+                        }
+                        if ( rowId === id ) {
                             selectedRows.push( this.currentRows[ i ] );
                             this.selectedRows.push( id );
                             break;
