@@ -64,6 +64,30 @@ define( function ( require ) {
         PKUI.dicPath = "http://localhost:8080/pkui/static/dic/";
     }
 
+    /**
+     * 控制台打印
+     * @type {{info: info, warn: warn, error: error}}
+     */
+    PKUI.console = {
+        info: function ( message, isShow ) {
+            console.info( message );
+            if ( isShow ) {
+                window.layer.msg( message );
+            }
+        },
+        warn: function ( message, isShow ) {
+            console.warn( message );
+            if ( isShow ) {
+                window.layer.msg( message );
+            }
+        },
+        error: function ( message, isShow ) {
+            console.error( message );
+            if ( isShow ) {
+                window.layer.msg( message );
+            }
+        }
+    };
 
     /**
      * 初始化
@@ -203,7 +227,7 @@ define( function ( require ) {
                     }
                     // 停用
                     else {
-                        return '<span class="text-success"><i class="fa fa-circle text-danger"></i> 停用</span>';
+                        return '<span class="text-danger"><i class="fa fa-circle"></i> 停用</span>';
                     }
                 }
             }
