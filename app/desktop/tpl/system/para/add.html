@@ -15,7 +15,8 @@
 
             <tr>
                 <td class="text-right"><label class="da-control-label required">参数编码：</label></td>
-                <td><input type="text" class="da-form-control" name="paraCode" data-rule='“参数编码”: required'></td>
+                <td><input type="text" class="da-form-control" name="paraCode"
+                           data-rule='“参数编码”: required;remote(__CTX__/admin/checksysParaForm)'></td>
             </tr>
             <tr>
                 <td class="text-right"><label class="da-control-label required">参数名称：</label></td>
