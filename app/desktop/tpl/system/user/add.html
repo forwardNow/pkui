@@ -14,30 +14,17 @@
                 <col width="10%">
                 <col width="40%">
             </colgroup>
-            <tr>
-                <td class="text-right"><label class="da-control-label required">所属角色：</label></td>
-                <td colspan="3">
-                    <div class="da-form-checkbox">
-                        {{ each roleList as role index }}
-                            {{if index === 0 }}
-                                <label><input type="checkbox" name="roleId" value="{{ role.roleId }}" data-rule="checked">{{ role.roleName }}</label>
-                            {{else}}
-                                <label><input type="checkbox" name="roleId" value="{{ role.roleId }}">{{ role.roleName }}</label>
-                            {{/if}}
-                        {{ /each }}
-                    </div>
-                </td>
-            </tr>
+
             <tr>
                 <td class="text-right"><label class="da-control-label required">登录名：</label></td>
-                <td><input type="text" class="da-form-control" name="loginName" data-rule='required;length(6~)'></td>
+                <td><input type="text" class="da-form-control" name="loginName" data-rule='“登录名”: required;username'></td>
 
                 <td class="text-right"><label class="da-control-label required">警　　号：<!--全角空格--></label></td>
-                <td><input type="text" class="da-form-control" name="policeCode" data-rule="required"></td>
+                <td><input type="text" class="da-form-control" name="policeCode" data-rule="“警号”: required"></td>
             </tr>
             <tr>
                 <td class="text-right"><label class="da-control-label required">真实姓名：</label></td>
-                <td><input type="text" class="da-form-control" name="userName" data-rule='required;chinese'></td>
+                <td><input type="text" class="da-form-control" name="userName" data-rule='“真实姓名”: required;chinese'></td>
 
                 <td class="text-right"><label class="da-control-label required">用户状态：</label></td>
                 <td>
@@ -55,12 +42,55 @@
                             data-pkui-component-options='{
                                 "dic":"__CTX__/admin/sysDeptDic?deptId={{_pku_user.deptId}}&releType=2"
                             }'
-                            data-rule="required"
+                            data-rule="“所属单位”: required"
                     ></select>
                 </td>
 
                 <td class="text-right"><label class="da-control-label">身份证号：</label></td>
-                <td><input type="text" class="da-form-control" name="idcard" data-rule="IDcard"></td>
+                <td><input type="text" class="da-form-control" name="idcard" data-rule="“身份证号”: IDcard"></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">用户类型：</label></td>
+                <td>
+                    <select name="userType"
+                            data-pkui-component="chosen"
+                            data-pkui-component-options='{
+                                "dic":"DIC_USER_TYPE"
+                            }'
+                            data-rule="“用户类型”: required"
+                    ></select>
+                </td>
+
+                <td class="text-right"><label class="da-control-label">邮　　箱：<!--全角空格--></label></td>
+                <td><input type="text" class="da-form-control" name="email" data-rule="“邮箱”: email"></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">密　　码：<!--全角空格--></label></td>
+                <td><input type="password" class="da-form-control" name="password" data-rule='“密码”: required;password'></td>
+
+                <td class="text-right"><label class="da-control-label">联系电话：</label></td>
+                <td><input type="text" class="da-form-control" name="tel" data-rule="“联系电话”: phone" data-rule-phone="[/[0-9_]{3,}/, '合法的电话号码']"></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">确认密码：</label></td>
+                <td><input type="password" class="da-form-control" name="confirmPwd" data-rule='“确认密码”: required;match(password);'></td>
+
+                <td class="text-right"><label class="da-control-label">备　　注：</label></td>
+                <td><input type="text" class="da-form-control" name="memo"></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">所属角色：</label></td>
+                <td colspan="3">
+                    <div class="da-form-checkbox">
+                        {{ each roleList as role index }}
+                        {{if index === 0 }}
+                        <label><input type="checkbox" name="roleId" value="{{ role.roleId }}" data-rule="“所属角色”: checked">{{ role.roleName }}</label>
+                        {{else}}
+                        <label><input type="checkbox" name="roleId" value="{{ role.roleId }}">{{ role.roleName }}</label>
+                        {{/if}}
+                        {{ /each }}
+                    </div>
+                </td>
             </tr>
         </table>
     </div>

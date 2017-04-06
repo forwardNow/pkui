@@ -1,6 +1,6 @@
 <form class="da-form" >
 
-    <div class="da-form-heading">{{deptName}}</div>
+    <div class="da-form-heading">{{sysUser.loginName}}</div>
     <div class="da-form-body">
         <table class="da-form-table da-table da-table-striped">
             <colgroup>
@@ -9,37 +9,79 @@
                 <col width="10%">
                 <col width="40%">
             </colgroup>
+
             <tr>
-                <td class="text-right"><label class="da-control-label">单位级别：</label></td>
-                <td>{{deptLevel | dicValue: "DIC_DEPT_LEVEL" }}</td>
-                <td class="text-right"><label class="da-control-label">主管单位：</label></td>
+                <td class="text-right"><label class="da-control-label required">登录名：</label></td>
+                <td>{{sysUser.loginName}}</td>
+
+                <td class="text-right"><label class="da-control-label required">警　　号：<!--全角空格--></label></td>
+                <td>{{sysUser.policeCode}}</td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">真实姓名：</label></td>
+                <td>{{sysUser.userName}}</td>
+
+                <td class="text-right"><label class="da-control-label required">用户状态：</label></td>
                 <td>
-                    {{if isMainDept == 1}}
-                    是
-                    {{else if isMainDept == 0}}
-                    否
+                    {{if sysUser.status === "1"}}
+                        <span class="text-success"><i class="fa fa-circle"></i> 正常</span>
+                    {{else if sysUser.status === "0"}}
+                        <span class="text-danger"><i class="fa fa-circle"></i> 停用</span>
                     {{/if}}
                 </td>
             </tr>
             <tr>
-                <td class="text-right"><label class="da-control-label" >上级单位：</label></td>
-                <td>{{parentDeptId | dicValue: "DIC_DEPT" }}</td>
+                <td class="text-right"><label class="da-control-label required">所属单位：</label></td>
+                <td>{{ sysUser.deptId | dicValue: "DIC_DEPT" }}</td>
 
-                <td class="text-right"><label class="da-control-label">电　　话：<!--全角空格--></label></td>
-                <td>{{tel}}</td>
+                <td class="text-right"><label class="da-control-label">身份证号：</label></td>
+                <td>{{sysUser.idcard}}</td>
             </tr>
             <tr>
-                <td class="text-right"><label class="da-control-label">单位编码：</label></td>
-                <td>{{deptId}}</td>
+                <td class="text-right"><label class="da-control-label required">用户类型：</label></td>
+                <td>{{ sysUser.userType | dicValue: "DIC_USER_TYPE" }}</td>
 
-                <td class="text-right"><label class="da-control-label">传　　真：<!--全角空格--></label></td>
-                <td>{{fax}}</td>
+                <td class="text-right"><label class="da-control-label">邮　　箱：<!--全角空格--></label></td>
+                <td>{{sysUser.email}}</td>
             </tr>
             <tr>
-                <td class="text-right"><label class="da-control-label">单位名称：</label></td>
-                <td>{{deptName}}</td>
-                <td class="text-right"><label class="da-control-label">添加时间：</label></td>
-                <td>{{addTime | dateFormat : "YYYY年MM月DD日 HH时mm分ss秒"}}</td>
+                <td class="text-right"><label class="da-control-label required">密　　码：<!--全角空格--></label></td>
+                <td>******</td>
+
+                <td class="text-right"><label class="da-control-label">联系电话：</label></td>
+                <td>{{sysUser.tel}}</td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">录入时间：</label></td>
+                <td>{{sysUser.addTime | dateFormat : "YYYY年MM月DD日 HH时mm分ss秒"}}</td>
+
+                <td class="text-right"><label class="da-control-label">备　　注：</label></td>
+                <td>{{sysUser.memo}}</td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">所属角色：</label></td>
+                <td colspan="3">
+                    <div class="da-form-checkbox">
+                        {{ each roleList as role roleIndex }}
+
+                        <label><input type="checkbox" name="roleId" value="{{ role.roleId }}"
+
+                                      {{ if roleIndex === 0 && checkedRoleIndex === 0 }}
+                                      data-rule="“所属角色”: checked"
+                                      {{ /if }}
+
+                            {{ each checkedRoleList as checkedRole checkedRoleIndex }}
+                            {{ if checkedRole.roleId === role.roleId }}
+                            checked
+                            {{ /if }}
+                            {{ /each }}
+
+
+                            >{{ role.roleName }}</label>
+
+                        {{ /each }}
+                    </div>
+                </td>
             </tr>
         </table>
     </div>
