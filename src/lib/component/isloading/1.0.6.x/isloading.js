@@ -98,7 +98,7 @@ define( function ( require ) {
             self._loader = $( tpl );
 
             // Disable the element
-            if( $( self.element ).is( "input, textarea" ) && true === self.options.disableSource ) {
+            if( $( self.element ).is( "input, textarea, button" ) && true === self.options.disableSource ) {
 
                 $( self.element ).attr( "disabled", "disabled" );
 
@@ -118,6 +118,14 @@ define( function ( require ) {
                     $( self.element ).append( self._loader );
                     break;
 
+                // FIX 扩展 insideButton，按钮loading状态
+                // <button type="button" class="btn btn-default-2"><i class="fa fa-search"></i> 查询</button>
+                // <button type="button" class="btn btn-default-2" disabled><i class="fa fa-spinner fa-spin"></i> 查询</button>
+                case "insideButton":
+                    var $btnIcon = $( self.element ).children( ".fa" ).first();
+                    $btnIcon.data( "originIconClass.isLoading", $btnIcon.attr( "class" ) );
+                    $btnIcon.attr( "class", "fa fa-spinner fa-spin" );
+                    break;
                 case "overlay":
                     var $wrapperTpl = null;
 
@@ -170,8 +178,15 @@ define( function ( require ) {
             } else {
 
                 $( this._loader ).remove();
-                $( this.element ).text( $( this.element ).attr( "data-isloading-label" ) );
+                // FIX 去掉无用的功能
+                //$( this.element ).text( $( this.element ).attr( "data-isloading-label" ) );
 
+            }
+
+            // FIX 扩展 insideButton，按钮loading状态
+            if ( this.options.position === "insideButton" ) {
+                var $btnIcon = $( this.element ).children( ".fa" ).first();
+                $btnIcon.attr( "class",  $btnIcon.data( "originIconClass.isLoading" ) );
             }
 
             $( this.element ).removeAttr("disabled").removeClass("disabled");
