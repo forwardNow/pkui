@@ -11,17 +11,17 @@
             </colgroup>
 
             <tr>
-                <td class="text-right"><label class="da-control-label required">登录名：</label></td>
+                <td class="text-right"><label class="da-control-label ">登录名：</label></td>
                 <td>{{sysUser.loginName}}</td>
 
-                <td class="text-right"><label class="da-control-label required">警　　号：<!--全角空格--></label></td>
+                <td class="text-right"><label class="da-control-label ">警　　号：<!--全角空格--></label></td>
                 <td>{{sysUser.policeCode}}</td>
             </tr>
             <tr>
-                <td class="text-right"><label class="da-control-label required">真实姓名：</label></td>
+                <td class="text-right"><label class="da-control-label ">真实姓名：</label></td>
                 <td>{{sysUser.userName}}</td>
 
-                <td class="text-right"><label class="da-control-label required">用户状态：</label></td>
+                <td class="text-right"><label class="da-control-label ">用户状态：</label></td>
                 <td>
                     {{if sysUser.status === "1"}}
                         <span class="text-success"><i class="fa fa-circle"></i> 正常</span>
@@ -31,35 +31,35 @@
                 </td>
             </tr>
             <tr>
-                <td class="text-right"><label class="da-control-label required">所属单位：</label></td>
+                <td class="text-right"><label class="da-control-label ">所属单位：</label></td>
                 <td>{{ sysUser.deptId | dicValue: "DIC_DEPT" }}</td>
 
                 <td class="text-right"><label class="da-control-label">身份证号：</label></td>
                 <td>{{sysUser.idcard}}</td>
             </tr>
             <tr>
-                <td class="text-right"><label class="da-control-label required">用户类型：</label></td>
+                <td class="text-right"><label class="da-control-label ">用户类型：</label></td>
                 <td>{{ sysUser.userType | dicValue: "DIC_USER_TYPE" }}</td>
 
                 <td class="text-right"><label class="da-control-label">邮　　箱：<!--全角空格--></label></td>
                 <td>{{sysUser.email}}</td>
             </tr>
             <tr>
-                <td class="text-right"><label class="da-control-label required">密　　码：<!--全角空格--></label></td>
+                <td class="text-right"><label class="da-control-label ">密　　码：<!--全角空格--></label></td>
                 <td>******</td>
 
                 <td class="text-right"><label class="da-control-label">联系电话：</label></td>
                 <td>{{sysUser.tel}}</td>
             </tr>
             <tr>
-                <td class="text-right"><label class="da-control-label required">录入时间：</label></td>
+                <td class="text-right"><label class="da-control-label ">录入时间：</label></td>
                 <td>{{sysUser.addTime | dateFormat : "YYYY年MM月DD日 HH时mm分ss秒"}}</td>
 
                 <td class="text-right"><label class="da-control-label">备　　注：</label></td>
                 <td>{{sysUser.memo}}</td>
             </tr>
             <tr>
-                <td class="text-right"><label class="da-control-label required">所属角色：</label></td>
+                <td class="text-right"><label class="da-control-label ">所属角色：</label></td>
                 <td colspan="3">
                     <div class="da-form-checkbox">
                         {{ each roleList as role roleIndex }}
