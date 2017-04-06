@@ -8,7 +8,14 @@
                 "container": ".da-win-main"}'
             ><i class="fa fa-plus"></i> 添加</button>
     <!--<button type="button" class="btn btn-info-2"><i class="fa fa-pencil"></i> 修改</button>-->
-    <button type="button" class="btn btn-danger-2" onclick="doDeleteSysDept(this)"><i class="fa fa-trash-o"></i> 删除</button>
+    <button type="button" class="btn btn-danger-2"
+            data-pkui-component="datagrid-delete"
+            data-pkui-component-options='{
+                "datagridSelector": "#sysDeptDatagrid",
+                "PKName": "deptId",
+                "url": "__CTX__/admin/sysDeptDelete"
+            }'
+            ><i class="fa fa-trash-o"></i> 删除</button>
     <button type="button" class="btn btn-primary-2" onclick="doCreateDeptDic(this)"><i class="fa fa-book"></i> 生成字典</button>
     <button type="button" class="btn btn-default-2"><i class="fa fa-search"></i> 高级查询</button>
 
@@ -16,7 +23,7 @@
         <div class="input-group pull-right" style="width: 280px;">
             <input type="text" class="da-form-control" placeholder="单位名称" name="deptName" data-operator="like">
             <span class="input-group-btn">
-                <button class="btn btn-info-2" type="button" onclick="doSysDeptBootgridReload()"><i class="fa fa-search"></i></button>
+                <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysDeptDatagrid" ).bootgrid( "reload" );'><i class="fa fa-search"></i></button>
             </span>
         </div>
     </form>
@@ -110,62 +117,6 @@
     }
 
     /**
-     * 删除（可批量删除）
-     */
-    function doDeleteSysDept( button ) {
-        var
-            $button = $( button ),
-            $table = jQuery( "#sysDeptDatagrid" ),
-            seletedRowIds = $table.bootgrid( "getSelectedRows" ),
-            data = ""
-        ;
-
-        // 如果处于 isloading 状态，则退出
-        if ( $button.attr( "disabled") ) {
-            return;
-        }
-        // 打开 loading
-        $button.isLoading( { position: "insideButton" } );
-
-        if ( seletedRowIds.length === 0 ) {
-            layer.alert( '请选中一条或多条记录进行删除！', { icon: 0 } );
-            return;
-        }
-
-        // 将 [ 1, 2, 3 ] 转换为 "deptId=1&deptId=2&deptId=3"
-        $.each( seletedRowIds, function ( index, deptId ) {
-            if ( index > 0 ) {
-                data += "&";
-            }
-            data += "deptId=" + deptId
-        } );
-
-        jQuery.ajax( {
-            url: "__CTX__/admin/sysDeptDelete",
-            data: data
-        } ).done( function ( jsonResult ) {
-            // 服务器端处理成功
-            if ( jsonResult.success ) {
-                // 提示
-                layer.alert( jsonResult.message || "删除成功！", { icon: 1 } );
-                // 标志删除的那行
-                $table.bootgrid( "deleteRow", seletedRowIds );
-            }
-            // 服务器端处理失败
-            else {
-                // 提示
-                layer.alert( "删除失败：" + ( jsonResult.message || "未知的错误" ), { icon: 2 } );
-            }
-        } ).fail( function () {
-            // 提示网络错误
-            layer.alert( '网络错误！', { icon: 0 } );
-        } ).always( function () {
-            // 关闭 loading
-            $button.isLoading( "hide" );
-        } );
-    }
-
-    /**
      * 生成单位字典
      * @param button
      */
@@ -186,10 +137,11 @@
             if ( jsonResult && jsonResult.success ) {
                 // 清空"DIC_DEPT"缓存
                 window.PKUI.component.DataSource.clearCache( "DIC_DEPT" );
-                layer.msg( "单位字典生成成功！" );
+                //layer.msg( "单位字典生成成功！" );
+                layer.msg( jsonResult.message || "单位字典生成成功！", { icon: 1 } );
             }
             else {
-                layer.msg( "单位字典生成失败！" )
+                layer.alert( ( jsonResult && jsonResult.message ) || "单位字典生成失败！", { icon: 2 } );
             }
         } ).fail( function () {
             // 提示网络错误
@@ -198,12 +150,5 @@
             // 关闭 loading
             $button.isLoading( "hide" );
         } );
-    }
-
-    /**
-     * 刷新（重新载入）数据表格
-     */
-    function doSysDeptBootgridReload() {
-        jQuery( "#sysDeptDatagrid" ).bootgrid( "reload" );
     }
 </script>
