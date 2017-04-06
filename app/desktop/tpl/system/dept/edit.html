@@ -27,7 +27,7 @@
                                 "dic":"DIC_DEPT_LEVEL",
                                 "defaultCode": "{{deptLevel}}"
                             }'
-                            data-rule="required"
+                            data-rule="“单位级别”: required"
                     ></select>
                 </td>
                 <td class="text-right"><label class="da-control-label required">主管单位：</label></td>
@@ -49,25 +49,25 @@
                                 "dic":"DIC_DEPT",
                                 "defaultCode": "{{parentDeptId}}"
                             }'
-                            data-rule="required"
+                            data-rule="“上级单位”: required"
                     ></select>
                 </td>
 
                 <td class="text-right"><label class="da-control-label">电　　话：<!--全角空格--></label></td>
-                <td><input type="text" class="da-form-control" name="tel" value="{{tel}}" data-rule="tel" data-rule-tel="[/[0-9_]{3,}/, '合法的电话号码']"></td>
+                <td><input type="text" class="da-form-control" name="tel" value="{{tel}}" data-rule="“电话”: phone" data-rule-phone="[/[0-9_]{3,}/, '合法的电话号码']"></td>
             </tr>
             <tr>
                 <td class="text-right"><label class="da-control-label required">单位编码：</label></td>
                 <td><input type="text" class="da-form-control" name="deptId" value="{{deptId}}"
-                           data-rule='required'></td>
+                           data-rule='“单位编码”: required'></td>
 
                 <td class="text-right"><label class="da-control-label">传　　真：<!--全角空格--></label></td>
-                <td><input type="text" class="da-form-control" name="fax" value="{{fax}}" data-rule="tel" data-rule-tel="[/[0-9_]{3,}/, '合法的传真号码']"></td>
+                <td><input type="text" class="da-form-control" name="fax" value="{{fax}}" data-rule="“传真”: fax" data-rule-fax="[/[0-9_]{3,}/, '合法的传真号码']"></td>
             </tr>
             <tr>
                 <td class="text-right"><label class="da-control-label required">单位名称：</label></td>
                 <td><input type="text" class="da-form-control" name="deptName" value="{{deptName}}"
-                           data-rule="required;remote(__CTX__/admin/sysDeptCheckInfo, deptId=oldDeptId, fieldName=deptName, fieldValue:deptName)"></td>
+                           data-rule="“单位名称”: required;remote(__CTX__/admin/sysDeptCheckInfo, deptId=oldDeptId, fieldName=deptName, fieldValue:deptName)"></td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>

@@ -28,10 +28,9 @@
                     <select name="deptLevel"
                             data-pkui-component="chosen"
                             data-pkui-component-options='{
-                                "dic":"DIC_DEPT_LEVEL",
-                                "defaultCode": "4"
+                                "dic":"DIC_DEPT_LEVEL"
                             }'
-                            data-rule="required"
+                            data-rule='“单位级别”: required'
                     ></select>
                 </td>
                 <td class="text-right"><label class="da-control-label required">主管单位：</label></td>
@@ -52,25 +51,25 @@
                             data-pkui-component-options='{
                                 "dic":"DIC_DEPT"
                             }'
-                            data-rule="required"
+                            data-rule="“上级单位”: required"
                     ></select>
                 </td>
 
                 <td class="text-right"><label class="da-control-label">电　　话：<!--全角空格--></label></td>
-                <td><input type="text" class="da-form-control" name="tel" data-rule="tel" data-rule-tel="[/[0-9_]{3,}/, '合法的电话号码']"></td>
+                <td><input type="text" class="da-form-control" name="tel" data-rule="“电话”: phone" data-rule-phone="[/[0-9_]{3,}/, '合法的电话号码']"></td>
             </tr>
             <tr>
                 <td class="text-right"><label class="da-control-label required">单位编码：</label></td>
                 <td><input type="text" class="da-form-control" name="deptId"
-                           data-rule='required'></td>
+                           data-rule='“单位编码”: required'></td>
 
                 <td class="text-right"><label class="da-control-label">传　　真：<!--全角空格--></label></td>
-                <td><input type="text" class="da-form-control" name="fax" data-rule="tel" data-rule-tel="[/[0-9_]{3,}/, '合法的传真号码']"></td>
+                <td><input type="text" class="da-form-control" name="fax" data-rule="“传真”: fax" data-rule-fax="[/[0-9_]{3,}/, '合法的传真号码']"></td>
             </tr>
             <tr>
                 <td class="text-right"><label class="da-control-label required">单位名称：</label></td>
                 <td><input type="text" class="da-form-control" name="deptName"
-                           data-rule="required;remote(__CTX__/admin/sysDeptCheckInfo, fieldName=deptName, fieldValue:deptName)"></td>
+                           data-rule="“单位名称”: required;remote(__CTX__/admin/sysDeptCheckInfo, fieldName=deptName, fieldValue:deptName)"></td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>
