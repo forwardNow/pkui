@@ -2192,7 +2192,7 @@ define( function( require ) {
             body: "<tbody></tbody>",
             cell: "<td class=\"{{ctx.css}}\" style=\"{{ctx.style}}\"><p class=\"{{css.cell}}\" title=\"{{ctx.title}}\">{{ctx.content}}</p></td>",
             footer: "<div id=\"{{ctx.id}}\" class=\"{{css.footer}}\"><p class=\"{{css.pagination}}\"></p><p class=\"{{css.infos}}\"></p></div>",
-            header: "<div id=\"{{ctx.id}}\" class=\"{{css.header}}\"><p class=\"{{css.search}}\"></p><p class=\"{{css.actions}}\"></p><p class=\"pkui-grid-setting fa fa-gear\"></p></div>",
+            header: "<div id=\"{{ctx.id}}\" class=\"{{css.header}}\"><p class=\"{{css.search}}\"></p><p class=\"{{css.actions}}\"></p><p title=\"列表设置\" class=\"pkui-grid-setting fa fa-gear\"></p></div>",
             headerCell: "<th data-column-id=\"{{ctx.column.id}}\" class=\"{{ctx.css}}\" style=\"{{ctx.style}}\"><a href=\"javascript:void(0);\" class=\"{{css.columnHeaderAnchor}} {{ctx.sortable}}\"><span class=\"{{css.columnHeaderText}}\">{{ctx.column.text}}{{ctx.icon}}</span></a></th>",
             icon: "<span class=\"{{css.icon}} {{ctx.iconCss}}\"></span>",
             infos: "<div class=\"{{css.infos}}\">{{lbl.infos}}</div>",
