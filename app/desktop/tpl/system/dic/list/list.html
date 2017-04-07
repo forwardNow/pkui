@@ -4,7 +4,7 @@
             id="addSysDicListBtn"
             data-pkui-component="drawer"
             data-pkui-component-options='{
-                "url":"__CTX__/static/desktop/tpl/system/dicList/add.html",
+                "url":"__CTX__/static/desktop/tpl/system/dic/list/add.html",
                 "container": ".da-win-main"}'
             ><i class="fa fa-plus"></i> 添加</button>
     <!--<button type="button" class="btn btn-info-2"><i class="fa fa-pencil"></i> 修改</button>-->
@@ -17,7 +17,6 @@
             }'
             ><i class="fa fa-trash-o"></i> 删除</button>
     <button type="button" class="btn btn-primary-2" onclick="doCreateDicListDic(this)"><i class="fa fa-book"></i> 生成字典</button>
-    <button type="button" class="btn btn-default-2"><i class="fa fa-search"></i> 高级查询</button>
 
     <form id="sysDicListQueryForm">
         <div class="input-group pull-right" style="width: 280px;">
@@ -35,7 +34,7 @@
             "selection": true,
             "multiSelect": true
        }'
-       data-url="__CTX__/admin/sysDicListListData"
+       data-url="__CTX__/admin/sysDicListListDataExt"
        data-query-form-selector="#sysDicListQueryForm"
        data-selected-callback="sysDicListListSelectedCallback"
        data-deselected-callback="sysDicListListDeselectedCallback"
@@ -79,10 +78,10 @@
      */
     function sysDicListOpe(column, row) {
         return '<a href="javascript:void(0)" '
-        +           ' id=viewSysDicList_' + row.dicListId
+        +           ' id=viewSysDicList_' + row.dicName
         +           ' data-pkui-component="drawer"'
         +           ' data-pkui-component-options=\'{'
-        +               '"url":"__CTX__/static/desktop/tpl/system/dicList/detail.html",'
+        +               '"url":"__CTX__/static/desktop/tpl/system/dic/list/detail.html",'
         +               '"model":"__CTX__/admin/sysDicListModel?dicName=' + row.dicName + '",'
         +               '"container": ".da-win-main"}\'><i class="fa fa-file-o"></i> 查看</a>　'
 
@@ -90,7 +89,7 @@
         +           ' id=editSysDicList_' + row.dicName
         +           ' data-pkui-component="drawer"'
         +           ' data-pkui-component-options=\'{'
-        +               '"url":"__CTX__/static/desktop/tpl/system/dicList/edit.html",'
+        +               '"url":"__CTX__/static/desktop/tpl/system/dic/list/edit.html",'
         +               '"model":"__CTX__/admin/sysDicListModel?dicName=' + row.dicName + '",'
         +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>';
     }
@@ -119,31 +118,50 @@
     }
 
     /**
-     * 生成单位字典
+     * 生成字典，同时清除DataSource的缓存。
+     * 如果选中了记录，则生成指定的字典，
+     * 否则生成所有的字典，
      * @param button
      */
     function doCreateDicListDic( button ) {
         var
-            $button = jQuery( button )
+            $button = jQuery( button ),
+            $table = jQuery( "#sysDicListDatagrid" ),
+            seletedRowIds = $table.bootgrid( "getSelectedRows" ),
+            data = ""
         ;
         // 如果处于 isloading 状态，则退出
         if ( $button.attr( "disabled") ) {
             return;
         }
+
         // 打开 loading
         $button.isLoading( { position: "insideButton" } );
 
+        // 将 [ 1, 2, 3 ] 转换为 "dicName=1&dicName=2&dicName=3"
+        $.each( seletedRowIds, function ( index, dicName ) {
+            if ( index > 0 ) {
+                data += "&";
+            }
+            data += "dicName=" + dicName;
+        } );
+
         jQuery.ajax( {
-            url: "__CTX__/admin/sysDicListCreateDic?dicName=DIC_DEPT"
+            url: "__CTX__/admin/sysDicCreateXml",
+            data: data
         } ).done( function ( jsonResult ) {
             if ( jsonResult && jsonResult.success ) {
-                // 清空"DIC_DEPT"缓存
-                window.PKUI.component.DataSource.clearCache( "DIC_DEPT" );
-                //layer.msg( "单位字典生成成功！" );
-                layer.msg( jsonResult.message || "单位字典生成成功！", { icon: 1 } );
+                var dicName
+                    ;
+                if ( data ) {
+                    dicName = data.split( "&" );
+                }
+                // 清空字典缓存
+                window.PKUI.component.DataSource.clearCache( dicName );
+                layer.msg( jsonResult.message || "字典生成成功！", { icon: 1 } );
             }
             else {
-                layer.alert( ( jsonResult && jsonResult.message ) || "单位字典生成失败！", { icon: 2 } );
+                layer.alert( ( jsonResult && jsonResult.message ) || "字典生成失败！", { icon: 2 } );
             }
         } ).fail( function () {
             // 提示网络错误
