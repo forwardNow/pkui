@@ -50,7 +50,7 @@ define( function ( require ) {
         }
 
         if ( seletedRowIds.length === 0 ) {
-            layer.alert( '请选中一条或多条记录进行删除！', { icon: 0 } );
+            layer.msg( '请选中一条或多条记录进行删除！', { icon: 0 } );
             return;
         }
 
