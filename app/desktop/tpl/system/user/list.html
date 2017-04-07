@@ -109,7 +109,7 @@
         }
 
         if ( seletedRowIds.length === 0 ) {
-            layer.alert( '请选中一条或多条记录进行密码重置！', { icon: 0 } );
+            layer.msg( '请选中一条或多条记录进行密码重置！', { icon: 0 } );
             return;
         }
 
@@ -131,7 +131,7 @@
             // 服务器端处理成功
             if ( jsonResult.success ) {
                 // 提示
-                layer.alert( jsonResult.message || "重置用户密码成功！", { icon: 1 } );
+                layer.msg( jsonResult.message || "重置用户密码成功！", { icon: 1 } );
             }
             // 服务器端处理失败
             else {
