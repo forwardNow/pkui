@@ -1,0 +1,113 @@
+<div class="win-main-body">
+    <div class="win-btnGroup">
+        <button type="button" class="btn btn-success-2"
+                id="addSysDicItemBtn"
+                data-pkui-component="drawer"
+                data-pkui-component-options='{
+                    "url":"__CTX__/static/desktop/tpl/system/dic/item/add.html",
+                    "model": { "dicName": "{{dicName}}" },
+                    "container": ".da-win-main"}'
+                ><i class="fa fa-plus"></i> 添加</button>
+        <!--<button type="button" class="btn btn-info-2"><i class="fa fa-pencil"></i> 修改</button>-->
+        <button type="button" class="btn btn-danger-2"
+                data-pkui-component="datagrid-delete"
+                data-pkui-component-options='{
+                    "datagridSelector": "#sysDicItemDatagrid",
+                    "PKName": "itemId",
+                    "url": "__CTX__/admin/sysDicItemDelete"
+                }'
+                title="删除勾选的记录（可多选）"
+                ><i class="fa fa-trash-o"></i> 删除</button>
+
+        <form id="sysDicItemQueryForm">
+            <div class="input-group pull-right" style="width: 280px;">
+                <input type="hidden" name="dicName" value="{{dicName}}">
+                <input type="text" class="da-form-control" placeholder="字典条目名称" name="itemValue" data-operator="like">
+                <span class="input-group-btn">
+                    <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysDicItemDatagrid" ).bootgrid( "reload" );'><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </form>
+    </div>
+
+    <table id="sysDicItemDatagrid"
+           data-pkui-component="datagrid"
+           data-pkui-component-options='{
+                "selection": true,
+                "multiSelect": true
+           }'
+           data-url="__CTX__/admin/sysDicItemListDataExt"
+           data-query-form-selector="#sysDicItemQueryForm"
+           data-selected-callback="sysDicItemListSelectedCallback"
+           data-deselected-callback="sysDicItemListDeselectedCallback"
+           data-dblclick-callback="sysDicItemListDbclickCallback"
+           data-beforeload-callback="sysDicItemListBeforeloadCallback"
+           data-afterload-callback="sysDicItemListAfterloadCallback"
+           data-failload-callback="sysDicItemListFailloadCallback"
+           >
+        <!--
+         data-url="http://localhost:8080/pkui/admin/sysDicItemListData"
+        -->
+        <thead>
+
+        <tr>
+            <!--
+                data-column-id：对应bean的属性名
+                data-identifier： Boolean。data-row-id，行ID。（只对一个列使用）
+                data-visible：Boolean。此列是否可见。（可用于标记 行ID 的列）
+                data-sortable：Boolean。此列是否可排序（升序、降序），会拼接 order by 子句，发送请求
+                data-width：行宽度，可以使用百分比和数字，如 25%、200。
+                data-formatter：对内容进行格式化，使用全局函数，会传递两个参数 column、row，返回HTML字符串
+                                    column.id 获取该列“data-column-id”
+                                    row 该行数据，如 { dicItemId: 123, dicItemName: "某部门", ... }
+            -->
+            <th data-column-id="itemId" data-identifier="true" data-visible="false" data-width="">字典条目ID</th>
+            <th data-column-id="itemCode" data-visible="true" data-sortable="true" data-width="120">字典条目编号</th>
+            <th data-column-id="itemValue"  data-sortable="true" data-width="">字典（{{dicName}}）条目名称</th>
+            <th data-column-id="visiable" data-sortable="true" data-formatter="yesOrNoFormatter" data-width="80">是否有效</th>
+
+            <th data-column-id="__" data-sortable="false" data-formatter="sysDicItemOpe" data-width="120">操作</th>
+        </tr>
+        </thead>
+
+    </table>
+</div>
+<script>
+
+    /**
+     * 操作
+     */
+    function sysDicItemOpe(column, row) {
+        return '<a href="javascript:void(0)" '
+        +           ' id=editSysDicItem_' + row.itemId
+        +           ' data-pkui-component="drawer"'
+        +           ' data-pkui-component-options=\'{'
+        +               '"url":"__CTX__/static/desktop/tpl/system/dic/item/edit.html",'
+        +               '"model":"__CTX__/admin/sysDicItemModel?itemId=' + row.itemId + '",'
+        +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>';
+    }
+
+    /**
+     * 勾选checkbox后的回调函数
+     * this: instance
+     * @param selectedRows {Array} 勾选对应行的复选框，返回对应行的数据对象；勾选"全选"，返回所有被勾选的
+     * @example
+     *  selectedRows = [
+     *      { addTime : 1477108871000, addUserId : 5, addUserName : "超级管理员",...},
+     *  ]
+     */
+    function sysDicItemListSelectedCallback ( selectedRows ) {
+        console.info( this );
+        console.info( selectedRows );
+        console.info( this.getSelectedRowsDataList() );
+    }
+    function sysDicItemListDeselectedCallback ( deselectedRows ) {
+        console.info( this );
+        console.info( deselectedRows );
+    }
+    function sysDicItemListDbclickCallback ( $row, dblClickRowData ) {
+        console.info( $row );
+        console.info( dblClickRowData );
+    }
+
+</script>

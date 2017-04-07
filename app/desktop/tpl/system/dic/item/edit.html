@@ -1,0 +1,76 @@
+<form class="da-form"
+    action="__CTX__/admin/sysDicItemSave" method="post"
+    data-pkui-component="validator|form"
+    data-done-callback="editSysDicItemDoneCallback"
+    data-fail-callback="editSysDicItemFailCallback"
+    data-always-callback="editSysDicItemAlwaysCallback" >
+
+    <!-- ID -->
+    <input type="hidden" name="itemId" value="{{itemId}}">
+    <input type="hidden" name="dicName" value="{{dicName}}">
+
+    <div class="da-form-heading">编辑字典条目</div>
+    <div class="da-form-body">
+        <table class="da-form-table da-table da-table-striped">
+            <colgroup>
+                <col width="10%">
+                <col width="90%">
+            </colgroup>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">条目编号：</label></td>
+                <td><input type="text" class="da-form-control" name="itemCode" value="{{itemCode}}" data-rule='“条目编号”: required'></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">条目名称：</label></td>
+                <td><input type="text" class="da-form-control" name="itemValue" value="{{itemValue}}" data-rule='“条目名称”: required'></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">是否有效：</label></td>
+                <td>
+                    <div class="da-form-radio">
+                        <label><input type="radio" name="visiable" value="1" {{if visiable === "1"}}checked{{/if}}>是</label>
+                        <label><input type="radio" name="visiable" value="0" {{if visiable === "0"}}checked{{/if}}>否</label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="da-form-footer">
+        <button type="submit" class="btn btn-success-2">确定</button>
+    </div>
+</form>
+
+
+<script>
+    // 请求发送成功，对服务器端返回的数据进行处理
+    function editSysDicItemDoneCallback($form, jsonResult) {
+        console.info( jsonResult );
+        jsonResult = window.PKUI.handleJsonResult( jsonResult );
+        console.info( jsonResult );
+        // 服务器端处理成功
+        if ( jsonResult.success ) {
+            // 提示
+            layer.alert( '修改成功！', { icon: 1 }, function ( index ) {
+                layer.close( index );
+                // 关闭抽屉层
+                $form.closest( ".pkui-drawer" ).find( ".pkui-drawer-button" ).trigger( "click" );
+            } );
+        }
+        // 服务器端处理失败
+        else {
+            // 提示
+            layer.alert( '修改失败！', { icon: 2 } );
+        }
+    }
+
+    // 请求发送失败
+    function editSysDicItemFailCallback($form) {
+        // 提示网络错误
+        layer.alert( '网络错误！', { icon: 0 } );
+    }
+
+    // 无论请求发送成功与否
+    function editSysDicItemAlwaysCallback($form) {
+        // 无论
+    }
+</script>
