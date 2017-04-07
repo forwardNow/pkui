@@ -17,7 +17,22 @@
             }'
             title="删除勾选的记录（可多选）"
             ><i class="fa fa-trash-o"></i> 删除</button>
-    <button type="button" class="btn btn-primary-2" onclick="doCreateDicListDic(this)"><i class="fa fa-book"></i> 生成字典</button>
+    <button type="button" class="btn btn-primary-2"
+            onclick="doCreateDicListDic(this)"
+            title="1、将指定字典（勾选的记录）生成字典文件；2、（不勾选任何记录时）将所有字典生成字典文件"
+            ><i class="fa fa-book"></i> 生成字典</button>
+
+    <button type="button" class="btn btn-success-2"
+            onclick="importDicExcel(this)"
+            title="上传excel文件：文件名为字典名（如 DIC_GENDER.xls、DIC_CODE.xls），文件内容格式请参考导出的字典文件。"
+            ><i class="fa fa-upload"></i> 导入字典</button>
+
+    <button type="button" class="btn btn-info-2"
+            onclick="exportDicExcel(this)"
+            title="下载勾选的字典（excel文件）"
+            ><i class="fa fa-download"></i> 导出字典</button>
+
+
 
     <form id="sysDicListQueryForm">
         <div class="input-group pull-right" style="width: 280px;">
@@ -180,5 +195,13 @@
             // 关闭 loading
             $button.isLoading( "hide" );
         } );
+    }
+
+    function exportDicExcel( button ) {
+
+    }
+
+    function importDicExcel( button ) {
+
     }
 </script>
