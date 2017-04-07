@@ -716,7 +716,7 @@ define("dialog-config", {
     okValue: 'ok',
     
     // 取消按钮文本
-    cancelValue: 'cancel',
+    cancelValue: '关闭',
 
     cancelDisplay: true,
     
@@ -758,9 +758,9 @@ define("dialog-config", {
         +           '<tr>'
         +               '<td i="header" class="pkui-dialog-header">'
         +                   '<button i="close" class="pkui-dialog-close"></button>'
-        +                   '<button i="max" class="pkui-dialog-max"></button>'
-        +                   '<button i="restore" class="pkui-dialog-restore"></button>'
-        +                   '<button i="min" class="pkui-dialog-min"></button>'
+        +                   '<button i="max" class="pkui-dialog-max" title="最大化"></button>'
+        +                   '<button i="restore" class="pkui-dialog-restore" title="还原"></button>'
+        +                   '<button i="min" class="pkui-dialog-min" title="最小化"></button>'
         +                   '<div i="title" class="pkui-dialog-title"></div>'
         +               '</td>'
         +           '</tr>'
