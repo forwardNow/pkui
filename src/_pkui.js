@@ -265,7 +265,7 @@ define( function ( require ) {
             this._isAddingTooltip = true;
 
             $target = $( '[title]' ).not( function () {
-                return ! $( this ).attr( "title" );
+                return ! $.trim( $( this ).attr( "title" ) );
             } );
 
             $target.bsTooltip( {
