@@ -1961,7 +1961,7 @@ define( function( require ) {
         navigation: 3, // it's a flag: 0 = none, 1 = top, 2 = bottom, 3 = both (top and bottom)
         padding: 4, // page padding (pagination)
         columnSelection: true,
-        rowCount: [ 10, 15, 20, 25, 30 ], // rows per page int or array of int (-1 represents "All")
+        rowCount: [ 10, 5, 15, 20, 25, 30, 50, 100, 200 ], // rows per page int or array of int (-1 represents "All")
 
         ajax: true,
 
