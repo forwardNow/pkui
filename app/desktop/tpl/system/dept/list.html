@@ -15,8 +15,12 @@
                 "PKName": "deptId",
                 "url": "__CTX__/admin/sysDeptDelete"
             }'
+            title="删除勾选的记录（可多选）"
             ><i class="fa fa-trash-o"></i> 删除</button>
-    <button type="button" class="btn btn-primary-2" onclick="doCreateDeptDic(this)"><i class="fa fa-book"></i> 生成字典</button>
+    <button type="button" class="btn btn-primary-2"
+            onclick="doCreateDeptDic(this)"
+            title="1、将指定字典（勾选的记录）生成字典文件；2、将所有字典（不勾选记录）生成字典文件"
+            ><i class="fa fa-book"></i> 生成字典</button>
     <button type="button" class="btn btn-default-2"><i class="fa fa-search"></i> 高级查询</button>
 
     <form id="sysDeptQueryForm">

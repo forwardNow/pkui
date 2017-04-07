@@ -15,8 +15,12 @@
                 "PKName": "userId",
                 "url": "__CTX__/admin/sysUserDelete"
             }'
+            title="删除勾选的记录（可多选）"
             ><i class="fa fa-trash-o"></i> 删除</button>
-    <button type="button" class="btn btn-info-2" onclick="resetSysUserPwd(this)"><i class="fa fa-reply"></i> 重置密码</button>
+    <button type="button" class="btn btn-info-2"
+            onclick="resetSysUserPwd(this)"
+            title="重置勾选的记录的密码（可多选）"
+            ><i class="fa fa-reply"></i> 重置密码</button>
     <button type="button" class="btn btn-default-2"><i class="fa fa-search"></i> 高级查询</button>
 
     <form id="sysUserQueryForm">
