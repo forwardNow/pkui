@@ -141,9 +141,9 @@ define( function ( require ) {
         },
         /**
          * 清空缓存。
-         * 如果指定了字典名称（key）则删除指定的字典，否则删除所有。
+         * 如果指定了字典名称则删除指定的字典，否则删除所有。
          * 通常用于字典内容变化后，进行数据源的刷新
-         * @param dicName {string}
+         * @param dicName {Array|String}
          */
         clearCache: function ( dicName ) {
             var cache = DataSource.cache
@@ -152,19 +152,26 @@ define( function ( require ) {
             // 更新时间戳，避免使用缓存字典文件
             this.timestamp = "v=" + ( new Date() ).getTime();
 
-            if ( ! dicName ) {
+            // dicName没有指定 或 数组长度为0，则直接清空所有缓存
+            if ( ! dicName || ( $.isArray( dicName ) && dicName.length === 0 ) ) {
                 cache = {
                     "list": {},
                     "set": {}
                 };
                 return;
             }
-            if ( cache[ "list" ].hasOwnProperty( dicName ) ) {
-                delete cache[ "list" ][ dicName ];
+            // 如果指定了字典名称，则删除指定的字典
+            if ( typeof dicName === "string" ) {
+                dicName = [ dicName ];
             }
-            if ( cache[ "set" ].hasOwnProperty( dicName ) ) {
-                delete cache[ "set" ][ dicName ];
-            }
+            $.each( dicName, function ( index, dicname ) {
+                if ( cache[ "list" ].hasOwnProperty( dicname ) ) {
+                    delete cache[ "list" ][ dicname ];
+                }
+                if ( cache[ "set" ].hasOwnProperty( dicname ) ) {
+                    delete cache[ "set" ][ dicname ];
+                }
+            } );
         }
 
 
