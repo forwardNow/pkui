@@ -229,6 +229,20 @@ define( function ( require ) {
                     else {
                         return '<span class="text-danger"><i class="fa fa-circle"></i> 停用</span>';
                     }
+                },
+                // 标志状态（是/否）
+                yesOrNoFormatter: function ( column, row ) {
+                    var
+                        status = row[ column.id ]
+                        ;
+                    // 正常
+                    if ( status === "1" ) {
+                        return '<span class="text-success"><i class="fa fa-circle"></i> 是</span>';
+                    }
+                    // 停用
+                    else {
+                        return '<span class="text-danger"><i class="fa fa-circle"></i> 否</span>';
+                    }
                 }
             }
         }
