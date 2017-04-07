@@ -4,10 +4,15 @@ define( function ( require ) {
     "use strict";
 
     require( "isLoading" );
+
     require( "css/font/font-awesome/4.7.0/font-awesome.css" );
+
     require( "layer" );
     require( "lib/component/layer/3.0.1.x/skin/default/layer.css" );
+
     require( "moment-local-zh" );
+
+    require( "bootstrap-tooltip" );
 
     var
         $ = require( "jquery" ),
@@ -245,6 +250,30 @@ define( function ( require ) {
                     }
                 }
             }
+        },
+        /**
+         * 添加 tooltip
+         */
+        _addTooltip: function () {
+            var
+                $target
+            ;
+            // 如果在执行该方法，则退出
+            if ( this._isAddingTooltip ) {
+                return;
+            }
+            this._isAddingTooltip = true;
+
+            $target = $( '[title]' ).not( function () {
+                return ! $( this ).attr( "title" );
+            } );
+
+            $target.bsTooltip( {
+                container: "body",
+                placement: "auto top"
+            } );
+
+            this._isAddingTooltip = false;
         }
     } );
 
@@ -289,6 +318,9 @@ define( function ( require ) {
                     .not( "[notrecognized='not reg']" )
 
                 ;
+
+            // 添加 tooltip
+            PKUI._addTooltip();
 
             try {
 
