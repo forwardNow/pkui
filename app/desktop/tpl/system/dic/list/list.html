@@ -62,10 +62,10 @@
         <th data-column-id="dicName" data-identifier="true" data-visible="true" data-sortable="true" data-width="">字典名称</th>
         <th data-column-id="dicDesc" data-sortable="true" data-width="">字典描述</th>
         <th data-column-id="dicStandard" data-sortable="true"  data-width="">字典标准</th>
-        <th data-column-id="visiable" data-sortable="true" data-dic="DIC_YESORNO" data-width="">是否有效</th>
-        <th data-column-id="editable" data-sortable="true" data-dic="DIC_YESORNO" data-width="">是否可编辑</th>
+        <th data-column-id="visiable" data-sortable="true" data-dic="DIC_YESORNO" data-width="100">是否有效</th>
+        <th data-column-id="editable" data-sortable="true" data-dic="DIC_YESORNO" data-width="100">是否可编辑</th>
 
-        <th data-column-id="__" data-sortable="false" data-formatter="sysDicListOpe">操作</th>
+        <th data-column-id="__" data-sortable="false" data-formatter="sysDicListOpe" data-width="220">操作</th>
     </tr>
     </thead>
 
@@ -91,7 +91,16 @@
         +           ' data-pkui-component-options=\'{'
         +               '"url":"__CTX__/static/desktop/tpl/system/dic/list/edit.html",'
         +               '"model":"__CTX__/admin/sysDicListModel?dicName=' + row.dicName + '",'
-        +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>';
+        +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>　'
+
+        +       '<a href="javascript:void(0)" '
+        +           ' id=listSysDicItem_' + row.dicName
+        +           ' data-pkui-component="drawer"'
+        +           ' data-pkui-component-options=\'{'
+        +               '"url":"__CTX__/static/desktop/tpl/system/dic/item/list.html",'
+        +               '"model":"__CTX__/admin/sysDicItemModel?dicName=' + row.dicName + '",'
+        +               '"container": ".da-win-main"}\'><i class="fa fa-list"></i> 字典条目</a>'
+        ;
     }
 
     /**
