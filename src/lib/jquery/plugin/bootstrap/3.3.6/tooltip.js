@@ -243,6 +243,12 @@ define( function( require ) {
           .one('bsTransitionEnd', complete)
           .emulateTransitionEnd(Tooltip.TRANSITION_DURATION) :
         complete()
+
+
+      // FIX: 修复当 $element 被动态删除后，tooltip 还存在的情况
+      $tip.siblings( ".tooltip[role='tooltip']" ).remove();
+
+
     }
   }
 
