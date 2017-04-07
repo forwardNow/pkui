@@ -176,8 +176,8 @@
     padding-bottom: 50px;
 }
 .win-btnGroup {
-    padding: 12px;
-    margin: 0 -12px;
+    padding: 12px 0;
+    //margin: 0 -12px;
     border-bottom: solid 1px #fbfbfb;
     @include clearfix();
     .btn {

@@ -4721,7 +4721,7 @@ select[multiple].input-lg,
 }
 
 .pkui-drawer-open {
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 .pkui-drawer-overlay {
@@ -6961,8 +6961,7 @@ Pagination Styles
 }
 
 .win-btnGroup {
-  padding: 12px;
-  margin: 0 -12px;
+  padding: 12px 0;
   border-bottom: solid 1px #fbfbfb;
 }
 .win-btnGroup:before, .win-btnGroup:after {
