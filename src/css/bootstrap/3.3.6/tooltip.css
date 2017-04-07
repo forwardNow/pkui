@@ -120,3 +120,8 @@
   border-width: 0 5px 5px;
   border-bottom-color: #f0eff0;
 }
+
+.tooltip-inner {
+  text-align: left;
+  word-break: break-all;
+}

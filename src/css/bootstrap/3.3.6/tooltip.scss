@@ -73,3 +73,8 @@ $zindex-tooltip:              10000;
 // Utility classes
 //@import "bootstrap/utilities";
 //@import "bootstrap/responsive-utilities";
+
+.tooltip-inner {
+    text-align: left;
+    word-break: break-all;
+}
