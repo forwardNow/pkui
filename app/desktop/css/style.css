@@ -5733,8 +5733,14 @@ body {
 }
 
 a {
-  color: #61baec;
   text-decoration: none;
+}
+
+a {
+  color: #33a6e7;
+}
+a:hover {
+  color: #61baec;
 }
 
 i {

@@ -19,8 +19,13 @@ body {
 }
 
 a {
-    color: lighten( #33a6e7, 10% );
     text-decoration: none;
+}
+a {
+    color: #33a6e7;
+    &:hover {
+        color: lighten( #33a6e7, 10% );
+    }
 }
 
 i {
