@@ -236,6 +236,12 @@ define( function( require ) {
             }
             // 前端mvc
             else if ( options.url && options.model ) {
+                // 如果 options.model 是 序列化的json对象
+                try {
+                    options.model = $.parseJSON( options.model );
+                } catch ( e ) {
+                    window.PKUI.console.info( "model 不是序列化对象" )
+                }
 
                 Drawer.getModelAndView( options.url, options.model, function ( htmlString ) {
                     // 关闭 loading
