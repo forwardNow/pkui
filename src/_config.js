@@ -61,6 +61,9 @@ seajs.config( {
         //【lib/jQuery/plugin】bootstrap dropdown menu（被 bootgrid 依赖）
         "bootstrap-dropdown": "lib/jquery/plugin/bootstrap/3.3.6/dropdown",
 
+        //【lib/jQuery/plugin】bootstrap tooltip
+        "bootstrap-tooltip": "lib/jquery/plugin/bootstrap/3.3.6/tooltip",
+
         //【lib/component】轮播图组件
         "swiper": "lib/component/swiper/2.7.6.x/swiper",
 
