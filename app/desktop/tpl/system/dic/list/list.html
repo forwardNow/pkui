@@ -1,4 +1,3 @@
-
 <div class="win-btnGroup">
     <button type="button" class="btn btn-success-2"
             id="addSysDicListBtn"
@@ -6,7 +5,8 @@
             data-pkui-component-options='{
                 "url":"__CTX__/static/desktop/tpl/system/dic/list/add.html",
                 "container": ".da-win-main"}'
-            ><i class="fa fa-plus"></i> 添加</button>
+    ><i class="fa fa-plus"></i> 添加
+    </button>
     <!--<button type="button" class="btn btn-info-2"><i class="fa fa-pencil"></i> 修改</button>-->
     <button type="button" class="btn btn-danger-2"
             data-pkui-component="datagrid-delete"
@@ -16,29 +16,36 @@
                 "url": "__CTX__/admin/sysDicListDelete"
             }'
             title="删除勾选的记录（可多选）"
-            ><i class="fa fa-trash-o"></i> 删除</button>
+    ><i class="fa fa-trash-o"></i> 删除
+    </button>
     <button type="button" class="btn btn-primary-2"
             onclick="doCreateDicListDic(this)"
             title="1、将指定字典（勾选的记录）生成字典文件；2、（不勾选任何记录时）将所有字典生成字典文件"
-            ><i class="fa fa-book"></i> 生成字典</button>
+    ><i class="fa fa-book"></i> 生成字典
+    </button>
 
     <button type="button" class="btn btn-success-2"
             onclick="importDicExcel(this)"
             title="上传excel文件：文件名为字典名（如 DIC_GENDER.xls、DIC_CODE.xls），文件内容格式请参考导出的字典文件。"
-            ><i class="fa fa-upload"></i> 导入字典</button>
+    ><i class="fa fa-upload"></i> 导入字典
+    </button>
+<!--
 
     <button type="button" class="btn btn-info-2"
             onclick="exportDicExcel(this)"
             title="下载勾选的字典（excel文件）"
-            ><i class="fa fa-download"></i> 导出字典</button>
-
+    ><i class="fa fa-download"></i> 导出字典
+    </button>
+-->
 
 
     <form id="sysDicListQueryForm">
         <div class="input-group pull-right" style="width: 280px;">
             <input type="text" class="da-form-control" placeholder="字典描述" name="dicDesc" data-operator="like">
             <span class="input-group-btn">
-                <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysDicListDatagrid" ).bootgrid( "reload" );'><i class="fa fa-search"></i></button>
+                <button class="btn btn-info-2" type="button"
+                        onclick='jQuery( "#sysDicListDatagrid" ).bootgrid( "reload" );'><i
+                        class="fa fa-search"></i></button>
             </span>
         </div>
     </form>
@@ -58,7 +65,7 @@
        data-beforeload-callback="sysDicListListBeforeloadCallback"
        data-afterload-callback="sysDicListListAfterloadCallback"
        data-failload-callback="sysDicListListFailloadCallback"
-       >
+>
     <!--
      data-url="http://localhost:8080/pkui/admin/sysDicListListData"
     -->
@@ -75,13 +82,15 @@
                                 column.id 获取该列“data-column-id”
                                 row 该行数据，如 { dicListId: 123, dicListName: "某部门", ... }
         -->
-        <th data-column-id="dicName" data-identifier="true" data-visible="true" data-sortable="true" data-width="">字典名称</th>
+        <th data-column-id="dicName" data-identifier="true" data-visible="true" data-sortable="true" data-width="">
+            字典名称
+        </th>
         <th data-column-id="dicDesc" data-sortable="true" data-width="">字典描述</th>
-        <th data-column-id="dicStandard" data-sortable="true"  data-width="">字典标准</th>
+        <th data-column-id="dicStandard" data-sortable="true" data-width="">字典标准</th>
         <th data-column-id="visiable" data-sortable="true" data-formatter="yesOrNoFormatter" data-width="100">是否有效</th>
         <th data-column-id="editable" data-sortable="true" data-formatter="yesOrNoFormatter" data-width="100">是否可编辑</th>
 
-        <th data-column-id="__" data-sortable="false" data-formatter="sysDicListOpe" data-width="220">操作</th>
+        <th data-column-id="__" data-sortable="false" data-formatter="sysDicListOpe" data-width="300">操作</th>
     </tr>
     </thead>
 
@@ -92,31 +101,33 @@
     /**
      * 操作
      */
-    function sysDicListOpe(column, row) {
+    function sysDicListOpe( column, row ) {
         return '<a href="javascript:void(0)" '
-        +           ' id=viewSysDicList_' + row.dicName
-        +           ' data-pkui-component="drawer"'
-        +           ' data-pkui-component-options=\'{'
-        +               '"url":"__CTX__/static/desktop/tpl/system/dic/list/detail.html",'
-        +               '"model":"__CTX__/admin/sysDicListModel?dicName=' + row.dicName + '",'
-        +               '"container": ".da-win-main"}\'><i class="fa fa-file-o"></i> 查看</a>　'
+            + ' id=viewSysDicList_' + row.dicName
+            + ' data-pkui-component="drawer"'
+            + ' data-pkui-component-options=\'{'
+            + '"url":"__CTX__/static/desktop/tpl/system/dic/list/detail.html",'
+            + '"model":"__CTX__/admin/sysDicListModel?dicName=' + row.dicName + '",'
+            + '"container": ".da-win-main"}\'><i class="fa fa-file-o"></i> 查看</a>　'
 
-        +       '<a href="javascript:void(0)" '
-        +           ' id=editSysDicList_' + row.dicName
-        +           ' data-pkui-component="drawer"'
-        +           ' data-pkui-component-options=\'{'
-        +               '"url":"__CTX__/static/desktop/tpl/system/dic/list/edit.html",'
-        +               '"model":"__CTX__/admin/sysDicListModel?dicName=' + row.dicName + '",'
-        +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>　'
+            + '<a href="javascript:void(0)" '
+            + ' id=editSysDicList_' + row.dicName
+            + ' data-pkui-component="drawer"'
+            + ' data-pkui-component-options=\'{'
+            + '"url":"__CTX__/static/desktop/tpl/system/dic/list/edit.html",'
+            + '"model":"__CTX__/admin/sysDicListModel?dicName=' + row.dicName + '",'
+            + '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>　'
 
-        +       '<a href="javascript:void(0)" '
-        +           ' id=listSysDicItem_' + row.dicName
-        +           ' data-pkui-component="drawer"'
-        +           ' data-pkui-component-options=\'{'
-        +               '"url":"__CTX__/static/desktop/tpl/system/dic/item/list.html",'
-        +               '"model":"__CTX__/admin/sysDicListModel?dicName=' + row.dicName + '",'
-        +               '"container": ".win-main-body"}\'><i class="fa fa-list"></i> 字典条目</a>'
-        ;
+            + '<a href="__CTX__/admin/sysDeptDownload?dicName=' + row.dicName + '" target="_self"><i class="fa fa-download"></i> 下载</a>　'
+
+            + '<a href="javascript:void(0)" '
+            + ' id=listSysDicItem_' + row.dicName
+            + ' data-pkui-component="drawer"'
+            + ' data-pkui-component-options=\'{'
+            + '"url":"__CTX__/static/desktop/tpl/system/dic/item/list.html",'
+            + '"model":"__CTX__/admin/sysDicListModel?dicName=' + row.dicName + '",'
+            + '"container": ".win-main-body"}\'><i class="fa fa-list"></i> 字典条目</a>'
+            ;
     }
 
     /**
@@ -128,16 +139,16 @@
      *      { addTime : 1477108871000, addUserId : 5, addUserName : "超级管理员",...},
      *  ]
      */
-    function sysDicListListSelectedCallback ( selectedRows ) {
+    function sysDicListListSelectedCallback( selectedRows ) {
         console.info( this );
         console.info( selectedRows );
         console.info( this.getSelectedRowsDataList() );
     }
-    function sysDicListListDeselectedCallback ( deselectedRows ) {
+    function sysDicListListDeselectedCallback( deselectedRows ) {
         console.info( this );
         console.info( deselectedRows );
     }
-    function sysDicListListDbclickCallback ( $row, dblClickRowData ) {
+    function sysDicListListDbclickCallback( $row, dblClickRowData ) {
         console.info( $row );
         console.info( dblClickRowData );
     }
@@ -154,9 +165,9 @@
             $table = jQuery( "#sysDicListDatagrid" ),
             seletedRowIds = $table.bootgrid( "getSelectedRows" ),
             data = ""
-        ;
+            ;
         // 如果处于 isloading 状态，则退出
-        if ( $button.attr( "disabled") ) {
+        if ( $button.attr( "disabled" ) ) {
             return;
         }
 
@@ -195,10 +206,6 @@
             // 关闭 loading
             $button.isLoading( "hide" );
         } );
-    }
-
-    function exportDicExcel( button ) {
-
     }
 
     function importDicExcel( button ) {
