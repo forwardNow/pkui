@@ -265,24 +265,53 @@ define( function ( require ) {
          */
         _addTooltip: function () {
             var
-                $target
+                $target,
+                timeout = 4
             ;
             // 如果在执行该方法，则退出
-            if ( this._isAddingTooltip ) {
+            if ( this._isPending ) {
                 return;
             }
-            this._isAddingTooltip = true;
+            this._isPending = true;
 
             $target = $( '[title]' ).not( function () {
                 return ! $.trim( $( this ).attr( "title" ) );
             } );
 
             $target.bsTooltip( {
-                //container: "body",
+                container: "body",
+                delay: 300,
                 placement: "auto top"
             } );
 
-            this._isAddingTooltip = false;
+            // 指定 timeout 时间后，隐藏
+            $target
+                .off( "show.bs.tooltip" ).on( "show.bs.tooltip", function () {
+                    var $this = $( this ),
+                        timeoutId = $this.data( "timeoutId" )
+                        ;
+                    if ( timeoutId ) {
+                        window.clearTimeout( timeoutId );
+                    }
+                    timeoutId = setTimeout( function () {
+                        $this.bsTooltip( "hide" );
+                        // 如果原生的删不掉，则清除所有的 tooltip
+                        if ( ! $this.data('bs.tooltip') ) {
+                            $( "body > .bs-tooltip" ).remove();
+                        }
+                    }, timeout * 1000 );
+                    $this.data( "timeoutId", timeoutId );
+                } )
+                .off( "hide.bs.tooltip" ).on( "hide.bs.tooltip", function () {
+                    var $this = $( this ),
+                        timeoutId = $this.data( "timeoutId" )
+                        ;
+                    if ( timeoutId ) {
+                        window.clearTimeout( timeoutId );
+                    }
+                });
+
+            this._isPending = false;
         }
     } );
 
@@ -397,6 +426,9 @@ define( function ( require ) {
                                     break;
                                 case "chosen":
                                     moduleId = "chosen";
+                                    break;
+                                case "webuploader":
+                                    moduleId = "webuploader";
                                     break;
                                 default:
                                     var errorMessage = "未被注册的组件[" + componentName + "]";
