@@ -91,6 +91,10 @@ seajs.config( {
         //【lib/component】chosen
         "chosen": "lib/component/chosen/1.6.2.x/chosen",
 
+        //【lib/component】webuploader
+        "webuploader": "lib/component/webuploader/0.1.5.x/webuploader",
+
+
         //【component/common 】 数据源
         "dataSource": "component/common/dataSource/1.0.0/dataSource",
 
