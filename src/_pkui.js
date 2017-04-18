@@ -109,6 +109,8 @@ define( function ( require ) {
             // 全局的事件绑定
             this._bindEvent();
 
+            // 修改浏览器的原生方法（如 alert ）
+            this._modifyBrowserMethod();
 
             // 配置ajax的默认参数
             this._setAjaxDefaultOptions();
@@ -139,6 +141,13 @@ define( function ( require ) {
         _bindEvent: function () {
             // DOM树构建完毕，执行一次渲染
             $doc.ready( PKUI.render );
+        },
+        /**
+         * 修改浏览器的原生方法（如 alert ）
+         */
+        _modifyBrowserMethod: function () {
+            window.__alert = window.alert;
+            window.alert = window.layer.alert;
         },
         /**
          * 设置Ajax的默认参数
@@ -269,7 +278,7 @@ define( function ( require ) {
             } );
 
             $target.bsTooltip( {
-                container: "body",
+                //container: "body",
                 placement: "auto top"
             } );
 
