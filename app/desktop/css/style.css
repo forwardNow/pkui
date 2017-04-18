@@ -6654,7 +6654,6 @@ Pagination Styles
   float: left;
   position: relative;
   bottom: 0;
-  overflow: hidden;
   margin: 5px 3px 0 3px;
   height: 36px;
   width: 136px;
@@ -6683,6 +6682,9 @@ Pagination Styles
 .topbar-dock-item.active {
   background-color: rgba(252, 252, 252, 0.8);
 }
+.topbar-dock-item:hover .dock-item-btn {
+  visibility: visible;
+}
 
 .dock-item-icon {
   width: 20px;
@@ -6695,11 +6697,15 @@ Pagination Styles
 
 .dock-item-title {
   overflow: hidden;
+  display: inline-block;
+  vertical-align: -4px;
+  width: 80%;
   color: #082849;
   text-overflow: ellipsis;
 }
 
 .dock-item-btn {
+  visibility: hidden;
   position: absolute;
   top: 9px;
   right: 6px;
