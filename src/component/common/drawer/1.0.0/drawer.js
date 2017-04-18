@@ -158,6 +158,12 @@ define( function( require ) {
                 Drawer.destroy.call( _this );
             } );
 
+            if ( $container.scrollTop() > 0 ) {
+                $drawer.css( {
+                    "top": $container.scrollTop()
+                } )
+            }
+
             // 标志已经创建
             options.isCreated = true;
         },
