@@ -1,0 +1,85 @@
+<form class="da-form"
+      action="__CTX__/admin/sysParaSave" method="post"
+      data-pkui-component="validator|form"
+      data-done-callback="editSysParaDoneCallback"
+      data-fail-callback="editSysParaFailCallback"
+      data-always-callback="editSysParaAlwaysCallback" >
+
+    <!-- paraCode 标志修改 -->
+    <input type="hidden" name="oldParaCode" value="{{paraCode}}">
+
+    <div class="da-form-heading">编辑系统参数</div>
+    <div class="da-form-body">
+        <table class="da-form-table da-table da-table-striped">
+            <colgroup>
+                <col width="10%">
+                <col width="90%">
+            </colgroup>
+
+            <tr>
+                <td class="text-right"><label class="da-control-label required">参数编码：</label></td>
+                <td><input type="text" class="da-form-control" name="paraCode" value="{{paraCode}}"
+                           data-timely="1"
+                           data-rule='“参数编码”: required;remote(__CTX__/admin/checksysParaForm, oldParaCode)'></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">参数名称：</label></td>
+                <td><input type="text" class="da-form-control" name="paraName"  value="{{paraName}}" data-rule='“参数名称”: required'></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">参数　值：</label></td>
+                <td><input type="text" class="da-form-control" name="paraValue"  value="{{paraValue}}" data-rule='“参数值”: required'></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">可否可编辑：</label></td>
+                <td>
+                    <div class="da-form-radio">
+                        <label><input type="radio" name="visiable" value="1" {{if visiable === "1"}}checked{{/if}}>是</label>
+                        <label><input type="radio" name="visiable" value="0" {{if visiable === "0"}}checked{{/if}}>否</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">备　　注：<!--全角空格--></label></td>
+                <td><input type="text" class="da-form-control" name="paraDesc"  value="{{paraCode}}"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="da-form-footer">
+        <button type="submit" class="btn btn-success-2">确定</button>
+    </div>
+</form>
+
+<script>
+    // 请求发送成功，对服务器端返回的数据进行处理
+    function editSysParaDoneCallback($form, jsonResult) {
+        console.info( jsonResult );
+        jsonResult = window.PKUI.handleJsonResult( jsonResult );
+        console.info( jsonResult );
+        // 服务器端处理成功
+        if ( jsonResult.success ) {
+            // 提示
+            layer.alert( '修改成功！', { icon: 1 }, function ( index ) {
+                layer.close( index );
+                // 关闭抽屉层
+                $form.closest( ".pkui-drawer" ).find( ".pkui-drawer-button" ).trigger( "click" );
+            } );
+        }
+        // 服务器端处理失败
+        else {
+            // 提示
+            layer.alert( '修改失败！', { icon: 2 } );
+        }
+    }
+
+    // 请求发送失败
+    function editSysParaFailCallback($form) {
+        // 提示网络错误
+        layer.alert( '网络错误！', { icon: 0 } );
+    }
+
+    // 无论请求发送成功与否
+    function editSysParaAlwaysCallback($form) {
+        // 无论
+    }
+</script>
