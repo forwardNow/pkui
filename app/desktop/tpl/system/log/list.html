@@ -1,0 +1,66 @@
+
+<div class="win-btnGroup">
+    <button type="button" class="btn btn-success-2"
+            id="addSysLogBtn"
+            data-pkui-component="drawer"
+            data-pkui-component-options='{
+                "url": "__CTX__/static/desktop/tpl/system/log/add.html",
+                "container": ".da-win-main"}'
+            ><i class="fa fa-plus"></i> 添加</button>
+
+    <button type="button" class="btn btn-danger-2"
+            data-pkui-component="datagrid-delete"
+            data-pkui-component-options='{
+                "datagridSelector": "#sysLogDatagrid",
+                "PKName": "logId",
+                "url": "__CTX__/admin/sysLogDelete"
+            }'
+            title="删除勾选的记录（可多选）"
+            ><i class="fa fa-trash-o"></i> 删除</button>
+
+    <form id="sysLogQueryForm">
+        <div class="input-group pull-right" style="width: 280px;">
+            <input type="text" class="da-form-control" placeholder="登录名" name="loginName" data-operator="like">
+            <span class="input-group-btn">
+                <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysLogDatagrid" ).bootgrid( "reload" )'><i class="fa fa-search"></i></button>
+            </span>
+        </div>
+    </form>
+</div>
+
+<table id="sysLogDatagrid"
+       data-pkui-component="datagrid"
+       data-pkui-component-options='{
+            "selection": true,
+            "multiSelect": true
+       }'
+       data-url="__CTX__/admin/sysLogListDataExt"
+       data-query-form-selector="#sysLogQueryForm"
+       >
+    <thead>
+
+    <tr>
+        <!--
+            data-column-id：对应bean的属性名
+            data-identifier： Boolean。data-row-id，行ID。（只对一个列使用）
+            data-visible：Boolean。此列是否可见。（可用于标记 行ID 的列）
+            data-sortable：Boolean。此列是否可排序（升序、降序），会拼接 order by 子句，发送请求
+            data-width：行宽度，可以使用百分比和数字，如 25%、200。
+            data-formatter：对内容进行格式化，使用全局函数，会传递两个参数 column、row，返回HTML字符串
+                                column.id 获取该列“data-column-id”
+                                row 该行数据，如 { deptId: 123, deptName: "某部门", ... }
+        -->
+        <th data-column-id="logId" data-identifier="true" data-visible="false" data-sortable="false">ID</th>
+        <th data-column-id="loginName" data-sortable="true" data-width="">登陆账号</th>
+        <th data-column-id="deptName" data-sortable="true" data-width="">单位名称</th>
+        <th data-column-id="logInfo" data-sortable="true" data-width="" >日志数据说明</th>
+        <th data-column-id="logType" data-sortable="true" data-dic="DIC_LOG_TYPE" data-width="" >日志类型</th>
+        <th data-column-id="functionId" data-sortable="true" data-dic="DIC_LOG_FUNCTION" data-width="" >业务类型</th>
+        <th data-column-id="operType" data-sortable="true" data-dic="DIC_OPERATE_TYPE" data-width="" >操作类型</th>
+        <th data-column-id="logTime" data-sortable="true" data-formatter="dateFormatter">记录时间</th>
+        <th data-column-id="ip" data-sortable="true" >访问地址</th>
+
+    </tr>
+    </thead>
+
+</table>
