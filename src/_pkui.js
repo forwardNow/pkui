@@ -430,6 +430,9 @@ define( function ( require ) {
                                 case "webuploader":
                                     moduleId = "webuploader";
                                     break;
+                                case "menuTree":
+                                    moduleId = "menutree";
+                                    break;
                                 default:
                                     var errorMessage = "未被注册的组件[" + componentName + "]";
                                     PKUI.console.info( moment().format("YYYY年MM月DD日 HH:MM:SS") + " " + errorMessage );
@@ -545,28 +548,38 @@ define( function ( require ) {
         },
         /**
          * 转换树结构
-         * @param options {{data: Array, rootId: string, idName: string, parentIdName: string, childrenName: string, filter: Array}}
+         * @param options {{data: Array, rootId: Number, idName: string, parentIdName: string, childrenName: string}}
          * @example
          * PKUI.getTreeList( {
                 data: [
-                    { menuId: 0, menuName: "系统管理", treeParentId: null },
-                    { menuId: 1, menuName: "用户管理", treeParentId: 0 },
-                    { menuId: 2, menuName: "单位管理", treeParentId: 0 }
+                    { menuId: 0, menuName: "系统管理", treeParentid: null },
+                    { menuId: 1, menuName: "用户管理", treeParentid: 0 },
+                    { menuId: 2, menuName: "单位管理", treeParentid: 0 },
+					{ menuId: 10, menuName: "系统管理2", treeParentid: null },
+                    { menuId: 11, menuName: "用户管理2", treeParentid: 10 },
+                    { menuId: 12, menuName: "单位管理2", treeParentid: 10 }
                 ],
                 rootId: 0,
                 idName: "menuId",
-                parentIdName: "treeParentId",
+                parentIdName: "treeParentid",
                 childrenName: "children"
            } );
          返回：
          [
-         {
-             menuId: 0, menuName: "系统管理", treeParentId: null,
-             children: [
-                 { menuId: 1, menuName: "用户管理", treeParentId: 0, children: null },
-                 { menuId: 2, menuName: "单位管理", treeParentId: 0, children: null }
-             ]
-         }
+             {
+                 menuId: 0, menuName: "系统管理", treeParentId: null,
+                 children: [
+                     { menuId: 1, menuName: "用户管理", treeParentid: 0, children: null },
+                     { menuId: 2, menuName: "单位管理", treeParentid: 0, children: null }
+                 ]
+             },
+            {
+                 menuId: 10, menuName: "系统管理2", treeParentid: null,
+                 children: [
+                     { menuId: 11, menuName: "用户管理2", treeParentid: 10, children: null },
+                     { menuId: 12, menuName: "单位管理2", treeParentid: 10, children: null }
+                 ]
+             }
          ]
          */
         getTreeList: function getTreeList( options ) {
@@ -582,8 +595,18 @@ define( function ( require ) {
                 rootList
                 ;
 
-            if ( !rootId ) {
-                rootId = data[ 0 ][ idName ];
+            // 如果没有指定根节点的ID，则将所有 treeParentId == null 的节点作为根节点
+            if ( rootId == null ) {
+                // rootId = data[ 0 ][ idName ];
+                rootList = [];
+                $.each( data, function ( index, elt ) {
+                    if ( elt[ parentIdName ] == null ) {
+                        rootList.push( elt );
+                    }
+                } );
+            }
+            else {
+                rootList = [ data[ rootId ] ];
             }
 
 
@@ -592,12 +615,6 @@ define( function ( require ) {
                 childrenCollection[ parentId ] = childrenCollection[ parentId ] || [];
                 childrenCollection[ parentId ].push( elt );
             } );
-
-            rootList = data[ rootId ];
-
-            if ( !$.isArray( rootList ) ) {
-                rootList = [ rootList ];
-            }
 
             returnData = fmtData( rootList );
 
