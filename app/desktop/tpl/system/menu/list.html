@@ -1,0 +1,38 @@
+<div class="sysmenu-container">
+
+    <div class="sysmenu-treeContainer">
+        <div class="sysmenu-treeOpe btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-success-2" title="新建子菜单"><i class="fa fa-plus"></i> 新建</button>
+            <button type="button" class="btn btn-info-2"><i class="fa fa-edit"></i> 编辑</button>
+            <button type="button" class="btn btn-danger-2"><i class="fa fa-trash-o"></i> 删除</button>
+        </div>
+        <div id="sysMenuTree"
+             data-pkui-component="menuTree"
+             data-pkui-component-options='{
+                "url": "__CTX__/admin/sysMenuListData",
+                "dnd": true
+             }'></div>
+    </div>
+
+    <div class="sysmenu-menuInfo">
+
+    </div>
+
+</div>
+<style>
+    .sysmenu-container {
+        height: 100%;
+    }
+    .sysmenu-treeOpe {
+        margin: 12px 6px;
+    }
+    .sysmenu-treeContainer {
+        overflow: auto;
+        width: 240px;
+        min-height: 100%;
+        border-right: 1px solid silver;
+    }
+    .sysmenu-menuInfo {
+        overflow: auto;
+    }
+</style>
