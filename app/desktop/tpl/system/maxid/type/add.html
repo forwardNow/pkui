@@ -1,0 +1,94 @@
+<form class="da-form"
+    action="__CTX__/admin/sysMaxIdTypeAdd" method="post"
+    data-pkui-component="validator|form"
+    data-done-callback="addSysMaxIdTypeDoneCallback"
+    data-fail-callback="addSysMaxIdTypeFailCallback"
+    data-always-callback="addSysMaxIdTypeAlwaysCallback" >
+
+    <div class="da-form-heading">添加最大编号类型</div>
+    <div class="da-form-body">
+        <table class="da-form-table da-table da-table-striped">
+            <colgroup>
+                <col width="10%">
+                <col width="90%">
+            </colgroup>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">编号类型：</label></td>
+                <td><input type="text" class="da-form-control" name="idType"
+                           data-timely="1"
+                           data-rule='“编号类型”: required;integer(+);remote(__CTX__/admin/checkTypeIdUnique, idType)'></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">编号名称：</label></td>
+                <td><input type="text" class="da-form-control" name="idName"
+                           data-rule='“编号名称”: required;'></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">编号长度：</label></td>
+                <td><input type="text" class="da-form-control" name="idSize"
+                           data-rule='“编号长度”: required;integer(+)'></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">最小值：</label></td>
+                <td><input type="text" class="da-form-control" name="idBegin"
+                           data-rule='“最小值”: required;integer'></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">最大值：</label></td>
+                <td><input type="text" class="da-form-control" name="idEnd"
+                           data-rule='“最大值”: required;integer'></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">是否可循环：</label></td>
+                <td>
+                    <div class="da-form-radio">
+                        <label><input type="radio" name="idLoop" value="1" checked>是</label>
+                        <label><input type="radio" name="idLoop" value="0">否</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">描述：</label></td>
+                <td><input type="text" class="da-form-control" name="idDes"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="da-form-footer">
+        <button type="submit" class="btn btn-success-2">确定</button>
+    </div>
+</form>
+<script>
+
+    // 请求发送成功，对服务器端返回的数据进行处理
+    function addSysMaxIdTypeDoneCallback($form, jsonResult) {
+        console.info( jsonResult );
+        jsonResult = window.PKUI.handleJsonResult( jsonResult );
+        console.info( jsonResult );
+        // 服务器端处理成功
+        if ( jsonResult.success ) {
+            // 提示
+            layer.alert( '添加成功！', { icon: 1 }, function ( index ) {
+                layer.close( index );
+                // 关闭抽屉层
+                //$( "#addSysMaxIdTypeBtn" ).drawer( "destroy" );
+                $form.closest( ".pkui-drawer" ).find( ".pkui-drawer-button" ).trigger( "click" );
+            } );
+        }
+        // 服务器端处理失败
+        else {
+            // 提示
+            layer.alert( '添加失败！', { icon: 2 } );
+        }
+    }
+
+    // 请求发送失败
+    function addSysMaxIdTypeFailCallback($form) {
+        // 提示网络错误
+        layer.alert( '网络错误！', { icon: 0 } );
+    }
+
+    // 无论请求发送成功与否
+    function addSysMaxIdTypeAlwaysCallback($form) {
+        // 无论
+    }
+</script>

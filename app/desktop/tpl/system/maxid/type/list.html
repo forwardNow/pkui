@@ -1,0 +1,156 @@
+
+<div class="win-btnGroup">
+    <button type="button" class="btn btn-success-2"
+            id="addSysMaxIdTypeBtn"
+            data-pkui-component="drawer"
+            data-pkui-component-options='{
+                "url":"__CTX__/static/desktop/tpl/system/maxid/type/add.html",
+                "container": ".da-win-main"}'
+            ><i class="fa fa-plus"></i> 添加</button>
+    <button type="button" class="btn btn-danger-2"
+            data-pkui-component="datagrid-delete"
+            data-pkui-component-options='{
+                "datagridSelector": "#sysMaxIdTypeDatagrid",
+                "PKName": "idType",
+                "url": "__CTX__/admin/sysMaxIdTypeDelete"
+            }'
+            title="删除勾选的记录（可多选）"
+            ><i class="fa fa-trash-o"></i> 删除</button>
+
+    <form id="sysMaxIdTypeQueryForm">
+        <div class="input-group pull-right" style="width: 280px;">
+            <input type="text" class="da-form-control" placeholder="编号名称" name="idName" data-operator="like">
+            <span class="input-group-btn">
+                <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysMaxIdTypeDatagrid" ).bootgrid( "reload" );'><i class="fa fa-search"></i></button>
+            </span>
+        </div>
+    </form>
+</div>
+
+<table id="sysMaxIdTypeDatagrid"
+       data-pkui-component="datagrid"
+       data-pkui-component-options='{
+            "selection": true,
+            "multiSelect": true
+       }'
+       data-url="__CTX__/admin/sysMaxIdTypeListDataExt"
+       data-query-form-selector="#sysMaxIdTypeQueryForm"
+       data-selected-callback="sysMaxIdTypeListSelectedCallback"
+       data-deselected-callback="sysMaxIdTypeListDeselectedCallback"
+       data-dblclick-callback="sysMaxIdTypeListDbclickCallback"
+       data-beforeload-callback="sysMaxIdTypeListBeforeloadCallback"
+       data-afterload-callback="sysMaxIdTypeListAfterloadCallback"
+       data-failload-callback="sysMaxIdTypeListFailloadCallback"
+       >
+    <!--
+     data-url="http://localhost:8080/pkui/admin/sysMaxIdTypeListData"
+    -->
+    <thead>
+
+    <tr>
+        <!--
+            data-column-id：对应bean的属性名
+            data-identifier： Boolean。data-row-id，行ID。（只对一个列使用）
+            data-visible：Boolean。此列是否可见。（可用于标记 行ID 的列）
+            data-sortable：Boolean。此列是否可排序（升序、降序），会拼接 order by 子句，发送请求
+            data-width：行宽度，可以使用百分比和数字，如 25%、200。
+            data-formatter：对内容进行格式化，使用全局函数，会传递两个参数 column、row，返回HTML字符串
+                                column.id 获取该列“data-column-id”
+                                row 该行数据，如 { deptId: 123, deptName: "某部门", ... }
+        -->
+        <th data-column-id="idType" data-identifier="true" data-visible="true" data-sortable="true" data-width="">编号类型</th>
+        <th data-column-id="idName" data-sortable="true" data-width="">编号名称</th>
+        <th data-column-id="idSize" data-sortable="true" data-width="">编号长度</th>
+        <th data-column-id="idLoop" data-sortable="true" data-dic="DIC_YESORNO" data-width="">是否可循环</th>
+        <th data-column-id="idBegin" data-sortable="true" data-width="">最小值</th>
+        <th data-column-id="idEnd" data-sortable="true" data-width="">最大值</th>
+        <th data-column-id="idDes" data-sortable="true" data-width="">描述</th>
+
+        <th data-column-id="__" data-sortable="false" data-formatter="sysMaxIdTypeOpe">操作</th>
+    </tr>
+    </thead>
+
+</table>
+
+<script>
+
+    /**
+     * 操作
+     */
+    function sysMaxIdTypeOpe(column, row) {
+        return '<a href="javascript:void(0)" '
+        +           ' id=viewSysMaxIdType_' + row.idType
+        +           ' data-pkui-component="drawer"'
+        +           ' data-pkui-component-options=\'{'
+        +               '"url":"__CTX__/static/desktop/tpl/system/maxid/type/detail.html",'
+        +               '"model":"__CTX__/admin/sysMaxIdTypeModel?idType=' + row.idType + '",'
+        +               '"container": ".da-win-main"}\'><i class="fa fa-file-o"></i> 查看</a>　'
+
+        +       '<a href="javascript:void(0)" '
+        +           ' id=editSysMaxIdType_' + row.idType
+        +           ' data-pkui-component="drawer"'
+        +           ' data-pkui-component-options=\'{'
+        +               '"url":"__CTX__/static/desktop/tpl/system/maxid/type/edit.html",'
+        +               '"model":"__CTX__/admin/sysMaxIdTypeModel?idType=' + row.idType + '",'
+        +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>';
+    }
+
+    /**
+     * 勾选checkbox后的回调函数
+     * this: instance
+     * @param selectedRows {Array} 勾选对应行的复选框，返回对应行的数据对象；勾选"全选"，返回所有被勾选的
+     * @example
+     *  selectedRows = [
+     *      { addTime : 1477108871000, addUserId : 5, addUserName : "超级管理员",...},
+     *  ]
+     */
+    function sysMaxIdTypeListSelectedCallback ( selectedRows ) {
+        console.info( this );
+        console.info( selectedRows );
+        console.info( this.getSelectedRowsDataList() );
+    }
+    function sysMaxIdTypeListDeselectedCallback ( deselectedRows ) {
+        console.info( this );
+        console.info( deselectedRows );
+    }
+    function sysMaxIdTypeListDbclickCallback ( $row, dblClickRowData ) {
+        console.info( $row );
+        console.info( dblClickRowData );
+    }
+
+    /**
+     * 生成单位字典
+     * @param button
+     */
+    function doCreateDeptDic( button ) {
+        var
+            $button = jQuery( button )
+        ;
+        // 如果处于 isloading 状态，则退出
+        if ( $button.attr( "disabled") ) {
+            return;
+        }
+        // 打开 loading
+        $button.isLoading( { position: "insideButton" } );
+
+        jQuery.ajax( {
+            url: "__CTX__/admin/sysMaxIdTypeCreateDic?dicName=DIC_DEPT"
+        } ).done( function ( jsonResult ) {
+            if ( jsonResult && jsonResult.success ) {
+                // 清空"DIC_DEPT"缓存
+                window.PKUI.component.DataSource.clearCache( "DIC_DEPT" );
+                //layer.msg( "单位字典生成成功！" );
+                layer.msg( jsonResult.message || "单位字典生成成功！", { icon: 1 } );
+            }
+            else {
+                layer.alert( ( jsonResult && jsonResult.message ) || "单位字典生成失败！", { icon: 2 } );
+            }
+        } ).fail( function () {
+            // 提示网络错误
+            layer.alert( '网络错误！', { icon: 0 } );
+        } ).always( function () {
+            // 关闭 loading
+            $button.isLoading( "hide" );
+        } );
+    }
+</script>
