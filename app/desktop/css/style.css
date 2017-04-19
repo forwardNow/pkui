@@ -6859,6 +6859,7 @@ Pagination Styles
   -webkit-transition: left 0.3s;
   -o-transition: left 0.3s;
   transition: left 0.3s;
+  overflow: auto;
 }
 .da-win-sidebar.collapsed {
   left: -250px;
@@ -6921,7 +6922,7 @@ Pagination Styles
 
 .sidebar-menuItem-text {
   float: left;
-  width: 146px;
+  width: 140px;
   margin-top: 4px;
 }
 

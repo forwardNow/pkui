@@ -66,6 +66,7 @@
     &.collapsed {
         left: -250px;
     }
+    overflow: auto;
 }
 
 .sidebar-collapse-toggle {
@@ -129,7 +130,7 @@
 
 .sidebar-menuItem-text {
     float: left;
-    width: 146px;
+    width: 140px;
     margin-top: 4px;
 }
 
