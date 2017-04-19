@@ -1,6 +1,7 @@
 define( function ( require ) {
     require( "../3.3.3/jstree.js" );
     require( "../3.3.3/themes/default/style.css" );
+    require( "./style.css" );
 
 
     var $ = require( "jquery" ),
@@ -53,8 +54,12 @@ define( function ( require ) {
                 childrenName: "children"
             } );
             _this.$target.jstree({
-                'core' : {
-                    'data' : jstreeData
+                "core" : {
+                    "data" : jstreeData,
+                    "multiple" : false, // no multiselection
+                    "themes" : {
+                        "dots" : false // no connecting dots between dots
+                    }
                 }
             });
 
