@@ -87,7 +87,7 @@ define( function ( require ) {
                 return;
             }
             if ( icon.indexOf( ".png" ) !== -1 ) {
-                icon = window.PKUI.ctxPath + "/static/desktop/images/icon/24x24/" + icon;
+                icon = window.PKUI.iconPath + "/24x24/" + icon;
             }
             // id
             sysMenu.id = sysMenu[ "menuId" ];

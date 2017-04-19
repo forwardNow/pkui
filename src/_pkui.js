@@ -42,6 +42,9 @@ define( function ( require ) {
             // pkui的基本路径：${ ctx }/static/pkui
             basePath: ns.pkuiBasePath,
 
+            // icon的基本路径：${ ctx }/static/desktop/images/icon
+            iconPath: ns.ctxPath + "/static/desktop/images/icon",
+
             // 字典路径：${ ctx }/static/dic/
             dicPath: ns.ctxPath + "/static/dic/",
 
@@ -50,7 +53,6 @@ define( function ( require ) {
 
             // 组件容器
             component: {},
-
 
             // 自动渲染标志
             isAutoRender: true,
@@ -62,12 +64,6 @@ define( function ( require ) {
 
         }
         ;
-
-    // 如果是在WebStorm里跑 PKUI项目，则更改 ctxPath 和 dicPath
-    if ( location.href.indexOf( "localhost" ) !== -1 && ns.pkuiBasePath.indexOf( "static" ) === -1 ) {
-        PKUI.ctxPath = "http://localhost:8080/pkui";
-        PKUI.dicPath = "http://localhost:8080/pkui/static/dic/";
-    }
 
     /**
      * 控制台打印
