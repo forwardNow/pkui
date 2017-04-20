@@ -77,5 +77,6 @@ define( function ( require ) {
 
         }
     };
+    window.PKUI.component.Template = Template;
     return Template;
 } );
