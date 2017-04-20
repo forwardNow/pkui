@@ -1,16 +1,20 @@
-<div class="sysmenu-container">
+<div class="sysmenu-container clearfix">
 
     <div class="sysmenu-treeContainer">
         <div class="sysmenu-treeOpe btn-group" role="group" aria-label="...">
-            <button type="button" class="btn btn-success-2" title="新建子菜单"><i class="fa fa-plus"></i> 新建</button>
-            <button type="button" class="btn btn-info-2"><i class="fa fa-edit"></i> 编辑</button>
-            <button type="button" class="btn btn-danger-2"><i class="fa fa-trash-o"></i> 删除</button>
+            <button type="button" class="btn btn-success-2" title="为选择的菜单新建子菜单（未选择任何菜单时，则新建顶级菜单）"><i class="fa fa-plus"></i></button>
+            <button type="button" class="btn btn-info-2" title="编辑选中的菜单"><i class="fa fa-edit"></i></button>
+            <button type="button" class="btn btn-danger-2" title="删除选中的菜单"><i class="fa fa-trash-o"></i></button>
+
+            <button type="button" class="btn btn-default-2 pull-right" title="刷新"><i class="fa fa-refresh"></i></button>
+            <button type="button" class="btn btn-primary-2 pull-right" title="保存调整后的顺序"><i class="fa fa-save"></i></button>
         </div>
         <div id="sysMenuTree"
              data-pkui-component="menuTree"
              data-pkui-component-options='{
                 "url": "__CTX__/admin/sysMenuListData",
-                "dnd": true
+                "dnd": true,
+                "showInvisible": true
              }'></div>
     </div>
 
@@ -21,18 +25,49 @@
 </div>
 <style>
     .sysmenu-container {
-        height: 100%;
+        /*height: 100%;*/
+        margin: 0 -12px;
     }
     .sysmenu-treeOpe {
-        margin: 12px 6px;
+        position: absolute;
+        top: 43px;
+        left: 0;
+        z-index: 10;
+        width: 240px;
+        background: #eee;
     }
     .sysmenu-treeContainer {
         overflow: auto;
+        float: left;
         width: 240px;
-        min-height: 100%;
+        height: 100%;
+        padding-top: 40px;
         border-right: 1px solid silver;
     }
     .sysmenu-menuInfo {
         overflow: auto;
     }
 </style>
+<script>
++function() {
+    var
+        $sysmenuMenuInfo = $( ".sysmenu-menuInfo" )
+    ;
+    jQuery( "#sysMenuTree" ).on( "select_node.jstree", function( event, selected ) {
+        var
+            sysMenu = selected.node.data
+        ;
+        window.PKUI.component.Template.getModelAndView(
+            // viewUrl
+            "__CTX__/static/desktop/tpl/system/menu/detail.html",
+            // modelUrl
+            sysMenu,
+            // callback
+            function( htmlString ) {
+                $sysmenuMenuInfo.html( htmlString );
+            }
+        );
+    } );
+
+} ();
+</script>
