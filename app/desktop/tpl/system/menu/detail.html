@@ -1,0 +1,54 @@
+<form class="da-form" >
+
+    <div class="da-form-heading">{{menuName}}</div>
+    <div class="da-form-body">
+        <table class="da-form-table da-table da-table-striped">
+            <colgroup>
+                <col width="10%">
+                <col width="90%">
+            </colgroup>
+            <tr>
+                <td class="text-right"><label class="da-control-label">菜单名称：</label></td>
+                <td>{{menuName}}</td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">链接路径：</label></td>
+                <td>{{menuUrl}}</td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">是否可用：</label></td>
+                <td>
+                    {{if visiable === "1"}}
+                    <span class="text-success"><i class="fa fa-circle"></i> 是</span>
+                    {{else if visiable === "0"}}
+                    <span class="text-danger"><i class="fa fa-circle"></i> 否</span>
+                    {{/if}}
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">是否展开：</label></td>
+                <td>
+                    {{if expand === "1"}}
+                    <span class="text-success"><i class="fa fa-circle"></i> 是</span>
+                    {{else if expand === "0"}}
+                    <span class="text-danger"><i class="fa fa-circle"></i> 否</span>
+                    {{/if}}
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">是否有效：</label></td>
+                <td>
+                    {{if visiable === "1"}}
+                    <span class="text-success"><i class="fa fa-circle"></i> 是</span>
+                    {{else if visiable === "0"}}
+                    <span class="text-danger"><i class="fa fa-circle"></i> 否</span>
+                    {{/if}}
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">字典描述：</label></td>
+                <td>{{dicDesc}}</td>
+            </tr>
+        </table>
+    </div>
+</form>
