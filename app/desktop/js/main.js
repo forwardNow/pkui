@@ -11,7 +11,7 @@ define( function ( require ) {
     var $ = require( "jquery" );
     var Launchpad = require( "./common/launchpad" );
     var App = require( "./page/app" );
-    var Template = require( "./common/template" );
+    var Template = require( "template" );
 
     if ( window.isIE8 ) {
         seajs.use( "./css/page/ie8-hack.css" );
@@ -19,9 +19,6 @@ define( function ( require ) {
 
     // DOM树构建完毕后执行
     $( document ).ready( function () {
-
-        // 设置模板引擎的参数 （不好用）
-        // Template.setOptions( { base: "./tpl/" } );
 
         // 启动 Launchpad
         Launchpad.init();
