@@ -296,7 +296,7 @@ define( function ( require ) {
                 pkuiOptions.$dialogContainer.find( ".da-win-main" ).toggleClass( "collapsed" );
             } );
             // 点击菜单树里的链接：如果是折叠链接，则折叠；如果是页面，则请求相应页面
-            pkuiOptions.$dialogContainer.on( "click.sidebar.anchor", ".jstree-anchor", function ( event ) {
+            pkuiOptions.$dialogContainer.on( "click.sidebar.anchor", ".da-win-sidebar .jstree-anchor", function ( event ) {
                 var $this = $( this ),
                     menuicon,
                     title,
