@@ -1,0 +1,33 @@
+#jstree-marker {
+    z-index: 100000;
+}
+
+.jstree-icon.fa {
+    font-size: 16px;
+    color: #d4dae0;
+}
+
+.jstree-default .jstree-node {
+    padding-bottom: .2em;
+    padding-top: .2em;
+}
+.jstree-hovered > .fa {
+    color: #33a6e7;
+}
+.jstree-clicked > .fa {
+    color: #fff;
+}
+.jstree-clicked.jstree-anchor {
+    color: #fff;
+}
+
+.jstree-default .jstree-wholerow-hovered {
+    background: #beebff;
+    background: -webkit-linear-gradient(top, #beebff 0%, #a8e4ff 100%);
+    background: linear-gradient(to bottom, #beebff 0%, #a8e4ff 100%);
+}
+.jstree-default .jstree-wholerow-clicked {
+    background: #33a6e7;
+    background: -webkit-linear-gradient(top, #48aeea 0%, #33a6e7 100%);
+    background: linear-gradient(to bottom, #48aeea 0%, #33a6e7 100%);
+}

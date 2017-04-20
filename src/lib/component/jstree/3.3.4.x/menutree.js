@@ -1,6 +1,6 @@
 define( function ( require ) {
-    require( "../3.3.3/jstree.js" );
-    require( "../3.3.3/themes/default/style.css" );
+    require( "../3.3.4/jstree.js" );
+    require( "../3.3.4/themes/default/style.css" );
     require( "./style.css" );
 
 
@@ -9,8 +9,12 @@ define( function ( require ) {
     ;
 
     MenuTree.prototype.defaults = {
+        // /admin/sysMenuListData
         url: "",
-        dnd: false
+        // 是否可拖拽
+        dnd: false,
+        // 指定根节点（menuId）
+        menuId: null
     };
 
     $.extend( MenuTree.prototype, {
@@ -36,32 +40,41 @@ define( function ( require ) {
             url: options.url
         } ).done( function ( gridResult ) {
             var
-                data,
-                jstreeData
+                originData,
+                fmtData,
+                jstreeData,
+                jstreeOptions = {}
             ;
             if ( !gridResult ) {
                 window.layer.alert( "获取菜单数据失败！", { icon: 2 } );
                 return;
             }
-            data = gridResult.data;
+            originData = gridResult.data;
 
-            data = fmtSysMenuList( data );
+            fmtData = fmtSysMenuList( originData );
 
             jstreeData = window.PKUI.getTreeList( {
-                data: data,
+                data: fmtData,
+                rootId: options.menuId,
                 idName: "menuId",
                 parentIdName: "treeParentid",
                 childrenName: "children"
             } );
-            _this.$target.jstree({
-                "core" : {
-                    "data" : jstreeData,
-                    "multiple" : false, // no multiselection
-                    "themes" : {
-                        "dots" : false // no connecting dots between dots
-                    }
-                }
-            });
+            jstreeOptions.core = {
+                "data" : jstreeData,
+                "multiple" : false, // no multiselection
+                "themes" : {
+                    "dots" : true // no connecting dots between dots
+                },
+                "check_callback" : true
+            };
+            jstreeOptions.plugins = ["wholerow"];
+
+            if ( options.dnd ) {
+                jstreeOptions.plugins.push( "dnd" );
+            }
+
+            _this.$target.jstree( jstreeOptions );
 
         } ).fail( function () {
             // 提示网络错误
@@ -79,7 +92,8 @@ define( function ( require ) {
      */
     function fmtSysMenuList( list ) {
         var
-            pos
+            pos,
+            fmtList = []
         ;
         // 添加 jstree 必须的属性
         $.each( list, function ( index, sysMenu ) {
@@ -88,12 +102,24 @@ define( function ( require ) {
                 visiable = sysMenu[ "visiable" ] === "1"
             ;
             if ( ! visiable ) {
-                list[ index ] = undefined;
+                //list[ index ] = undefined;
                 return;
             }
+            fmtList.push( sysMenu );
             if ( icon.indexOf( ".png" ) !== -1 ) {
                 icon = window.PKUI.iconPath + "/24x24/" + icon;
             }
+            // 绑定的 sysMenu
+            sysMenu.li_attr = {
+                "data-sysmenu": JSON.stringify( sysMenu )
+            };
+
+            // href
+            sysMenu.a_attr = {
+                href: sysMenu[ "menuUrl" ] ? ( window.PKUI.ctxPath + sysMenu[ "menuUrl" ] ) : "#",
+                menuicon: icon
+            };
+
             // id
             sysMenu.id = sysMenu[ "menuId" ];
             // text
@@ -103,15 +129,17 @@ define( function ( require ) {
             // state
             sysMenu.state = {
                 opened: sysMenu[ "expand" ] === "1"
-            }
+            };
+
+
         } );
 
         // 删除所有值为undefined的元素
-        while( ( pos = $.inArray( undefined, list ) ) !== -1 ) {
+        /*while( ( pos = $.inArray( undefined, list ) ) !== -1 ) {
             list.splice( pos, 1 );
-        }
+        }*/
 
-        return list;
+        return fmtList;
     }
 
     $.fn.MenuTree = function ( options ) {
