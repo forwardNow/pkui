@@ -6868,7 +6868,7 @@ Pagination Styles
 .sidebar-collapse-toggle {
   position: absolute;
   left: 214px;
-  top: 48px;
+  top: 47px;
   border: none 0;
   background: none;
   padding: 0;
@@ -6953,7 +6953,12 @@ Pagination Styles
 .win-main-heading .main-heading-icon {
   vertical-align: middle;
   width: 24px;
+  height: 24px;
+  margin-right: 6px;
   font-size: 18px;
+  line-height: 24px;
+  text-align: center;
+  background: no-repeat center center;
 }
 
 .win-main-body {
