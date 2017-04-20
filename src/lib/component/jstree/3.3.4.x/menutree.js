@@ -110,10 +110,8 @@ define( function ( require ) {
             if ( icon.indexOf( ".png" ) !== -1 ) {
                 icon = window.PKUI.iconPath + "/24x24/" + icon;
             }
-            // 绑定的 sysMenu
-            sysMenu.li_attr = {
-                "data-sysmenu": JSON.stringify( sysMenu )
-            };
+            // 绑定的 data
+            sysMenu.data = $.extend( true, {}, sysMenu );
 
             // href
             sysMenu.a_attr = {
