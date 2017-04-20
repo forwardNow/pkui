@@ -89,8 +89,8 @@ seajs.config( {
         "webuploader": "lib/component/webuploader/0.1.5.x/webuploader",
 
         //【lib/component】jstree
-        "jstree": "lib/component/jstree/3.3.3.x/jstree",
-        "menutree": "lib/component/jstree/3.3.3.x/menutree",
+        "jstree": "lib/component/jstree/3.3.4.x/jstree",
+        "menutree": "lib/component/jstree/3.3.4.x/menutree",
 
         //【component/common 】 数据源
         "dataSource": "component/common/dataSource/1.0.0/dataSource",
