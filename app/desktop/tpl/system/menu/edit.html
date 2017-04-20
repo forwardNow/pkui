@@ -1,0 +1,90 @@
+<form class="da-form"
+      action="__CTX__/admin/sysMenuUpdate" method="post"
+      data-pkui-component="validator|form"
+      data-done-callback="editSysMenuDoneCallback"
+      data-fail-callback="editSysMenuFailCallback"
+      data-always-callback="editSysMenuAlwaysCallback" >
+
+    <input type="hidden" name="menuId" value="{{menuId}}">
+    <input type="hidden" name="treeLevel" value="{{treeLevel}}">
+    <input type="hidden" name="treeParentid" value="{{treeParentid}}">
+
+    <div class="da-form-heading">{{menuName}}</div>
+    <div class="da-form-body">
+        <table class="da-form-table da-table da-table-striped">
+            <colgroup>
+                <col width="20%">
+                <col width="80%">
+            </colgroup>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">菜单名称：</label></td>
+                <td><input type="text" class="da-form-control" name="menuName" value="{{menuName}}"
+                           data-rule='“菜单名称”: required'></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">链接路径：</label></td>
+                <td><input type="text" class="da-form-control" name="menuUrl" value="{{menuUrl}}"
+                           data-rule='“链接路径”: required'></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">是否可用：</label></td>
+                <td>
+                    <div class="da-form-radio">
+                        <label><input type="radio" name="visiable" value="1" {{if visiable === "1"}}checked{{/if}}>是</label>
+                        <label><input type="radio" name="visiable" value="0" {{if visiable === "0"}}checked{{/if}}>否</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">是否展开：</label></td>
+                <td>
+                    <div class="da-form-radio">
+                        <label><input type="radio" name="expand" value="1" {{if visiable === "1"}}checked{{/if}}>是</label>
+                        <label><input type="radio" name="expand" value="0" {{if visiable === "0"}}checked{{/if}}>否</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">备注：</label></td>
+                <td><input type="text" class="da-form-control" name="memo" value="{{dicDesc}}"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="da-form-footer">
+        <button type="submit" class="btn btn-success-2">确定</button>
+    </div>
+</form>
+
+<script>
+    // 请求发送成功，对服务器端返回的数据进行处理
+    function editSysMenuDoneCallback($form, jsonResult) {
+        console.info( jsonResult );
+        jsonResult = window.PKUI.handleJsonResult( jsonResult );
+        console.info( jsonResult );
+        // 服务器端处理成功
+        if ( jsonResult.success ) {
+            // 提示
+            layer.alert( '修改成功！', { icon: 1 }, function ( index ) {
+                layer.close( index );
+                // 关闭抽屉层
+                $form.closest( ".pkui-drawer" ).find( ".pkui-drawer-button" ).trigger( "click" );
+            } );
+        }
+        // 服务器端处理失败
+        else {
+            // 提示
+            layer.alert( '修改失败！', { icon: 2 } );
+        }
+    }
+
+    // 请求发送失败
+    function editSysMenuFailCallback($form) {
+        // 提示网络错误
+        layer.alert( '网络错误！', { icon: 0 } );
+    }
+
+    // 无论请求发送成功与否
+    function editSysMenuAlwaysCallback($form) {
+        // 无论
+    }
+</script>

@@ -54,7 +54,7 @@
 <script>
     createSysMenu.defaultNode = {
         icon: "fa fa-question",
-        text: "请点击编辑按钮",
+        text: "请编辑并保存！",
         li_attr: {
             /**
              * "new"：新建的节点
@@ -66,14 +66,19 @@
     };
     function createSysMenu () {
         var
+            $ = jQuery,
             $tree = $( "#sysMenuTree" ),
             ref = $tree.jstree( true ),
-            selectNodes = ref.get_selected(),
-            parentNode,
+            selectedNodeIds = ref.get_selected(),
+            selectedNode,
+            $selectedNode,
+            parentNodeId,
             newNodeId,
-            $unsavedNode
+            newNodeData,
+            $unsavedNode,
+            $prevNode
         ;
-
+        debugger;
         // 是否有未编辑（保存）的新建菜单
         $unsavedNode = $tree.find( ".jstree-node" ).filter( '[createnode="new"]' );
 
@@ -82,28 +87,92 @@
             return;
         }
 
-        // 未选择菜单
-        if( !selectNodes.length ) {
-            newNodeId = ref.create_node( "#", createSysMenu.defaultNode );
+        newNodeData = $.extend( true, {}, createSysMenu.defaultNode );
+
+        // 未选择菜单，创建顶级菜单
+        if( !selectedNodeIds.length ) {
+            newNodeData.treeLevel = 0;
+            newNodeData.treeParentid = null;
+            newNodeId = ref.create_node( "#", newNodeData );
         }
         // 选择的菜单
         else {
-            parentNode = selectNodes[0];
-            newNodeId = ref.create_node( parentNode, createSysMenu.defaultNode );
+            parentNodeId = selectedNodeIds[0];
+            selectedNode = ref.get_node( parentNodeId );
+
+            $selectedNode = ref.get_node( parentNodeId, true );
+            $prevNode = $selectedNode.find( ".jstree-node" ).last();
+
+
+            //newNodeData.treeLevel = selectedNode.original.treeLevel + 1;
+            //newNodeData.treeParentid = selectedNode.original.menuId;
+            newNodeData.menuId = selectedNode.original.menuId;
+            newNodeData.orderFlag = parseInt( $prevNode.attr( "orderflag" ) || "10" ) + 1;
+            newNodeId = ref.create_node( parentNodeId, newNodeData );
         }
 
         // 取消已被选中的
-        ref.deselect_node( selectNodes );
+        ref.deselect_node( selectedNodeIds );
 
         // 让新建的node被选中
         ref.select_node( [ newNodeId ] );
+
+        // 编辑
+        editSysMenu();
     }
 
     function editSysMenu() {
+        var
+            $ = jQuery,
+            $tree = $( "#sysMenuTree" ),
+            $sysmenuMenuInfo,
+            ref = $tree.jstree( true ),
+            selectedNodeIds = ref.get_selected(),
+            selectedNode,
+            $selectedNode
+        ;
+
+        debugger;
+
+        // 如果没有被选中的
+        if ( selectedNodeIds.length === 0 ) {
+            layer.msg( "请选择菜单项！", { icon: 0 } );
+            return;
+        }
+
+        $selectedNode = ref.get_node( selectedNodeIds[ 0 ], true );
+        selectedNode = ref.get_node( selectedNodeIds[ 0 ] );
+
+        $sysmenuMenuInfo = $( ".sysmenu-menuInfo" );
 
         // 新建的菜单
-
+        if ( $selectedNode.attr( "newnodestatus" ) === "new" ) {
+            window.PKUI.component.Template.getModelAndView(
+                // viewUrl
+                "__CTX__/static/desktop/tpl/system/menu/add.html",
+                // modelUrl
+                selectedNode.original,
+                // callback
+                function( htmlString ) {
+                    $sysmenuMenuInfo.html( htmlString );
+                }
+            );
+        }
         // 已存在的菜单
+        else {
+            window.PKUI.component.Template.getModelAndView(
+                // viewUrl
+                "__CTX__/static/desktop/tpl/system/menu/edit.html",
+                // modelUrl
+                "__CTX__/admin/sysMenuModel?menuId=" + selectedNode.data.menuId,
+                // callback
+                function( htmlString ) {
+                    $sysmenuMenuInfo.html( htmlString );
+                }
+            );
+        }
+
+
     }
 
     function deleteSysMenu() {
@@ -116,6 +185,7 @@
 
     +function() {
         var
+            $ = jQuery,
             $sysmenuMenuInfo = $( ".sysmenu-menuInfo" ),
             $tree = $( "#sysMenuTree" )
         ;
@@ -128,7 +198,7 @@
             ;
             // 新建 但未保存的，直接返回
             if ( newnodestatus === "new" ) {
-                layer.msg( "未保存的新建菜单不能查看详情页" );
+                //layer.msg( "未保存的新建菜单不能查看详情页", { icon: 0 } );
                 return;
             }
             // 新建 且已保存，
