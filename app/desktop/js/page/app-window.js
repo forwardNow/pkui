@@ -238,7 +238,9 @@ define( function ( require ) {
 
 
             // 1. appWindow模板（面包屑导航、菜单树、主体）
-            structureHtml = appWindowTplRender( {} );
+            structureHtml = appWindowTplRender( {
+                "menuId": this.options.menuId
+            } );
 
             // 2. 业务模板（暂定为JSP）
             $.ajax( {
@@ -294,9 +296,9 @@ define( function ( require ) {
                 pkuiOptions.$dialogContainer.find( ".da-win-main" ).toggleClass( "collapsed" );
             } );
             // 点击菜单树里的链接：如果是折叠链接，则折叠；如果是页面，则请求相应页面
-            pkuiOptions.$dialogContainer.on( "click.sidebar.anchor", ".sidebar-menuItem-anchor", function ( event ) {
+            pkuiOptions.$dialogContainer.on( "click.sidebar.anchor", ".jstree-anchor", function ( event ) {
                 var $this = $( this ),
-                    iconSrc,
+                    menuicon,
                     title,
                     $winMain,
                     $winMainBody
@@ -311,9 +313,10 @@ define( function ( require ) {
                 $this.parent().addClass( "active" ).siblings().removeClass( "active" );
 
                 // 2. 装载主体
-                iconSrc = $this.find( "img" ).attr( "src" );
+                //iconSrc = $this.find( "img" ).attr( "src" );
+                menuicon = $this.attr( "menuicon" );
                 title = $this.text();
-                $winMain = $( appWindowMainTplRender( { iconSrc: iconSrc, title: title } ) );
+                $winMain = $( appWindowMainTplRender( { menuicon: menuicon, title: title } ) );
 
                 pkuiOptions.$dialogContainer.find(".da-win-main").replaceWith( $winMain );
 
