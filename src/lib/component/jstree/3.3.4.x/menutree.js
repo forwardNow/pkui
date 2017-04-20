@@ -95,7 +95,8 @@ define( function ( require ) {
      */
     function fmtSysMenuList( list, showInvisible ) {
         var
-            fmtList = []
+            fmtList = [],
+            timestamp = "jstree_"  +( new Date() ).getTime() + "_"
         ;
         // 添加 jstree 必须的属性
         $.each( list, function ( index, sysMenu ) {
@@ -107,7 +108,7 @@ define( function ( require ) {
                 return;
             }
             fmtList.push( sysMenu );
-            if ( icon.indexOf( ".png" ) !== -1 ) {
+            if ( icon && icon.indexOf( ".png" ) !== -1 ) {
                 icon = window.PKUI.iconPath + "/24x24/" + icon;
             }
             // 绑定的 data
@@ -120,11 +121,15 @@ define( function ( require ) {
             };
 
             // id
-            sysMenu.id = sysMenu[ "menuId" ];
+            sysMenu.id = timestamp + sysMenu[ "menuId" ];
             // text
             sysMenu.text = sysMenu[ "menuName" ];
             // icon
             sysMenu.icon = icon;
+            // orderFlag
+            sysMenu.li_attr = {
+                orderflag: sysMenu[ "orderFlag" ]
+            };
             // state
             sysMenu.state = {
                 opened: sysMenu[ "expand" ] === "1"
