@@ -13,8 +13,10 @@ define( function ( require ) {
         url: "",
         // 是否可拖拽
         dnd: false,
-        // 指定根节点（menuId）
-        menuId: null
+        // 指定根节点（menuId），省略则取将所有 parentId 为null 的作为根节点
+        menuId: null,
+        // 是否显示不可见的菜单
+        showInvisible: false
     };
 
     $.extend( MenuTree.prototype, {
@@ -51,7 +53,7 @@ define( function ( require ) {
             }
             originData = gridResult.data;
 
-            fmtData = fmtSysMenuList( originData );
+            fmtData = fmtSysMenuList( originData, options.showInvisible );
 
             jstreeData = window.PKUI.getTreeList( {
                 data: fmtData,
@@ -87,12 +89,12 @@ define( function ( require ) {
 
     /**
      *
-     * @param list
+     * @param list {Array}
+     * @param showInvisible {Boolean}
      * @returns {Array}
      */
-    function fmtSysMenuList( list ) {
+    function fmtSysMenuList( list, showInvisible ) {
         var
-            pos,
             fmtList = []
         ;
         // 添加 jstree 必须的属性
@@ -101,8 +103,7 @@ define( function ( require ) {
                 icon = sysMenu[ "icon" ],
                 visiable = sysMenu[ "visiable" ] === "1"
             ;
-            if ( ! visiable ) {
-                //list[ index ] = undefined;
+            if ( !visiable && !showInvisible) {
                 return;
             }
             fmtList.push( sysMenu );
