@@ -588,13 +588,12 @@ define( function ( require ) {
                 returnData,
                 childrenCollection = {},
                 parentId,
-                rootList
+                rootList = []
                 ;
 
             // 如果没有指定根节点的ID，则将所有 treeParentId == null 的节点作为根节点
             if ( rootId == null ) {
                 // rootId = data[ 0 ][ idName ];
-                rootList = [];
                 $.each( data, function ( index, elt ) {
                     if ( elt[ parentIdName ] == null ) {
                         rootList.push( elt );
@@ -602,11 +601,19 @@ define( function ( require ) {
                 } );
             }
             else {
-                rootList = [ data[ rootId ] ];
+                $.each( data, function ( index, elt ) {
+                    if ( elt[ idName ] === rootId ) {
+                        rootList.push( elt );
+                        return false;
+                    }
+                } );
             }
 
 
             $.each( data, function ( index, elt ) {
+                if ( elt == null ) {
+                    return;
+                }
                 parentId = elt[ parentIdName ];
                 childrenCollection[ parentId ] = childrenCollection[ parentId ] || [];
                 childrenCollection[ parentId ].push( elt );
