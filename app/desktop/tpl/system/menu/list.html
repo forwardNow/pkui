@@ -2,9 +2,12 @@
 
     <div class="sysmenu-treeContainer">
         <div class="sysmenu-treeOpe btn-group" role="group" aria-label="...">
-            <button type="button" class="btn btn-success-2" title="为选择的菜单新建子菜单（未选择任何菜单时，则新建顶级菜单）"><i class="fa fa-plus"></i></button>
-            <button type="button" class="btn btn-info-2" title="编辑选中的菜单"><i class="fa fa-edit"></i></button>
-            <button type="button" class="btn btn-danger-2" title="删除选中的菜单"><i class="fa fa-trash-o"></i></button>
+            <button type="button" class="btn btn-success-2" title="为选择的菜单新建子菜单（未选择任何菜单时，则新建顶级菜单）"
+                    onclick="createSysMenu()"><i class="fa fa-plus"></i></button>
+            <button type="button" class="btn btn-info-2" title="编辑选中的菜单"
+                    onclick="editSysMenu()"><i class="fa fa-edit"></i></button>
+            <button type="button" class="btn btn-danger-2" title="删除选中的菜单"
+                    onclick="deleteSysMenu()"><i class="fa fa-trash-o"></i></button>
 
             <button type="button" class="btn btn-default-2 pull-right" title="刷新"><i class="fa fa-refresh"></i></button>
             <button type="button" class="btn btn-primary-2 pull-right" title="保存调整后的顺序"><i class="fa fa-save"></i></button>
@@ -49,25 +52,101 @@
     }
 </style>
 <script>
-+function() {
-    var
-        $sysmenuMenuInfo = $( ".sysmenu-menuInfo" )
-    ;
-    jQuery( "#sysMenuTree" ).on( "select_node.jstree", function( event, selected ) {
-        var
-            sysMenu = selected.node.data
-        ;
-        window.PKUI.component.Template.getModelAndView(
-            // viewUrl
-            "__CTX__/static/desktop/tpl/system/menu/detail.html",
-            // modelUrl
-            sysMenu,
-            // callback
-            function( htmlString ) {
-                $sysmenuMenuInfo.html( htmlString );
-            }
-        );
-    } );
+    createSysMenu.defaultNode = {
+        icon: "fa fa-question",
+        text: "请点击编辑按钮",
+        li_attr: {
+            /**
+             * "new"：新建的节点
+             * "saved"：已保存，其sysMenu 存在 $li.data( "sysMenu" )
+             */
 
-} ();
+            "newnodestatus": "new"
+        }
+    };
+    function createSysMenu () {
+        var
+            $tree = $( "#sysMenuTree" ),
+            ref = $tree.jstree( true ),
+            selectNodes = ref.get_selected(),
+            parentNode,
+            newNodeId,
+            $unsavedNode
+        ;
+
+        // 是否有未编辑（保存）的新建菜单
+        $unsavedNode = $tree.find( ".jstree-node" ).filter( '[createnode="new"]' );
+
+        if ( $unsavedNode.size() > 0 ) {
+            layer.alert( "请先编辑（保存）已新建菜单，或将其删除。", { icon: 0 } );
+            return;
+        }
+
+        // 未选择菜单
+        if( !selectNodes.length ) {
+            newNodeId = ref.create_node( "#", createSysMenu.defaultNode );
+        }
+        // 选择的菜单
+        else {
+            parentNode = selectNodes[0];
+            newNodeId = ref.create_node( parentNode, createSysMenu.defaultNode );
+        }
+
+        // 取消已被选中的
+        ref.deselect_node( selectNodes );
+
+        // 让新建的node被选中
+        ref.select_node( [ newNodeId ] );
+    }
+
+    function editSysMenu() {
+
+        // 新建的菜单
+
+        // 已存在的菜单
+    }
+
+    function deleteSysMenu() {
+
+        // 新建的菜单
+
+        // 已存在的菜单
+    }
+
+
+    +function() {
+        var
+            $sysmenuMenuInfo = $( ".sysmenu-menuInfo" ),
+            $tree = $( "#sysMenuTree" )
+        ;
+        jQuery( "#sysMenuTree" ).on( "select_node.jstree", function( event, selected ) {
+            var
+                ref = $tree.jstree( true ),
+                sysMenu = selected.node.data,
+                $selectedNode = ref.get_node( selected.node.id, true ),
+                newnodestatus = $selectedNode.attr( "newnodestatus" )
+            ;
+            // 新建 但未保存的，直接返回
+            if ( newnodestatus === "new" ) {
+                layer.msg( "未保存的新建菜单不能查看详情页" );
+                return;
+            }
+            // 新建 且已保存，
+            else if ( newnodestatus === "saved" ) {
+                sysMenu = $selectedNode.data( "sysMenu" );
+            }
+
+            window.PKUI.component.Template.getModelAndView(
+                // viewUrl
+                "__CTX__/static/desktop/tpl/system/menu/detail.html",
+                // modelUrl
+                sysMenu,
+                // callback
+                function( htmlString ) {
+                    $sysmenuMenuInfo.html( htmlString );
+                }
+            );
+        } );
+
+    } ();
 </script>
