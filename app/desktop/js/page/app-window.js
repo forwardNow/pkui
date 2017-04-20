@@ -295,22 +295,24 @@ define( function ( require ) {
                 pkuiOptions.$dialogContainer.find( ".da-win-sidebar" ).toggleClass( "collapsed" );
                 pkuiOptions.$dialogContainer.find( ".da-win-main" ).toggleClass( "collapsed" );
             } );
-            // 点击菜单树里的链接：如果是折叠链接，则折叠；如果是页面，则请求相应页面
+            // 则请求相应页面
             pkuiOptions.$dialogContainer.on( "click.sidebar.anchor", ".da-win-sidebar .jstree-anchor", function ( event ) {
                 var $this = $( this ),
                     menuicon,
                     title,
                     $winMain,
-                    $winMainBody
+                    $winMainBody,
+                    url
                 ;
                 event.preventDefault();
-                if ( $this.is( ".sidebar-submenu-toggle" ) ) {
-                    $this.siblings( ".sidebar-submenu" ).toggle();
+
+                url = $this.attr( "href" );
+
+                // 如果不是 URL，则返回
+                if ( url.indexOf( "/" ) === -1 ) {
                     return;
                 }
-
                 // 1. 高亮
-                $this.parent().addClass( "active" ).siblings().removeClass( "active" );
 
                 // 2. 装载主体
                 //iconSrc = $this.find( "img" ).attr( "src" );
@@ -329,7 +331,7 @@ define( function ( require ) {
                     type: "GET",
                     cache: false,
                     dataType: "text",
-                    url: $this.attr( "href" )
+                    url: url
                 } ).done( function ( data ) {
                     $winMainBody.html( data );
                 } ).fail( function ( jqXHR, textStatus ) {
