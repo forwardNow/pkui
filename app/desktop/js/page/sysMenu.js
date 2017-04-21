@@ -116,6 +116,9 @@ define( function ( require ) {
                 // callback
                 function( htmlString ) {
                     _this.$displayArea.html( htmlString );
+                },
+                {
+                    escape: false
                 }
             );
         } );
@@ -241,6 +244,9 @@ define( function ( require ) {
                 // callback
                 function( htmlString ) {
                     _this.$displayArea.html( htmlString );
+                },
+                {
+                    escape: false
                 }
             );
         }
@@ -254,6 +260,9 @@ define( function ( require ) {
                 // callback
                 function( htmlString ) {
                     _this.$displayArea.html( htmlString );
+                },
+                {
+                    escape: false
                 }
             );
         }
