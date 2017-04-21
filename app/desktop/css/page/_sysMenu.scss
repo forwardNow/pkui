@@ -1,0 +1,33 @@
+.sysmenu-container {
+    min-height: 100%;
+    margin: 0 -12px;
+}
+.sysmenu-treeOpe {
+    position: absolute;
+    top: 43px;
+    left: 0;
+    z-index: 10;
+    width: 240px;
+    background: #eee;
+}
+.sysmenu-treeContainer {
+    overflow: auto;
+    float: left;
+    width: 240px;
+    height: 100%;
+    padding-top: 40px;
+    border-right: 1px solid silver;
+}
+.sysmenu-menuInfo {
+    overflow: auto;
+}
+
+[nodestatus="new"] > .jstree-anchor {
+    color: #e8bf6a;
+}
+[nodestatus="saved"] > .jstree-anchor {
+    color: #6a8759;
+}
+[nodestatus="moved"] > .jstree-anchor {
+    color: #9876aa;
+}

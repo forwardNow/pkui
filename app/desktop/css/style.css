@@ -6993,6 +6993,45 @@ Pagination Styles
   box-sizing: border-box;
 }
 
+.sysmenu-container {
+  min-height: 100%;
+  margin: 0 -12px;
+}
+
+.sysmenu-treeOpe {
+  position: absolute;
+  top: 43px;
+  left: 0;
+  z-index: 10;
+  width: 240px;
+  background: #eee;
+}
+
+.sysmenu-treeContainer {
+  overflow: auto;
+  float: left;
+  width: 240px;
+  height: 100%;
+  padding-top: 40px;
+  border-right: 1px solid silver;
+}
+
+.sysmenu-menuInfo {
+  overflow: auto;
+}
+
+[nodestatus="new"] > .jstree-anchor {
+  color: #e8bf6a;
+}
+
+[nodestatus="saved"] > .jstree-anchor {
+  color: #6a8759;
+}
+
+[nodestatus="moved"] > .jstree-anchor {
+  color: #9876aa;
+}
+
 .desktop-sprite, .icon-home, .topbar-home, .icon-history, .topbar-history, .icon-close, .dock-item-btn, .icon-dashboard, .icon-logout, .icon-message, .icon-more, .icon-search, .icon-user, .icon-triangle-down, .toolbar-item-indicator, .icon-add, .icon-setting, .icon-arrow-left, .launchpad-pagination-previous, .icon-arrow-right, .launchpad-pagination-next, .icon-circle-1, .icon-circle-2, .icon-win-close, .pkui-dialog-close, .icon-win-close-hover, .icon-win-max, .pkui-dialog-max, .icon-win-max-hover, .icon-win-maxmin, .pkui-dialog-restore, .icon-win-maxmin-hover, .icon-win-min, .pkui-dialog-min, .icon-win-min-hover, .icon-dock-dropmenu-indicator, .dock-dropmenu-indicator, .icon-sidebar-toggle-on, .sidebar-collapse-toggle.collapsed, .icon-sidebar-toggle-off, .sidebar-collapse-toggle {
   background-image: url('../images/desktop-saceabef4e0.png');
   background-repeat: no-repeat;
