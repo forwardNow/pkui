@@ -9,7 +9,8 @@
             <button type="button" class="btn btn-danger-2" title="删除选中的菜单"
                     onclick="deleteSysMenu()"><i class="fa fa-trash-o"></i></button>
 
-            <button type="button" class="btn btn-default-2 pull-right" title="刷新"><i class="fa fa-refresh"></i></button>
+            <button type="button" class="btn btn-default-2 pull-right" title="刷新"
+                    onclick="refreshSysMenuTree()"><i class="fa fa-refresh"></i></button>
             <button type="button" class="btn btn-primary-2 pull-right" title="保存调整后的顺序"><i class="fa fa-save"></i></button>
         </div>
         <div id="sysMenuTree"
@@ -194,15 +195,34 @@
         // 已存在的菜单
     }
 
+    function refreshSysMenuTree() {
+        var
+            $ = jQuery,
+            $tree = $( "#sysMenuTree" ),
+            $sysmenuMenuInfo = $( ".sysmenu-menuInfo" ),
+            ref = $tree.jstree( true )
+        ;
+        // 销毁 jstree
+        ref.destroy();
+
+        // 删除 MenuTree引用 和 isrendered标志
+        $tree
+            .data( "pkui.menutree", null )
+            .removeAttr( "isrendered" ) ;
+
+        // 清空 右侧容器（调用 jquery.html()方法后，会自动渲染）
+        $sysmenuMenuInfo.html( "" );
+
+    }
 
     +function() {
         var
             $ = jQuery,
-            $sysmenuMenuInfo = $( ".sysmenu-menuInfo" ),
-            $tree = $( "#sysMenuTree" )
+            $sysmenuMenuInfo = $( ".sysmenu-menuInfo" )
         ;
         jQuery( "#sysMenuTree" ).on( "select_node.jstree", function( event, selected ) {
             var
+                $tree = $( "#sysMenuTree" ),
                 ref = $tree.jstree( true ),
                 sysMenu = selected.node.data,
                 $selectedNode = ref.get_node( selected.node.id, true ),
