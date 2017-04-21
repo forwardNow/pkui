@@ -206,7 +206,24 @@ define( function ( require ) {
                 return DataSource.getDicValue( dicName, code );
             } );
             ArtTemplate.helper( "dateFormat", function ( date, format ) {
-                return moment( date ).format( format )
+                return moment( date ).format( format );
+            } );
+            ArtTemplate.helper( "iconFormat", function ( icon, imageSize ) {
+                var style, url;
+                if ( !icon ) {
+                    return "";
+                }
+                imageSize = parseInt( imageSize ) || 24;
+                // font icon
+                if ( icon.indexOf( "fa" ) !== -1 ) {
+                    return '<i class="' + icon + '" style="font-size: ' + (imageSize * .75) + 'px;"></i>';
+                }
+                if ( icon.indexOf( ".png" ) !== -1 ) {
+                    url = PKUI.iconPath + "/" + imageSize + "x" + imageSize + "/" + icon;
+                    style = "background-image: url(" + url + "); width: " + imageSize + "px; height: " + imageSize + "px;";
+                    return '<span class="pkui-icon-image" style=' + style + '></span>';
+                }
+                return "";
             } );
         },
         /**
