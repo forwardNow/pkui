@@ -555,7 +555,7 @@ define( function ( require ) {
                     { menuId: 11, menuName: "用户管理2", treeParentid: 10 },
                     { menuId: 12, menuName: "单位管理2", treeParentid: 10 }
                 ],
-                rootId: 0, // 省略则取将所有 parentId 为null 的作为根节点
+                rootId: 0, // 省略则取将所有 parentId 为null或-1 的作为根节点
                 idName: "menuId",
                 parentIdName: "treeParentid",
                 childrenName: "children"
@@ -595,7 +595,7 @@ define( function ( require ) {
             if ( rootId == null ) {
                 // rootId = data[ 0 ][ idName ];
                 $.each( data, function ( index, elt ) {
-                    if ( elt[ parentIdName ] == null ) {
+                    if ( elt[ parentIdName ] == null || elt[ parentIdName ] == -1 ) {
                         rootList.push( elt );
                     }
                 } );
