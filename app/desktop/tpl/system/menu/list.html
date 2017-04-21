@@ -7,12 +7,13 @@
             <button type="button" class="btn btn-info-2" title="编辑选中的菜单"
                     onclick="editSysMenu()"><i class="fa fa-edit"></i></button>
             <button type="button" class="btn btn-danger-2" title="删除选中的菜单"
+                    id="deleteSysMenuButton"
                     onclick="deleteSysMenu()"><i class="fa fa-trash-o"></i></button>
 
             <button type="button" class="btn btn-default-2 pull-right" title="刷新"
                     onclick="refreshSysMenuTree()"><i class="fa fa-refresh"></i></button>
             <button type="button" class="btn btn-primary-2 pull-right" title="保存调整后的顺序"
-                    id="sysMenuTreeSaveButton"
+                    id="saveSysMenuTreeButton"
                     onclick="saveSysMenuTree()"><i class="fa fa-save"></i></button>
         </div>
         <div id="sysMenuTree"
@@ -31,7 +32,7 @@
 </div>
 <style>
     .sysmenu-container {
-        /*height: 100%;*/
+        height: 100%;
         margin: 0 -12px;
     }
     .sysmenu-treeOpe {
@@ -68,18 +69,32 @@
     }
 </style>
 <script>
+    /**
+     * 创建节点时，默认的属性
+     */
     createSysMenu.defaultNode = {
         icon: "fa fa-question",
-        text: "请编辑并保存！",
-        li_attr: {
-            /**
-             * "new"：新建的节点
-             * "saved"：已保存，其sysMenu 存在 $li.data( "sysMenu" )
-             */
-
-            "nodestatus": "new"
-        }
+        text: "请编辑并保存！"
     };
+    /**
+     * 保存新建的节点ID
+     */
+    createSysMenu.newNode = {
+        // "nodeId": true
+    };
+
+    /**
+     * redraw后，节点全部刷新，不能通过 $.data() 保存临时数据
+     */
+    sortSysMenu.modifiedNodeCache = {
+        /*
+        "jstree_1492756514868_3" : {
+            nodestatus: "moved",
+            modifiedProperties: { "menuId": 1, "treeLevel": 1, "treeParentid": 1, "orderFlag": 1 }
+        }
+        */
+    };
+
     function createSysMenu () {
         var
             $ = jQuery,
@@ -91,22 +106,19 @@
             newNodeId,
             newNodeData,
             $newNode,
-            $unsavedNode,
             $jstreeNode
         ;
 
         // debugger;
-
-        // 是否有未编辑（保存）的新建菜单
         $jstreeNode = $tree.find( ".jstree-node" );
-        $unsavedNode = $jstreeNode.filter( '[createnode="new"]' );
 
-        if ( $unsavedNode.size() > 0 ) {
+        // 有未编辑（保存）的新建菜单
+        if ( createSysMenu.newNode[ selectedNodeIds[ 0 ] ] === true ) {
             layer.alert( "请先编辑（保存）已新建菜单，或将其删除。", { icon: 0 } );
             return;
         }
 
-        newNodeData = $.extend( true, {}, createSysMenu.defaultNode );
+        newNodeData = $.extend( true, { id: "newNode_" + ( new Date() ).getTime() }, createSysMenu.defaultNode );
 
         // 未选择菜单，创建顶级菜单
         if( !selectedNodeIds.length ) {
@@ -122,7 +134,9 @@
             newNodeId = ref.create_node( parentNodeId, newNodeData );
         }
 
-        $newNode = ref.get( newNodeId, true );
+        createSysMenu.newNode[ newNodeId ] = true;
+
+        $newNode = ref.get_node( newNodeId, true );
 
         // 取消已被选中的
         ref.deselect_node( selectedNodeIds );
@@ -160,9 +174,9 @@
         $sysmenuMenuInfo = $( ".sysmenu-menuInfo" );
 
         // 新建的菜单：新增
-        if ( $selectedNode.attr( "nodestatus" ) === "new" ) {
+        if ( createSysMenu.newNode[ selectedNodeIds[ 0 ] ] === true ) {
 
-            model = selectedNode.original;
+            model = $.extend( true, {}, selectedNode.original );
 
             if ( orderFlag != null ) {
                 model.orderFlag = orderFlag;
@@ -197,30 +211,91 @@
     }
 
     function deleteSysMenu() {
+        var
+            $ = jQuery,
+            $tree = $( "#sysMenuTree" ),
+            ref = $tree.jstree( true ),
+            selectedNodeIds = ref.get_selected(),
+            selectedNode,
+            $button
+            ;
 
+        // 如果没有被选中的
+        if ( selectedNodeIds.length === 0 ) {
+            layer.msg( "请选择菜单项！", { icon: 0 } );
+            return;
+        }
         // 新建的菜单
+        if ( createSysMenu.newNode[ selectedNodeIds[ 0 ] ] === true ) {
+            ref.delete_node( selectedNodeIds[ 0 ] );
+            // 清除缓存
+            delete createSysMenu.newNode[ selectedNodeIds[ 0 ] ];
+            return;
+        }
 
         // 已存在的菜单
+        selectedNode = ref.get_node( selectedNodeIds[ 0 ] );
+        $button = $( "#deleteSysMenuButton" );
+
+        $button.isLoading( { position: "insideButton" } );
+
+        $.ajax( {
+            url: "__CTX__/admin/sysMenuDelete",
+            data: {
+                menuId: selectedNode.data.menuId
+            }
+        } ).done( function ( jsonResult ) {
+            // 服务器端处理成功
+            if ( jsonResult.success ) {
+                // 提示
+                layer.msg( '删除成功！', { icon: 1 } );
+
+                ref.delete_node( selectedNodeIds[ 0 ] );
+
+                // 清除缓存
+                delete sortSysMenu.modifiedNodeCache[ selectedNodeIds[ 0 ] ];
+
+                // 刷新
+                //refreshSysMenuTree();
+            }
+            // 服务器端处理失败
+            else {
+                // 提示
+                layer.msg( '删除失败！', { icon: 2 } );
+            }
+        } ).fail( function () {
+            layer.msg( '网络错误！', { icon: 0 } );
+        } ).always( function () {
+            $button.isLoading( "hide" );
+        } );
+
+
     }
 
     function saveSysMenuTree() {
         var
             $ = jQuery,
-            $tree = $( "#sysMenuTree" ),
-            $button = $( "#sysMenuTreeSaveButton" ),
-            $movedNode = $tree.find( ".jstree-node[role='treeitem'][nodestatus='moved']" ),
-            data = []
+            // $tree = $( "#sysMenuTree" ),
+            $button = $( "#saveSysMenuTreeButton" ),
+            // $movedNode = $tree.find( ".jstree-node[role='treeitem'][nodestatus='moved']" ),
+            data = [],
+
+            cache = sortSysMenu.modifiedNodeCache,
+            nodeId,
+            modifiedProperties
+
         ;
-        debugger;
-        $movedNode.each( function () {
-            var
-                $this = $( this ),
-                modifiedProperties = $this.data( "modifiedProperties" )
-            ;
+
+        for ( nodeId in cache ) {
+            if ( !cache.hasOwnProperty( nodeId ) ) {
+                continue;
+            }
+            modifiedProperties = cache[ nodeId ].modifiedProperties;
             if ( modifiedProperties ) {
                 data.push( modifiedProperties );
             }
-        } );
+        }
+        //debugger;
 
         if ( data.length === 0 ) {
             return;
@@ -238,6 +313,10 @@
             if ( jsonResult.success ) {
                 // 提示
                 layer.msg( '修改成功！', { icon: 1 } );
+                
+                // 清空缓存
+                sortSysMenu.modifiedNodeCache = {};
+
                 // 刷新
                 refreshSysMenuTree();
             }
@@ -268,28 +347,42 @@
             $ = jQuery,
             $tree = $( "#sysMenuTree" ),
             ref = $tree.jstree( true ),
-            $jstreeNode = $tree.find( ".jstree-node[role='treeitem']" )
+            $jstreeNode
         ;
+
+        $jstreeNode = $tree.find( ".jstree-node[role='treeitem']" );
+
+        // 展开所有节点（关闭的节点的children会被remove掉）
+        ref.open_all();
 
         $jstreeNode.each( function ( index, jstreeNode ) {
             var
                 nodeId = jstreeNode.id,
                 node = ref.get_node( nodeId ),
-                $node = ref.get_node( nodeId, true ),
+                //$node = ref.get_node( nodeId, true ),
                 parentNodeId = ref.get_parent( nodeId ),
                 parentNode = ref.get_node( parentNodeId ),
+                //$parentNode = ref.get_node( parentNodeId, true ),
                 sysMenu = node.data,
                 parentSysMenu = parentNode.data,
+
+                cache = sortSysMenu.modifiedNodeCache,
+                parentNodeCache = cache[ parentNodeId ],
 
                 isMoved = false,
                 modifiedProperties = { menuId: sysMenu.menuId }
             ;
 
+            // 如果当前节点是顶级节点
             if ( parentNodeId === "#" ) {
                 parentSysMenu = {
                     treeLevel: 0,
-                    menuId: null
+                    menuId: -1
                 }
+            }
+            // 如果父节点也被移动了
+            if ( parentNodeCache && parentNodeCache[ "nodestatus" ] === "moved" ) {
+                parentSysMenu = $.extend( true, {} , parentSysMenu, parentNodeCache[ "modifiedProperties" ] );
             }
 
             // debugger;
@@ -312,14 +405,21 @@
             }
 
             if ( isMoved ) {
-                $node.attr( "nodestatus", "moved" );
-                $node.data( "modifiedProperties", modifiedProperties );
+                sortSysMenu.modifiedNodeCache[ nodeId ] = {
+                    nodestatus: "moved",
+                    modifiedProperties: modifiedProperties
+                }
             }
         } );
 
 
     }
 
+    /**
+     * 销毁 jstree
+     * 删除 MenuTree引用 和 isrendered标志
+     * 清空 右侧容器（调用 jquery.html()方法后，会自动渲染）
+     */
     function refreshSysMenuTree() {
         var
             $ = jQuery,
@@ -338,30 +438,28 @@
         // 清空 右侧容器（调用 jquery.html()方法后，会自动渲染）
         $sysmenuMenuInfo.html( "" );
 
+        regSysMenuSelectNodeEvent();
+
     }
 
-    +function() {
+    function regSysMenuSelectNodeEvent() {
         var
             $ = jQuery,
             $sysmenuMenuInfo = $( ".sysmenu-menuInfo" )
-        ;
+            ;
         $( "#sysMenuTree" ).on( "select_node.jstree", function( event, selected ) {
             var
-                $tree = $( "#sysMenuTree" ),
-                ref = $tree.jstree( true ),
+                //$tree = $( "#sysMenuTree" ),
+                //ref = $tree.jstree( true ),
                 sysMenu = selected.node.data,
-                $selectedNode = ref.get_node( selected.node.id, true ),
-                nodestatus = $selectedNode.attr( "nodestatus" )
-            ;
+                selectedNodeId = selected.node.id[0]
+                ;
+            debugger;
             // 新建 但未保存的，则调用编辑
-            if ( nodestatus === "new" ) {
+            if ( createSysMenu.newNode[ selectedNodeId ] === true ) {
                 //layer.msg( "未保存的新建菜单不能查看详情页", { icon: 0 } );
                 editSysMenu();
                 return;
-            }
-            // 新建 且已保存，
-            else if ( nodestatus === "saved" ) {
-                sysMenu = $selectedNode.data( "sysMenu" );
             }
 
             window.PKUI.component.Template.getModelAndView(
@@ -375,19 +473,22 @@
                 }
             );
         } );
+    }
 
-        $( document ).on( "dnd_stop.vakata", function ( event, relatedData ) {
-            var
-                rel = relatedData.data.origin,
-                dndNodeIds = relatedData.data.nodes,
-                $dndNode = rel.get_node( dndNodeIds[ 0 ], true ),
-                // anchor
-                $dndElement = $( relatedData.element )
-            ;
-            // debugger;
-            $dndNode.addClass( "dndNode" );
-            sortSysMenu();
-        } );
+    regSysMenuSelectNodeEvent();
 
-    } ();
+    $( document ).on( "dnd_stop.vakata", function ( event, relatedData ) {
+        /*var
+            rel = relatedData.data.origin,
+            dndNodeIds = relatedData.data.nodes,
+            $dndNode = rel.get_node( dndNodeIds[ 0 ], true ),
+            // anchor
+            $dndElement = $( relatedData.element )
+        ;*/
+        // debugger;
+        //$dndNode.addClass( "dndNode" );
+        sortSysMenu();
+    } );
+
+
 </script>
