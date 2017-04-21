@@ -64,6 +64,7 @@ define( function ( require ) {
             } );
             jstreeOptions.core = {
                 "data" : jstreeData,
+                "worker": false,
                 "multiple" : false, // no multiselection
                 "themes" : {
                     "dots" : true // no connecting dots between dots
@@ -126,10 +127,6 @@ define( function ( require ) {
             sysMenu.text = sysMenu[ "menuName" ];
             // icon
             sysMenu.icon = icon;
-            // orderFlag
-            sysMenu.li_attr = {
-                orderflag: sysMenu[ "orderFlag" ]
-            };
             // state
             sysMenu.state = {
                 opened: sysMenu[ "expand" ] === "1"
