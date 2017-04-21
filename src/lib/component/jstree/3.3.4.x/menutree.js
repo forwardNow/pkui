@@ -47,8 +47,8 @@ define( function ( require ) {
                 jstreeData,
                 jstreeOptions = {}
             ;
-            if ( !gridResult ) {
-                window.layer.alert( "获取菜单数据失败！", { icon: 2 } );
+            if ( !gridResult || gridResult && ( gridResult.success === false || gridResult.data == null ) ) {
+                window.layer.alert( ( gridResult && gridResult.message ) || "获取菜单数据失败！", { icon: 2 } );
                 return;
             }
             originData = gridResult.data;
