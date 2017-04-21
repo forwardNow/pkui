@@ -15,7 +15,7 @@ define( function ( require ) {
          * @param modelUrl 模型URL，如果是对象则直接使用
          * @param callback 都请求完毕后执行回调，参数为html字符串
          */
-        getModelAndView: function ( viewUrl, modelUrl, callback ) {
+        getModelAndView: function ( viewUrl, modelUrl, callback, options ) {
             var Status,
                 renderCache
                 ;
@@ -45,7 +45,7 @@ define( function ( require ) {
                     type: "GET",
                     dataType: "text"
                 } ).done( function ( data ) {
-                    Status.tplRender = ArtTemplate.compile( data );
+                    Status.tplRender = ArtTemplate.compile( data, options );
                     renderCache[ viewUrl ] = Status.tplRender;
                     Status.update();
                 } ).fail( function () {
