@@ -16,6 +16,7 @@
 <body>
 <div id="plugins3" class="demo plugin-demo">
 </div>
+<div id="t"></div>
 <script>
         jQuery("#plugins3").jstree({
             "core" : {
@@ -27,10 +28,24 @@
                             { id: 12, text: "ccccc"}
                         ]
                     }
-                ]
-            }
+                ],
+                "check_callback" : true
+            },
+            "plugins": [ "dnd" ]
         });
+        var $ = jQuery;
         var ref = jQuery("#plugins3").jstree( true );
+        $( document ).on( "dnd_stop.vakata",  function ( event, relatedData ) {
+            var
+                rel = relatedData.data.origin,
+                dndNodeIds = relatedData.data.nodes,
+                $dndNode = rel.get_node( dndNodeIds[ 0 ], true ),
+                // anchor
+                $dndElement = $( relatedData.element )
+                ;
+                //$dndNode.addClass( "dndNode" );
+                console.info( $dndNode.is( "#plugins3 .jstree-node" ) );
+        } );
 </script>
 </body>
 </html>
