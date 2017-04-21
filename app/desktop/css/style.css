@@ -6993,6 +6993,11 @@ Pagination Styles
   box-sizing: border-box;
 }
 
+.pkui-icon-image {
+  display: inline-block;
+  background: no-repeat center center;
+}
+
 .sysmenu-container {
   min-height: 100%;
   margin: 0 -12px;

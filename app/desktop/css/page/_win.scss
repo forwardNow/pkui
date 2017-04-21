@@ -194,3 +194,8 @@
         @include box-sizing(border-box);
     }
 }
+
+.pkui-icon-image {
+    display: inline-block;
+    background: no-repeat center center;
+}
