@@ -68,6 +68,8 @@
                 layer.close( index );
                 // 关闭抽屉层
                 $form.closest( ".pkui-drawer" ).find( ".pkui-drawer-button" ).trigger( "click" );
+                // 刷新菜单
+                refreshSysMenuTree();
             } );
         }
         // 服务器端处理失败
