@@ -287,47 +287,66 @@ define( function ( require ) {
             layer.msg( "请选择菜单项！", { icon: 0 } );
             return;
         }
-        // 新建的菜单
-        if ( newNodeCache[ selectedNodeIds[ 0 ] ] === true ) {
-            ref.delete_node( selectedNodeIds[ 0 ] );
-            // 清除缓存
-            delete newNodeCache[ selectedNodeIds[ 0 ] ];
-            return;
-        }
+        // 确认删除
+        layer.confirm(
+            "是否删除？",
+            {
+                icon: 0,
+                btn: ['删除','取消'] //按钮
+            },
+            // 确认
+            function(){
+                doDelete();
+            },
+            // 取消
+            function(){
 
-        // 已存在的菜单
-        selectedNode = ref.get_node( selectedNodeIds[ 0 ] );
-
-        $button.isLoading( { position: "insideButton" } );
-
-        $.ajax( {
-            url: __CTX__ + "/admin/sysMenuDelete",
-            data: {
-                menuId: selectedNode.data.menuId
             }
-        } ).done( function ( jsonResult ) {
-            // 服务器端处理成功
-            if ( jsonResult.success ) {
-                // 提示
-                layer.msg( '删除成功！', { icon: 1 } );
+        );
 
+        function doDelete() {
+
+            // 新建的菜单
+            if ( newNodeCache[ selectedNodeIds[ 0 ] ] === true ) {
                 ref.delete_node( selectedNodeIds[ 0 ] );
-
                 // 清除缓存
-                delete modifiedNodeCache[ selectedNodeIds[ 0 ] ];
-
+                delete newNodeCache[ selectedNodeIds[ 0 ] ];
+                return;
             }
-            // 服务器端处理失败
-            else {
-                // 提示
-                layer.msg( '删除失败！', { icon: 2 } );
-            }
-        } ).fail( function () {
-            layer.msg( '网络错误！', { icon: 0 } );
-        } ).always( function () {
-            $button.isLoading( "hide" );
-        } );
 
+            // 已存在的菜单
+            selectedNode = ref.get_node( selectedNodeIds[ 0 ] );
+
+            $button.isLoading( { position: "insideButton" } );
+
+            $.ajax( {
+                url: __CTX__ + "/admin/sysMenuDelete",
+                data: {
+                    menuId: selectedNode.data.menuId
+                }
+            } ).done( function ( jsonResult ) {
+                // 服务器端处理成功
+                if ( jsonResult.success ) {
+                    // 提示
+                    layer.msg( '删除成功！', { icon: 1 } );
+
+                    ref.delete_node( selectedNodeIds[ 0 ] );
+
+                    // 清除缓存
+                    delete modifiedNodeCache[ selectedNodeIds[ 0 ] ];
+
+                }
+                // 服务器端处理失败
+                else {
+                    // 提示
+                    layer.msg( '删除失败！', { icon: 2 } );
+                }
+            } ).fail( function () {
+                layer.msg( '网络错误！', { icon: 0 } );
+            } ).always( function () {
+                $button.isLoading( "hide" );
+            } );
+        }
 
     };
 
