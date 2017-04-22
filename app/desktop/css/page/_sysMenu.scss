@@ -1,15 +1,19 @@
 .sysmenu-container {
-    min-height: 100%;
+    /* min-height: 100%; */
     margin: 0 -12px;
+    overflow: hidden;
+    height: 100%;
 }
+
 .sysmenu-treeOpe {
     position: absolute;
     top: 43px;
     left: 0;
     z-index: 10;
     width: 240px;
-    background: #eee;
+    background: #eeeeee;
 }
+
 .sysmenu-treeContainer {
     overflow: auto;
     float: left;
@@ -18,16 +22,23 @@
     padding-top: 40px;
     border-right: 1px solid silver;
 }
+
 .sysmenu-menuInfo {
+    height: 100%;
     overflow: auto;
 }
 
 [nodestatus="new"] > .jstree-anchor {
     color: #e8bf6a;
 }
+
 [nodestatus="saved"] > .jstree-anchor {
     color: #6a8759;
 }
+
 [nodestatus="moved"] > .jstree-anchor {
     color: #9876aa;
+}
+.sysmenu-icon-cell .fa {
+    font-size: 20px;
 }
