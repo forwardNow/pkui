@@ -25,9 +25,51 @@
 
     <div class="sysmenu-menuInfo" id="sysMenuDisplayArea">
 
+        <div class="alert alert-warning">
+            <h4 style="font-size: 18px; padding-bottom: 12px;">功能介绍</h4>
+            <section>
+                <h5>1. 查看</h5>
+                <p>操作：单击菜单项，在右侧查看该菜单的详细内容。</p>
+            </section>
+            <section>
+                <h5>2. 新建（<button type="button" class="btn btn-success-2 btn-xs"><i class="fa fa-plus"></i></button>）</h5>
+                <p>1）操作：【新建顶级菜单】不选中任何菜单，直接点击“新建”按钮后，在编辑界面进行编辑并保存。</p>
+                <p>2）操作：【新建子菜单】选中某菜单后，点击“新建”按钮后，在编辑界面进行编辑并保存。</p>
+                <p>3）注意：新建的菜单会被标记为<span style="color: #e8bf6a;">橙色</span>；如果存在未保存的新建的菜单，则不允许新建第二个菜单。</p>
+            </section>
+            <section>
+                <h5>3. 编辑（<button type="button" class="btn btn-info-2 btn-xs" ><i class="fa fa-edit"></i></button>）</h5>
+                <p>1）操作：选中菜单后，点击“编辑”按钮，在右侧编辑界面进行修改。</p>
+                <p>2）保存：编辑完毕后，请点击编辑界面底部的保存按钮进行保存，保存成功后会自动刷新菜单树。</p>
+            </section>
+            <section>
+                <h5>4. 删除（<button type="button" class="btn btn-danger-2 btn-xs" ><i class="fa fa-trash-o"></i></button>）</h5>
+                <p>操作：选中菜单后，点击“删除”按钮，会弹出的警告框，点击“删除”进行删除，点击“取消”则不删除。</p>
+            </section>
+            <section>
+                <h5>5. 保存（<button type="button" class="btn btn-primary-2 btn-xs"><i class="fa fa-save"></i></button>）</h5>
+                <p>1）操作：对菜单项进行拖拽排序，排序完毕后点击“保存”，保存菜单树结构。</p>
+                <p>2）说明：被影响的菜单项会被标记为<span style="color: #9876aa;">紫色</span>。</p>
+            </section>
+            <section>
+                <h5>6. 刷新（<button type="button" class="btn btn-default-2 btn-xs"><i class="fa fa-refresh"></i></button>）</h5>
+                <p>操作：点击“刷新”，重新载入目录树。</p>
+            </section>
+        </div>
+
     </div>
 
 </div>
+<style>
+    .alert section {
+        margin-bottom: 2em;
+    }
+    .alert section > p {
+          text-indent: 2em;
+          line-height: 2;
+    }
+
+</style>
 <script>
     seajs.use( "__CTX__/static/desktop/js/page/sysMenu", function ( SysMenu ) {
         new SysMenu();
