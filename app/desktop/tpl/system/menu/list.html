@@ -1,7 +1,13 @@
-<div class="sysmenu-container clearfix">
+<div class="sysmenu-container clearfix"
+     data-pkui-component="Intro"
+     data-pkui-component-options='{
+        "startIntroSelector": "#startSysMenuIntroButton"
+     }'>
 
     <div class="sysmenu-treeContainer">
-        <div class="sysmenu-treeOpe btn-group" role="group" aria-label="...">
+        <div class="sysmenu-treeOpe btn-group"
+             data-step="1"
+             data-intro="工具栏">
             <button type="button" class="btn btn-success-2" title="为选择的菜单新建子菜单（未选择任何菜单时，则新建顶级菜单）"
                     id="createSysMenuButton"><i class="fa fa-plus"></i></button>
             <button type="button" class="btn btn-info-2" title="编辑选中的菜单"
@@ -9,10 +15,12 @@
             <button type="button" class="btn btn-danger-2" title="删除选中的菜单"
                     id="deleteSysMenuButton" ><i class="fa fa-trash-o"></i></button>
 
-            <button type="button" class="btn btn-default-2 pull-right" title="刷新"
-                    id="refreshSysMenuTreeButton" ><i class="fa fa-refresh"></i></button>
-            <button type="button" class="btn btn-primary-2 pull-right" title="保存调整后的顺序"
+            <button type="button" class="btn btn-primary-2 " title="保存调整后的顺序"
                     id="saveSysMenuTreeButton" ><i class="fa fa-save"></i></button>
+            <button type="button" class="btn btn-default-2 " title="刷新"
+                    id="refreshSysMenuTreeButton" ><i class="fa fa-refresh"></i></button>
+            <button type="button" class="btn btn-info " title="开启引导"
+                    id="startSysMenuIntroButton"><i class="fa fa-hand-o-right"></i></button>
         </div>
         <div id="sysMenuTree"
              data-pkui-component="menuTree"
@@ -20,13 +28,17 @@
                 "url": "__CTX__/admin/sysMenuListData",
                 "dnd": true,
                 "showInvisible": true
-             }'></div>
+             }'
+             data-step="2"
+             data-intro="菜单树"></div>
     </div>
 
     <div class="sysmenu-menuInfo" id="sysMenuDisplayArea">
 
         <div class="alert alert-warning">
-            <h4 style="font-size: 18px; padding-bottom: 12px;">功能介绍</h4>
+            <h4 style="font-size: 18px; padding-bottom: 12px;"
+                data-step="3"
+                data-intro="信息界面">功能介绍</h4>
             <section>
                 <h5>1. 查看</h5>
                 <p>操作：单击菜单项，在右侧查看该菜单的详细内容。</p>
