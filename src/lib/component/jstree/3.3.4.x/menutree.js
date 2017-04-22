@@ -102,7 +102,7 @@ define( function ( require ) {
         // 添加 jstree 必须的属性
         $.each( list, function ( index, sysMenu ) {
             var
-                icon = sysMenu[ "icon" ],
+                icon = sysMenu[ "icon" ] || "fa fa-file-o",
                 visiable = sysMenu[ "visiable" ] === "1"
             ;
             if ( !visiable && !showInvisible) {
