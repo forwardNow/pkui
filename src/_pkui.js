@@ -213,15 +213,15 @@ define( function ( require ) {
                 if ( !icon ) {
                     return "";
                 }
-                imageSize = parseInt( imageSize ) || 24;
                 // font icon
-                if ( icon.indexOf( "fa" ) !== -1 ) {
-                    return '<i class="' + icon + '" style="font-size: ' + (imageSize * .75) + 'px;"></i>';
+                if ( icon.indexOf( "fa-" ) !== -1 ) {
+                    return '<i class="' + icon + '"></i>';
                 }
                 if ( icon.indexOf( ".png" ) !== -1 ) {
+                    imageSize = parseInt( imageSize ) || 24;
                     url = PKUI.iconPath + "/" + imageSize + "x" + imageSize + "/" + icon;
                     style = "background-image: url(" + url + "); width: " + imageSize + "px; height: " + imageSize + "px;";
-                    return '<span class="pkui-icon-image" style=' + style + '></span>';
+                    return '<span class="pkui-icon-image" style="' + style + '"></span>';
                 }
                 return "";
             } );
