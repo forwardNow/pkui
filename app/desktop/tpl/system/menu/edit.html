@@ -50,8 +50,83 @@
             </tr>
             <tr>
                 <td class="text-right"><label class="da-control-label">图标：</label></td>
+                <!--
                 <td><input type="text" class="da-form-control" name="icon" value="{{icon}}"
                            style="width: 60%; margin-right: 20px;">{{icon | iconFormat: "24px"}}</td>
+                -->
+                <style>
+                    .iconEdit-container {
+                        padding: 6px 0;
+                    }
+                    .iconEdit-display {
+                        position: relative;
+                        float: left;
+                        width: 200px;
+                        padding-right: 12px;
+                        border-right: dashed 1px #ccc;
+                    }
+                    .iconEdit-display-area {
+                        width: 100px;
+                        height: 100px;
+                        border: solid 1px #ccc;
+                        line-height: 100px;
+                        text-align: center;
+                        background-color: #fff;
+                    }
+                    .iconEdit-display-area .fa {
+                        font-size: 32px;
+                    }
+                    .iconEdit-display-input {
+                        padding-top: 6px;
+                    }
+                    .iconEdit-custom {
+                        float: left;
+                        width: 200px;
+                        height: 136px;
+                    }
+                    .iconEdit-custom-upload {
+                        margin: 46px 0 0 40px;;
+                    }
+                    .iconEdit-tool {
+                        position: absolute;
+                        top: 0;
+                        right: 12px;
+                    }
+                    .iconEdit-help,
+                    .iconEdit-more {
+                        float: left;
+                    }
+                    .iconEdit-help {
+                        margin-left: .5em;
+                    }
+                </style>
+                <td>
+                    <div class="iconEdit-container clearfix">
+                        <div class="iconEdit-display">
+                            <div class="iconEdit-display-area" id="iconEditDisplayArea">
+                                {{if icon}}
+                                    {{icon | iconFormat: "24px"}}
+                                {{else}}
+                                    <i class="fa fa-question"></i>
+                                {{/if}}
+                            </div>
+                            <div class="iconEdit-display-input">
+                                <input type="text" class="da-form-control" name="icon" id="sysMenuIconInput" value="{{icon}}">
+                                <div class="iconEdit-tool">
+                                    <a class="iconEdit-more"
+                                       href="__CTX__/static/pkui/css/font/font-awesome/4.7.0/index.html"
+                                       target="fa_demo_window"><i class="fa fa-external-link-square"></i> 更多</a>
+                                    <a class="iconEdit-help"
+                                       title="方式一：点击“更多”，在新页面中拷贝合适的图标名称，粘贴到输入框。方式二：点击“使用自定义图标”按钮，在图标区域选取合适的图标。"
+                                       href="javascript:void(0)"><i class="fa fa-question-circle-o"></i> 帮助</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="iconEdit-custom clearfix">
+                            <a href="javascript:void(0)" class="btn btn-info iconEdit-custom-upload"><i class="fa fa-folder-open-o"></i> 使用自定义图标</a>
+                        </div>
+                    </div>
+                </td>
             </tr>
         </table>
     </div>
@@ -59,6 +134,7 @@
         <button type="submit" class="btn btn-success-2">确定</button>
     </div>
 </form>
+
 
 <script>
     // 请求发送成功，对服务器端返回的数据进行处理
@@ -94,4 +170,31 @@
     function editSysMenuAlwaysCallback($form) {
         // 无论
     }
+    +function () {
+        var
+            $ = jQuery,
+            $sysMenuIconInput = $( "#sysMenuIconInput" ),
+            $iconEditDisplayArea = $( "#iconEditDisplayArea" )
+        ;
+        $sysMenuIconInput.off( "input" ).on( "input", function () {
+            var
+                value = this.value,
+                url,
+                style
+            ;
+            if ( !value ) {
+                return;
+            }
+            if ( value.indexOf( "fa-" ) !== -1 ) {
+                $iconEditDisplayArea.html( '<i class="' + value + '"></i>' );
+                return;
+            }
+            if ( value.indexOf( ".png" ) != -1 ) {
+                url = window.PKUI.iconBasePath + "/24x24/" + value;
+                style = "background-image: url(" + url + "); width: 100%; height: 100%;";
+                $iconEditDisplayArea.html( '<span class="pkui-icon-image" style="' + style + '"></span>' )
+            }
+
+        } );
+    } ();
 </script>
