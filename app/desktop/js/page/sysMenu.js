@@ -311,6 +311,8 @@ define( function ( require ) {
                 ref.delete_node( selectedNodeIds[ 0 ] );
                 // 清除缓存
                 delete newNodeCache[ selectedNodeIds[ 0 ] ];
+                // 提示
+                layer.msg( '删除成功！', { icon: 1 } );
                 return;
             }
 
