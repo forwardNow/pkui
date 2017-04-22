@@ -92,6 +92,10 @@ seajs.config( {
         "jstree": "lib/component/jstree/3.3.4.x/jstree",
         "menutree": "lib/component/jstree/3.3.4.x/menutree",
 
+        //【lib/component】intro
+        "intro": "lib/component/intro/2.5.0/intro",
+        "Intro": "lib/component/intro/2.5.0.x/intro",
+
         //【component/common 】 数据源
         "dataSource": "component/common/dataSource/1.0.0/dataSource",
 
