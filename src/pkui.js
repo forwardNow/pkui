@@ -70,6 +70,9 @@ seajs.config( {
         //【lib/jQuery/plugin】bootstrap tooltip
         "bootstrap-tooltip": "lib/jquery/plugin/bootstrap/3.3.6/tooltip",
 
+        //【lib/jQuery/plugin】bootstrap tab
+        "bootstrap-tab": "lib/jquery/plugin/bootstrap/3.3.6/tab",
+
         //【lib/component】轮播图组件
         "swiper": "lib/component/swiper/2.7.6.x/swiper",
 
