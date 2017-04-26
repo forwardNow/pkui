@@ -7,8 +7,9 @@
  * ======================================================================== */
 
 
-+function ($) {
+define( function( require ) {
   'use strict';
+  var $ = require( "jquery" );
 
   // TAB CLASS DEFINITION
   // ====================
@@ -152,4 +153,4 @@
     .on('click.bs.tab.data-api', '[data-toggle="tab"]', clickHandler)
     .on('click.bs.tab.data-api', '[data-toggle="pill"]', clickHandler)
 
-}(jQuery);
+});
