@@ -13,6 +13,7 @@ define( function ( require ) {
     require( "moment-local-zh" );
 
     require( "bootstrap-tooltip" );
+    require( "bootstrap-tab" );
 
     var
         $ = require( "jquery" ),
