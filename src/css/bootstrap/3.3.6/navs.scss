@@ -61,3 +61,10 @@ $border-radius-small:       1px;
 // Utility classes
 //@import "bootstrap/utilities";
 //@import "bootstrap/responsive-utilities";
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+    @include clearfix();
+}

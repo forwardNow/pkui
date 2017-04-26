@@ -161,3 +161,17 @@
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
+
+.tab-content {
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background-color: #fff;
+}
+.tab-content:before, .tab-content:after {
+  content: " ";
+  display: table;
+}
+.tab-content:after {
+  clear: both;
+}
