@@ -318,7 +318,15 @@ define( function ( require ) {
                 //iconSrc = $this.find( "img" ).attr( "src" );
                 menuicon = $this.attr( "menuicon" );
                 title = $this.text();
-                $winMain = $( appWindowMainTplRender( { menuicon: menuicon, title: title } ) );
+                if ( menuicon.indexOf( ".png" ) !== -1 ) {
+                    $winMain = $( appWindowMainTplRender( {
+                        menuicon: "", title: title,
+                        menuiconStyle: "background-image: url(" + menuicon + ")" } )
+                    );
+                }
+                else {
+                    $winMain = $( appWindowMainTplRender( { menuicon: menuicon, title: title } ) );
+                }
 
                 pkuiOptions.$dialogContainer.find(".da-win-main").replaceWith( $winMain );
 
