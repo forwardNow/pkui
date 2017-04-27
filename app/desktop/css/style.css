@@ -7210,9 +7210,15 @@ Pagination Styles
 }
 
 .win-main-heading {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
   padding: 10px 10px 6px 12px;
   border-bottom: solid 3px #fbfbfb;
   color: #455469;
+  background-color: #fff;
 }
 .win-main-heading .main-heading-icon {
   display: inline-block;
@@ -7227,14 +7233,13 @@ Pagination Styles
 }
 
 .win-main-body {
-  padding: 0 12px;
-  min-height: 100%;
+  padding: 43px 12px 0 12px;
   height: 100%;
   overflow: auto;
+  overflow-x: hidden;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  padding-bottom: 50px;
 }
 
 .win-btnGroup {
