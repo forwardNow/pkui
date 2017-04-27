@@ -12,8 +12,8 @@ define( function ( require ) {
 
     require( "menutree" );
 
-    function SysMenu( options ) {
-        this.options = $.extend( true, {}, this.defaults, options );
+    function SysMenu( opts ) {
+        this.opts = $.extend( true, {}, this.defaults, opts );
         this.init();
     }
 
@@ -37,15 +37,15 @@ define( function ( require ) {
 
     SysMenu.prototype.render = function () {
         var
-            options = this.options
+            opts = this.opts
         ;
-        this.$tree = $( options.treeSelector );
-        this.$createSysMenuButton = $( options.createSysMenuButtonSelector );
-        this.$editSysMenuButton = $( options.editSysMenuButtonSelector );
-        this.$deleteSysMenuButton = $( options.deleteSysMenuButtonSelector );
-        this.$refreshSysMenuTreeButton = $( options.refreshSysMenuTreeButtonSelector );
-        this.$saveSysMenuTreeButton = $( options.saveSysMenuTreeButtonSelector );
-        this.$displayArea = $( options.displayAreaSelector );
+        this.$tree = $( opts.treeSelector );
+        this.$createSysMenuButton = $( opts.createSysMenuButtonSelector );
+        this.$editSysMenuButton = $( opts.editSysMenuButtonSelector );
+        this.$deleteSysMenuButton = $( opts.deleteSysMenuButtonSelector );
+        this.$refreshSysMenuTreeButton = $( opts.refreshSysMenuTreeButtonSelector );
+        this.$saveSysMenuTreeButton = $( opts.saveSysMenuTreeButtonSelector );
+        this.$displayArea = $( opts.displayAreaSelector );
     };
 
     SysMenu.prototype.initCache = function () {
@@ -134,7 +134,7 @@ define( function ( require ) {
                 dndNodeIds = relatedData.data.nodes,
                 $dndNode = rel.get_node( dndNodeIds[ 0 ], true )
                 ;
-            if ( $dndNode.is( _this.options.treeSelector + " .jstree-node" ) ) {
+            if ( $dndNode.is( _this.opts.treeSelector + " .jstree-node" ) ) {
                 _this.sortSysMenu();
             }
         }
