@@ -162,7 +162,7 @@
     border-bottom: solid 3px #fbfbfb;
     color: #455469;
     .main-heading-icon {
-        vertical-align: middle;
+        display: inline-block;
         width: 24px;
         height: 24px;
         margin-right: 6px;
@@ -170,6 +170,7 @@
         line-height: 24px;
         text-align: center;
         background: no-repeat center center;
+        vertical-align: middle;
     }
 }
 
