@@ -42,3 +42,62 @@
 .sysmenu-icon-cell .fa {
     font-size: 20px;
 }
+
+
+.menuicon-container {
+    padding: 6px 0;
+}
+.menuicon-container .tab-content {
+    padding: 6px;
+}
+.menuicon-fontIcon {
+    position: relative;
+}
+.menuicon-fontIcon-display {
+    width: 100px;
+    height: 100px;
+    border: solid 1px #ccc;
+    line-height: 100px;
+    text-align: center;
+    background-color: #fff;
+}
+.menuicon-fontIcon-display .fa {
+    font-size: 32px;
+}
+.menuicon-fontIcon-input {
+    padding-top: 6px;
+}
+.menuicon-fontIcon-tool {
+    position: absolute;
+    top: 0;
+    right: 12px;
+}
+.menuicon-help,
+.menuicon-more {
+    float: left;
+}
+.menuicon-help {
+    margin-left: .5em;
+}
+.menuicon-image {
+}
+.menuicon-image-input {
+    line-height: 2;
+    color: #888;
+}
+.menuicon-image-chosen {
+    height: 136px;
+    border: dashed 1px #ccc;
+    background-color: #fff;
+}
+.menuicon-image-chosen .item {
+    float: left;
+    padding: 6px;
+    border-radius: 2px;
+}
+.menuicon-image-chosen .item:hover {
+    background-color: #beebff;
+}
+.menuicon-image-chosen .item.active{
+    background-color: #33a6e7;
+}
