@@ -7215,7 +7215,7 @@ Pagination Styles
   color: #455469;
 }
 .win-main-heading .main-heading-icon {
-  vertical-align: middle;
+  display: inline-block;
   width: 24px;
   height: 24px;
   margin-right: 6px;
@@ -7223,6 +7223,7 @@ Pagination Styles
   line-height: 24px;
   text-align: center;
   background: no-repeat center center;
+  vertical-align: middle;
 }
 
 .win-main-body {
@@ -7306,6 +7307,75 @@ Pagination Styles
 
 .sysmenu-icon-cell .fa {
   font-size: 20px;
+}
+
+.menuicon-container {
+  padding: 6px 0;
+}
+
+.menuicon-container .tab-content {
+  padding: 6px;
+}
+
+.menuicon-fontIcon {
+  position: relative;
+}
+
+.menuicon-fontIcon-display {
+  width: 100px;
+  height: 100px;
+  border: solid 1px #ccc;
+  line-height: 100px;
+  text-align: center;
+  background-color: #fff;
+}
+
+.menuicon-fontIcon-display .fa {
+  font-size: 32px;
+}
+
+.menuicon-fontIcon-input {
+  padding-top: 6px;
+}
+
+.menuicon-fontIcon-tool {
+  position: absolute;
+  top: 0;
+  right: 12px;
+}
+
+.menuicon-help,
+.menuicon-more {
+  float: left;
+}
+
+.menuicon-help {
+  margin-left: .5em;
+}
+
+.menuicon-image-input {
+  line-height: 2;
+  color: #888;
+}
+
+.menuicon-image-chosen {
+  height: 136px;
+  border: dashed 1px #ccc;
+  background-color: #fff;
+}
+
+.menuicon-image-chosen .item {
+  float: left;
+  padding: 6px;
+  border-radius: 2px;
+}
+
+.menuicon-image-chosen .item:hover {
+  background-color: #beebff;
+}
+
+.menuicon-image-chosen .item.active {
+  background-color: #33a6e7;
 }
 
 .desktop-sprite, .icon-home, .topbar-home, .icon-history, .topbar-history, .icon-close, .dock-item-btn, .icon-dashboard, .icon-logout, .icon-message, .icon-more, .icon-search, .icon-user, .icon-triangle-down, .toolbar-item-indicator, .icon-add, .icon-setting, .icon-arrow-left, .launchpad-pagination-previous, .icon-arrow-right, .launchpad-pagination-next, .icon-circle-1, .icon-circle-2, .icon-win-close, .pkui-dialog-close, .icon-win-close-hover, .icon-win-max, .pkui-dialog-max, .icon-win-max-hover, .icon-win-maxmin, .pkui-dialog-restore, .icon-win-maxmin-hover, .icon-win-min, .pkui-dialog-min, .icon-win-min-hover, .icon-dock-dropmenu-indicator, .dock-dropmenu-indicator, .icon-sidebar-toggle-on, .sidebar-collapse-toggle.collapsed, .icon-sidebar-toggle-off, .sidebar-collapse-toggle {
