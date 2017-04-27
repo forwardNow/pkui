@@ -54,59 +54,11 @@
                 <td><input type="text" class="da-form-control" name="icon" value="{{icon}}"
                            style="width: 60%; margin-right: 20px;">{{icon | iconFormat: "24px"}}</td>
                 -->
-                <style>
-                    .menuicon-container {
-                        padding: 6px 0;
-                    }
-                    .menuicon-container .tab-content {
-                        padding: 6px;
-                    }
-                    .menuicon-fontIcon {
-                        position: relative;
-                    }
-                    .menuicon-fontIcon-display {
-                        width: 100px;
-                        height: 100px;
-                        border: solid 1px #ccc;
-                        line-height: 100px;
-                        text-align: center;
-                        background-color: #fff;
-                    }
-                    .menuicon-fontIcon-display .fa {
-                        font-size: 32px;
-                    }
-                    .menuicon-fontIcon-input {
-                        padding-top: 6px;
-                    }
-
-                    .menuicon-image {
-                    }
-                    .menuicon-fontIcon-tool {
-                        position: absolute;
-                        top: 0;
-                        right: 12px;
-                    }
-                    .menuicon-help,
-                    .menuicon-more {
-                        float: left;
-                    }
-                    .menuicon-help {
-                        margin-left: .5em;
-                    }
-                    .menuicon-image-choose {
-                        height: 136px;
-                        border: dashed 1px #ccc;
-                        background-color: #fff;
-                    }
-                    .menuicon-upload {
-                        /*padding-top: 12px;*/
-                    }
-                </style>
                 <td>
+                    <div id="menuiconContainer" class="menuicon-container">
 
-                    <input type="hidden" id="sysMenuIconInput" name="icon" value="{{icon}}">
+                        <input type="hidden" id="sysMenuIconInput" name="icon" value="{{icon}}">
 
-                    <div class="menuicon-container">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active"><a href="#sysMenuFontIcon" role="tab" data-toggle="tab">字体图标（推荐）</a></li>
@@ -141,10 +93,10 @@
                             <!-- image icon -->
                             <div role="tabpanel" class="tab-pane" id="sysMenuImageIcon">
                                 <div class="menuicon-image-input">
-                                    <input type="text" class="da-form-control" id="sysMenuImageIconInput" value="" disabled>
+                                    已选择：<span id="sysMenuImageIconInput" ></span>
                                 </div>
                                 <div class="menuicon-image">
-                                    <div class="menuicon-image-choose" id="sysMenuImageIconChooseArea"></div>
+                                    <div class="menuicon-image-chosen clearfix" id="sysMenuImageIconChooseArea"></div>
 
                                 </div>
                             </div>
@@ -165,116 +117,10 @@
 
 
 <script>
-    +function () {
 
-        var
-            $ = jQuery,
-            iconBasePath = window.PKUI.iconPath,
-            icon = "{{icon}}",
-            $tabs = $( ".nav-tabs a" ),
-            $sysMenuIconInput = $( "#sysMenuIconInput" ),
-            $sysMenuFontIconInput = $( "#sysMenuFontIconInput" ),
-            $sysMenuFontIconDisplayArea = $( "#sysMenuFontIconDisplayArea" ),
-            $sysMenuImageIconChooseArea = $( "#sysMenuImageIconChooseArea" )
-        ;
-
-        if ( !icon ) {
-            return;
-        }
-
-        // 手动初始化 tab
-        $tabs.tab();
-
-        // font icon
-        $sysMenuFontIconInput.off( "input.sysmenu" ).on( "input.sysmenu", function () {
-            var
-                value = this.value
-                ;
-            if ( !value ) {
-                return;
-            }
-            if ( value.indexOf( "fa-" ) !== -1 ) {
-                $sysMenuFontIconDisplayArea.html( '<i class="' + value + '"></i>' );
-                $sysMenuIconInput.val( value );
-            }
-        } );
-
-        // image icon
-        $tabs.eq( 1 ).on( "shown.bs.tab", function () {
-            var
-                $this = $( this ),
-                status = $this.data( "sysmenu_status")
-                ;
-            if ( status === "pending" ) {
-                window.layer.msg( "载入中...");
-                return;
-            }
-            else if ( status === "finished" ) {
-                return;
-            }
-            else if ( status === "error" ) {
-                //return;
-            }
-
-            $this.data( "sysmenu_status", "pending" );
-
-            // 打开 loading
-            $sysMenuImageIconChooseArea.isLoading( { position: "insideButton" } );
-
-            // 载入
-            $.ajax( {
-                url: "__CTX__/admin/sysMenuIconsDataExt"
-            } ).done( function ( gridResult ) {
-                var
-                    sysMenuIconList,
-                    html = ""
-
-                ;
-                if ( gridResult && gridResult.success ) {
-                    sysMenuIconList = gridResult.data;
-                    $.each( sysMenuIconList, function ( index, sysMenuIcon ) {
-                        var iconName = sysMenuIcon[ "iconName" ],
-                            isActive = ( icon === iconName ),
-                            src = iconBasePath + "/24x24/" + iconName
-                        ;
-                        if ( isActive ) {
-                            html += "<img src='" + src + "' class='active'>";
-                        } else {
-                            html += "<img src='" + src + "'>";
-                        }
-                    } );
-                    $sysMenuImageIconChooseArea.html( html );
-
-                    $this.data( "sysmenu_status", "finished" );
-                }
-                else {
-                    layer.alert( "获取图标名称失败！", { icon: 2 } );
-                    $this.data( "sysmenu_status", "error" );
-                }
-            } ).fail( function () {
-                // 提示网络错误
-                layer.alert( '网络错误！', { icon: 0 } );
-                $this.data( "sysmenu_status", "error" );
-            } ).always( function () {
-                // 关闭 loading
-                $sysMenuImageIconChooseArea.isLoading( "hide" );
-            } );
-
-        } );
-
-
-
-        // 根据 icon 的值，决定显示那个 页签
-        if ( icon.indexOf( "fa-" ) !== -1 ) {
-            $tabs.eq( 0 ).tab( "show" );
-            $sysMenuFontIconInput.val( icon ).trigger( "input.sysmenu" );
-        }
-        else if ( icon.indexOf( ".png" ) !== -1 ) {
-            $tabs.eq( 1 ).tab( "show" );
-        }
-
-
-    }();
+    seajs.use( "__CTX__/static/desktop/js/page/sysMenuIcon", function ( SysMenuIcon ) {
+        new SysMenuIcon();
+    } );
 
 
     // 请求发送成功，对服务器端返回的数据进行处理
@@ -299,6 +145,7 @@
             layer.alert( '修改失败！', { icon: 2 } );
         }
     }
+
 
     // 请求发送失败
     function editSysMenuFailCallback($form) {
