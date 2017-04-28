@@ -472,8 +472,15 @@ define( function ( require ) {
                 parentNodeCache = cache[ parentNodeId ],
 
                 isMoved = false,
-                modifiedProperties = { menuId: sysMenu.menuId }
+                modifiedProperties
                 ;
+
+            // 如果当前节点是新创建的未保存节点
+            if ( sysMenu == null ) {
+                return;
+            }
+
+            modifiedProperties = { menuId: sysMenu.menuId };
 
             // 如果当前节点是顶级节点
             if ( parentNodeId === "#" ) {
