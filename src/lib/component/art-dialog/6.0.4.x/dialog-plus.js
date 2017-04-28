@@ -746,6 +746,8 @@ define("dialog-config", {
         isNotCenter: false // reset() 和 show() 时，不居中
     },
 
+    // FIX 扩展参数"cancelOnPressEsc":当点击Esc是是否关闭对话框
+    cancelOnPressEsc: false,
 
     // 模板（使用 table 解决 IE7 宽度自适应的 BUG）
     // js 使用 i="***" 属性识别结构，其余的均可自定义
@@ -974,30 +976,34 @@ artDialog.create = function (options) {
         , 150);
     });
 
+    // FIX 扩展参数"cancelOnPressEsc":当点击Esc是是否关闭对话框
+    if ( options.cancelOnPressEsc ) {
 
-    // ESC 快捷键关闭对话框
-    this._esc = function (event) {
-        var target = event.target;
-        var nodeName = target.nodeName;
-        var rinput = /^input|textarea$/i;
-        var isTop = Popup.current === that;
-        var keyCode = event.keyCode;
+        // ESC 快捷键关闭对话框
+        this._esc = function (event) {
+            var target = event.target;
+            var nodeName = target.nodeName;
+            var rinput = /^input|textarea$/i;
+            var isTop = Popup.current === that;
+            var keyCode = event.keyCode;
 
-        // 避免输入状态中 ESC 误操作关闭
-        if (!isTop || rinput.test(nodeName) && target.type !== 'button') {
-            return;
-        }
-        
-        if (keyCode === 27) {
-            that._trigger('cancel');
-        }
-    };
+            // 避免输入状态中 ESC 误操作关闭
+            if (!isTop || rinput.test(nodeName) && target.type !== 'button') {
+                return;
+            }
 
-    $(document).on('keydown', this._esc);
-    this.addEventListener('remove', function () {
-        $(document).off('keydown', this._esc);
-        delete artDialog.list[this.id];
-    });
+            if (keyCode === 27) {
+                that._trigger('cancel');
+            }
+        };
+
+        $(document).on('keydown', this._esc);
+        this.addEventListener('remove', function () {
+            $(document).off('keydown', this._esc);
+            delete artDialog.list[this.id];
+        });
+
+    }
 
 
     _count ++;
