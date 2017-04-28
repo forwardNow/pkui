@@ -25,7 +25,8 @@ define( function( require ) {
         var that = this;
 
         function exists( item ) {
-            return that.identifier && item[ that.identifier ] === row[ that.identifier ];
+            // FIX 修复 数字 与 数字字符串 的比较问题
+            return that.identifier && item[ that.identifier ] == row[ that.identifier ];
         }
 
         if ( !this.rows.contains( exists ) ) {
@@ -85,6 +86,21 @@ define( function( require ) {
 
         // FIX 事件处理
         _handleEvent( this );
+
+        // FIX 数据载入完毕后，在添加 colResizable，解决：出现滚动条后，右侧表格被隐藏的问题
+        this.element.on( "loaded" + namespace, function () {
+            var $this = $( this );
+            if ( $this.data( "isColResizable" ) === true ) {
+                return;
+            }
+            $this.colResizable( {
+                // 实时显示拖拽后的表格
+                liveDrag:true
+                // 设置拖拽的标志
+                //gripInnerHtml:"<div class='pkui-grid-colresizable-grip' title='可拖拽调整列宽'></div>"
+            } );
+            $this.data( "isColResizable", true );
+        });
     }
 
     // FIX 事件处理
@@ -684,7 +700,8 @@ define( function( require ) {
                         that.converter.from( $this.data( "row-id" ) + "" ),
                     row = (that.identifier == null) ? that.currentRows[ id ] :
                         that.currentRows.first( function ( item ) {
-                            return item[ that.identifier ] === id;
+                            // FIX 修复 数字 与 数字字符串 的比较问题
+                            return item[ that.identifier ] == id;
                         } );
 
                 if ( that.selection && that.options.rowSelect ) {
@@ -1467,7 +1484,8 @@ define( function( require ) {
                 id = rowIds[ i ];
 
                 for ( var j = 0; j < this.rows.length; j++ ) {
-                    if ( this.rows[ j ][ this.identifier ] === id ) {
+                    // FIX 修复 数字 与 数字字符串 的比较问题
+                    if ( this.rows[ j ][ this.identifier ] == id ) {
                         removedRows.push( this.rows[ j ] );
                         this.rows.splice( j, 1 );
                         break;
@@ -1587,7 +1605,13 @@ define( function( require ) {
                 pos = $.inArray( id, this.selectedRows );
                 if ( pos !== -1 ) {
                     for ( i = 0; i < this.currentRows.length; i++ ) {
-                        if ( this.currentRows[ i ][ this.identifier ] === id ) {
+
+                        // FIX 修复当rowId为数字时，字符串和数字相严格比较出错的问题。
+                        var rowId = this.currentRows[ i ][ this.identifier ];
+                        if ( typeof rowId === "number" && typeof id === "string") {
+                            rowId += "";
+                        }
+                        if ( rowId === id ) {
                             deselectedRows.push( this.currentRows[ i ] );
                             this.selectedRows.splice( pos, 1 );
                             break;
@@ -1912,13 +1936,16 @@ define( function( require ) {
                     // FIX 初始化完毕，则添加HTML属性 isrendered="true"
                     $this.attr( "isrendered", "true" );
 
+                    /*
                     // FIX 列宽可拖拽调整
                     $this.colResizable( {
                         // 实时显示拖拽后的表格
-                        liveDrag:true,
+                        liveDrag:true
                         // 设置拖拽的标志
-                        gripInnerHtml:"<div class='pkui-grid-colresizable-grip' title='可拖拽调整列宽'></div>"
+                        //gripInnerHtml:"<div class='pkui-grid-colresizable-grip' title='可拖拽调整列宽'></div>"
                     } );
+                    */
+
                 }
                 if ( typeof option === "string" ) {
                     if ( option.indexOf( "get" ) === 0 && index === 0 ) {
@@ -1962,7 +1989,7 @@ define( function( require ) {
         padding: 4, // page padding (pagination)
         columnSelection: true,
         rowCount: [ 10, 5, 15, 20, 25, 30, 50, 100, 200, 1000 ], // rows per page int or array of int (-1 represents "All")
-
+        rowSelect: true,
         ajax: true,
 
 
