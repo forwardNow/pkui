@@ -196,7 +196,7 @@
     //margin: 0 -12px;
     border-bottom: solid 1px #fbfbfb;
     @include clearfix();
-    .btn {
+    > .btn {
         float: left;
         margin-right: 6px;
     }
