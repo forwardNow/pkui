@@ -55,12 +55,14 @@
 
 .da-win-sidebar {
     position: absolute;
-    top: 40px;
+    //top: 40px;
+    top: 0;
     left: 0;
     bottom: 0;
-    width: 240px - 1;
-    border-right: solid 1px #dedede;
-    background-color: rgb(255, 255, 255);
+    width: 240px ;
+    //border-right: solid 1px #dedede;
+    //background-color: #fff;
+    background-color: #f6f7fb;
     //box-shadow: 5px 0 5px 0 rgba(0, 0, 0, .1);
     @include transition( left .3s );
     &.collapsed {
@@ -146,7 +148,8 @@
 
 .da-win-main {
     position: absolute;
-    top: 40px;
+    //top: 40px;
+    top: 0;
     left: 240px;
     bottom: 0;
     right: 0;
@@ -164,9 +167,9 @@
     left: 0;
     width: 100%;
     padding: 10px 10px 6px 12px;
-    border-bottom: solid 3px #fbfbfb;
+    //border-bottom: solid 3px #fbfbfb;
     color: #455469;
-    background-color: #fff;
+    background-color: #e2e5ec;
     .main-heading-icon {
         display: inline-block;
         width: 24px;
@@ -181,7 +184,7 @@
 }
 
 .win-main-body {
-    padding: 43px 12px 0 12px;
+    padding: 40px 12px 0 12px;
     // min-height: 100%;
     height: 100%;
     overflow: auto;

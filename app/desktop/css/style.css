@@ -5622,6 +5622,12 @@ select[multiple].input-lg,
   padding: 10px;
 }
 
+.pkui-grid-actions {
+  position: absolute;
+  right: 0;
+  top: -20px;
+}
+
 .pkui-grid-input-group {
   position: relative;
   display: table;
@@ -6459,12 +6465,12 @@ Pagination Styles
 }
 
 .pkui-dialog-header {
-  background-color: #33a6e7;
+  background-color: #0a396f;
   border-bottom: none 0;
 }
 
 .pkui-dialog-title {
-  padding: 6px 12px;
+  padding: 12px 12px;
   color: #fff;
 }
 
@@ -6481,7 +6487,7 @@ Pagination Styles
   right: auto;
   border: 0;
   padding: 0;
-  margin: 8px 12px 0 0;
+  margin: 14px 12px 0 0;
   background-color: transparent;
   cursor: pointer;
   -webkit-appearance: none;
@@ -7114,12 +7120,11 @@ Pagination Styles
 
 .da-win-sidebar {
   position: absolute;
-  top: 40px;
+  top: 0;
   left: 0;
   bottom: 0;
-  width: 239px;
-  border-right: solid 1px #dedede;
-  background-color: white;
+  width: 240px;
+  background-color: #f6f7fb;
   -webkit-transition: left 0.3s;
   -o-transition: left 0.3s;
   transition: left 0.3s;
@@ -7200,7 +7205,7 @@ Pagination Styles
 
 .da-win-main {
   position: absolute;
-  top: 40px;
+  top: 0;
   left: 240px;
   bottom: 0;
   right: 0;
@@ -7216,9 +7221,8 @@ Pagination Styles
   left: 0;
   width: 100%;
   padding: 10px 10px 6px 12px;
-  border-bottom: solid 3px #fbfbfb;
   color: #455469;
-  background-color: #fff;
+  background-color: #e2e5ec;
 }
 .win-main-heading .main-heading-icon {
   display: inline-block;
@@ -7233,7 +7237,7 @@ Pagination Styles
 }
 
 .win-main-body {
-  padding: 43px 12px 0 12px;
+  padding: 40px 12px 0 12px;
   height: 100%;
   overflow: auto;
   overflow-x: hidden;
@@ -7277,7 +7281,7 @@ Pagination Styles
 
 .sysmenu-treeOpe {
   position: absolute;
-  top: 43px;
+  top: 40px;
   left: 0;
   z-index: 10;
   width: 240px;

@@ -7,12 +7,13 @@
 }
 
 .pkui-dialog-header {
-    background-color: #33a6e7;
+    //background-color: #33a6e7;
+    background-color: #0a396f;
     border-bottom: none 0;
 }
 
 .pkui-dialog-title {
-    padding: 6px 12px;
+    padding: 12px 12px;
     color: #fff;
 }
 .pkui-dialog-title-icon {
@@ -27,7 +28,7 @@
     right: auto;
     border: 0;
     padding: 0;
-    margin: 8px 12px 0 0;
+    margin: 14px 12px 0 0;
     background-color: transparent;
     cursor: pointer;
     -webkit-appearance: none;

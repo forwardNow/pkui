@@ -1,33 +1,78 @@
 #jstree-marker {
-    z-index: 100000;
+  z-index: 100000;
 }
 
 .jstree-icon.fa {
-    font-size: 16px;
-    color: #d4dae0;
+  font-size: 16px;
+  color: #d4dae0;
 }
 
 .jstree-default .jstree-node {
-    padding-bottom: .2em;
-    padding-top: .2em;
+  /*padding-bottom: .2em;*/
+  /*padding-top: .2em;*/
 }
+
 .jstree-hovered > .fa {
-    color: #33a6e7;
+  color: #33a6e7;
 }
+
 .jstree-clicked > .fa {
-    color: #fff;
+  color: #fff;
 }
+
 .jstree-clicked.jstree-anchor {
-    color: #fff;
+  color: #fff;
 }
 
 .jstree-default .jstree-wholerow-hovered {
-    background: #beebff;
-    background: -webkit-linear-gradient(top, #beebff 0%, #a8e4ff 100%);
-    background: linear-gradient(to bottom, #beebff 0%, #a8e4ff 100%);
+  background: #beebff;
+  background: -webkit-linear-gradient(top, #beebff 0%, #a8e4ff 100%);
+  background: linear-gradient(to bottom, #beebff 0%, #a8e4ff 100%);
 }
+
 .jstree-default .jstree-wholerow-clicked {
-    background: #33a6e7;
-    background: -webkit-linear-gradient(top, #48aeea 0%, #33a6e7 100%);
-    background: linear-gradient(to bottom, #48aeea 0%, #33a6e7 100%);
+  background: #33a6e7;
+  background: -webkit-linear-gradient(top, #48aeea 0%, #33a6e7 100%);
+  background: linear-gradient(to bottom, #48aeea 0%, #33a6e7 100%);
+}
+
+.jstree-sidebar .jstree-ocl {
+  position: relative;
+  top: 4px;
+}
+.jstree-sidebar .jstree-default .jstree-node {
+  min-height: 32px;
+  line-height: 32px;
+}
+.jstree-sidebar .jstree-default .jstree-ocl {
+  top: 7px;
+}
+.jstree-sidebar .jstree-default .jstree-wholerow {
+  height: 32px;
+}
+.jstree-sidebar .jstree-default .jstree-anchor {
+  line-height: 32px;
+  height: 32px;
+}
+.jstree-sidebar .jstree-default .jstree-icon,
+.jstree-sidebar .jstree-default .jstree-icon:empty {
+  height: 32px;
+  line-height: 32px;
+}
+.jstree-sidebar .jstree-container-ul > .jstree-node {
+  min-height: 40px;
+  line-height: 40px;
+  border-bottom: solid 1px #f0f0f0;
+}
+.jstree-sidebar .jstree-container-ul > .jstree-node > .jstree-wholerow {
+  height: 40px;
+}
+.jstree-sidebar .jstree-container-ul > .jstree-node > .jstree-anchor {
+  line-height: 40px;
+  height: 40px;
+}
+.jstree-sidebar .jstree-container-ul > .jstree-node > .jstree-anchor > .jstree-icon,
+.jstree-sidebar .jstree-container-ul > .jstree-node > .jstree-anchor > .jstree-icon:empty {
+  height: 40px;
+  line-height: 40px;
 }

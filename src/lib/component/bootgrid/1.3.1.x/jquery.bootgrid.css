@@ -115,6 +115,12 @@
   padding: 10px;
 }
 
+.pkui-grid-actions {
+  position: absolute;
+  right: 0;
+  top: -20px;
+}
+
 .pkui-grid-input-group {
   position: relative;
   display: table;
