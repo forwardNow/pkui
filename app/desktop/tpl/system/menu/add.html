@@ -51,7 +51,59 @@
             </tr>
             <tr>
                 <td class="text-right"><label class="da-control-label">图标：</label></td>
-                <td><input type="text" class="da-form-control" name="icon" value="{{icon}}">{{icon | iconFormat: "24px"}}</td>
+                <td>
+                    <div id="menuiconContainer" class="menuicon-container">
+
+                        <input type="hidden" id="sysMenuIconInput" name="icon" value="{{icon}}">
+
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#sysMenuFontIcon" role="tab" data-toggle="tab">字体图标（推荐）</a></li>
+                            <li role="presentation"><a href="#sysMenuImageIcon" role="tab" data-toggle="tab">传统图标</a></li>
+                        </ul>
+                        <!-- /Nav tabs -->
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <!-- font icon -->
+                            <div role="tabpanel" class="tab-pane active" id="sysMenuFontIcon">
+                                <div class="menuicon-fontIcon">
+                                    <div class="menuicon-fontIcon-display" id="sysMenuFontIconDisplayArea">
+                                        <i class="fa fa-question"></i>
+                                    </div>
+                                    <div class="menuicon-fontIcon-input">
+                                        <input type="text" class="da-form-control" id="sysMenuFontIconInput" value="">
+                                    </div>
+                                    <div class="menuicon-fontIcon-tool">
+                                        <a class="menuicon-more"
+                                           title="查看更多可选图标"
+                                           href="__CTX__/static/pkui/css/font/font-awesome/4.7.0/index.html"
+                                           target="fa_demo_window"><i class="fa fa-external-link-square"></i> 更多</a>
+                                        <a class="menuicon-help"
+                                           title="1. 点击“更多”，在新页面中拷贝合适的图标名称；2. 将“拷贝的图标名称”粘贴到输入框。"
+                                           href="javascript:void(0)"><i class="fa fa-question-circle-o"></i> 帮助</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /font icon -->
+
+                            <!-- image icon -->
+                            <div role="tabpanel" class="tab-pane" id="sysMenuImageIcon">
+                                <div class="menuicon-image-input">
+                                    已选择：<span id="sysMenuImageIconInput" ></span>
+                                </div>
+                                <div class="menuicon-image">
+                                    <div class="menuicon-image-chosen clearfix" id="sysMenuImageIconChooseArea"></div>
+
+                                </div>
+                            </div>
+                            <!-- /image icon -->
+
+                        </div>
+                        <!-- /Tab panes -->
+
+                    </div>
+                </td>
             </tr>
         </table>
     </div>
@@ -61,6 +113,12 @@
 </form>
 
 <script>
+
+    seajs.use( "__CTX__/static/desktop/js/page/sysMenuIcon", function ( SysMenuIcon ) {
+        new SysMenuIcon();
+    } );
+
+
     // 请求发送成功，对服务器端返回的数据进行处理
     function addSysMenuDoneCallback($form, jsonResult) {
         console.info( jsonResult );
