@@ -5534,7 +5534,8 @@ select[multiple].input-lg,
   background-color: #428bca;
 }
 
-.bootgrid-footer .infoBar .btn-group > .btn-group .dropdown-menu, .bootgrid-header .actionBar .btn-group > .btn-group .dropdown-menu {
+.bootgrid-footer .infoBar .btn-group > .btn-group .dropdown-menu,
+.bootgrid-header .actionBar .btn-group > .btn-group .dropdown-menu {
   text-align: left;
 }
 
@@ -5542,6 +5543,8 @@ select[multiple].input-lg,
   width: 100%;
   max-width: 100%;
   border-collapse: collapse;
+  border: solid 1px #ddd;
+  table-layout: fixed;
 }
 .pkui-grid-table .loading,
 .pkui-grid-table .no-results {
@@ -5558,18 +5561,34 @@ select[multiple].input-lg,
 .pkui-grid-table > thead {
   font-size: 14px;
   color: #333;
+  background-color: #efefef;
+  background: -webkit-linear-gradient(top, #F9F9F9 0, #efefef 100%);
+  background: -moz-linear-gradient(top, #F9F9F9 0, #efefef 100%);
+  background: -o-linear-gradient(top, #F9F9F9 0, #efefef 100%);
+  background: linear-gradient(to bottom, #F9F9F9 0, #efefef 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#F9F9F9,endColorstr=#efefef,GradientType=0);
+  border-bottom: solid 1px #ddd;
 }
 .pkui-grid-table > thead th {
   font-weight: bold;
+  border-right: dotted 1px #ccc;
 }
 .pkui-grid-table > tbody > tr {
-  background-color: #f9f9f9;
+  background-color: #fff;
 }
 .pkui-grid-table > tbody > tr > td {
-  border-bottom: solid 2px #fff;
+  border-bottom: none 0;
+  border-right: dotted 1px #ccc;
 }
-.pkui-grid-table > tbody > tr:hover, .pkui-grid-table > tbody > tr.active {
-  background-color: #e5e5e5;
+.pkui-grid-table > tbody > tr:nth-of-type(odd) {
+  background-color: #fafafa;
+}
+.pkui-grid-table > tbody > tr:hover {
+  background-color: #eaf2ff;
+}
+.pkui-grid-table > tbody > tr.active {
+  background-color: #fff5d4;
 }
 .pkui-grid-table > tbody > tr.deleted {
   text-decoration: line-through;
@@ -7257,7 +7276,7 @@ Pagination Styles
 .win-btnGroup:after {
   clear: both;
 }
-.win-btnGroup .btn {
+.win-btnGroup > .btn {
   float: left;
   margin-right: 6px;
 }
