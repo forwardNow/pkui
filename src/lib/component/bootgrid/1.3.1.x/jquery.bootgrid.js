@@ -2006,7 +2006,7 @@ define( function( require ) {
             var txtQuery = {
                 "oredCriteria": _getOredCriteria( this.queryFormSelector ),
                 "orderByClause": "", // "USER_ID"
-                "pager": { "start": 0, "limit": 20, "pageSize": 20 }
+                "pager": { "start": 0, "limit": 20, "pageSize": 20, "totalRecords": 0 }
             };
             var originRequest = {
                 current: 1, // 请求的页数
@@ -2018,6 +2018,7 @@ define( function( require ) {
 
             var start,
                 pageSize,
+                totalRecords,
                 limit,
                 current,
                 rowCount,
@@ -2033,6 +2034,8 @@ define( function( require ) {
             start = rowCount * ( current - 1 );
             limit = current * rowCount;
             pageSize = rowCount;
+
+            totalRecords = this.$element.bootgrid("getTotalRowCount");
 
             this.requestPage = current;
 
@@ -2055,7 +2058,8 @@ define( function( require ) {
             txtQuery.pager = {
                 "start": start,
                 "limit": limit,
-                "pageSize": pageSize
+                "pageSize": pageSize,
+                "totalRecords": totalRecords
             };
 
             request = {
