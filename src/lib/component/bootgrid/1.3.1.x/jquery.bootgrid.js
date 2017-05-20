@@ -2276,6 +2276,11 @@ define( function( require ) {
                 ;
             $this = $( this );
 
+            // 针对 radio（":radio:not(:checked)"）
+            if ( $this.is( ":radio" ) && !$this.is( ":checked" ) ) {
+                return;
+            }
+
             property = $this.data( "property" ) || $this.attr( "name" );
             operator = $this.data( "operator" ) || "=";
             value = $this.data( "value" ) || $this.val();
@@ -2366,7 +2371,7 @@ define( function( require ) {
     };
 
     // FIX 将该插件挂载到 PKUI
-    window.PKUI.component.datagrid = jQuery.fn.bootgrid;
+    window.PKUI.component.datagrid = $.fn.bootgrid;
 
 }( jQuery, window );
 
