@@ -2115,6 +2115,10 @@ define( function( require ) {
                 if ( response.data.length < rowCount ) {
                     totalRecords = ( requestPage - 1 ) * rowCount + response.data.length;
                 }
+                // 设置 totalRecords 为一个很大的值(10亿)
+                else {
+                    totalRecords = 1e10;
+                }
 
             } else {
                 // 显示“最有一页” “共xx条”
