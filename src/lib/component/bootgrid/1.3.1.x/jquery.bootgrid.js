@@ -2084,25 +2084,49 @@ define( function( require ) {
             };
 
             var
-                requestPage
+                requestPage = this.requestPage,
+                rowCount,
+                totalRecords,
+                $element = this.$element,
+                gridId = $element.get( 0 ).id,
+                $footer = $( "#" + gridId + "-footer" )
                 ;
 
             //
             if ( ! response.data ) {
                 // FIX 当数据获取失败时的提示
                 window.layer && window.layer.msg( "获取数据失败，请刷新数据表格！" );
-                this.$element.trigger( "failload" + namespace );
+                $element.trigger( "failload" + namespace );
                 throw  "获取数据失败!" ;
                 //console.info( "获取数据失败!" );
             }
 
-            requestPage = this.requestPage;
+            rowCount = $element.bootgrid( "getRowCount" ) || 10;
+
+            totalRecords = response.totalRecords;
+
+            // 对于不计数（没有 totalRecords）的情况
+            if ( totalRecords === 0 ) {
+
+                // 隐藏“最有一页” “共xx条”
+                $footer.addClass( "no-totalRecords" );
+
+                // 如果是最后一页
+                if ( response.data.length < rowCount ) {
+                    totalRecords = ( requestPage - 1 ) * rowCount + response.data.length;
+                }
+
+            } else {
+                // 显示“最有一页” “共xx条”
+                $footer.removeClass( "no-totalRecords" );
+            }
+
 
             _response = {
                 "current": requestPage,
-                "rowCount": 10,
+                "rowCount": rowCount,
                 "rows": response.data,
-                "total": response.totalRecords
+                "total": totalRecords
             };
 
             return _response;

@@ -253,3 +253,10 @@
   opacity: 0.4;
   filter: alpha(opacity=40);
 }
+
+.no-totalRecords > .pkui-grid-pagination > .last {
+  display: none;
+}
+.no-totalRecords > .pkui-grid-infos {
+  display: none;
+}

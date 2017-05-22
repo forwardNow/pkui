@@ -283,3 +283,13 @@
 .JCLRgrip:hover .pkui-grid-colresizable-grip {
     @include opacity(.4);
 }
+.no-totalRecords {
+    > .pkui-grid-pagination {
+        > .last {
+            display: none;
+        }
+    }
+    > .pkui-grid-infos {
+        display: none;
+    }
+}
