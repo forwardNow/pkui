@@ -1,12 +1,5 @@
 
 <div class="win-btnGroup">
-    <button type="button" class="btn btn-success-2"
-            id="addSysLogBtn"
-            data-pkui-component="drawer"
-            data-pkui-component-options='{
-                "url": "__CTX__/static/desktop/tpl/system/log/add.html",
-                "container": ".da-win-main"}'
-            ><i class="fa fa-plus"></i> 添加</button>
 
     <button type="button" class="btn btn-danger-2"
             data-pkui-component="datagrid-delete"
@@ -34,10 +27,14 @@
             "selection": true,
             "multiSelect": true
        }'
-       data-url="__CTX__/admin/sysLogListDataExt"
+       data-url="__CTX__/admin/sysLogListData_new_getPage"
+       data-total-records-url="__CTX__/admin/sysLogListData_new_getCount"
        data-query-form-selector="#sysLogQueryForm"
        >
     <thead>
+    <!--
+    data-total-records-url="__CTX__/admin/sysLogTotalRecords"
+    -->
 
     <tr>
         <!--

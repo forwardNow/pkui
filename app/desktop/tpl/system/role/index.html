@@ -1,0 +1,246 @@
+<div class="sysrole-container clearfix">
+
+    <div class="sysrole-tree" id="sysRoleTree">
+        <div class="sysrole-tree-ope input-group">
+
+            <div class="input-group">
+                <input type="text" class="da-form-control" id="createSysRoleInput" placeholder="角色名" title="新建角色：请输入角色名">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-success-2" title="添加角色"
+                            id="createSysRoleButton"><i class="fa fa-plus"></i></button>
+                </span>
+            </div>
+        </div>
+        <ul class="sysrole-tree-list"
+            data-list-url="__CTX__/admin/getAllSysRole"
+            data-delete-url="__CTX__/admin/sysRoleDelete"
+            data-save-url="__CTX__/admin/sysRoleSave">
+            <!--
+            <li class="sysrole-tree-item">
+                <a href="javascript:void(0);" class="sysrole-tree-anchor"><i class="fa fa-user-circle-o"></i><span class="text">派出所民警</span></a>
+                <i class="sysrole-item-ope sysrole-item-ope-edit fa fa-edit"></i>
+                <i class="sysrole-item-ope sysrole-item-ope-delete fa fa-trash-o"></i>
+            </li>
+            <li class="sysrole-tree-item active">
+                <a href="javascript:void(0);" class="sysrole-tree-anchor"><i class="fa fa-user-circle-o"></i><span class="text">派出所民警</span> </a>
+                <i class="sysrole-item-ope sysrole-item-ope-edit fa fa-edit"></i>
+                <i class="sysrole-item-ope sysrole-item-ope-delete fa fa-trash-o"></i>
+            </li>
+            <li class="sysrole-tree-item sysrole-tree-item-editable">
+                <a href="javascript:void(0);" class="sysrole-tree-anchor"><i class="fa fa-user-circle-o"></i><span class="text">
+                    <span class="input-group">
+                      <input type="text" class="da-form-control" value="派出所民警">
+                      <span class="input-group-btn">
+                        <button class="btn btn-success-2" type="button"><i class="fa fa-save"></i></button>
+                      </span>
+                    </span>
+                </span></a>
+                <i class="sysrole-item-ope sysrole-item-ope-edit fa fa-edit"></i>
+                <i class="sysrole-item-ope sysrole-item-ope-delete fa fa-trash-o"></i>
+            </li>
+            <li class="sysrole-tree-item active sysrole-tree-item-editable">
+                <a href="javascript:void(0);" class="sysrole-tree-anchor"><i class="fa fa-user-circle-o"></i><span class="text">
+                    <span class="input-group">
+                      <input type="text" class="da-form-control" value="派出所民警">
+                      <span class="input-group-btn">
+                        <button class="btn btn-success-2" type="button"><i class="fa fa-save"></i></button>
+                      </span>
+                    </span>
+                </span> </a>
+                <i class="sysrole-item-ope sysrole-item-ope-edit fa fa-edit"></i>
+                <i class="sysrole-item-ope sysrole-item-ope-delete fa fa-trash-o"></i>
+            </li>
+            -->
+
+        </ul>
+    </div>
+
+    <div class="sysrole-content" id="sysroleContent">
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#sysroleRelUser" role="tab" data-toggle="tab"><i class="fa fa-users"></i> 关联用户</a></li>
+            <li role="presentation"><a href="#sysroleRelMenu" role="tab" data-toggle="tab"><i class="fa fa-link"></i> 菜单权限</a></li>
+            <li role="presentation"><a href="#sysroleRelResource" role="tab" data-toggle="tab"><i class="fa fa-cubes"></i> 资源权限</a></li>
+            <li role="presentation"><a href="#sysroleRelPermit" role="tab" data-toggle="tab"><i class="fa fa-wrench"></i> 数据权限</a></li>
+        </ul>
+        <!-- /Nav tabs -->
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- 关联用户 -->
+            <div role="tabpanel" class="tab-pane active" id="sysroleRelUser">
+
+                <div class="win-btnGroup">
+
+                    <button type="button" id="sysRoleUser-addBtn" class="btn btn-success-2 hidden"><i class="fa fa-plus"></i> 添加用户到角色</button>
+                    <button type="button" id="sysRoleUser-removeBtn" class="btn btn-danger-2"><i class="fa fa-trash-o"></i> 从角色中删除用户</button>
+
+                    <form id="sysRoleUserQueryForm">
+                        <div class="input-group pull-right" style="width: 280px;">
+                            <input type="text" class="da-form-control" placeholder="真实姓名" name="userName" data-operator="like" value="">
+                            <input type="hidden" id="sysRoleUser-roleId" name="roleId" value="25"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-info-2" type="button"
+                                        onclick='jQuery( "#sysRoleUserDatagrid" ).bootgrid( "reload" )'><i class="fa fa-search"></i></button>
+                            </span>
+                        </div>
+                        <div class="queryform-radio pull-right" style="margin-right: 1em;">
+                            <!-- in / notIn -->
+                            <span class="queryform-radio-label">用户是否已关联：</span>
+                            <label><input type="radio" name="roleIdOper" value="in" checked/>是</label>
+                            <label><input type="radio" name="roleIdOper" value="notIn" />否</label>
+                        </div>
+                    </form>
+                </div>
+
+
+                <table id="sysRoleUserDatagrid"
+                       data-pkui-component="datagrid"
+                       data-pkui-component-options='{
+                            "selection": true,
+                            "multiSelect": true
+                       }'
+                       data-url="__CTX__/admin/sysRoleUserListDataExt"
+                       data-query-form-selector="#sysRoleUserQueryForm">
+                    <thead>
+                    <tr>
+                        <th data-column-id="userId" data-identifier="true" data-visible="false" data-sortable="false">用户标识号</th>
+                        <th data-column-id="loginName" data-sortable="false" data-width="120">登录名</th>
+                        <th data-column-id="userName" data-sortable="false" data-width="120">真实姓名</th>
+                        <th data-column-id="policeCode" data-sortable="false" data-width="100">警号</th>
+                        <th data-column-id="deptId" data-sortable="false" data-dic="DIC_DEPT">所属单位</th>
+                        <th data-column-id="userType" data-sortable="true" data-dic="DIC_USER_TYPE" data-width="100">用户类型</th>
+                        <th data-column-id="status" data-sortable="true" data-formatter="statusFormatter" data-width="80">状态</th>
+                        <th data-column-id="addTime" data-sortable="true" data-formatter="dateFormatter" data-width="140">录入时间</th>
+                    </tr>
+                    </thead>
+
+                </table>
+            </div>
+            <!-- 菜单权限 -->
+            <div role="tabpanel" class="tab-pane" id="sysroleRelMenu">
+                2
+            </div>
+            <!-- 资源权限 -->
+            <div role="tabpanel" class="tab-pane" id="sysroleRelResource">
+                3
+            </div>
+            <!-- 数据权限 -->
+            <div role="tabpanel" class="tab-pane" id="sysroleRelPermit">
+                4
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<style>
+    .queryform-radio {
+        line-height: 28px;
+
+    }
+    .queryform-radio input {
+        margin-right: .5em;
+    }
+    .queryform-radio label {
+        margin-right: 1em;
+    }
+    .sysrole-container {
+        margin: 0 -12px;
+        overflow: hidden;
+        height: 100%;
+    }
+    .sysrole-tree {
+        overflow: auto;
+        float: left;
+        width: 240px;
+        height: 100%;
+        border-right: 1px solid silver;
+    }
+    .sysrole-tree-ope {
+        position: absolute;
+        top: 40px;
+        left: 0;
+        z-index: 10;
+        width: 228px;
+        padding: 6px 6px;
+        background: #f0f0f0;
+    }
+    .sysrole-tree-list {
+        margin-top: 40px;
+    }
+    .sysrole-tree-item {
+        position: relative;
+    }
+    .sysrole-tree-item:hover .sysrole-item-ope {
+        display: inline-block;
+    }
+    .sysrole-item-ope {
+        display: none;
+        position: absolute;
+        top: 2px;
+        right: 6px;
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        text-align: center;
+        color: #fff;
+        border-radius: 1px;
+    }
+    .sysrole-item-ope-edit {
+        right: 36px;
+        background: #40b2cc;
+    }
+    .sysrole-item-ope-edit:hover {
+        background: #2e94ab;
+    }
+    .sysrole-item-ope-delete {
+        background: #fa8a48;
+    }
+    .sysrole-item-ope-delete:hover {
+        background: #f96a16;
+    }
+
+    .sysrole-tree-item-editable .sysrole-tree-anchor > .fa,
+    .sysrole-tree-item-editable.sysrole-tree-item .sysrole-item-ope {
+        display: none;
+    }
+    .sysrole-tree-item .edit-input {
+        display: none;
+    }
+    .sysrole-tree-item-editable .edit-input {
+        display: table;
+    }
+    .sysrole-tree-anchor {
+        display: block;
+        padding: 6px;
+    }
+    .sysrole-tree-anchor > .fa {
+        margin-right: .5em;
+    }
+    .sysrole-tree-item:hover .sysrole-tree-anchor {
+
+    }
+    .sysrole-tree-item.active .sysrole-tree-anchor {
+        color: #fff;
+        background-color: #33a6e7;
+    }
+
+    .sysrole-content {
+        height: 100%;
+        overflow: auto;
+    }
+    .sysrole-content .tab-content {
+        border: none 0;
+    }
+    .sysrole-content .tab-pane {
+        padding: 6px;
+    }
+
+</style>
+<script>
+    seajs.use( "__CTX__/static/desktop/js/page/sysRole", function ( SysRole ) {
+        new SysRole();
+    } );
+</script>
