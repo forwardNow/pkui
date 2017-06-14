@@ -137,7 +137,13 @@ define( function ( require ) {
          * @returns {*}
          */
         getDicValue: function( dicName, code ) {
-            return this.getDataSet(dicName)[ code ];
+            var value = code;
+            try {
+                value = this.getDataSet(dicName)[ code ];
+            } catch ( e ) {
+                console.info( e );
+            }
+            return value;
         },
         /**
          * 清空缓存。
