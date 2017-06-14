@@ -5679,6 +5679,7 @@ select[multiple].input-lg,
 
 .pkui-grid-footer {
   padding-top: 20px;
+  padding-bottom: 10px;
   text-align: center;
 }
 
@@ -5758,6 +5759,13 @@ select[multiple].input-lg,
 .JCLRgrip:hover .pkui-grid-colresizable-grip {
   opacity: 0.4;
   filter: alpha(opacity=40);
+}
+
+.no-totalRecords > .pkui-grid-pagination > .last {
+  display: none;
+}
+.no-totalRecords > .pkui-grid-infos {
+  display: none;
 }
 
 .isloading-wrapper {
