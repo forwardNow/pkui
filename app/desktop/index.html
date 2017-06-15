@@ -12,7 +12,7 @@
         data-main：当前应用的入口js文件
         data-timestamp: 时间戳（dev为开发模式），比如 data-timestamp="v=2017-02-27"
     -->
-    <script data-main="./js/main.js" data-timestamp="2017-06-15" src="../../src/pkui.js"></script>
+    <script data-main="./js/main.js" data-timestamp="2017-06-15" src="../pkui/pkui.js"></script>
 </head>
 <body>
 
@@ -47,20 +47,42 @@
         </div>
         <!-- /任务栏 -->
 
+        <style>
+            .topbar-toolbar-item {
+                padding-top: 15px;
+            }
+            .topbar-toolbar-item > .fa {
+                font-size: 16px;
+                color: #fff;
+            }
+            .topbar-toolbar-item > .fa:hover {
+                opacity: .8;
+            }
+            .topbar-toolbar-msgItem {
+                position: relative;
+            }
+            .toolbar-msgItem-label {
+                position: absolute;
+                top: 8px;
+                left: 10px;
+                padding: 2px 3px;
+
+                text-align: center;
+                font-size: 10px;
+                line-height: .9;
+                color: #fff;
+                background-color: #00a65a;
+
+                border-radius: 1px;
+            }
+        </style>
+
         <!-- 工具栏 -->
         <div class="topbar-toolbar">
-            <!-- 搜索 -->
-            <div class="topbar-toolbar-item toolbar-search"><i class="toolbar-item-icon icon-search"></i></div>
-            <!-- /搜索 -->
-            <!-- 消息 -->
-            <div class="topbar-toolbar-item toolbar-message"><i class="toolbar-item-icon icon-message"></i><span class="toolbar-message-num">12</span></div>
-            <!-- /消息 -->
-            <!-- 仪表盘 -->
-            <div class="topbar-toolbar-item toolbar-dashboard"><i class="toolbar-item-icon icon-dashboard"></i></div>
-            <!-- /仪表盘 -->
+
             <!-- 用户信息 -->
             <div class="topbar-toolbar-item toolbar-user toolbar-item-menu">
-                <i class="toolbar-item-icon icon-user"></i><span class="toolbar-item-title">张某某</span><i class="toolbar-item-indicator"></i>
+                <i class="fa fa-user-o"></i><span class="toolbar-item-title">张某某</span><i class="toolbar-item-indicator"></i>
                 <div class="pkui-menu pkui-menu-dark">
                     <div class="pkui-menu-bd">
                         <div class="pkui-menu-item"><span class="pkui-menu-text">待处理消息：20</span></div>
@@ -83,12 +105,17 @@
                 </div>
             </div>
             <!-- /用户信息 -->
+
+            <!-- 搜索 -->
+            <div class="topbar-toolbar-item"><i class="fa fa-search"></i></div>
+            <!-- /搜索 -->
+            <!-- 消息 -->
+            <div class="topbar-toolbar-item topbar-toolbar-msgItem"><i class="fa fa-envelope-o"></i><span class="toolbar-msgItem-label">24</span></div>
+            <!-- /消息 -->
+
             <!-- 退出系统 -->
-            <div class="topbar-toolbar-item toolbar-logout"><i class="toolbar-item-icon icon-logout"></i></div>
+            <div class="topbar-toolbar-item" title="安全退出"><i class="fa fa-sign-out"></i></div>
             <!-- /退出系统 -->
-            <!-- 其他功能 -->
-            <div class="topbar-toolbar-item toolbar-more"><i class="toolbar-item-icon icon-more"></i></div>
-            <!-- /其他功能 -->
 
         </div>
         <!-- /工具栏 -->
@@ -126,6 +153,16 @@
                                      "mode": "default"}'>
                                 <img class="launchpad-shortcut-icon" src="./images/apps/start.png" alt="">
                                 <p class="launchpad-shortcut-title">单位管理</p></div>
+
+                            <div class="launchpad-shortcut" data-pkui-app="true"
+                                 data-pkui-app-options='{
+                                     "icon": "./images/apps/start.png",
+                                     "title": "用户管理",
+                                     "src": "./tpl/system/index.html",
+                                     "menuId": "3",
+                                     "mode": "default"}'>
+                                <img class="launchpad-shortcut-icon" src="./images/apps/start.png" alt="">
+                                <p class="launchpad-shortcut-title">用户管理</p></div>
 
 
                             <!--
