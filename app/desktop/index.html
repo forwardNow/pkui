@@ -12,7 +12,7 @@
         data-main：当前应用的入口js文件
         data-timestamp: 时间戳（dev为开发模式），比如 data-timestamp="v=2017-02-27"
     -->
-    <script data-main="./js/main.js" data-timestamp="2017-04-28" src="../../src/pkui.js"></script>
+    <script data-main="./js/main.js" data-timestamp="2017-06-15" src="../../src/pkui.js"></script>
 </head>
 <body>
 
@@ -106,6 +106,18 @@
                 <div class="launchpad-view-pageList swiper-wrapper hidden">
                     <div class="launchpad-view-pageItem swiper-slide">
                         <div class="launchpad-shortcutpad">
+
+                            <div class="launchpad-shortcut" data-pkui-app="true"
+                                 data-pkui-app-options='{
+                                     "icon": "./images/apps/gear.png",
+                                     "title": "系统管理",
+                                     "src": "./tpl/system/index.html",
+                                     "menuId": "1",
+                                     "mode": "default"}'>
+                                <img class="launchpad-shortcut-icon" src="./images/apps/gear.png" alt="">
+                                <p class="launchpad-shortcut-title">系统管理</p></div>
+
+                            <!--
                             <div class="launchpad-shortcut" data-pkui-app="true"
                                  data-pkui-app-options='{
                                      "icon": "./images/apps/app_01.png",
@@ -135,21 +147,24 @@
                             <div class="launchpad-shortcut" data-pkui-app="true" data-pkui-app-options='{ "icon": "./images/apps/app_14.png", "title": "分局执法监督平台子系统" }'><img class="launchpad-shortcut-icon" src="./images/apps/app_14.png" alt=""><p class="launchpad-shortcut-title">分局执法监督平台子系统</p></div>
                             <div class="launchpad-shortcut" data-pkui-app="true" data-pkui-app-options='{ "icon": "./images/apps/app_15.png", "title": "综合统计分析子系统" }'><img class="launchpad-shortcut-icon" src="./images/apps/app_15.png" alt=""><p class="launchpad-shortcut-title">综合统计分析子系统</p></div>
                             <div class="launchpad-shortcut" data-pkui-app="true" data-pkui-app-options='{ "icon": "./images/apps/app_16.png", "title": "运行管理维护子系统" }'><img class="launchpad-shortcut-icon" src="./images/apps/app_16.png" alt=""><p class="launchpad-shortcut-title">运行管理维护子系统</p></div>
+                            -->
+                        </div>
+                    </div>
+                    <!--
+                    <div class="launchpad-view-pageItem swiper-slide">
+                        <div class="launchpad-shortcutpad">
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_01.png" alt=""><p class="launchpad-shortcut-title">执法监督综合应用门户</p></div>
+                            <div class="launchpad-LastShortcut-placeholder">&lt;!&ndash; 作为占位符使用，避免当页面只有一个快捷方式时，无法拖拽到别的页面去 &ndash;&gt;</div>
                         </div>
                     </div>
                     <div class="launchpad-view-pageItem swiper-slide">
                         <div class="launchpad-shortcutpad">
                             <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_01.png" alt=""><p class="launchpad-shortcut-title">执法监督综合应用门户</p></div>
-                            <div class="launchpad-LastShortcut-placeholder"><!-- 作为占位符使用，避免当页面只有一个快捷方式时，无法拖拽到别的页面去 --></div>
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_01.png" alt=""><p class="launchpad-shortcut-title">执法监督综合应用门户</p></div>
+                            <div class="launchpad-LastShortcut-placeholder">&lt;!&ndash; 作为占位符使用，避免当页面只有一个快捷方式时，无法拖拽到别的页面去 &ndash;&gt;</div>
                         </div>
                     </div>
-                    <div class="launchpad-view-pageItem swiper-slide">
-                        <div class="launchpad-shortcutpad">
-                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_01.png" alt=""><p class="launchpad-shortcut-title">执法监督综合应用门户</p></div>
-                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="./images/apps/app_01.png" alt=""><p class="launchpad-shortcut-title">执法监督综合应用门户</p></div>
-                            <div class="launchpad-LastShortcut-placeholder"><!-- 作为占位符使用，避免当页面只有一个快捷方式时，无法拖拽到别的页面去 --></div>
-                        </div>
-                    </div>
+                    -->
                 </div>
             </div>
             <!-- 显示区域 -->
