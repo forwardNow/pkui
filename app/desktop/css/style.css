@@ -7044,11 +7044,8 @@ Pagination Styles
 .topbar-toolbar-item {
   position: relative;
   float: left;
-  margin: 10px 12px 0 12px;
+  margin: 0 12px 0 12px;
   cursor: pointer;
-}
-.topbar-toolbar-item:hover {
-  top: -1px;
 }
 
 .toolbar-item-icon {
@@ -7059,7 +7056,6 @@ Pagination Styles
 .toolbar-item-title {
   display: inline-block;
   padding: 0 .5em;
-  line-height: 24px;
   color: #ffffff;
 }
 
