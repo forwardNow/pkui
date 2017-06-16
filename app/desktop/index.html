@@ -47,35 +47,6 @@
         </div>
         <!-- /任务栏 -->
 
-        <style>
-            .topbar-toolbar-item {
-                padding-top: 15px;
-            }
-            .topbar-toolbar-item > .fa {
-                font-size: 16px;
-                color: #fff;
-            }
-            .topbar-toolbar-item > .fa:hover {
-                opacity: .8;
-            }
-            .topbar-toolbar-msgItem {
-                position: relative;
-            }
-            .toolbar-msgItem-label {
-                position: absolute;
-                top: 8px;
-                left: 10px;
-                padding: 2px 3px;
-
-                text-align: center;
-                font-size: 10px;
-                line-height: .9;
-                color: #fff;
-                background-color: #00a65a;
-
-                border-radius: 1px;
-            }
-        </style>
 
         <!-- 工具栏 -->
         <div class="topbar-toolbar">
@@ -107,7 +78,7 @@
             <!-- /用户信息 -->
 
             <!-- 搜索 -->
-            <div class="topbar-toolbar-item"><i class="fa fa-search"></i></div>
+            <div class="topbar-toolbar-item" id="topbar-toolbar-search" title="应用搜索"><i class="fa fa-search"></i></div>
             <!-- /搜索 -->
             <!-- 消息 -->
             <div class="topbar-toolbar-item topbar-toolbar-msgItem"><i class="fa fa-envelope-o"></i><span class="toolbar-msgItem-label">24</span></div>
@@ -146,22 +117,22 @@
 
                             <div class="launchpad-shortcut" data-pkui-app="true"
                                  data-pkui-app-options='{
-                                     "icon": "./images/apps/start.png",
+                                     "icon": "fa fa-home",
                                      "title": "单位管理",
                                      "src": "./tpl/system/index.html",
                                      "menuId": "2",
                                      "mode": "default"}'>
-                                <img class="launchpad-shortcut-icon" src="./images/apps/start.png" alt="">
+                                <span class="launchpad-shortcut-icon"><i class="fa fa-home"></i></span>
                                 <p class="launchpad-shortcut-title">单位管理</p></div>
 
                             <div class="launchpad-shortcut" data-pkui-app="true"
                                  data-pkui-app-options='{
-                                     "icon": "./images/apps/start.png",
+                                     "icon": "fa fa-users",
                                      "title": "用户管理",
                                      "src": "./tpl/system/index.html",
                                      "menuId": "3",
                                      "mode": "default"}'>
-                                <img class="launchpad-shortcut-icon" src="./images/apps/start.png" alt="">
+                                <span class="launchpad-shortcut-icon"><i class="fa fa-users"></i></span>
                                 <p class="launchpad-shortcut-title">用户管理</p></div>
 
 
@@ -246,6 +217,8 @@
 
 </div>
 <!-- /desktop app -->
+
+
 
 </body>
 </html>
