@@ -14,6 +14,7 @@ define( function ( require ) {
          * @param viewUrl 模板URL
          * @param modelUrl 模型URL，如果是对象则直接使用
          * @param callback 都请求完毕后执行回调，参数为html字符串
+         * @param options
          */
         getModelAndView: function ( viewUrl, modelUrl, callback, options ) {
             var Status,
