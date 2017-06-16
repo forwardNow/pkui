@@ -209,7 +209,12 @@ define( function ( require ) {
             icon = this.options.icon || "";
             text = this.options.title || "";
 
-            iconHtml = icon ? '<img class="pkui-dialog-title-icon" src="' + icon + '">' : "";
+            if ( icon.indexOf( "fa fa-" ) !== -1 ) {
+                iconHtml = '<i class="pkui-dialog-title-fonticon ' + icon + '"></i>';
+            }
+            else {
+                iconHtml = '<img class="pkui-dialog-title-icon" src="' + icon + '">';
+            }
 
             return iconHtml + text;
         },

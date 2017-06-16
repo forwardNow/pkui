@@ -10,13 +10,29 @@ define( function ( require ) {
     var $,
         ArtTemplate,
         dockItemTpl,
-        dockItemTplRender
+        dockItemTplRender,
+        PKUI = window.PKUI
         ;
 
     $ = require( "jquery" );
     ArtTemplate = require( "artTemplate" );
     dockItemTpl = require( "../../tpl/desktop/dockItem.html" );
-    dockItemTplRender = ArtTemplate.compile( dockItemTpl );
+    dockItemTplRender = ArtTemplate.compile( dockItemTpl, { escape: false } );
+
+    ArtTemplate.helper( "dockItemIconFormat", function ( icon ) {
+        if ( !icon ) {
+            return "";
+        }
+        // font icon
+        if ( icon.indexOf( "fa-" ) !== -1 ) {
+            return '<span class="dock-item-icon dock-item-fonticon"><i class="' + icon + '"></i></span>';
+        }
+        if ( icon.indexOf( ".png" ) !== -1 ) {
+            return '<img class="dock-item-icon" src="'+icon+'">';
+        }
+        return "";
+    } );
+
     /**
      * @classDesc 页签（AppDock）类
      * @exports module:page/app-dock

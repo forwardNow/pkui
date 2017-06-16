@@ -23,8 +23,9 @@ define( function ( require ) {
      * @alias App
      * @constructor
      * @param {object} $target 快捷方式DOM
+     * @param {*} opts
      */
-    function App( $target ) {
+    function App( $target, opts ) {
         // 如果没有初始化，就先初始化。
         !App.isInited && App.init( null );
 
@@ -37,7 +38,7 @@ define( function ( require ) {
         this.isAppDockDestroy = false;
         this.isAppWindowDestroy = false;
 
-        this._init();
+        this._init( opts );
     }
 
     /**
@@ -170,10 +171,10 @@ define( function ( require ) {
          * @returns {App}
          * @private
          */
-        _init: function () {
+        _init: function ( opts ) {
 
             // 1. 获取参数
-            this.options = $.extend( {}, this.defaults, this._getOptsFromTarget() );
+            this.options = $.extend( true, {}, this.defaults, opts, this._getOptsFromTarget() );
 
             // 2. 创建一个 页签（dock）
             this.appDock = new AppDock( this.options );
@@ -196,6 +197,9 @@ define( function ( require ) {
          * @private
          */
         _getOptsFromTarget: function () {
+            if ( !this.$target ) {
+                return;
+            }
             var data = this.$target.attr( App.options.optionsProp );
             return $.parseJSON( data );
         }
