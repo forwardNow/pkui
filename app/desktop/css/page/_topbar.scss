@@ -62,6 +62,10 @@
     margin-right: 7px;
     margin-left: 10px;
 }
+.dock-item-fonticon {
+    vertical-align: -2px;
+    font-size: 18px;
+}
 
 .dock-item-title {
     overflow: hidden;
@@ -159,4 +163,32 @@
             display: block;
         }
     }
+}
+
+.topbar-toolbar-item {
+    padding-top: 15px;
+}
+.topbar-toolbar-item > .fa {
+    font-size: 16px;
+    color: #fff;
+}
+.topbar-toolbar-item > .fa:hover {
+    opacity: .8;
+}
+.topbar-toolbar-msgItem {
+    position: relative;
+}
+.toolbar-msgItem-label {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    padding: 2px 3px;
+
+    text-align: center;
+    font-size: 10px;
+    line-height: .9;
+    color: #fff;
+    background-color: #00a65a;
+
+    border-radius: 1px;
 }
