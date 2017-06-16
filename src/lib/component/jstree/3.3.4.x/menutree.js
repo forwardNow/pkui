@@ -30,27 +30,51 @@ define( function ( require ) {
         this.init();
     }
 
+    MenuTree.cache = {};
+
     MenuTree.prototype.init = function () {
         var
             _this = this,
-            options = this.options
+            options = this.options,
+            url = options.url
         ;
+
+
+        // 已缓存
+        if ( MenuTree.cache[ url ] ) {
+            initTree( MenuTree.cache[ url ] );
+            return;
+        }
+
+
+        // 未缓存，则Ajax请求
 
         _this.$target.isLoading();
 
         $.ajax( {
-            url: options.url
+            url: url
         } ).done( function ( gridResult ) {
+            if ( !gridResult || gridResult && ( gridResult.success === false || gridResult.data == null ) ) {
+                window.layer.alert( ( gridResult && gridResult.message ) || "获取菜单数据失败！", { icon: 2 } );
+                return;
+            }
+            MenuTree.cache[ url ] = gridResult;
+            initTree( gridResult );
+        } ).fail( function () {
+            // 提示网络错误
+            window.layer.alert( '网络错误！', { icon: 0 } );
+        } ).always( function () {
+            _this.$target.isLoading( "hide" );
+        } );
+
+        function initTree( gridResult ) {
             var
                 originData,
                 fmtData,
                 jstreeData,
                 jstreeOptions = {}
-            ;
-            if ( !gridResult || gridResult && ( gridResult.success === false || gridResult.data == null ) ) {
-                window.layer.alert( ( gridResult && gridResult.message ) || "获取菜单数据失败！", { icon: 2 } );
-                return;
-            }
+                ;
+
             originData = gridResult.data;
 
             fmtData = fmtSysMenuList( originData, options.showInvisible );
@@ -78,13 +102,7 @@ define( function ( require ) {
             }
 
             _this.$target.jstree( jstreeOptions );
-
-        } ).fail( function () {
-            // 提示网络错误
-            window.layer.alert( '网络错误！', { icon: 0 } );
-        } ).always( function () {
-            _this.$target.isLoading( "hide" );
-        } );
+        }
 
     };
 
