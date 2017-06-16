@@ -6507,6 +6507,11 @@ Pagination Styles
   vertical-align: middle;
 }
 
+.pkui-dialog-title-fonticon {
+  margin: -1px 10px 0 0;
+  line-height: 20px;
+}
+
 .pkui-dialog-header > button {
   float: right;
   position: static;
@@ -6844,6 +6849,10 @@ Pagination Styles
   width: 76px;
   height: 76px;
   margin: 10px auto 0 auto;
+  line-height: 76px;
+  text-align: center;
+  font-size: 60px;
+  color: #d4dae0;
 }
 
 .launchpad-shortcut-title {
@@ -6992,6 +7001,11 @@ Pagination Styles
   margin-left: 10px;
 }
 
+.dock-item-fonticon {
+  vertical-align: -2px;
+  font-size: 18px;
+}
+
 .dock-item-title {
   overflow: hidden;
   display: inline-block;
@@ -7087,6 +7101,36 @@ Pagination Styles
 }
 .toolbar-item-menu:hover .pkui-menu {
   display: block;
+}
+
+.topbar-toolbar-item {
+  padding-top: 15px;
+}
+
+.topbar-toolbar-item > .fa {
+  font-size: 16px;
+  color: #fff;
+}
+
+.topbar-toolbar-item > .fa:hover {
+  opacity: .8;
+}
+
+.topbar-toolbar-msgItem {
+  position: relative;
+}
+
+.toolbar-msgItem-label {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  padding: 2px 3px;
+  text-align: center;
+  font-size: 10px;
+  line-height: .9;
+  color: #fff;
+  background-color: #00a65a;
+  border-radius: 1px;
 }
 
 .da-win {
