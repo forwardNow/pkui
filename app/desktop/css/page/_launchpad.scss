@@ -53,11 +53,16 @@
     height: 76px;
     margin: 10px auto 0 auto;
 
+}
+.launchpad-shortcut-fonticon {
     line-height: 76px;
     text-align: center;
-    font-size: 60px;
+    font-size: 46px;
     color: #d4dae0;
+
+    background: url(../images/apps/fonticon_bg.png) no-repeat center center;
 }
+
 .launchpad-shortcut-title {
     width: 100px;
     margin: 8px auto 0 auto;
