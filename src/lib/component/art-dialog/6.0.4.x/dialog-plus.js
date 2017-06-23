@@ -749,6 +749,9 @@ define("dialog-config", {
     // FIX 扩展参数"cancelOnPressEsc":当点击Esc是是否关闭对话框
     cancelOnPressEsc: false,
 
+    // FIX 指定popup的容器的CSS选择器（默认为body）
+    appendTo: "body",
+
     // 模板（使用 table 解决 IE7 宽度自适应的 BUG）
     // js 使用 i="***" 属性识别结构，其余的均可自定义
     // FIX 更改CSS类名：ui-dialog-* => pkui-dialog
@@ -923,6 +926,11 @@ artDialog.create = function (options) {
         }
     });
 
+
+    // FIX 指定popup的容器的CSS选择器（默认为body）
+    if ( options.appendTo !== "body" ) {
+        $( options.appendTo ).append( this.node );
+    }
 
     // 更新 zIndex 全局配置
     if (options.zIndex) {

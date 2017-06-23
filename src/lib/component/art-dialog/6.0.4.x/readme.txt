@@ -26,3 +26,8 @@
 2017/04/28
 
     1. // FIX 扩展参数"cancelOnPressEsc":当点击Esc是是否关闭对话框
+
+2017/06/23
+
+    1. // FIX 指定popup的容器的CSS选择器（默认为body）
+
