@@ -27,7 +27,7 @@
         <!-- /显示桌面 -->
 
         <!-- 已使用过的功能 -->
-        <div class="topbar-history" title="已使用过的应用"></div>
+        <div class="topbar-history" id="topbar-history" title="已使用过的应用"></div>
         <!-- /已使用过的功能 -->
 
         <!-- 任务栏 -->
@@ -188,7 +188,26 @@
     <!-- /桌面 -->
 
     <!-- 则边栏 -->
-    <aside>
+    <aside class="da-sidebar hidden" id="daSidebar">
+
+        <dl class="use-group use-group-often">
+            <dt class="use-group-header">常用功能</dt>
+            <dd class="use-group-item"><a href="#"><i class="fa fa-home"></i> 单位管理</a><span class="count">12</span></dd>
+            <dd class="use-group-item"><a href="#"><i class="fa fa-users"></i> 用户管理</a><span class="count">9</span></dd>
+            <dd class="use-group-item"><a href="#"><i class="fa fa-book"></i> 字典管理</a><span class="count">4</span></dd>
+            <dd class="use-group-item"><a href="#"><i class="fa fa-user-secret"></i> 角色管理</a><span class="count">2</span></dd>
+            <dd class="use-group-item"><a href="#"><i class="fa fa-cogs"></i> 系统参数</a><span class="count">1</span></dd>
+        </dl>
+
+        <dl class="use-group use-group-recent">
+            <dt class="use-group-header">最近使用</dt>
+            <dd class="use-group-item"><a href="#"><i class="fa fa-home"></i> 单位管理</a></dd>
+            <dd class="use-group-item"><a href="#"><i class="fa fa-users"></i> 用户管理</a></dd>
+            <dd class="use-group-item"><a href="#"><i class="fa fa-book"></i> 字典管理</a></dd>
+            <dd class="use-group-item"><a href="#"><i class="fa fa-user-secret"></i> 角色管理</a></dd>
+            <dd class="use-group-item"><a href="#"><i class="fa fa-cogs"></i> 系统参数</a></dd>
+            <dd class="use-group-item"><a href="#"><i class="fa fa-link"></i> 菜单管理</a></dd>
+        </dl>
 
     </aside>
     <!-- /则边栏 -->
@@ -196,7 +215,57 @@
 </div>
 <!-- /desktop app -->
 
+<style>
+    .da-sidebar {
+        z-index: 6000;
+        position: absolute;
+        top: 46px;
+        left: -240px;
+        bottom: 0;
+        width: 240px;
+        background-color: #fff;
+    }
+    .use-group {
+    }
+    .use-group-header {
+        color: #999;
+        padding: 10px 12px;
+    }
+    .use-group-item {
+        padding: 6px 12px 6px 24px;
+    }
+    .use-group-item .fa {
+        width: 16px;
+    }
+    .use-group-often {
+        padding-bottom: 24px;
+        border-bottom: solid 1px #ddd;
+        margin-bottom: 10px;
+    }
+    .use-group-often .count {
+        float: right;
+        color: #666;
+    }
+</style>
+<script>
 
+    seajs.use( "jquery", function ( $ ) {
+        var $sidebar = $( "#daSidebar" );
+
+        $( "#topbar-history" ).click( function () {
+            if ( $sidebar.is( ".hidden" ) ) {
+                $sidebar.removeClass( "hidden" );
+                $sidebar.stop().animate( { left: 0 }, "fast" );
+            } else {
+                $sidebar.stop().animate( { left: -240 }, function () {
+                    $sidebar.addClass( "hidden" );
+                } );
+            }
+
+        } );
+    } );
+
+</script>
 
 </body>
 </html>
