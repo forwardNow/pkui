@@ -165,6 +165,29 @@
     }
 }
 
+.topbar-toolbar-userItem {
+    color: #fff;
+}
+.topbar-toolbar-userItem .dropdown-menu {
+    left: auto;
+    right: 0;
+}
+.toolbar-msgItem-label {
+    position: absolute;
+    top: 0px;
+    left: 6px;
+    padding: 2px 3px;
+
+    text-align: center;
+    font-size: 10px;
+    line-height: .9;
+    color: #fff;
+    background-color: #00a65a;
+
+    border-radius: 1px;
+}
+
+
 .topbar-toolbar-item {
     padding-top: 15px;
 }
