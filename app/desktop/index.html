@@ -47,46 +47,50 @@
         </div>
         <!-- /任务栏 -->
 
+        <style>
+            .topbar-toolbar-userItem {
+                color: #fff;
+            }
+            .topbar-toolbar-userItem .dropdown-menu {
+                left: auto;
+                right: 0;
+            }
+            .toolbar-msgItem-label {
+                position: absolute;
+                top: 0px;
+                left: 6px;
+                padding: 2px 3px;
+
+                text-align: center;
+                font-size: 10px;
+                line-height: .9;
+                color: #fff;
+                background-color: #00a65a;
+
+                border-radius: 1px;
+            }
+
+
+        </style>
 
         <!-- 工具栏 -->
         <div class="topbar-toolbar">
 
-            <!-- 用户信息 -->
-            <div class="topbar-toolbar-item toolbar-user toolbar-item-menu">
-                <i class="fa fa-user-o"></i><span class="toolbar-item-title">张某某</span><i class="toolbar-item-indicator"></i>
-                <div class="pkui-menu pkui-menu-dark">
-                    <div class="pkui-menu-bd">
-                        <div class="pkui-menu-item"><span class="pkui-menu-text">待处理消息：20</span></div>
-                    </div>
-                    <div class="pkui-menu-bd">
-                        <div class="pkui-menu-item"><a class="pkui-menu-link" href="#"><i class="pkui-menu-icon icon-add"></i><span class="pkui-menu-text">添加收藏</span></a></div>
-                        <div class="pkui-menu-item"><a class="pkui-menu-link" href="#"><i class="pkui-menu-icon icon-setting"></i><span class="pkui-menu-text">管理消息</span></a></div>
-                        <div class="pkui-menu-group">
-                            <div class="pkui-menu-title"><span class="pkui-menu-text">播放列表</span></div>
-                            <div class="pkui-menu-item"><a class="pkui-menu-link" href="#"><i class="pkui-menu-icon"></i><span class="pkui-menu-text">观看最多</span></a></div>
-                            <div class="pkui-menu-item"><a class="pkui-menu-link" href="#"><i class="pkui-menu-icon"></i><span class="pkui-menu-text">推荐直播</span></a></div>
-                            <div class="pkui-menu-item"><a class="pkui-menu-link" href="#"><i class="pkui-menu-icon"></i><span class="pkui-menu-text">推荐新闻</span></a></div>
-                        </div>
-                        <div class="pkui-menu-group">
-                            <div class="pkui-menu-title"><span class="pkui-menu-text">账户管理</span></div>
-                            <div class="pkui-menu-item"><a class="pkui-menu-link" href="#"><i class="pkui-menu-icon"></i><span class="pkui-menu-text">添加账号</span></a></div>
-                            <div class="pkui-menu-item"><a class="pkui-menu-link" href="#"><i class="pkui-menu-icon"></i><span class="pkui-menu-text">退出登录</span></a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /用户信息 -->
-
             <!-- 搜索 -->
             <div class="topbar-toolbar-item" id="topbar-toolbar-search" title="应用搜索"><i class="fa fa-search"></i></div>
             <!-- /搜索 -->
-            <!-- 消息 -->
-            <div class="topbar-toolbar-item topbar-toolbar-msgItem"><i class="fa fa-envelope-o"></i><span class="toolbar-msgItem-label">24</span></div>
-            <!-- /消息 -->
 
-            <!-- 退出系统 -->
-            <div class="topbar-toolbar-item" title="安全退出"><i class="fa fa-sign-out"></i></div>
-            <!-- /退出系统 -->
+            <!-- 用户信息 -->
+            <div class="topbar-toolbar-item topbar-toolbar-userItem dropdown">
+                <i class="fa fa-user-o" data-toggle="dropdown"></i> <span class="caret"></span>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-header"><i class="fa fa-user-o"></i> 管理员</li>
+                    <li class="divider"></li>
+                    <li class="relative"><a href="javascript:void(0);"><i class="fa fa-envelope-o"></i><span class="toolbar-msgItem-label">24</span> 我的消息</a></li>
+                    <li><a href="javascript:void(0);"><i class="fa fa-sign-out"></i> 退出系统</a></li>
+                </ul>
+            </div>
+            <!-- /用户信息 -->
 
         </div>
         <!-- /工具栏 -->

@@ -1,4 +1,8 @@
 @charset "UTF-8";
+.relative {
+  position: relative;
+}
+
 /*
 YUI 3.18.1 (build f7e7bcb)
 Copyright 2014 Yahoo! Inc. All rights reserved.
@@ -6176,61 +6180,49 @@ b {
   font-weight: normal;
 }
 
-.pkui-menu-dark {
-  min-width: 230px;
-  padding: 1px;
-  background-color: rgba(255, 255, 255, 0.1);
+.dropdown-menu {
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 2px;
+  box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
 }
 
-.pkui-menu-bd {
-  padding: 10px 0;
-  margin-bottom: 1px;
-  background-color: rgba(11, 11, 11, 0.8);
-  -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.75);
-  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.75);
+.dropdown-header {
+  font-size: inherit;
 }
 
-.pkui-menu-item {
-  padding-left: 22px;
-  color: #8c8c8c;
-}
-
-.pkui-menu-link {
-  display: block;
-  height: 16px;
-  line-height: 16px;
-  padding: 5px 22px;
-  margin-left: -22px;
-  color: inherit;
-}
-.pkui-menu-link:hover {
-  color: #3678c6;
-}
-
-.pkui-menu-icon {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  margin-right: 14px;
-  vertical-align: -4px;
-}
-
-.pkui-menu-group {
-  margin-top: 10px;
-}
-
-.pkui-menu-title {
-  font-size: 14px;
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
   color: #fff;
+  background-color: #0366d6;
 }
-.pkui-menu-title:before {
-  content: "";
+
+.dropdown-menu:before,
+.dropdown-menu:after {
+  position: absolute;
   display: inline-block;
-  width: 4px;
-  height: 14px;
-  margin: 0 5px 0 15px;
-  vertical-align: -2px;
-  background-color: #3678c6;
+  content: "";
+}
+
+.dropdown-menu:before {
+  top: -16px;
+  right: 9px;
+  left: auto;
+  border: 8px solid transparent;
+  border-bottom-color: rgba(27, 31, 35, 0.15);
+}
+
+.dropdown-menu:after {
+  top: -14px;
+  right: 10px;
+  left: auto;
+  border: 7px solid transparent;
+  border-bottom-color: #fff;
+}
+
+.dropdown-menu .fa {
+  width: 16px;
 }
 
 .da-theme {
@@ -7118,23 +7110,6 @@ Pagination Styles
 
 .topbar-toolbar-item > .fa:hover {
   opacity: .8;
-}
-
-.topbar-toolbar-msgItem {
-  position: relative;
-}
-
-.toolbar-msgItem-label {
-  position: absolute;
-  top: 8px;
-  left: 10px;
-  padding: 2px 3px;
-  text-align: center;
-  font-size: 10px;
-  line-height: .9;
-  color: #fff;
-  background-color: #00a65a;
-  border-radius: 1px;
 }
 
 .pkui-search-popup {

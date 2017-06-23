@@ -4,6 +4,9 @@
 //【app/desktop】变量
 @import "base/variables";
 
+//【app/desktop】功能类
+@import "base/utilities";
+
 //【pkui/css/bootstrap】bootstrap mixins
 @import "../../../src/css/bootstrap/3.3.6/bootstrap/mixins";
 
@@ -59,8 +62,8 @@
 //【app/desktop】基本样式
 @import "base/base";
 
-//【app/desktop】菜单
-@import "common/menu";
+//【app/desktop】下拉菜单
+@import "common/dropmenu";
 
 //【app/desktop】主题
 @import "common/theme";

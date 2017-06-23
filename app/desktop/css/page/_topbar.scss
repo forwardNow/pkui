@@ -175,23 +175,6 @@
 .topbar-toolbar-item > .fa:hover {
     opacity: .8;
 }
-.topbar-toolbar-msgItem {
-    position: relative;
-}
-.toolbar-msgItem-label {
-    position: absolute;
-    top: 8px;
-    left: 10px;
-    padding: 2px 3px;
-
-    text-align: center;
-    font-size: 10px;
-    line-height: .9;
-    color: #fff;
-    background-color: #00a65a;
-
-    border-radius: 1px;
-}
 
 .pkui-search-popup {
     display: none;
