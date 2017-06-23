@@ -14,6 +14,8 @@ define( function ( require ) {
 
     require( "bootstrap-tooltip" );
 
+    require( "bootstrap-dropdown" );
+
     var
         $ = require( "jquery" ),
 
