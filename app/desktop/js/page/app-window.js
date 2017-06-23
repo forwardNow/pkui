@@ -95,6 +95,9 @@ define( function ( require ) {
             _this = this;
 
             _this.artDialog = Dialog.create( {
+
+                appendTo: "#da",
+
                 title: _this.title,
                 content: _this.content,
                 url: this.options.mode === "iframe" ? this.options.src : null,
