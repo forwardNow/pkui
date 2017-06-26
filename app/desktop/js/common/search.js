@@ -11,7 +11,7 @@ define( function ( require ) {
     var
         $ = require( "jquery" ),
         layer = window.layer,
-        App = require( "app" ),
+        App = require( "./app" ),
         namespace = "pkui.search"
         ;
 

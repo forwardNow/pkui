@@ -5,7 +5,7 @@
  * @requires jquery
  * @requires module:common/launchpad
  * @requires module:common/template
- * @requires module:page/app
+ * @requires module:common/app
  */
 define( function ( require ) {
     var

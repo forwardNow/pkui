@@ -19,7 +19,7 @@ define( function ( require ) {
         ;
 
     $ = require( "jquery" );
-    Dialog = require( "dialog" );
+    Dialog = require( "./dialog" );
     ArtTemplate = require( "artTemplate" );
     appWindowTpl = require( "../../tpl/desktop/appWindow.html" );
     appWindowTplRender = ArtTemplate.compile( appWindowTpl );
