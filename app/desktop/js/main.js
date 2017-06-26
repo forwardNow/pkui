@@ -11,7 +11,7 @@ define( function ( require ) {
     var
         $ = require( "jquery" ),
         Launchpad = require( "./common/launchpad" ),
-        App = require( "./page/app" ),
+        App = require( "./common/app" ),
         Template = require( "template" ),
         Search = require( "./common/search" )
     ;

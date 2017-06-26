@@ -2,7 +2,6 @@
  * @fileOverview 应用（App）—— 窗口（AppWindow）
  * @author 吴钦飞(wuqf@pkusoft.net)
  *
- * @module module:page/app-window
  * @requires jquery
  * @requires jquery-ui
  * @requires module:common/dialog
@@ -20,7 +19,7 @@ define( function ( require ) {
         ;
 
     $ = require( "jquery" );
-    Dialog = require( "../common/dialog" );
+    Dialog = require( "dialog" );
     ArtTemplate = require( "artTemplate" );
     appWindowTpl = require( "../../tpl/desktop/appWindow.html" );
     appWindowTplRender = ArtTemplate.compile( appWindowTpl );

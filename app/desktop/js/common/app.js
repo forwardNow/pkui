@@ -2,10 +2,10 @@
  * @fileOverview 应用（App）系统
  * @author 吴钦飞（wuqf@pkusoft.net）
  *
- * @module module:page/app
+ * @module module:common/app
  * @requires jquery
- * @requires module:page/app-dock
- * @requires module:page/app-window
+ * @requires module:common/app-dock
+ * @requires module:common/app-window
  */
 define( function ( require ) {
     var $,
