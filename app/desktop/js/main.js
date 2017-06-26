@@ -40,7 +40,10 @@ define( function ( require ) {
         new AppSidebar( {
             toggleSelector: "#topbar-history",
             sidebarSelector: "#daSidebar",
-            menuUrl: "__CTX__/admin/sysMenuListData"
+            menuUrl: "__CTX__/admin/sysMenuListData",
+            oftenUsedUrl: "__CTX__/admin/oftenUsedSysMenu",
+            recentUsedUrl: "__CTX__/admin/recentUsedSysMenu",
+            saveUsedMenuUrl: ""
         } );
 
     } );
