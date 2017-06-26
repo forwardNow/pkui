@@ -100,7 +100,7 @@ define( function ( require ) {
                 }
             } ).fail( function () {
                 // 提示网络错误
-                layer.alert( '网络错误！', { icon: 0 } );
+                layer.alert( '网络错误/登陆失效！', { icon: 0 } );
             } ).always( function () {
                 // 关闭 loading
                 $button.isLoading( "hide" );

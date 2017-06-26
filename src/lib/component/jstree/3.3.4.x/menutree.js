@@ -62,7 +62,7 @@ define( function ( require ) {
             initTree( gridResult );
         } ).fail( function () {
             // 提示网络错误
-            window.layer.alert( '网络错误！', { icon: 0 } );
+            window.layer.alert( '网络错误/登陆失效！', { icon: 0 } );
         } ).always( function () {
             _this.$target.isLoading( "hide" );
         } );

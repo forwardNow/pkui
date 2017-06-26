@@ -11,6 +11,9 @@ define( function ( require ) {
 
     AppSidebar.prototype.defaults = {
         menuUrl: "",
+        oftenUsedUrl: "",
+        recentUsedUrl: "",
+        saveUsedMenuUrl: "",
         toggleSelector: "",
         sidebarSelector: ""
     };
@@ -23,6 +26,7 @@ define( function ( require ) {
     AppSidebar.prototype.init = function () {
         this.render();
         this.bind();
+        this.getData();
     };
 
     AppSidebar.prototype.render = function () {
@@ -47,6 +51,18 @@ define( function ( require ) {
                 } );
             }
         } );
+
+    };
+
+    /**
+     * 1. 菜单数据
+     * 2. 常用菜单数据
+     * 3. 最近使用菜单数据
+     */
+    AppSidebar.prototype.getData = function () {
+
+        // 1. 获取菜单数据
+
 
     };
 

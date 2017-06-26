@@ -251,11 +251,11 @@ define( function ( require ) {
                 callback( sysMenuIconList );
             }
             else {
-                layer.alert( "获取图标名称失败！", { icon: 2 } );
+                layer.alert( "【系统菜单模块】获取图标名称失败：服务器内部错误。", { icon: 2 } );
             }
         } ).fail( function () {
             // 提示网络错误
-            layer.alert( '网络错误！', { icon: 0 } );
+            layer.alert( '【系统菜单模块】获取图标名称失败：网络错误/登陆失效！', { icon: 0 } );
         } ).always( function () {
             // 关闭 loading
             _this.$imageIconChooseArea.isLoading( "hide" );

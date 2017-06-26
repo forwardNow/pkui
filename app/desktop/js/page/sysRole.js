@@ -206,11 +206,11 @@ define( function ( require ) {
             // 服务器端处理失败
             else {
                 // 提示
-                layer.alert( "删除失败：" + ( jsonResult.message || "添加角色[" + roleName + "]成功！" ), { icon: 2 } );
+                layer.alert( "添加角色[" + roleName + "]失败：" + ( jsonResult.message || "服务器内部错误。" ), { icon: 2 } );
             }
         } ).fail( function () {
             // 提示网络错误
-            layer.alert( '网络错误！', { icon: 0 } );
+            layer.alert( '【系统菜单模块】新建菜单失败：网络错误/登陆失效。', { icon: 0 } );
         } ).always( function () {
             // 关闭 loading
             $button.isLoading( "hide" );

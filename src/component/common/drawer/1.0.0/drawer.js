@@ -168,7 +168,7 @@ define( function( require ) {
                 } ).fail( function( jqXHR, textStatus ) {
                     //options.$drawerContent.html( "/(ㄒoㄒ)/~~[ " + textStatus + " ]网络错误。" );
                     //console.info(  "/(ㄒoㄒ)/~~[ " + textStatus + " ]网络错误。" );
-                    window.PKUI.console.error( "[drawer]网络错误。", true )
+                    window.PKUI.console.error( "[drawer]网络错误/登陆失效。", true )
                 } ).always( function() {
                     options.$drawer.isLoading( "hide" );
                 } );
