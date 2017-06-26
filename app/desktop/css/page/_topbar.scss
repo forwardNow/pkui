@@ -252,3 +252,34 @@
 .pkui-search-popup .ui-menu-item strong {
     color: #ff8000;
 }
+
+.da-sidebar {
+    z-index: 6000;
+    position: absolute;
+    top: 46px;
+    left: -240px;
+    bottom: 0;
+    width: 240px;
+    background-color: #fff;
+}
+.use-group {
+}
+.use-group-header {
+    color: #999;
+    padding: 10px 12px;
+}
+.use-group-item {
+    padding: 6px 12px 6px 24px;
+}
+.use-group-item .fa {
+    width: 16px;
+}
+.use-group-often {
+    padding-bottom: 24px;
+    border-bottom: solid 1px #ddd;
+    margin-bottom: 10px;
+}
+.use-group-often .count {
+    float: right;
+    color: #666;
+}

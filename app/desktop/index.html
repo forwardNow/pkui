@@ -188,7 +188,7 @@
     <!-- /桌面 -->
 
     <!-- 则边栏 -->
-    <aside class="da-sidebar hidden" id="daSidebar">
+    <aside class="da-sidebar" id="daSidebar">
 
         <dl class="use-group use-group-often">
             <dt class="use-group-header">常用功能</dt>
@@ -215,57 +215,6 @@
 </div>
 <!-- /desktop app -->
 
-<style>
-    .da-sidebar {
-        z-index: 6000;
-        position: absolute;
-        top: 46px;
-        left: -240px;
-        bottom: 0;
-        width: 240px;
-        background-color: #fff;
-    }
-    .use-group {
-    }
-    .use-group-header {
-        color: #999;
-        padding: 10px 12px;
-    }
-    .use-group-item {
-        padding: 6px 12px 6px 24px;
-    }
-    .use-group-item .fa {
-        width: 16px;
-    }
-    .use-group-often {
-        padding-bottom: 24px;
-        border-bottom: solid 1px #ddd;
-        margin-bottom: 10px;
-    }
-    .use-group-often .count {
-        float: right;
-        color: #666;
-    }
-</style>
-<script>
-
-    seajs.use( "jquery", function ( $ ) {
-        var $sidebar = $( "#daSidebar" );
-
-        $( "#topbar-history" ).click( function () {
-            if ( $sidebar.is( ".hidden" ) ) {
-                $sidebar.removeClass( "hidden" );
-                $sidebar.stop().animate( { left: 0 }, "fast" );
-            } else {
-                $sidebar.stop().animate( { left: -240 }, function () {
-                    $sidebar.addClass( "hidden" );
-                } );
-            }
-
-        } );
-    } );
-
-</script>
 
 </body>
 </html>
