@@ -260,9 +260,7 @@ define( function ( require ) {
             } );
         }
         // 2. 将其添加列表第一位
-        else {
-            this.recentUsedMenuList.unshift( this.sysMenuList[ menuId ] );
-        }
+        this.recentUsedMenuList.unshift( this.sysMenuList[ menuId ] );
 
         /* 最常使用 */
         // 1. 若存在，则自增，并排序
