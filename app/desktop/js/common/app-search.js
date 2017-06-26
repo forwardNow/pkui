@@ -16,6 +16,7 @@ define( function ( require ) {
         ;
 
     Search.prototype.defaults = {
+        targetSelector: null,
         menuUrl: "",
         template: '<div class="pkui-search-popup" id="pkui-search-popup">'
             +       '<i class="fa fa-search pkui-search-icon"></i>'
@@ -23,9 +24,9 @@ define( function ( require ) {
             +     '</div>'
     };
 
-    function Search( target, opts ) {
+    function Search( opts ) {
         this.opts = $.extend( true, {}, this.defaults, opts );
-        this.$target = target.jquery ? target : $( target );
+        this.$target = $( this.opts.targetSelector );
         this.init();
     }
 
