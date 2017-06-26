@@ -7201,7 +7201,8 @@ Pagination Styles
   top: 46px;
   left: -240px;
   bottom: 0;
-  width: 240px;
+  width: 239px;
+  border-right: solid 1px #ddd;
   background-color: #fff;
 }
 

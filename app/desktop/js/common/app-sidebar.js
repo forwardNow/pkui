@@ -22,7 +22,10 @@ define( function ( require ) {
         +   '    <dt class="use-group-header">常用功能</dt>'
         +   '    {{each oftenUsedMenuList }}'
         +   '        {{if $index < 6}}'
-        +   '        <dd class="use-group-item" data-menu-id="{{$value.menuId}}">'
+        +   '        <dd class="use-group-item" '
+        +               'data-menu-id="{{$value.menuId}}" '
+        +               'data-menu-name="{{$value.menuName}}" '
+        +               'data-icon="{{$value.icon}}">'
         +   '            <a href="#"><i class="{{$value.icon}}"></i> {{$value.menuName}}</a><span class="count">{{$value.count}}</span></dd>'
         +   '        {{/if}}'
         +   '    {{/each}}'
@@ -31,7 +34,10 @@ define( function ( require ) {
         +   '    <dt class="use-group-header">最近使用</dt>'
         +   '    {{each recentUsedMenuList }}'
         +   '        {{if $index < 8}}'
-        +   '        <dd class="use-group-item" data-menu-id="{{$value.menuId}}">'
+        +   '        <dd class="use-group-item" '
+        +               'data-menu-id="{{$value.menuId}}" '
+        +               'data-menu-name="{{$value.menuName}}" '
+        +               'data-icon="{{$value.icon}}">'
         +   '            <a href="#"><i class="{{$value.icon}}"></i> {{$value.menuName}}</a></dd>'
         +   '        {{/if}}'
         +   '    {{/each}}'
@@ -74,6 +80,26 @@ define( function ( require ) {
             else {
                 _this.show();
             }
+        } );
+
+        this.$sidebar.on( "click." + namespace, ".use-group-item", function () {
+
+            var $item = $( this );
+
+            // 开启 窗口
+            new App(null, {
+                "icon": $item.data( "icon" ),
+                "title": $item.data( "menuName" ),
+                "src": "./tpl/system/index.html",
+                "menuId": $item.data( "menuId" ),
+                "mode": "default"})
+        } );
+
+        $( document ).on( "inited.app", function ( event, menuId ) {
+            if ( ! menuId ) {
+                return;
+            }
+            _this.redraw( menuId );
         } );
 
     };
@@ -217,5 +243,70 @@ define( function ( require ) {
         }
     };
 
+    AppSidebar.prototype.redraw = function ( menuId ) {
+        var
+            _this = this,
+            sysMenu,
+            html
+        ;
+        /* 最近使用 */
+        // 1. 若存在列表中，则删除
+        if ( this.isInRecentUsedList( menuId ) ) {
+            $.each( this.recentUsedMenuList, function ( index, item ) {
+                if ( item && item.menuId == menuId ) {
+                    _this.recentUsedMenuList.splice( index, 1 );
+                    return true;
+                }
+            } );
+        }
+        // 2. 将其添加列表第一位
+        else {
+            this.recentUsedMenuList.unshift( this.sysMenuList[ menuId ] );
+        }
+
+        /* 最常使用 */
+        // 1. 若存在，则自增，并排序
+        if ( this.isInOftenUsedList( menuId ) ) {
+            $.each( this.oftenUsedMenuList, function ( index, item ) {
+                if ( item && item.menuId == menuId ) {
+                    item.count++;
+                    if ( index !== 0 && item.count > _this.oftenUsedMenuList[ index - 1 ].count ) {
+                        _this.oftenUsedMenuList.splice( index, 1 );
+                        _this.oftenUsedMenuList.splice( index - 1, 0, item );
+                    }
+                    return true;
+                }
+            } );
+        }
+        // 2. 若不存在，则追加到末尾
+        else {
+            sysMenu = this.sysMenuList[ menuId ];
+            sysMenu.count = 1;
+            this.oftenUsedMenuList.push( sysMenu );
+        }
+
+        // 重新绘制
+        html = this.templateRender( {
+            oftenUsedMenuList: this.oftenUsedMenuList,
+            recentUsedMenuList: this.recentUsedMenuList
+        } );
+
+        this.$sidebar.html( html );
+    };
+
+    AppSidebar.prototype.isInOftenUsedList =  function ( menuId, list ) {
+        var isExist = false;
+        list = list || this.oftenUsedMenuList;
+        $.each( list, function ( index, item ) {
+            if ( item.menuId == menuId ) {
+                isExist = true;
+                return true;
+            }
+        } );
+        return isExist;
+    };
+    AppSidebar.prototype.isInRecentUsedList =  function ( menuId ) {
+        return this.isInOftenUsedList( menuId, this.recentUsedMenuList );
+    };
     return AppSidebar;
 } );

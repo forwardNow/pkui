@@ -39,6 +39,8 @@ define( function ( require ) {
         this.isAppWindowDestroy = false;
 
         this._init( opts );
+
+        $( document ).trigger( "inited.app", this.options.menuId );
     }
 
     /**
