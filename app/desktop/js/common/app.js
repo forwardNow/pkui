@@ -29,6 +29,11 @@ define( function ( require ) {
         // 如果没有初始化，就先初始化。
         !App.isInited && App.init( null );
 
+        if ( opts && opts.menuId && App.get( opts.menuId ) ) {
+            App.get( opts.menuId ).show();
+            return;
+        }
+
         this.appId = null;
         /** 快捷方式容器 */
         this.$target = $target;
@@ -58,9 +63,13 @@ define( function ( require ) {
 
     /**
      * 用于存放所有App实例
-     * @type {Array}
+     * @type {*}
+     * @example
+     * {
+            1: 实例, 2: 实例
+       }
      */
-    App.appList = [];
+    App.appList = {};
 
     /** 标志是否初始化，在实例化时进行判断 */
     App.isInited = false;
@@ -80,6 +89,15 @@ define( function ( require ) {
         $.each( this.appList, function () {
             this && this.hide && this.hide();
         } );
+    };
+
+    /**
+     * 根据 appId 返回指定实例
+     * @param appId
+     * @returns {*}
+     */
+    App.get = function ( appId ) {
+        return App.appList[ appId ];
     };
 
     /**
@@ -187,8 +205,8 @@ define( function ( require ) {
             this.appWindow.appInstance = this;
 
             // 将实例添加到 App.appList，同时保存索引
-            this.appId = App.appList.length;
-            App.appList.push( this );
+            this.appId = this.options.menuId || ( new Date() ).getTime();
+            App.appList[ this.appId ] = this;
 
             return this;
         },
