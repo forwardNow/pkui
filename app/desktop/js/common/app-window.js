@@ -15,7 +15,8 @@ define( function ( require ) {
         appWindowTpl,
         appWindowTplRender,
         appWindowMainTpl,
-        appWindowMainTplRender
+        appWindowMainTplRender,
+        MenuSource = require( "./menuSource" )
         ;
 
     $ = require( "jquery" );
@@ -246,7 +247,8 @@ define( function ( require ) {
 
             // 1. appWindow模板（面包屑导航、菜单树、主体）
             structureHtml = appWindowTplRender( {
-                "menuId": this.options.menuId
+                "menuId": this.options.menuId,
+                "menuUrl": MenuSource.opts.url
             } );
 
             // 2. 业务模板（暂定为JSP）
@@ -266,9 +268,10 @@ define( function ( require ) {
                 _this.options.content = html;
                 _this.artDialog.content( html );
                 $temp = null;
-            } ).fail( function ( jqXHR, textStatus ) {
-                _this.artDialog.content( "/(ㄒoㄒ)/~~[ " + textStatus + " ]获取数据失败" );
-                throw "/(ㄒoㄒ)/~~[ " + textStatus + " ]获取数据失败";
+            } ).fail( function ( xhr ) {
+                var str = "[" + xhr.status + "]" + xhr.statusText;
+                _this.artDialog.content( str );
+                $.error( str );
             } );
 
             return this.options.content;
@@ -349,9 +352,10 @@ define( function ( require ) {
                     url: url
                 } ).done( function ( data ) {
                     $winMainBody.html( data );
-                } ).fail( function ( jqXHR, textStatus ) {
-                    $winMainBody.html( "/(ㄒoㄒ)/~~[ " + textStatus + " ]获取数据失败" );
-                    throw "/(ㄒoㄒ)/~~[ " + textStatus + " ]获取数据失败";
+                } ).fail( function ( xhr ) {
+                    var str = "[" + xhr.status + "]" + xhr.statusText;
+                    $winMainBody.html( str );
+                    $.error( str );
                 } ).always( function() {
                     $winMainBody.isLoading( "hide" );
                 } );
