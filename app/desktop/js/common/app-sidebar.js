@@ -18,6 +18,7 @@ define( function ( require ) {
         saveUsedMenuUrl: null,
         toggleSelector: null,
         sidebarSelector: null,
+        closeBtnSelector: ".da-sidebar-closeBtn",
         // 一旦内容改变，三分钟后发送请求进行保存
         saveDelayTime: 3 * 60 * 1000,
         // 显示的最常使用的最大数
@@ -28,8 +29,8 @@ define( function ( require ) {
         template: null
     };
 
-    AppSidebar.prototype.defaults.template =
-        '   <dl class="use-group use-group-often">'
+    AppSidebar.prototype.defaults.template = '<i class="da-sidebar-closeBtn fa fa-close"></i>'
+        +   '<dl class="use-group use-group-often">'
         +   '    <dt class="use-group-header">常用功能</dt>'
         +   '    {{each oftenUsedMenuList }}'
         +   '        {{if $index < '+ AppSidebar.prototype.defaults.maxOftenUsedItemNum +'}}'
@@ -107,6 +108,11 @@ define( function ( require ) {
             else {
                 _this.show();
             }
+        } );
+
+        // 点击关闭按钮
+        this.$sidebar.on( "click." + namespace, this.opts.closeBtnSelector, function () {
+            _this.hide();
         } );
 
         // 点击app条目，打开app
@@ -233,7 +239,7 @@ define( function ( require ) {
      */
     AppSidebar.prototype.hide = function () {
         var $sidebar = this.$sidebar;
-        $sidebar.stop().animate( { left: -$sidebar.width() }, function () {
+        $sidebar.stop().animate( { left: -$sidebar.outerWidth() }, function () {
             $sidebar.removeClass( "app-sidebar-showed" );
         } );
     };

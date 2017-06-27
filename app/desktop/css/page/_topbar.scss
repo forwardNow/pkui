@@ -265,6 +265,22 @@
     background-color: #fff;
     background-color: rgba(255,255,255,0.9);
 }
+.da-sidebar-closeBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 4px;
+    cursor: pointer;
+    color: #000;
+    @include opacity(.2);
+
+    &.fa {
+        font-size: 16px;
+    }
+    &:hover {
+        @include opacity(.5);
+    }
+}
 .use-group {
 }
 .use-group-header {
