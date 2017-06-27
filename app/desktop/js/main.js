@@ -14,7 +14,8 @@ define( function ( require ) {
         App = require( "./common/app" ),
         Template = require( "template" ),
         AppSearch = require( "./common/app-search" ),
-        AppSidebar = require( "./common/app-sidebar" )
+        AppSidebar = require( "./common/app-sidebar" ),
+        Menu = require( "./common/menu" )
     ;
 
     if ( window.isIE8 ) {
@@ -32,15 +33,13 @@ define( function ( require ) {
 
         // 启动搜索功能
         new AppSearch( {
-            targetSelector: "#topbar-toolbar-search",
-            menuUrl: "__CTX__/admin/sysMenuListData"
+            targetSelector: "#topbar-toolbar-search"
         } );
 
         // 启动应用侧边栏
         new AppSidebar( {
             toggleSelector: "#topbar-history",
             sidebarSelector: "#daSidebar",
-            menuUrl: "__CTX__/admin/sysMenuListData",
             oftenUsedUrl: "__CTX__/admin/oftenUsedSysMenu",
             recentUsedUrl: "__CTX__/admin/recentUsedSysMenu",
             saveUsedMenuUrl: "__CTX__/admin/saveUsedMenu"
