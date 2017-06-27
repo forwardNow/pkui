@@ -7,63 +7,105 @@
  */
 define( function ( require ) {
     var $,
-        Menu
+        Menu = {},
+        layer = window.layer
         ;
     $ = require( "jquery" );
+
+    Menu.opts = {
+        url: "__CTX__/admin/sysMenuListData"
+    };
+
+    Menu.originData = null;
+
+    Menu.init = function ( options ) {
+        this.opts = $.extend( true, {}, this.opts, options );
+        this._getData();
+        return this;
+    };
+
     /**
-     * 菜单类
-     * @exports module:common/menu
+     * 同步请求获取菜单数据
+     * @private
      */
-    Menu = {
-        /** 参数 */
-        options: null,
-        /** 原始数据 */
-        _originData: null,
-        /** 基于原始数据，格式化后的数据 */
-        _fmtData: null,
-        /**
-         * 初始化
-         * @memberOf module:common/menu#
-         * @param options {*} 参数
-         * @returns {*} 链式调用
-         */
-        init: function ( options ) {
-            this.options = $.extend( {}, this.defaults, options );
-            this._getData();
-            return this;
-        },
-        /**
-         * 获取菜单数据
-         * @private
-         */
-        _getData: function () {
-            var _this = this
+    Menu._getData = function () {
+        var _this = this
             ;
-            $.ajax( {
-                url: this.options.url,
-                type: "GET",
-                cache: false,
-                dataType: "text"
-            } ).done( function ( gridResult ) {
-                gridResult = window.PKUI.handleGridResult( gridResult );
-                if ( gridResult.success == false ) {
-                    $.error( "/(ㄒoㄒ)/~~[ 500 ]后台错误！" );
+        $.ajax( {
+            url: this.opts.url,
+            async: false
+        } ).done( function ( gridResult ) {
+            if ( gridResult && gridResult.success ) {
+                if ( gridResult.data == null || gridResult.data.length === 0 ) {
+                    $.error( "菜单数据为空。" )
                 }
-                _this._originData = gridResult.data;
-                _this._fmtData = window.PKUI.getTreeList( {
-                    data: this._originData
-                } );
-            } ).fail( function ( jqXHR, textStatus ) {
-                $.error( "/(ㄒoㄒ)/~~[ " + textStatus + " ]菜单数据获取失败！" );
-            } );
+                _this.originData = gridResult.data;
+            }
+            else {
+                layer.alert( '请求菜单数据失败：服务器内部错误。', { icon: 0 } );
+            }
+        } ).fail( function () {
+            layer.alert( '请求菜单数据失败。', { icon: 0 } );
+        } );
+    };
+
+
+    /**
+     * 返回数组副本
+     * @param isIncludeInvisibleMenu {Boolean?} 是否包含不可用的菜单
+     * @returns {Array}
+     */
+    Menu.getList = function ( isIncludeInvisibleMenu) {
+        var
+            list
+        ;
+        list = [];
+
+        if ( ! this.originData ) {
+            this._getData();
         }
+
+        $.each( this.originData, function ( index, sysMenu ) {
+            var copy = $.extend( true, {}, sysMenu );
+            if ( isIncludeInvisibleMenu ) {
+                list.push( copy );
+            } else if ( sysMenu[ "visiable" ] == 1 ) {
+                list.push( copy );
+            }
+        } );
+        return list;
     };
-    Menu.defaults = {
-        /** 获取菜单数据的URL */
-        url: "http://192.168.1.151:8080/pkui/admin/allSysMenuListData",
-        /** 图标的基础路径 */
-        iconBasePath: "http://localhost:6333/pkui/app/desktop/images/default/small/"
+
+    /**
+     * 返回集合副本
+     * @param isIncludeInvisibleMenu {Boolean?} 是否包含不可用的菜单
+     * @returns {*}
+     *
+     */
+    Menu.getSet = function ( isIncludeInvisibleMenu) {
+        var
+            set
+            ;
+        set = {};
+
+        if ( ! this.originData ) {
+            this._getData();
+        }
+        $.each( this.originData, function ( index, sysMenu ) {
+            var
+                copy = $.extend( true, {}, sysMenu ),
+                menuId = copy.menuId
+            ;
+            if ( isIncludeInvisibleMenu ) {
+                set[ menuId ] = copy;
+            } else if ( sysMenu[ "visiable" ] == 1 ) {
+                set[ menuId ] = copy;
+            }
+        } );
+        return set;
     };
+
+    Menu.init();
 
     return Menu;
 } );
