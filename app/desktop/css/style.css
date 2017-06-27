@@ -7204,6 +7204,7 @@ Pagination Styles
   width: 239px;
   border-right: solid 1px #ddd;
   background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .use-group-header {
@@ -7221,7 +7222,6 @@ Pagination Styles
 
 .use-group-often {
   padding-bottom: 24px;
-  border-bottom: solid 1px #ddd;
   margin-bottom: 10px;
 }
 
