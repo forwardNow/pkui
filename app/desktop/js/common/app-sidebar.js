@@ -151,7 +151,7 @@ define( function ( require ) {
             timerId = window.setTimeout( function () {
                 _this.save();
                 timerId = null;
-            }, _this.saveDelayTime )
+            }, _this.opts.saveDelayTime )
         } );
 
         // 关闭（刷新）网页前进行保存
