@@ -46,11 +46,19 @@ define( function ( require ) {
 
     };
 
+    /**
+     * 构造函数
+     * @param opts
+     * @constructor
+     */
     function AppSidebar( opts ) {
         this.opts = $.extend( true, {}, this.defaults, opts );
         this.init();
     }
 
+    /**
+     * 初始化方法
+     */
     AppSidebar.prototype.init = function () {
         var _this = this;
         this.render();
@@ -59,18 +67,26 @@ define( function ( require ) {
         this.templateRender = ArtTemplate.compile( this.opts.template );
 
         this.getData( function () {
-            _this.create();
+            _this._fmtData();
+            _this.draw();
         } );
     };
 
+    /**
+     * 准备数据
+     */
     AppSidebar.prototype.render = function () {
         this.$toggle = $( this.opts.toggleSelector );
         this.$sidebar = $( this.opts.sidebarSelector );
     };
 
+    /**
+     * 绑定事件
+     */
     AppSidebar.prototype.bind = function () {
         var _this = this;
 
+        // 点击开关时，显示/隐藏 侧边栏
         this.$toggle.on( "click." + namespace, function () {
             var $sidebar = _this.$sidebar;
 
@@ -82,6 +98,7 @@ define( function ( require ) {
             }
         } );
 
+        // 点击app条目，打开app
         this.$sidebar.on( "click." + namespace, ".use-group-item", function () {
 
             var $item = $( this );
@@ -95,6 +112,7 @@ define( function ( require ) {
                 "mode": "default"})
         } );
 
+        // 监听 在 $document 上触发的 inited.app 事件
         $( document ).on( "inited.app", function ( event, menuId ) {
             if ( ! menuId ) {
                 return;
@@ -105,6 +123,7 @@ define( function ( require ) {
     };
 
     /**
+     * 获取数据
      * 1. 菜单数据
      * 2. 常用菜单数据
      * 3. 最近使用菜单数据
@@ -138,6 +157,12 @@ define( function ( require ) {
         }
     };
 
+    /**
+     * 获取数据的公共方法
+     * @param url
+     * @param callback
+     * @private
+     */
     AppSidebar.prototype._getData = function ( url, callback ) {
         $.ajax( {
             url: url
@@ -155,12 +180,18 @@ define( function ( require ) {
         } );
     };
 
+    /**
+     * 显示侧边栏
+     */
     AppSidebar.prototype.show = function () {
         var $sidebar = this.$sidebar;
         $sidebar.stop().animate( { left: 0 }, function () {
             $sidebar.addClass( "app-sidebar-showed" )
         } );
     };
+    /**
+     * 隐藏侧边栏
+     */
     AppSidebar.prototype.hide = function () {
         var $sidebar = this.$sidebar;
         $sidebar.stop().animate( { left: -$sidebar.width() }, function () {
@@ -168,12 +199,13 @@ define( function ( require ) {
         } );
     };
 
-    AppSidebar.prototype.create = function () {
+    /**
+     * 绘制侧边栏的内容
+     */
+    AppSidebar.prototype.draw = function () {
         var
             html
         ;
-
-        this._fmtData();
 
         html = this.templateRender( {
             oftenUsedMenuList: this.oftenUsedMenuList,
@@ -183,6 +215,10 @@ define( function ( require ) {
         this.$sidebar.html( html );
     };
 
+    /**
+     * 格式化数据
+     * @private
+     */
     AppSidebar.prototype._fmtData = function () {
         var temp,
             _this = this,
@@ -243,11 +279,14 @@ define( function ( require ) {
         }
     };
 
+    /**
+     * 当打开一个新的app时，重新绘制侧边栏内容
+     * @param menuId
+     */
     AppSidebar.prototype.redraw = function ( menuId ) {
         var
             _this = this,
-            sysMenu,
-            html
+            sysMenu
         ;
         /* 最近使用 */
         // 1. 若存在列表中，则删除
@@ -284,12 +323,7 @@ define( function ( require ) {
         }
 
         // 重新绘制
-        html = this.templateRender( {
-            oftenUsedMenuList: this.oftenUsedMenuList,
-            recentUsedMenuList: this.recentUsedMenuList
-        } );
-
-        this.$sidebar.html( html );
+        this.draw();
     };
 
     AppSidebar.prototype.isInOftenUsedList =  function ( menuId, list ) {
