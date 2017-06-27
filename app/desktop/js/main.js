@@ -43,7 +43,7 @@ define( function ( require ) {
             menuUrl: "__CTX__/admin/sysMenuListData",
             oftenUsedUrl: "__CTX__/admin/oftenUsedSysMenu",
             recentUsedUrl: "__CTX__/admin/recentUsedSysMenu",
-            saveUsedMenuUrl: ""
+            saveUsedMenuUrl: "__CTX__/admin/saveUsedMenu"
         } );
 
     } );
