@@ -124,11 +124,10 @@ define( function ( require ) {
         } );
 
         // 监听 在 $document 上触发的 inited.app 事件
-        $( document ).on( "inited.app", function ( event, menuId ) {
-            if ( ! menuId ) {
-                return;
+        $( document ).on( "inited.app", function ( event, appOptions ) {
+            if ( appOptions && appOptions.menuId != null && appOptions.mode === "default" ) {
+                _this.redraw( appOptions.menuId );
             }
-            _this.redraw( menuId );
         } );
 
 

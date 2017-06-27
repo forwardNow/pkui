@@ -23,7 +23,7 @@ define( function ( require ) {
      * @alias App
      * @constructor
      * @param {object} $target 快捷方式DOM
-     * @param {*} opts
+     * @param {*?} opts
      */
     function App( $target, opts ) {
         // 如果没有初始化，就先初始化。
@@ -45,7 +45,7 @@ define( function ( require ) {
 
         this._init( opts );
 
-        $( document ).trigger( "inited.app", this.options.menuId );
+        $( document ).trigger( "inited.app", this.options );
     }
 
     /**
@@ -87,7 +87,7 @@ define( function ( require ) {
      */
     App.hideAll = function () {
         $.each( this.appList, function () {
-            this && this.hide && this.hide();
+            this && this[ "hide" ] && this[ "hide" ]();
         } );
     };
 
