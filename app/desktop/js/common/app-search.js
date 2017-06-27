@@ -10,6 +10,7 @@ define( function ( require ) {
 
     var
         $ = require( "jquery" ),
+        Menu = require( "./menu" ),
         layer = window.layer,
         App = require( "./app" ),
         namespace = "pkui.search"
@@ -17,7 +18,6 @@ define( function ( require ) {
 
     Search.prototype.defaults = {
         targetSelector: null,
-        menuUrl: "",
         template: '<div class="pkui-search-popup" id="pkui-search-popup">'
             +       '<i class="fa fa-search pkui-search-icon"></i>'
             +       '<input type="text" id="pkui-search-input" class="pkui-search-input" placeholder="请输入应用名称">'
@@ -33,7 +33,8 @@ define( function ( require ) {
     Search.prototype.init = function () {
 
         // 获取菜单数据
-        this.getData();
+        this._getData();
+        this._fmtData();
 
         this.bind();
 
@@ -48,7 +49,8 @@ define( function ( require ) {
 
             if ( ! _this.data ) {
                 layer.alert( "初始时获取菜单数据失败，无法启用搜索功能，正在尝试重新获取菜单数据！", { icon: 2 } );
-                _this.getData();
+                _this._getData();
+                _this._fmtData();
                 return;
             }
 
@@ -136,43 +138,24 @@ define( function ( require ) {
     };
 
 
-    Search.prototype.getData = function () {
-        var _this = this;
-        if ( this.isPending ) {
-            return;
-        }
-        this.isPending = true;
-        $.ajax( {
-            url: this.opts.menuUrl
-        } ).done( function ( gridResult ) {
-            if ( !gridResult || gridResult && ( gridResult.success === false || gridResult.data == null ) ) {
-                layer.alert( ( gridResult && gridResult.message ) || "【应用搜索模块】获取菜单数据失败：服务器内部错误！", { icon: 2 } );
+    Search.prototype._getData = function () {
+        this.data = Menu.getList();
+    };
+
+    Search.prototype._fmtData = function () {
+        var fmtData = [];
+        $.each( this.data, function ( index, item ) {
+            if ( item[ "visiable" ] !== "1" ) {
                 return;
             }
-            _this.data = fmtData( gridResult.data );
-        } ).fail( function () {
-            // 提示网络错误
-            layer.alert( '【应用搜索模块】获取菜单数据失败：网络错误/登陆失效。', { icon: 0 } );
-        } ).always( function () {
-            _this.isPending = false;
+            fmtData.push( {
+                menuId: item[ "menuId" ],
+                // menuName
+                value: item[ "menuName" ],
+                icon: item[ "icon" ]
+            } )
         } );
-
-
-        function fmtData( data ) {
-            var fmtData = [];
-            $.each( data, function ( index, item ) {
-                if ( item[ "visiable" ] !== "1" ) {
-                    return;
-                }
-                fmtData.push( {
-                    menuId: item[ "menuId" ],
-                    // menuName
-                    value: item[ "menuName" ],
-                    icon: item[ "icon" ]
-                } )
-            } );
-            return fmtData;
-        }
+        this.data = fmtData;
     };
 
     return Search;

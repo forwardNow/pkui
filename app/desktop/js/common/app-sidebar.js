@@ -5,6 +5,7 @@ define( function ( require ) {
     var
         $ = require( "jquery" ),
         layer = window.layer,
+        Menu = require( "./menu" ),
         App = require( "./app" ),
         namespace = "pkui.sidebar",
         ArtTemplate = require( "artTemplate" )
@@ -12,7 +13,6 @@ define( function ( require ) {
 
 
     AppSidebar.prototype.defaults = {
-        menuUrl: "",
         oftenUsedUrl: "",
         recentUsedUrl: "",
         saveUsedMenuUrl: "",
@@ -164,10 +164,14 @@ define( function ( require ) {
         var
             _this = this
         ;
+        /*
         this._getData( this.opts.menuUrl, function ( jsonResult ) {
-            _this.sysMenuList = jsonResult.data;
             refresh();
+            _this.sysMenuList = jsonResult.data;
         } );
+        */
+        this.sysMenuList = Menu.getList();
+
         this._getData( this.opts.oftenUsedUrl, function ( jsonResult ) {
             _this.oftenUsedMenuList = jsonResult.data || [];
             refresh();
@@ -184,7 +188,6 @@ define( function ( require ) {
                  _this.hasOwnProperty( "recentUsedMenuList" ) ) {
 
                 callback && callback();
-                _this.isDataReady = true;
             }
         }
     };
@@ -357,7 +360,7 @@ define( function ( require ) {
         $.each( this.recentUsedMenuList, function ( index, item ) {
             if ( item.menuId == menuId ) {
                 _this.recentUsedMenuList.splice( index, 1 );
-                return true;
+                return false;
             }
         } );
         // 2. 将其添加列表第一位
@@ -369,7 +372,7 @@ define( function ( require ) {
             $.each( this.oftenUsedMenuList, function ( index, item ) {
                 if ( item.menuId == menuId ) {
                     item.count++;
-                    return true;
+                    return false;
                 }
             } );
         }
@@ -399,7 +402,7 @@ define( function ( require ) {
         $.each( list, function ( index, item ) {
             if ( item.menuId == menuId ) {
                 isExist = true;
-                return true;
+                return false;
             }
         } );
         return isExist;
