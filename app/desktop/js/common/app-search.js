@@ -47,7 +47,9 @@ define( function ( require ) {
         this.$target.on( "click." + namespace, function ( event ) {
 
             if ( ! _this.data ) {
-                layer.alert( "初始时获取菜单数据失败，无法启用搜索功能！", { icon: 2 } );
+                layer.alert( "初始时获取菜单数据失败，无法启用搜索功能，正在尝试重新获取菜单数据！", { icon: 2 } );
+                _this.getData();
+                return;
             }
 
             _this.show();
