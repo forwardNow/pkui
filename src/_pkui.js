@@ -155,7 +155,11 @@ define( function ( require ) {
             $.ajaxSetup( {
                 type: "POST",   // 1.9.0 版本使用 "type"
                 method: "POST", // 1.9.0 版本后用 "method"
-                dataType: "json"
+                dataType: "json",
+                //请求失败遇到异常触发
+                error: function ( xhr ) {
+                    window.layer.alert( "[" + xhr.status + "]" + xhr.statusText, { icon: 0 } );
+                }
             } );
         },
         /**
