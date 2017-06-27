@@ -248,8 +248,27 @@ define( function ( require ) {
     };
 
     /**
-     * 格式化数据
+     * 格式化数据。
+     * this.oftenUsedMenuList 和 this.recentUsedMenuList 使用的都是 this.sysMenuList 的数据，
+     * 也就是说sysMenu对象的引用是相同的。
      * @private
+     * @example
+        this.sysMenuList = {
+            1: { menuId: 1, menuName: "字典管理", icon: "fa fa-x" },
+            2: { menuId: 2, menuName: "菜单管理", icon: "fa fa-xx" },
+            ...
+        }
+        this.oftenUsedMenuList = [
+            { menuId: 1, menuName: "字典管理", icon: "fa fa-x", count: 3 },
+            { menuId: 2, menuName: "菜单管理", icon: "fa fa-xx", count: 2 },
+            ...
+        ]
+        this.recentUsedMenuList = [
+            { menuId: 1, menuName: "字典管理", icon: "fa fa-x", count: 3 },
+            { menuId: 2, menuName: "菜单管理", icon: "fa fa-xx", count: 2 },
+            ...
+        ]
+
      */
     AppSidebar.prototype._fmtData = function () {
         var temp,
@@ -259,7 +278,7 @@ define( function ( require ) {
             menuId, sysMenu
         ;
 
-
+        // 将全局菜单数据格式化为字典格式
         if ( this.sysMenuList ) {
             temp = {};
             $.each( this.sysMenuList, function ( index, sysMenu ) {
@@ -271,14 +290,19 @@ define( function ( require ) {
             } );
             this.sysMenuList = temp;
         }
+
+        // 判断是否符合特定格式
         if ( this.oftenUsedMenuList &&
              typeof this.oftenUsedMenuList === "string" &&
              this.oftenUsedMenuList.indexOf( ":" ) !== -1 ) {
             try {
                 temp = [];
+                // 将单引号替换为双引号
                 this.oftenUsedMenuList = this.oftenUsedMenuList.replace( /'/g, '"');
+                // 转为json，如果转换失败，则说明字符串json格式不完整，
                 this.oftenUsedMenuList = $.parseJSON( this.oftenUsedMenuList );
             } catch ( e ) {
+                // 截取前面可用部分，进行转换
                 lastPos = _this.oftenUsedMenuList.lastIndexOf( "," );
                 str = _this.oftenUsedMenuList.substring( 0, lastPos ) + "}";
                 _this.oftenUsedMenuList = $.parseJSON( str );
@@ -304,15 +328,18 @@ define( function ( require ) {
 
             $.each( this.recentUsedMenuList, function ( index, menuId ) {
                 sysMenu = _this.sysMenuList[ menuId ];
-                temp.push( sysMenu );
+                if ( sysMenu.hasOwnProperty( "menuId" ) ) {
+                    temp.push( sysMenu );
+                }
             } );
 
             this.recentUsedMenuList = temp;
 
         }
 
-        removeUndefinedValue( this.oftenUsedMenuList );
-        removeUndefinedValue( this.recentUsedMenuList );
+        // 排序
+        this._sortOftenUsedMenuList();
+
     };
 
     /**
@@ -325,38 +352,25 @@ define( function ( require ) {
             sysMenu
         ;
 
-        removeUndefinedValue( this.oftenUsedMenuList );
-        removeUndefinedValue( this.recentUsedMenuList );
-
         /* 最近使用 */
         // 1. 若存在列表中，则删除
-        if ( this.isInRecentUsedList( menuId ) ) {
-            $.each( this.recentUsedMenuList, function ( index, item ) {
-                if ( item && item.menuId == menuId ) {
-                    _this.recentUsedMenuList.splice( index, 1 );
-                    return true;
-                }
-            } );
-        }
+        $.each( this.recentUsedMenuList, function ( index, item ) {
+            if ( item.menuId == menuId ) {
+                _this.recentUsedMenuList.splice( index, 1 );
+                return true;
+            }
+        } );
         // 2. 将其添加列表第一位
         this.recentUsedMenuList.unshift( this.sysMenuList[ menuId ] );
 
         /* 最常使用 */
-        // 1. 若存在，则自增，并排序
+        // 1. 若存在，则自增
         if ( this.isInOftenUsedList( menuId ) ) {
             $.each( this.oftenUsedMenuList, function ( index, item ) {
-                if ( item && item.menuId == menuId ) {
+                if ( item.menuId == menuId ) {
                     item.count++;
                     return true;
                 }
-            } );
-            this.oftenUsedMenuList.sort( function ( prevMenu, nextMenu ) {
-                var
-                    prevCount = prevMenu.count || 1,
-                    nextCount = nextMenu.count || 1
-                ;
-                // 倒序
-                return nextCount - prevCount;
             } );
         }
         // 2. 若不存在，则追加到末尾
@@ -365,6 +379,9 @@ define( function ( require ) {
             sysMenu.count = 1;
             this.oftenUsedMenuList.push( sysMenu );
         }
+        // 排序
+        this._sortOftenUsedMenuList();
+
 
         // 重新绘制
         this.draw();
@@ -451,20 +468,21 @@ define( function ( require ) {
         } );
 
     };
+
     /**
-     * 去除数组中的undefined值
-     * @param arr {Array}
+     * 排序
+     * @private
      */
-    function removeUndefinedValue( arr ) {
-        if ( !arr ) {
-            return;
-        }
-        for ( var len = arr.length, i = len - 1; i >= 0; i-- ) {
-            if ( arr[ i ] === undefined ) {
-                arr.splice( i, 1 );
-            }
-        }
-    }
+    AppSidebar.prototype._sortOftenUsedMenuList = function () {
+        this.oftenUsedMenuList.sort( function ( prevMenu, nextMenu ) {
+            var
+                prevCount = prevMenu.count || 1,
+                nextCount = nextMenu.count || 1
+                ;
+            // 倒序
+            return nextCount - prevCount;
+        } );
+    };
 
 
     return AppSidebar;
