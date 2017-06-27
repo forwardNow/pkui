@@ -1,8 +1,8 @@
 /**
- * @fileOverview 菜单类
+ * @fileOverview 菜单数据源
  * @author 吴钦飞（wuqf@pkusoft.net）
  *
- * @module module:common/menu
+ * @module module:common/menuSource
  * @requires module:jquery
  */
 define( function ( require ) {

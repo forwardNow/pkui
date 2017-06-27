@@ -5,7 +5,7 @@ define( function ( require ) {
     var
         $ = require( "jquery" ),
         layer = window.layer,
-        Menu = require( "./menu" ),
+        MenuSource = require( "./menuSource" ),
         App = require( "./app" ),
         namespace = "pkui.sidebar",
         ArtTemplate = require( "artTemplate" )
@@ -170,7 +170,7 @@ define( function ( require ) {
             _this.sysMenuList = jsonResult.data;
         } );
         */
-        this.sysMenuList = Menu.getList();
+        this.sysMenuList = MenuSource.getList();
 
         this._getData( this.opts.oftenUsedUrl, function ( jsonResult ) {
             _this.oftenUsedMenuList = jsonResult.data || [];

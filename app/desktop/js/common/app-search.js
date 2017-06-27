@@ -10,7 +10,7 @@ define( function ( require ) {
 
     var
         $ = require( "jquery" ),
-        Menu = require( "./menu" ),
+        MenuSource = require( "./menuSource" ),
         layer = window.layer,
         App = require( "./app" ),
         namespace = "pkui.search"
@@ -139,7 +139,7 @@ define( function ( require ) {
 
 
     Search.prototype._getData = function () {
-        this.data = Menu.getList();
+        this.data = MenuSource.getList();
     };
 
     Search.prototype._fmtData = function () {

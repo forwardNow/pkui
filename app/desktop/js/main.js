@@ -15,7 +15,7 @@ define( function ( require ) {
         Template = require( "template" ),
         AppSearch = require( "./common/app-search" ),
         AppSidebar = require( "./common/app-sidebar" ),
-        Menu = require( "./common/menu" )
+        menuSource = require( "./common/menuSource" )
     ;
 
     if ( window.isIE8 ) {
