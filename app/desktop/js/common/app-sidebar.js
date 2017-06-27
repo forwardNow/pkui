@@ -13,18 +13,26 @@ define( function ( require ) {
 
 
     AppSidebar.prototype.defaults = {
-        oftenUsedUrl: "",
-        recentUsedUrl: "",
-        saveUsedMenuUrl: "",
-        toggleSelector: "",
-        sidebarSelector: "",
+        oftenUsedUrl: null,
+        recentUsedUrl: null,
+        saveUsedMenuUrl: null,
+        toggleSelector: null,
+        sidebarSelector: null,
         // 一旦内容改变，三分钟后发送请求进行保存
         saveDelayTime: 3 * 60 * 1000,
-        template:
+        // 显示的最常使用的最大数
+        maxOftenUsedItemNum: 6,
+        // 显示的最近使用的最大数
+        maxRecentUsedItemNum: 10,
+
+        template: null
+    };
+
+    AppSidebar.prototype.defaults.template =
         '   <dl class="use-group use-group-often">'
         +   '    <dt class="use-group-header">常用功能</dt>'
         +   '    {{each oftenUsedMenuList }}'
-        +   '        {{if $index < 6}}'
+        +   '        {{if $index < '+ AppSidebar.prototype.defaults.maxOftenUsedItemNum +'}}'
         +   '        <dd class="use-group-item" '
         +               'data-menu-id="{{$value.menuId}}" '
         +               'data-menu-name="{{$value.menuName}}" '
@@ -36,7 +44,7 @@ define( function ( require ) {
         +   '<dl class="use-group use-group-recent">'
         +   '    <dt class="use-group-header">最近使用</dt>'
         +   '    {{each recentUsedMenuList }}'
-        +   '        {{if $index < 8}}'
+        +   '        {{if $index < '+ AppSidebar.prototype.defaults.maxRecentUsedItemNum +'}}'
         +   '        <dd class="use-group-item" '
         +               'data-menu-id="{{$value.menuId}}" '
         +               'data-menu-name="{{$value.menuName}}" '
@@ -44,10 +52,7 @@ define( function ( require ) {
         +   '            <a href="#"><i class="{{$value.icon}}"></i> {{$value.menuName}}</a></dd>'
         +   '        {{/if}}'
         +   '    {{/each}}'
-        +   '</dl>'
-
-
-    };
+        +   '</dl>';
 
     /**
      * 构造函数

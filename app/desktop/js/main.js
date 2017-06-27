@@ -42,7 +42,10 @@ define( function ( require ) {
             sidebarSelector: "#daSidebar",
             oftenUsedUrl: "__CTX__/admin/oftenUsedSysMenu",
             recentUsedUrl: "__CTX__/admin/recentUsedSysMenu",
-            saveUsedMenuUrl: "__CTX__/admin/saveUsedMenu"
+            saveUsedMenuUrl: "__CTX__/admin/saveUsedMenu",
+
+            maxOftenUsedItemNum: 6,
+            maxRecentUsedItemNum: 10
         } );
 
     } );
