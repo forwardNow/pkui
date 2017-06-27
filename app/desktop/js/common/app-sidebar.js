@@ -128,7 +128,11 @@ define( function ( require ) {
 
 
         // 内容改变后，进行保存
-        this.$sidebar.on( "changed." + namespace, function () {
+        this.$sidebar.on( "changed." + namespace, function ( event, isRefresh ) {
+            // 立马更新（）如果有更新）
+            if ( isRefresh && timerId ) {
+                _this.save();
+            }
             // 取消前一个计时任务
             if ( timerId ) {
                 window.clearTimeout( timerId );
@@ -138,6 +142,11 @@ define( function ( require ) {
                 _this.save();
                 timerId = null;
             }, _this.saveDelayTime )
+        } );
+
+        // 关闭（刷新）网页前进行保存
+        $( window ).unload( function () {
+            _this.$sidebar.trigger( "changed." + namespace, true );
         } );
     };
 
