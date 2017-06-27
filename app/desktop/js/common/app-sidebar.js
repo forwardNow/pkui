@@ -250,8 +250,6 @@ define( function ( require ) {
             menuId, sysMenu
         ;
 
-        removeUndefinedValue( this.oftenUsedMenuList );
-        removeUndefinedValue( this.recentUsedMenuList );
 
         if ( this.sysMenuList ) {
             temp = {};
@@ -266,7 +264,7 @@ define( function ( require ) {
         }
         if ( this.oftenUsedMenuList &&
              typeof this.oftenUsedMenuList === "string" &&
-             this.oftenUsedMenuList.indexOf( "," ) !== -1 ) {
+             this.oftenUsedMenuList.indexOf( ":" ) !== -1 ) {
             try {
                 temp = [];
                 this.oftenUsedMenuList = this.oftenUsedMenuList.replace( /'/g, '"');
@@ -289,7 +287,7 @@ define( function ( require ) {
         }
         if ( this.recentUsedMenuList &&
              typeof this.recentUsedMenuList === "string" &&
-             this.recentUsedMenuList.indexOf( "," ) !== -1 ) {
+             ( this.recentUsedMenuList.length === 1 || this.recentUsedMenuList.indexOf( "," ) !== -1 ) ) {
 
             temp = [];
 
@@ -303,6 +301,9 @@ define( function ( require ) {
             this.recentUsedMenuList = temp;
 
         }
+
+        removeUndefinedValue( this.oftenUsedMenuList );
+        removeUndefinedValue( this.recentUsedMenuList );
     };
 
     /**
