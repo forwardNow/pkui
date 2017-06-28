@@ -12,7 +12,7 @@
         data-main：当前应用的入口js文件
         data-timestamp: 时间戳（dev为开发模式），比如 data-timestamp="v=2017-02-27"
     -->
-    <script data-main="./js/main.js" data-timestamp="2017-06-27" src="../pkui/pkui.js"></script>
+    <script data-main="./js/main.js" data-timestamp="2017-06-28" src="../pkui/pkui.js"></script>
 </head>
 <body>
 
@@ -32,13 +32,6 @@
 
         <!-- 任务栏 -->
         <div class="topbar-dock">
-            <!--
-            <div class="topbar-dock-item" >
-                <img class="dock-item-icon" src="{{ icon }}" alt="">
-                <span class="dock-item-title" title="{{ title }}">{{ title }}</span>
-                <i class="dock-item-btn"></i>
-            </div>
-            -->
             <i class="dock-dropmenu-indicator" style="display: none;"></i>
             <div class="dock-dropmenu" >
                 <div class="dock-dropmenu-list hidden">
@@ -50,7 +43,7 @@
         <!-- 工具栏 -->
         <div class="topbar-toolbar">
 
-            <!-- 搜索 -->
+            <!-- 搜索 common/app-search.js -->
             <div class="topbar-toolbar-item" id="topbar-toolbar-search" title="应用搜索"><i class="fa fa-search"></i></div>
             <!-- /搜索 -->
 
@@ -74,14 +67,19 @@
 
     <!-- 桌面 -->
     <main class="da-desktop" id="daDesktop">
-        <!-- 应用启动面板 -->
+        <!-- 应用启动面板 common/launchpad.js -->
         <div class="launchpad-container">
 
             <!-- 显示区域 -->
             <div class="launchpad-view swiper-container">
                 <div class="launchpad-view-pageList swiper-wrapper hidden">
                     <div class="launchpad-view-pageItem swiper-slide">
-                        <div class="launchpad-shortcutpad">
+                        <div class="launchpad-shortcutpad"
+                             data-pkui-component="loadContent"
+                             data-pkui-component-options='{
+                                "position": "inner",
+                                "moduleId": "__CTX__/static/desktop/js/page/shortcutConfig"
+                             }'>
 
                             <div class="launchpad-shortcut" data-pkui-app="true"
                                  data-pkui-app-options='{
@@ -187,29 +185,10 @@
     </main>
     <!-- /桌面 -->
 
-    <!-- 则边栏 -->
+    <!-- 则边栏 common/app-sidebar.js -->
     <aside class="da-sidebar" id="daSidebar">
-<!--
-        <dl class="use-group use-group-often">
-            <dt class="use-group-header">常用功能</dt>
-            <dd class="use-group-item"><a href="#"><i class="fa fa-home"></i> 单位管理</a><span class="count">12</span></dd>
-            <dd class="use-group-item"><a href="#"><i class="fa fa-users"></i> 用户管理</a><span class="count">9</span></dd>
-            <dd class="use-group-item"><a href="#"><i class="fa fa-book"></i> 字典管理</a><span class="count">4</span></dd>
-            <dd class="use-group-item"><a href="#"><i class="fa fa-user-secret"></i> 角色管理</a><span class="count">2</span></dd>
-            <dd class="use-group-item"><a href="#"><i class="fa fa-cogs"></i> 系统参数</a><span class="count">1</span></dd>
-        </dl>
-
-        <dl class="use-group use-group-recent">
-            <dt class="use-group-header">最近使用</dt>
-            <dd class="use-group-item"><a href="#"><i class="fa fa-home"></i> 单位管理</a></dd>
-            <dd class="use-group-item"><a href="#"><i class="fa fa-users"></i> 用户管理</a></dd>
-            <dd class="use-group-item"><a href="#"><i class="fa fa-book"></i> 字典管理</a></dd>
-            <dd class="use-group-item"><a href="#"><i class="fa fa-user-secret"></i> 角色管理</a></dd>
-            <dd class="use-group-item"><a href="#"><i class="fa fa-cogs"></i> 系统参数</a></dd>
-            <dd class="use-group-item"><a href="#"><i class="fa fa-link"></i> 菜单管理</a></dd>
-        </dl>
--->
-
+        <i class="da-sidebar-closeBtn fa fa-close"></i>
+        <div class="da-sidebar-body" id="da-sidebar-body"></div>
     </aside>
     <!-- /则边栏 -->
 

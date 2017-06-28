@@ -18,6 +18,7 @@ define( function ( require ) {
         saveUsedMenuUrl: null,
         toggleSelector: null,
         sidebarSelector: null,
+        sidebarBodySelecotr: null,
         closeBtnSelector: ".da-sidebar-closeBtn",
         // 一旦内容改变，三分钟后发送请求进行保存
         saveDelayTime: 3 * 60 * 1000,
@@ -29,8 +30,8 @@ define( function ( require ) {
         template: null
     };
 
-    AppSidebar.prototype.defaults.template = '<i class="da-sidebar-closeBtn fa fa-close"></i>'
-        +   '<dl class="use-group use-group-often">'
+    AppSidebar.prototype.defaults.template =
+            '<dl class="use-group use-group-often">'
         +   '    <dt class="use-group-header">常用功能</dt>'
         +   '    {{each oftenUsedMenuList }}'
         +   '        {{if $index < '+ AppSidebar.prototype.defaults.maxOftenUsedItemNum +'}}'
@@ -87,6 +88,7 @@ define( function ( require ) {
     AppSidebar.prototype.render = function () {
         this.$toggle = $( this.opts.toggleSelector );
         this.$sidebar = $( this.opts.sidebarSelector );
+        this.$sidebarBody = $( this.opts.sidebarBodySelecotr );
     };
 
     /**
@@ -100,9 +102,8 @@ define( function ( require ) {
 
         // 点击开关时，显示/隐藏 侧边栏
         this.$toggle.on( "click." + namespace, function () {
-            var $sidebar = _this.$sidebar;
 
-            if ( $sidebar.is( ".app-sidebar-showed" ) ) {
+            if ( _this.isShown() ) {
                 _this.hide();
             }
             else {
@@ -226,6 +227,12 @@ define( function ( require ) {
     };
 
     /**
+     * 判断是否已经展开
+     */
+    AppSidebar.prototype.isShown = function () {
+        return this.$sidebar.is( ".app-sidebar-showed" );
+    };
+    /**
      * 显示侧边栏
      */
     AppSidebar.prototype.show = function () {
@@ -257,7 +264,7 @@ define( function ( require ) {
             recentUsedMenuList: this.recentUsedMenuList
         } );
 
-        this.$sidebar.html( html );
+        this.$sidebarBody.html( html );
     };
 
     /**

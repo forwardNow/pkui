@@ -40,6 +40,7 @@ define( function ( require ) {
         new AppSidebar( {
             toggleSelector: "#topbar-history",
             sidebarSelector: "#daSidebar",
+            sidebarBodySelecotr: "#da-sidebar-body",
             oftenUsedUrl: "__CTX__/admin/oftenUsedSysMenu",
             recentUsedUrl: "__CTX__/admin/recentUsedSysMenu",
             saveUsedMenuUrl: "__CTX__/admin/saveUsedMenu",
