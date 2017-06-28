@@ -105,8 +105,11 @@ seajs.config( {
         //【component/common 】抽屉式弹窗
         "drawer": "component/common/drawer/1.0.0/drawer",
 
-        //【component/common 】抽屉式弹窗
+        //【component/common 】对 artTemplate 的封装
         "template": "component/common/template/1.0.0/template",
+
+        //【component/common 】对 artTemplate 的封装
+        "loadContent": "component/common/loadContent/1.0.0/loadContent",
 
         //【component/logic 】datagrid的扩展
         "datagrid-delete": "component/logic/datagridExt/1.0.0/datagrid-delete"

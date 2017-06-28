@@ -466,6 +466,9 @@ define( function ( require ) {
                                 case "Intro":
                                     moduleId = "Intro";
                                     break;
+                                case "loadContent":
+                                    moduleId = "loadContent";
+                                    break;
                                 default:
                                     var errorMessage = "未被注册的组件[" + componentName + "]";
                                     PKUI.console.info( moment().format("YYYY年MM月DD日 HH:MM:SS") + " " + errorMessage );
