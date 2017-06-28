@@ -158,7 +158,9 @@ define( function ( require ) {
                 dataType: "json",
                 //请求失败遇到异常触发
                 error: function ( xhr ) {
-                    window.layer.alert( "[" + xhr.status + "]" + xhr.statusText, { icon: 0 } );
+                    var msg = xhr.status + " (" + xhr.statusText + ")";
+                    window.layer.alert( msg, { icon: 0 } );
+                    $.error( msg );
                 }
             } );
         },
