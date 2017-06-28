@@ -21,7 +21,7 @@ define( function ( require ) {
     };
 
     function DatagridDelete( target, options ) {
-        this.options = $.extend( {}, defaults, options );
+        this.options = $.extend( true, {}, defaults, options );
         this.$target = $( target );
         this.$datagrid = $( this.options.datagridSelector );
         _init.call( this );
