@@ -14,7 +14,7 @@
                 data-pkui-component-options='{
                     "datagridSelector": "#sysDicItemDatagrid",
                     "PKName": "itemId",
-                    "url": "__CTX__/admin/sysDicItemDelete"
+                    "url": "{% system.dic.item.list.sysDicItemDelete %}"
                 }'
                 title="删除勾选的记录（可多选）"
                 ><i class="fa fa-trash-o"></i> 删除</button>
@@ -36,7 +36,7 @@
                 "selection": true,
                 "multiSelect": true
            }'
-           data-url="__CTX__/admin/sysDicItemListDataExt"
+           data-url="{% system.dic.item.list.sysDicItemListDataExt %}"
            data-query-form-selector="#sysDicItemQueryForm"
            data-selected-callback="sysDicItemListSelectedCallback"
            data-deselected-callback="sysDicItemListDeselectedCallback"
@@ -83,7 +83,7 @@
         +           ' data-pkui-component="drawer"'
         +           ' data-pkui-component-options=\'{'
         +               '"url":"__CTX__/static/desktop/tpl/system/dic/item/edit.html",'
-        +               '"model":"__CTX__/admin/sysDicItemModel?itemId=' + row.itemId + '",'
+        +               '"model":"{% system.dic.item.list.sysDicItemModel %}?itemId=' + row.itemId + '",'
         +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>';
     }
 

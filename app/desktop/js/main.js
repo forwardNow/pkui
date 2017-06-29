@@ -18,8 +18,8 @@ define( function ( require ) {
         menuSource = require( "./common/menuSource" )
     ;
 
-    // 载入URL配置文件
-    require( "./config/url" );
+    // 载入系统功能URL配置文件
+    require( "./config/systemUrl" );
 
     if ( window.isIE8 ) {
         seajs.use( "./css/page/ie8-hack.css" );

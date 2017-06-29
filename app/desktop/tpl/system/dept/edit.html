@@ -1,5 +1,5 @@
 <form class="da-form"
-    action="__CTX__/admin/sysDeptSave" method="post"
+    action="{% system.dept.add.sysDeptSave %}" method="post"
     data-pkui-component="validator|form"
     data-done-callback="editSysDeptDoneCallback"
     data-fail-callback="editSysDeptFailCallback"
@@ -68,7 +68,7 @@
                 <td class="text-right"><label class="da-control-label required">单位名称：</label></td>
                 <td><input type="text" class="da-form-control" name="deptName" value="{{deptName}}"
                            data-timely="1"
-                           data-rule="“单位名称”: required;remote(__CTX__/admin/sysDeptCheckInfo, deptId:oldDeptId, fieldName=deptName, fieldValue:deptName)"></td>
+                           data-rule="“单位名称”: required;remote({% system.dept.add.sysDeptCheckInfo %}, deptId:oldDeptId, fieldName=deptName, fieldValue:deptName)"></td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>

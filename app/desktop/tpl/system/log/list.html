@@ -6,7 +6,7 @@
             data-pkui-component-options='{
                 "datagridSelector": "#sysLogDatagrid",
                 "PKName": "logId",
-                "url": "__CTX__/admin/sysLogDeleteByIds"
+                "url": "{% system.log.list.sysLogDeleteByIds %}"
             }'
             title="删除勾选的记录（可多选）"
             ><i class="fa fa-trash-o"></i> 删除</button>
@@ -27,13 +27,13 @@
             "selection": true,
             "multiSelect": true
        }'
-       data-url="__CTX__/admin/sysLogListData_new_getPage"
-       data-total-records-url="__CTX__/admin/sysLogListData_new_getCount"
+       data-url="{% system.log.list.sysLogListData_new_getPage %}"
+       data-total-records-url="{% system.log.list.sysLogListData_new_getCount %}"
        data-query-form-selector="#sysLogQueryForm"
        >
     <thead>
     <!--
-    data-total-records-url="__CTX__/admin/sysLogTotalRecords"
+    data-total-records-url="{% system.log.list.sysLogTotalRecords %}"
     -->
 
     <tr>

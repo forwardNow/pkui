@@ -1,5 +1,5 @@
 <form class="da-form"
-    action="__CTX__/admin/sysDicListAdd" method="post"
+    action="{% system.dic.list.add.sysDicListAdd %}" method="post"
     data-pkui-component="validator|form"
     data-done-callback="addSysDicListDoneCallback"
     data-fail-callback="addSysDicListFailCallback"
@@ -16,7 +16,7 @@
                 <td class="text-right"><label class="da-control-label required">字典名称：</label></td>
                 <td><input type="text" class="da-form-control" name="dicName"
                            data-timely="1"
-                           data-rule='“字典名称”: required;dic;remote(__CTX__/admin/checkDicNameUnique, dicName)'
+                           data-rule='“字典名称”: required;dic;remote({% system.dic.list.add.checkDicNameUnique %}, dicName)'
                            data-rule-dic='[/^DIC_.*/, "字典名称以 DIC_ 开头"]'></td>
             </tr>
             <tr>
