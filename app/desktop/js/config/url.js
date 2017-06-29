@@ -5,8 +5,9 @@
  *     2. jQuery.ajax( { url: "此处的内容" } )
  *     3. data-pkui-component-options 的值
  */
-define( function () {
+define( function ( require ) {
     var
+        PlaceholderHandler = require( "placeholderHandler" ),
         config
     ;
 
@@ -20,5 +21,7 @@ define( function () {
 
     };
 
-    return config;
+
+    // 添加进占位符处理器匹配源数据源
+    PlaceholderHandler.appendMatchSource( config );
 } );
