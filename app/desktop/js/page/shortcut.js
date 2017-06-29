@@ -1,40 +1,16 @@
 /**
- * 快捷方式配置
+ * 快捷方式配置，
+ * 此模块配合 loadContent模块 使用，提供 getHtml() 接口，并解析快捷方式配置（config/shortcut.js）
  */
 define( function ( require ) {
     var
         $ = require( "jquery" ),
         MenuSource = require( "../common/menuSource" ),
         ArtTemplate = require( "artTemplate" ),
+        SHORTCUT_CONFIG = require( "../config/shortcut" ),
         Shortcut = {}
     ;
 
-    /**
-     * 快捷方式的配置。
-     *  每个数组元素对应一个快捷方式，每个快捷方式即为一个菜单项（SYS_MENU）
-     *  快捷方式的图标（icon）和名称（menuName）默认使用 sysMenu.icon和sysMenu.menuName
-     *  打开方式（mode）默认为"default"
-     *  打开窗口后显示的页面（src）默认为 “${ctx}/static/desktop/tpl/system/index.html”
-     * @type {Array}
-     */
-    Shortcut.SHORTCUT_CONFIG = [
-        {
-            menuId: 1,
-            menuName: "系统管理", icon: "__CTX__/static/desktop/images/apps/gear.png",
-
-            mode: "default",
-            src: "__CTX__/static/desktop/tpl/system/index.html"
-        },
-        { menuId: 2 },
-        { menuId: 3 },
-        { menuId: 4 },
-        { menuId: 5 },
-        { menuId: 6 },
-        { menuId: 7 },
-        { menuId: 8 },
-        { menuId: 9 },
-        { menuId: 10 }
-    ];
 
     Shortcut.defaults = {
         src: "__CTX__/static/desktop/tpl/system/index.html",
@@ -64,7 +40,7 @@ define( function ( require ) {
      */
     Shortcut._init = function () {
         this.sysMenuSet = MenuSource.getSet( true );
-        this.config = this._getConfig();
+        this.config = SHORTCUT_CONFIG;
         this.render = ArtTemplate.compile( this.template );
     };
 
@@ -123,18 +99,6 @@ define( function ( require ) {
         } );
 
         return html;
-    };
-
-    /**
-     * 获取配置，可通过 window.SHORTCUT_CONFIG 进行重置
-     */
-    Shortcut._getConfig = function () {
-        // 如果有自定义的，则直接使用
-        if ( window[ "SHORTCUT_CONFIG" ] ) {
-            return window[ "SHORTCUT_CONFIG" ]
-        }
-
-        return this.SHORTCUT_CONFIG;
     };
 
     Shortcut._init();
