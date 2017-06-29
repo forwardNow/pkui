@@ -19,6 +19,8 @@ define( function ( require ) {
     var
         $ = require( "jquery" ),
 
+        PlaceholderHandler = require( "placeholderHandler" ),
+
         AOP = require( "meld" ),
 
         moment = require( "moment" ),
@@ -176,15 +178,23 @@ define( function ( require ) {
             ;
 
             $.ajax = function ( url, options ) {
+
+
                 // 正则添加".*"是为了解决被当成相对路径时，自动拼接的前缀。
                 if ( typeof url === "string" ) {
-                    url = url.replace( /.*__CTX__/, PKUI.ctxPath );
+                    url = PlaceholderHandler.process( url );
+                    url = processAjaxUrl( url );
                 }
                 else if ( typeof url === "object" && url.hasOwnProperty( "url" ) ) {
-                    url.url = url.url.replace( /.*__CTX__/, PKUI.ctxPath );
+                    url.url = PlaceholderHandler.process( url.url );
+                    url.url = processAjaxUrl( url.url );
                 }
                 return originAjaxMethod.call( this, url, options );
             };
+
+            function processAjaxUrl( url ) {
+                return url.replace( /.*__CTX__/, PKUI.ctxPath );
+            }
 
             $.fn.html = function ( value ) {
 
@@ -195,6 +205,7 @@ define( function ( require ) {
 
                 // 字符串
                 if ( typeof value === "string" ) {
+                    value = PlaceholderHandler.process( value );
                     value = value.replace( /__CTX__/gm, PKUI.ctxPath );
                 }
 
@@ -408,8 +419,9 @@ define( function ( require ) {
                         componentNameList
                         ;
 
-                    // 替换 __CTX__
+                    // 替换 __CTX__ 和 占位符
                     if ( componentOptions ) {
+                        componentOptions = PlaceholderHandler.process( componentOptions );
                         componentOptions = componentOptions.replace( /__CTX__/gm, PKUI.ctxPath );
                     }
 
