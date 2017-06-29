@@ -9,6 +9,9 @@
  */
 define( function ( require ) {
     var
+
+        PlaceholderHandler = require( "placeholderHandler" ),
+        UrlConfig = require( "./config/url" ),
         $ = require( "jquery" ),
         Launchpad = require( "./common/launchpad" ),
         App = require( "./common/app" ),
@@ -17,6 +20,9 @@ define( function ( require ) {
         AppSidebar = require( "./common/app-sidebar" ),
         menuSource = require( "./common/menuSource" )
     ;
+
+    // 注入URL配置文件
+    PlaceholderHandler.appendConfig( UrlConfig );
 
     if ( window.isIE8 ) {
         seajs.use( "./css/page/ie8-hack.css" );
