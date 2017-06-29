@@ -120,6 +120,9 @@ seajs.config( {
         //【component/common 】对 artTemplate 的封装
         "loadContent": "component/common/loadContent/1.0.0/loadContent",
 
+        //【component/common 】处理占位符
+        "placeholderHandler": "component/common/placeholderHandler/1.0.0/placeholderHandler",
+
         //【component/logic 】datagrid的扩展
         "datagrid-delete": "component/logic/datagridExt/1.0.0/datagrid-delete"
 
