@@ -10,10 +10,12 @@ define( function( require ) {
         namespace = "pkui.loadContent"
         ;
 
+
     LoadContent.prototype.defaults = {
         // 内容载入的位置（ 指定元素的CSS选择器，缺省或"default"为当前元素 ）
         targetSelector: "default",
-        moduleId: null
+        // 生成内容的模块ID
+        loadContentFromWhichModuleId: null
     };
 
     /**
@@ -52,7 +54,7 @@ define( function( require ) {
             this.$target = $( targetSelector );
         }
 
-        if ( this.$target.size() === 0 ) {
+        if ( this.$target.jquery && this.$target.size() === 0 ) {
             $.error( "[loadContent] targetSelector参数 指定的选择器不正确。" );
         }
     };
@@ -65,7 +67,7 @@ define( function( require ) {
         _this.$target.isLoading();
 
         // 载入模块
-        seajs.use( this.opts.moduleId, function ( mod ) {
+        seajs.use( this.opts.loadContentFromWhichModuleId, function ( mod ) {
             if ( mod.hasOwnProperty( "getHtml" ) && typeof mod.getHtml === "function" ) {
 
                 mod.getHtml( function ( html ) {
@@ -77,7 +79,7 @@ define( function( require ) {
 
                 } );
             } else {
-                $.error( "[loadContent] moduleId参数 指定的模块必须通过 getHtml() 方法。" );
+                $.error( "[loadContent] loadContentFromWhichModuleId参数 指定的模块必须通过 getHtml() 方法。" );
             }
         } );
     };
