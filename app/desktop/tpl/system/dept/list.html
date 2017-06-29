@@ -13,7 +13,7 @@
             data-pkui-component-options='{
                 "datagridSelector": "#sysDeptDatagrid",
                 "PKName": "deptId",
-                "url": "__CTX__/admin/sysDeptDelete"
+                "url": "{% system.dept.list.sysDeptDelete %}"
             }'
             title="删除勾选的记录（可多选）"
             ><i class="fa fa-trash-o"></i> 删除</button>
@@ -38,7 +38,7 @@
             "selection": true,
             "multiSelect": true
        }'
-       data-url="__CTX__/admin/sysDeptListData"
+       data-url="{% system.dept.list.sysDeptListData %}"
        data-query-form-selector="#sysDeptQueryForm"
        data-selected-callback="sysDeptListSelectedCallback"
        data-deselected-callback="sysDeptListDeselectedCallback"
@@ -84,7 +84,7 @@
         +           ' data-pkui-component="drawer"'
         +           ' data-pkui-component-options=\'{'
         +               '"url":"__CTX__/static/desktop/tpl/system/dept/detail.html",'
-        +               '"model":"__CTX__/admin/sysDeptModel?deptId=' + row.deptId + '",'
+        +               '"model":"{% system.dept.list.sysDeptModel %}?deptId=' + row.deptId + '",'
         +               '"container": ".da-win-main"}\'><i class="fa fa-file-o"></i> 查看</a>　'
 
         +       '<a href="javascript:void(0)" '
@@ -92,7 +92,7 @@
         +           ' data-pkui-component="drawer"'
         +           ' data-pkui-component-options=\'{'
         +               '"url":"__CTX__/static/desktop/tpl/system/dept/edit.html",'
-        +               '"model":"__CTX__/admin/sysDeptModel?deptId=' + row.deptId + '",'
+        +               '"model":"{% system.dept.list.sysDeptModel %}?deptId=' + row.deptId + '",'
         +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>';
     }
 
@@ -135,7 +135,7 @@
         $button.isLoading( { position: "insideButton" } );
 
         jQuery.ajax( {
-            url: "__CTX__/admin/sysDeptCreateDic?dicName=DIC_DEPT"
+            url: "{% system.dept.list.sysDeptCreateDic %}?dicName=DIC_DEPT"
         } ).done( function ( jsonResult ) {
             if ( jsonResult && jsonResult.success ) {
                 // 清空"DIC_DEPT"缓存
