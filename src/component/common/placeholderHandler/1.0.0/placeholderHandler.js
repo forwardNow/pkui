@@ -53,11 +53,11 @@ define( function ( require ) {
     };
 
     /**
-     * 添加配置对象，重名的属性将覆盖原属性
+     * 添加匹配源，重名的属性将覆盖原属性
      * @param config {*} 配置，字典类型
      * @param isNotOverride {Boolean?} 是否不覆盖同名属性
      */
-    PlaceholderHandler.appendConfig = function ( config, isNotOverride ) {
+    PlaceholderHandler.appendMatchSource = function ( config, isNotOverride ) {
         var
             key,
             _configSet = this._configSet
