@@ -9,8 +9,11 @@
  * @author 吴钦飞(wuqf@pkusoft.net)
  */
 
-// namespace
-window[ "www.pkusoft.net" ] = {};
+
+// namespace，如果未创建则新建
+if ( ! window[ "www.pkusoft.net" ] ) {
+    window[ "www.pkusoft.net" ] = {};
+}
 
 // 组件别名（模块ID）
 seajs.config( {
