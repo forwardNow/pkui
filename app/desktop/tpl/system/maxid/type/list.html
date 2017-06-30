@@ -12,7 +12,7 @@
             data-pkui-component-options='{
                 "datagridSelector": "#sysMaxIdTypeDatagrid",
                 "PKName": "idType",
-                "url": "__CTX__/admin/sysMaxIdTypeDelete"
+                "url": "{% system.maxid.type.list.sysMaxIdTypeDelete %}"
             }'
             title="删除勾选的记录（可多选）"
             ><i class="fa fa-trash-o"></i> 删除</button>
@@ -33,7 +33,7 @@
             "selection": true,
             "multiSelect": true
        }'
-       data-url="__CTX__/admin/sysMaxIdTypeListDataExt"
+       data-url="{% system.maxid.type.list.sysMaxIdTypeListDataExt %}"
        data-query-form-selector="#sysMaxIdTypeQueryForm"
        data-selected-callback="sysMaxIdTypeListSelectedCallback"
        data-deselected-callback="sysMaxIdTypeListDeselectedCallback"
@@ -83,7 +83,7 @@
         +           ' data-pkui-component="drawer"'
         +           ' data-pkui-component-options=\'{'
         +               '"url":"__CTX__/static/desktop/tpl/system/maxid/type/detail.html",'
-        +               '"model":"__CTX__/admin/sysMaxIdTypeModel?idType=' + row.idType + '",'
+        +               '"model":"{% system.maxid.type.list.sysMaxIdTypeModel %}?idType=' + row.idType + '",'
         +               '"container": ".da-win-main"}\'><i class="fa fa-file-o"></i> 查看</a>　'
 
         +       '<a href="javascript:void(0)" '
@@ -91,7 +91,7 @@
         +           ' data-pkui-component="drawer"'
         +           ' data-pkui-component-options=\'{'
         +               '"url":"__CTX__/static/desktop/tpl/system/maxid/type/edit.html",'
-        +               '"model":"__CTX__/admin/sysMaxIdTypeModel?idType=' + row.idType + '",'
+        +               '"model":"{% system.maxid.type.list.sysMaxIdTypeModel %}?idType=' + row.idType + '",'
         +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>';
     }
 
@@ -134,7 +134,7 @@
         $button.isLoading( { position: "insideButton" } );
 
         jQuery.ajax( {
-            url: "__CTX__/admin/sysMaxIdTypeCreateDic?dicName=DIC_DEPT"
+            url: "{% system.maxid.type.list.sysMaxIdTypeCreateDic %}?dicName=DIC_DEPT"
         } ).done( function ( jsonResult ) {
             if ( jsonResult && jsonResult.success ) {
                 // 清空"DIC_DEPT"缓存

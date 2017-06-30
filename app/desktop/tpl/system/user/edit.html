@@ -1,5 +1,5 @@
 <form class="da-form"
-    action="__CTX__/admin/sysUserSave" method="post"
+    action="{% system.user.edit.sysUserSave %}" method="post"
     data-pkui-component="validator|form"
     data-done-callback="editSysUserDoneCallback"
     data-fail-callback="editSysUserFailCallback"
@@ -43,7 +43,7 @@
                     <select name="deptId"
                             data-pkui-component="chosen"
                             data-pkui-component-options='{
-                                "dic":"__CTX__/admin/sysDeptDic?deptId={{_pku_user.deptId}}&releType=2",
+                                "dic":"{% system.user.edit.sysDeptDic %}?deptId={{_pku_user.deptId}}&releType=2",
                                 "defaultCode": "{{sysUser.deptId}}"
                             }'
                             data-rule="“所属单位”: required"

@@ -256,7 +256,7 @@ define( function ( require ) {
                 // viewUrl
                 __CTX__ + "/static/desktop/tpl/system/menu/edit.html",
                 // modelUrl
-                __CTX__ + "/admin/sysMenuModel?menuId=" + selectedNode.data.menuId,
+                "{% system.menu.list.js.sysMenuModel %}?menuId=" + selectedNode.data.menuId,
                 // callback
                 function( htmlString ) {
                     _this.$displayArea.html( htmlString );
@@ -322,7 +322,7 @@ define( function ( require ) {
             $button.isLoading( { position: "insideButton" } );
 
             $.ajax( {
-                url: __CTX__ + "/admin/sysMenuDelete",
+                url: "{% system.menu.list.js.sysMenuDelete %}",
                 data: {
                     menuId: selectedNode.data.menuId
                 }
@@ -381,7 +381,7 @@ define( function ( require ) {
         $button.isLoading( { position: "insideButton" } );
 
         $.ajax( {
-            url: __CTX__ + "/admin/sysMenuSave",
+            url: "{% system.menu.list.js.sysMenuSave %}",
             data: {
                 sysMenuList: JSON.stringify( data )
             }

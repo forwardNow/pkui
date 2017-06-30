@@ -236,7 +236,7 @@ define( function ( require ) {
 
         // ajax
         $.ajax( {
-            url: "__CTX__/admin/sysMenuIconsDataExt"
+            url: "{% system.menu.edit.js.sysMenuIconsDataExt %}"
         } ).done( function ( gridResult ) {
             var
                 sysMenuIconList

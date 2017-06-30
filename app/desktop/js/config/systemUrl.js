@@ -22,7 +22,6 @@ define( function ( require ) {
             "system.dept.list.sysDeptModel": "__CTX__/admin/sysDeptModel",
             "system.dept.list.sysDeptCreateDic": "__CTX__/admin/sysDeptCreateDic"
         },
-
         // dept/add.html
         // dept/edit.html
         {
@@ -36,7 +35,6 @@ define( function ( require ) {
             "system.dic.item.list.sysDicItemListDataExt": "__CTX__/admin/sysDicItemListDataExt",
             "system.dic.item.list.sysDicItemModel": "__CTX__/admin/sysDicItemModel"
         },
-
         // dic/item/add.html
         // dic/item/edit.html
         {
@@ -51,7 +49,6 @@ define( function ( require ) {
             "system.dic.list.list.sysDicDownload": "__CTX__/admin/sysDicDownload",
             "system.dic.list.list.sysDicCreateXml": "__CTX__/admin/sysDicCreateXml"
         },
-
         // dic/list/edit.html
         {
             "system.dic.list.edit.sysDicListSave": "__CTX__/admin/sysDicListSave"
@@ -61,7 +58,6 @@ define( function ( require ) {
             "system.dic.list.add.sysDicListAdd": "__CTX__/admin/sysDicListAdd",
             "system.dic.list.add.checkDicNameUnique": "__CTX__/admin/checkDicNameUnique"
         },
-
         // dic/list/import.html
         {
             "system.dic.list.import.sysDicImport": "__CTX__/admin/sysDicImport"
@@ -73,6 +69,81 @@ define( function ( require ) {
             "system.log.list.sysLogListData_new_getPage": "__CTX__/admin/sysLogListData_new_getPage",
             "system.log.list.sysLogListData_new_getCount": "__CTX__/admin/sysLogListData_new_getCount",
             "system.log.list.sysLogTotalRecords": "__CTX__/admin/sysLogTotalRecords"
+        },
+
+        // maxid/type/list.html
+        {
+            "system.maxid.type.list.sysMaxIdTypeDelete": "__CTX__/admin/sysMaxIdTypeDelete",
+            "system.maxid.type.list.sysMaxIdTypeListDataExt": "__CTX__/admin/sysMaxIdTypeListDataExt",
+            "system.maxid.type.list.sysMaxIdTypeModel": "__CTX__/admin/sysMaxIdTypeModel",
+            "system.maxid.type.list.sysMaxIdTypeCreateDic": "__CTX__/admin/sysMaxIdTypeCreateDic"
+        },
+        // maxid/type/add.html
+        {
+            "system.maxid.type.add.sysMaxIdTypeAdd": "__CTX__/admin/sysMaxIdTypeAdd",
+            "system.maxid.type.add.checkTypeIdUnique": "__CTX__/admin/checkTypeIdUnique"
+        },
+        // maxid/type/edit.html
+        {
+            "system.maxid.type.edit.sysMaxIdTypeSave": "__CTX__/admin/sysMaxIdTypeSave"
+        },
+
+        // menu/list.html
+        {
+            "system.menu.list.sysMenuListData": "__CTX__/admin/sysMenuListData"
+        },
+        // js/page/sysMenu.js
+        {
+            "system.menu.list.js.sysMenuModel": "__CTX__/admin/sysMenuModel",
+            "system.menu.list.js.sysMenuDelete": "__CTX__/admin/sysMenuDelete",
+            "system.menu.list.js.sysMenuSave": "__CTX__/admin/sysMenuSave"
+        },
+        // menu/edit.html
+        {
+            "system.menu.edit.sysMenuUpdate": "__CTX__/admin/sysMenuUpdate"
+        },
+        // js/page/sysMenuIcon.js
+        {
+            "system.menu.edit.js.sysMenuIconsDataExt": "__CTX__/admin/sysMenuIconsDataExt"
+        },
+        // menu/add.html
+        {
+            "system.menu.add.sysMenuAdd": "__CTX__/admin/sysMenuAdd"
+        },
+
+        // para/list.html
+        {
+            "system.para.list.sysParaDelete": "__CTX__/admin/sysParaDelete",
+            "system.para.list.sysParaListData": "__CTX__/admin/sysParaListData",
+            "system.para.list.sysParaModel": "__CTX__/admin/sysParaModel"
+        },
+        // para/add.html
+        {
+            "system.para.add.sysParaSave": "__CTX__/admin/sysParaSave",
+            "system.para.add.checksysParaForm": "__CTX__/admin/checksysParaForm"
+        },
+        // para/edit.html
+        {
+            "system.para.edit.sysParaSave": "__CTX__/admin/sysParaSave",
+            "system.para.edit.checksysParaForm": "__CTX__/admin/checksysParaForm"
+        },
+
+        // user/list.html
+        {
+            "system.user.list.sysUserModel": "__CTX__/admin/sysUserModel",
+            "system.user.list.sysUserDelete": "__CTX__/admin/sysUserDelete",
+            "system.user.list.sysUserListData": "__CTX__/admin/sysUserListData",
+            "system.user.list.sysUserResetPWD": "__CTX__/admin/sysUserResetPWD"
+        },
+        // user/add.html
+        {
+            "system.user.add.sysUserSave": "__CTX__/admin/sysUserSave",
+            "system.user.add.sysDeptDic": "__CTX__/admin/sysDeptDic"
+        },
+        // user/edit.html
+        {
+            "system.user.edit.sysUserSave": "__CTX__/admin/sysUserSave",
+            "system.user.edit.sysDeptDic": "__CTX__/admin/sysDeptDic"
         },
 
 

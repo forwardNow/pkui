@@ -13,7 +13,7 @@
             data-pkui-component-options='{
                 "datagridSelector": "#sysParaDatagrid",
                 "PKName": "paraCode",
-                "url": "__CTX__/admin/sysParaDelete"
+                "url": "{% system.para.list.sysParaDelete %}"
             }'
             title="删除勾选的记录（可多选）"
             ><i class="fa fa-trash-o"></i> 删除</button>
@@ -34,7 +34,7 @@
             "selection": true,
             "multiSelect": true
        }'
-       data-url="__CTX__/admin/sysParaListData"
+       data-url="{% system.para.list.sysParaListData %}"
        data-query-form-selector="#sysParaQueryForm"
        >
     <thead>
@@ -74,7 +74,7 @@
         +           ' data-pkui-component="drawer"'
         +           ' data-pkui-component-options=\'{'
         +               '"url":"__CTX__/static/desktop/tpl/system/para/detail.html",'
-        +               '"model":"__CTX__/admin/sysParaModel?paraCode=' + row.paraCode + '",'
+        +               '"model":"{% system.para.list.sysParaModel %}?paraCode=' + row.paraCode + '",'
         +               '"container": ".da-win-main"}\'><i class="fa fa-file-o"></i> 查看</a>　'
 
         +       '<a href="javascript:void(0)" '
@@ -82,7 +82,7 @@
         +           ' data-pkui-component="drawer"'
         +           ' data-pkui-component-options=\'{'
         +               '"url":"__CTX__/static/desktop/tpl/system/para/edit.html",'
-        +               '"model":"__CTX__/admin/sysParaModel?paraCode=' + row.paraCode + '",'
+        +               '"model":"{% system.para.list.sysParaModel %}?paraCode=' + row.paraCode + '",'
         +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>';
     }
 

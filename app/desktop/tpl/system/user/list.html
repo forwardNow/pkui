@@ -5,7 +5,7 @@
             data-pkui-component="drawer"
             data-pkui-component-options='{
                 "url": "__CTX__/static/desktop/tpl/system/user/add.html",
-                "model": "__CTX__/admin/sysUserModel",
+                "model": "{% system.user.list.sysUserModel %}",
                 "container": ".da-win-main"}'
             ><i class="fa fa-plus"></i> 添加</button>
     <button type="button" class="btn btn-danger-2"
@@ -13,7 +13,7 @@
             data-pkui-component-options='{
                 "datagridSelector": "#sysUserDatagrid",
                 "PKName": "userId",
-                "url": "__CTX__/admin/sysUserDelete"
+                "url": "{% system.user.list.sysUserDelete %}"
             }'
             title="删除勾选的记录（可多选）"
             ><i class="fa fa-trash-o"></i> 删除</button>
@@ -40,7 +40,7 @@
             "selection": true,
             "multiSelect": true
        }'
-       data-url="__CTX__/admin/sysUserListData"
+       data-url="{% system.user.list.sysUserListData %}"
        data-query-form-selector="#sysUserQueryForm"
        >
     <thead>
@@ -83,7 +83,7 @@
         +           ' data-pkui-component="drawer"'
         +           ' data-pkui-component-options=\'{'
         +               '"url":"__CTX__/static/desktop/tpl/system/user/detail.html",'
-        +               '"model":"__CTX__/admin/sysUserModel?userId=' + row.userId + '",'
+        +               '"model":"{% system.user.list.sysUserModel %}?userId=' + row.userId + '",'
         +               '"container": ".da-win-main"}\'><i class="fa fa-file-o"></i> 查看</a>　'
 
         +       '<a href="javascript:void(0)" '
@@ -91,7 +91,7 @@
         +           ' data-pkui-component="drawer"'
         +           ' data-pkui-component-options=\'{'
         +               '"url":"__CTX__/static/desktop/tpl/system/user/edit.html",'
-        +               '"model":"__CTX__/admin/sysUserModel?userId=' + row.userId + '",'
+        +               '"model":"{% system.user.list.sysUserModel %}?userId=' + row.userId + '",'
         +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>';
     }
 
@@ -129,7 +129,7 @@
         } );
 
         jQuery.ajax( {
-            url: "__CTX__/admin/sysUserResetPWD",
+            url: "{% system.user.list.sysUserResetPWD %}",
             data: data
         } ).done( function ( jsonResult ) {
             // 服务器端处理成功

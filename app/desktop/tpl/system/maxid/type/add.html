@@ -1,5 +1,5 @@
 <form class="da-form"
-    action="__CTX__/admin/sysMaxIdTypeAdd" method="post"
+    action="{% system.maxid.type.add.sysMaxIdTypeAdd %}" method="post"
     data-pkui-component="validator|form"
     data-done-callback="addSysMaxIdTypeDoneCallback"
     data-fail-callback="addSysMaxIdTypeFailCallback"
@@ -16,7 +16,7 @@
                 <td class="text-right"><label class="da-control-label required">编号类型：</label></td>
                 <td><input type="text" class="da-form-control" name="idType"
                            data-timely="1"
-                           data-rule='“编号类型”: required;integer(+);remote(__CTX__/admin/checkTypeIdUnique, idType)'></td>
+                           data-rule='“编号类型”: required;integer(+);remote({% system.maxid.type.add.checkTypeIdUnique %}, idType)'></td>
             </tr>
             <tr>
                 <td class="text-right"><label class="da-control-label required">编号名称：</label></td>
