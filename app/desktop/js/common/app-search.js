@@ -118,7 +118,7 @@ define( function ( require ) {
             new App(null, {
                 "icon": item.icon,
                 "title": item.value,
-                "src": "./tpl/system/index.html",
+                "src": "__CTX__/static/desktop/tpl/system/index.html",
                 "menuId": item.menuId,
                 "mode": "default"})
         } );
