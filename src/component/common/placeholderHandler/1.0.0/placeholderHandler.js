@@ -17,7 +17,7 @@ define( function ( require ) {
      * @type {RegExp}
      * @private
      */
-    PlaceholderHandler._regex = /\{%\s*([.a-zA-Z0-9_]+)\s*%}/gm;
+    PlaceholderHandler._regex = /{%\s*([.a-zA-Z0-9_]+)\s*%}/gm;
 
     /**
      * 处理的字符串，都会从这里查找匹配的通配符
@@ -66,6 +66,9 @@ define( function ( require ) {
             throw "error";
         }
         for ( key in config ) {
+            if ( ! config.hasOwnProperty( key ) ) {
+                continue;
+            }
             if ( _configSet.hasOwnProperty( key )  ) {
                 if ( isNotOverride ) {
                     console.warn( "同名属性[" + key + "]，处理方式：跳过。" );
