@@ -7,6 +7,7 @@
  * @author 吴钦飞（wuqf@pkusoft.net）
  */
 define( function ( require ) {
+    "use strict";
 
     // 依赖 jquery ui 的 autocomplete 模块
     require( "jquery-ui" );

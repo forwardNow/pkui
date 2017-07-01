@@ -8,6 +8,9 @@ define( function ( require ) {
         namespace = "pkui.menutree"
     ;
 
+    /**
+     * 默认参数
+     */
     MenuTree.prototype.defaults = {
         // /admin/sysMenuListData
         url: "",
@@ -19,20 +22,29 @@ define( function ( require ) {
         showInvisible: false
     };
 
-    $.extend( MenuTree.prototype, {
-        $target: null,
-        options: null
-    } );
-
+    /**
+     * 构造函数
+     * @param $target 菜单树目标
+     * @param options {*?}
+     * @constructor
+     */
     function MenuTree( $target, options ) {
         this.$target = $target;
-        this.options = $.extend( {}, this.defaults, options );
-        this.init();
+        this.options = $.extend( true, {}, this.defaults, options );
+        this._init();
     }
 
+    /**
+     * 缓存。缓存指定URL的数据
+     * @type {{}}
+     */
     MenuTree.cache = {};
 
-    MenuTree.prototype.init = function () {
+    /**
+     * 初始化
+     * @private
+     */
+    MenuTree.prototype._init = function () {
         var
             _this = this,
             options = this.options,
@@ -60,9 +72,10 @@ define( function ( require ) {
             }
             MenuTree.cache[ url ] = gridResult;
             initTree( gridResult );
-        } ).fail( function () {
-            // 提示网络错误
-            window.layer.alert( '网络错误/登陆失效！', { icon: 0 } );
+        } ).fail( function ( xhr ) {
+            var msg = "菜单树构建失败：" + xhr.status + " (" + xhr.statusText + ")";
+            window.layer.alert( msg, { icon: 0 } );
+            $.error( msg );
         } ).always( function () {
             _this.$target.isLoading( "hide" );
         } );
