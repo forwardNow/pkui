@@ -3,6 +3,7 @@
  * 内容的获取通过“指定的模块”获取，“指定的模块”必须提供 getHtml() 接口
  */
 define( function( require ) {
+    "use strict";
     var
         $ = require( "jquery" ),
         PKUI = window.PKUI,
