@@ -6,6 +6,7 @@
  * @requires module:jquery
  */
 define( function ( require ) {
+    "use strict";
     var $,
         Menu = {},
         layer = window.layer
