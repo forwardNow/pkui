@@ -1,5 +1,11 @@
-
-// PKUI 核心模块
+/**
+ * @fileoverview PKUI 核心模块
+ *
+ *      1. 预加载必须的模块和样式文件
+ *      2. 其他的处理
+ *
+ * @author 吴钦飞（wuqf@pkusoft.net）
+ */
 define( function ( require ) {
     "use strict";
 
