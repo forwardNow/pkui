@@ -181,7 +181,7 @@ define( function ( require ) {
 
 
         // 内容改变后，进行保存
-        this.$sidebar.on( "changed." + namespace, function ( event ) {
+        this.$sidebar.on( "changed." + namespace, function () {
             // 取消前一个计时任务
             if ( timerId ) {
                 window.clearTimeout( timerId );
@@ -411,36 +411,49 @@ define( function ( require ) {
      */
     AppSidebar.prototype.redraw = function ( menuId ) {
         var
-            _this = this,
-            sysMenu
+            i, len,
+            sysMenu,
+            recentUsedMenuList = this.recentUsedMenuList,
+            oftenUsedMenuList = this.oftenUsedMenuList
         ;
+
+        if ( menuId === null
+            || menuId === undefined
+            || !this.sysMenuList[ menuId ]
+            || !recentUsedMenuList
+            || !oftenUsedMenuList ) {
+
+            $.error( "无法重新绘制侧边栏。" );
+            return;
+
+        }
+
 
         /* 最近使用 */
         // 1. 若存在列表中，则删除
-        $.each( this.recentUsedMenuList, function ( index, item ) {
-            if ( item.menuId === menuId ) {
-                _this.recentUsedMenuList.splice( index, 1 );
-                return false;
+        for ( len = recentUsedMenuList.length, i = len - 1; i >=0; i-- ) {
+            if ( recentUsedMenuList[ i ].menuId === menuId ) {
+                recentUsedMenuList.splice( i, 1 );
             }
-        } );
+        }
         // 2. 将其添加列表第一位
-        this.recentUsedMenuList.unshift( this.sysMenuList[ menuId ] );
+        recentUsedMenuList.unshift( this.sysMenuList[ menuId ] );
 
         /* 最常使用 */
         // 1. 若存在，则自增
         if ( this._isInOftenUsedList( menuId ) ) {
-            $.each( this.oftenUsedMenuList, function ( index, item ) {
-                if ( item.menuId === menuId ) {
-                    item.count++;
-                    return false;
+            for ( i = 0, len = oftenUsedMenuList.length; i < len; i++ ) {
+                if ( oftenUsedMenuList[ i ].menuId === menuId ) {
+                    oftenUsedMenuList[ i ].count++;
+                    break;
                 }
-            } );
+            }
         }
         // 2. 若不存在，则追加到末尾
         else {
             sysMenu = this.sysMenuList[ menuId ];
             sysMenu.count = 1;
-            this.oftenUsedMenuList.push( sysMenu );
+            oftenUsedMenuList.push( sysMenu );
         }
         // 排序
         this._sortOftenUsedMenuList();
@@ -512,6 +525,11 @@ define( function ( require ) {
         } );
         if ( often.indexOf( "," ) !== -1 ) {
             often = "{" + often.substring( 0, often.length - 1 ) + "}";
+        }
+
+        if ( !recent || !often ) {
+            $.error( "侧边栏数据有问题。" );
+            return;
         }
 
         data = {
