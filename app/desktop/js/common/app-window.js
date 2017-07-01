@@ -228,35 +228,40 @@ define( function ( require ) {
          */
         _getContent: function () {
             var _this,
-                url,
+                menuId,
+                templateUrl,
                 structureHtml,
                 contentHtml
                 ;
             _this = this;
-            url = this.options.src;
+            templateUrl = this.options.src;
 
-            if ( ! url ) {
-                return "<h1>+_+ 请设置src，如下：</h1>"
-                +      "<pre>&lt;div data-pkui-app=\"true\" \n"
-                +      "     data-pkui-app-options='{ \n"
-                +      "         \"icon\": \"./images/apps/app_01.png\", \n"
-                +      "         \"title\": \"执法监督综合应用门户\", \n"
-                +      "         \"src\": \"./tpl/system/manage.html\" }'></pre>";
+            menuId = this.options.menuId;
+
+            /*
+             当 menuId 为字符串时，添加字符串界定符
+             data-pkui-component-options='{
+                 "url": "{{menuUrl}}",
+                 "dnd": false,
+                 "menuId": {{menuId}}
+             }'
+             */
+            if ( typeof menuId === "string" ) {
+                menuId = '"' + menuId + '"';
             }
-
 
             // 1. appWindow模板（面包屑导航、菜单树、主体）
             structureHtml = appWindowTplRender( {
-                "menuId": this.options.menuId,
+                "menuId": menuId,
                 "menuUrl": MenuSource.opts.url
             } );
 
-            // 2. 业务模板（暂定为JSP）
+            // 2. 业务模板
             $.ajax( {
                 type: "GET",
                 cache: false,
                 dataType: "text",
-                url: url
+                url: templateUrl
             } ).done( function ( data ) {
                 var html,
                     $temp
