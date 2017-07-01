@@ -654,14 +654,20 @@ define( function ( require ) {
                 // rootId = data[ 0 ][ idName ];
                 $.each( data, function ( index, elt ) {
                     var parentId = elt[ parentIdName ];
-                    if ( parentId === null || parentId === undefined || parentId === -1 ) {
+                    if ( parentId === null
+                         || parentId === undefined
+                         || parentId === -1
+                         || parentId === "-1") {
                         rootList.push( elt );
                     }
                 } );
             }
             else {
                 $.each( data, function ( index, elt ) {
-                    if ( elt[ idName ] === rootId ) {
+                    var
+                        id = elt[ idName ]
+                    ;
+                    if ( id === rootId ) {
                         rootList.push( elt );
                         return false;
                     }
