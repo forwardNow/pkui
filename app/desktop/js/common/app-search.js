@@ -1,11 +1,14 @@
 /**
- * 应用搜索模块
+ * @fileOverview 应用搜索模块
  *      1. 基于 SYS_MENU 的 MENU_NAME
  *      2. 列出符合关键字的菜单项
  *      3. 选中菜单项并按下回车立即启动该功能
+ *
+ * @author 吴钦飞（wuqf@pkusoft.net）
  */
 define( function ( require ) {
 
+    // 依赖 jquery ui 的 autocomplete 模块
     require( "jquery-ui" );
 
     var
@@ -16,31 +19,48 @@ define( function ( require ) {
         namespace = "pkui.search"
         ;
 
+    /**
+     * 默认参数
+     * @type {{targetSelector: string, template: string}}
+     */
     Search.prototype.defaults = {
+        // 目标元素的CSS选择器，指定触发搜索的元素
         targetSelector: null,
+        // 弹出层的HTML模板
         template: '<div class="pkui-search-popup" id="pkui-search-popup">'
             +       '<i class="fa fa-search pkui-search-icon"></i>'
             +       '<input type="text" id="pkui-search-input" class="pkui-search-input" placeholder="请输入应用名称">'
             +     '</div>'
     };
 
+    /**
+     * 构造函数
+     * @param opts {*?}
+     * @constructor
+     */
     function Search( opts ) {
         this.opts = $.extend( true, {}, this.defaults, opts );
         this.$target = $( this.opts.targetSelector );
         this.init();
     }
 
+    /**
+     * 初始化方法
+     */
     Search.prototype.init = function () {
 
         // 获取菜单数据
         this._getData();
         this._fmtData();
 
-        this.bind();
+        this._bind();
 
     };
-
-    Search.prototype.bind = function () {
+    /**
+     * 绑定事件处理函数
+     * @private
+     */
+    Search.prototype._bind = function () {
 
         var _this = this;
 
@@ -71,7 +91,11 @@ define( function ( require ) {
         } );
     };
 
-    Search.prototype.create = function () {
+    /**
+     * 创建 search
+     * @private
+     */
+    Search.prototype._create = function () {
 
         var _this = this;
 
@@ -106,7 +130,7 @@ define( function ( require ) {
                     }
                 } ) );
             }
-        }).on( "focus", function () {
+        } ).on( "focus", function () {
             $( this ).autocomplete( "search" );
         } ).on( "autocompleteselect", function( event, ui ) {
             var item = ui.item;
@@ -126,22 +150,36 @@ define( function ( require ) {
         this.isCreated = true;
     };
 
+    /**
+     * 显示
+     */
     Search.prototype.show = function () {
         if ( ! this.isCreated ) {
-            this.create();
+            this._create();
         }
         this.$popup.show();
     };
 
+    /**
+     * 隐藏
+     */
     Search.prototype.hide = function () {
         this.$popup.hide();
     };
 
 
+    /**
+     * 获取 包含所有菜单的列表。
+     * @private
+     */
     Search.prototype._getData = function () {
         this.data = MenuSource.getList();
     };
 
+    /**
+     * 对 包含所有菜单的列表 进行格式化。
+     * @private
+     */
     Search.prototype._fmtData = function () {
         var fmtData = [];
         $.each( this.data, function ( index, item ) {
