@@ -167,7 +167,7 @@ define( function ( require ) {
                 //请求失败遇到异常触发
                 error: function ( xhr ) {
                     var msg = "Ajax请求失败：" + xhr.status + " (" + xhr.statusText + ")。请刷新网页，如果依旧存在此提示，请联系管理员。";
-                    window.layer.alert( msg, { icon: 0 } );
+                    // window.layer.alert( msg, { icon: 0 } );
                     $.error( msg );
                 }
             } );
