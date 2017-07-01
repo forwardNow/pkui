@@ -181,11 +181,7 @@ define( function ( require ) {
 
 
         // 内容改变后，进行保存
-        this.$sidebar.on( "changed." + namespace, function ( event, isRefresh ) {
-            // 立马更新（）如果有更新）
-            if ( isRefresh && timerId ) {
-                _this.save();
-            }
+        this.$sidebar.on( "changed." + namespace, function ( event ) {
             // 取消前一个计时任务
             if ( timerId ) {
                 window.clearTimeout( timerId );
@@ -197,9 +193,13 @@ define( function ( require ) {
             }, _this.opts.saveDelayTime )
         } );
 
-        // 关闭（刷新）网页前进行保存
+        // 关闭（刷新）网页前，同步Aajx请求保存数据
         $( window ).unload( function () {
-            _this.$sidebar.trigger( "changed." + namespace, true );
+            // 有更改，且未保存
+            if ( timerId ) {
+                _this.save( true );
+                window.clearTimeout( timerId );
+            }
         } );
     };
 
@@ -473,13 +473,14 @@ define( function ( require ) {
 
     /**
      * 保存，发送的数据
+     * @param isSync{boolean?} 是否同步发送请求
      * @example
         {
             recent: "1,2,3,4,5,6,7,8,9,10",
             often: "{'1':12,'2':8,'3':7,'4':6,'5':5,'6':4,'7':3,'8':2}"
         }
      */
-    AppSidebar.prototype.save = function () {
+    AppSidebar.prototype.save = function ( isSync ) {
         var
             data,
             recent = "",
@@ -520,7 +521,8 @@ define( function ( require ) {
 
         $.ajax( {
             url: this.opts.saveUsedMenuUrl,
-            data: data
+            data: data,
+            async: !isSync
         } ).done( function ( jsonResult ) {
             if ( jsonResult && jsonResult.success ) {
                 console.info( "侧边栏数据保存成功" );
