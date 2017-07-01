@@ -24,7 +24,7 @@ define( function ( require ) {
         +"         \"icon\": \"{{icon}}\","
         +"         \"title\": \"{{menuName}}\","
         +"         \"src\": \"{{src}}\","
-        +"         \"menuId\": \"{{menuId}}\","
+        +"         \"menuId\": {{menuId}},"
         +"         \"mode\": \"{{mode}}\"}'>"
         +"    {{if isFontIcon}} "
         +"        <span class=\"launchpad-shortcut-icon launchpad-shortcut-fonticon\"><i class=\"{{icon}}\"></i></span>"
@@ -69,7 +69,8 @@ define( function ( require ) {
                 shortcutHtml,
                 isFontIcon = true,
                 sysMenu,
-                icon
+                icon,
+                menuId
             ;
 
             sysMenu = sysMenuSet[ item.menuId ];
@@ -85,11 +86,16 @@ define( function ( require ) {
                 isFontIcon = false;
             }
 
+            menuId = item.menuId;
+            if ( typeof menuId === "string" ) {
+                menuId = '"' + menuId + '"';
+            }
+
             // 翻译模板
             shortcutHtml = _this.render( {
                 icon: icon,
                 menuName: item.menuName || sysMenu.menuName,
-                menuId: item.menuId,
+                menuId: menuId,
                 src: item.src || defaultSrc,
                 mode: item.mode || defaultMode,
                 isFontIcon: isFontIcon
