@@ -6588,189 +6588,231 @@ Pagination Styles
   padding-bottom: 3px;
 }
 
-.btn-default-2 {
-  color: #fff;
-  background-color: #a4a4a4;
-  border-color: #979797;
+.btn {
+  color: #333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: whitesmoke;
+  background-image: -moz-linear-gradient(top, #fff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #fff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #fff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #fff, #e6e6e6);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFE6E6E6', GradientType=0);
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) fadein(rgba(0, 0, 0, 0.1), 15%);
+  *background-color: #e6e6e6;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border: 1px solid #bbb;
+  border-bottom-color: #a2a2a2;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-.btn-default-2:focus, .btn-default-2.focus {
-  color: #fff;
-  background-color: #8b8b8b;
-  border-color: #585858;
+
+.btn:hover, .btn:active, .btn.active, .btn.disabled, .btn[disabled] {
+  color: #333;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
 }
-.btn-default-2:hover {
-  color: #fff;
-  background-color: #8b8b8b;
-  border-color: #797979;
+
+.btn:active, .btn.active {
+  background-color: #cccccc \9;
 }
-.btn-default-2:active, .btn-default-2.active, .open > .btn-default-2.dropdown-toggle {
-  color: #fff;
-  background-color: #8b8b8b;
-  border-color: #797979;
+
+.btn:hover {
+  color: #333;
+  text-decoration: none;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+  /* Buttons in IE7 don't get borders, so darken on hover */
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+  -moz-transition: background-position 0.1s linear;
+  -o-transition: background-position 0.1s linear;
+  transition: background-position 0.1s linear;
 }
-.btn-default-2:active:hover, .btn-default-2:active:focus, .btn-default-2:active.focus, .btn-default-2.active:hover, .btn-default-2.active:focus, .btn-default-2.active.focus, .open > .btn-default-2.dropdown-toggle:hover, .open > .btn-default-2.dropdown-toggle:focus, .open > .btn-default-2.dropdown-toggle.focus {
-  color: #fff;
-  background-color: #797979;
-  border-color: #585858;
+
+.btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
 }
-.btn-default-2:active, .btn-default-2.active, .open > .btn-default-2.dropdown-toggle {
+
+.btn.active, .btn:active {
+  background-color: #e6e6e6;
+  background-color: #d9d9d9 \9;
   background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-.btn-default-2.disabled:hover, .btn-default-2.disabled:focus, .btn-default-2.disabled.focus, .btn-default-2[disabled]:hover, .btn-default-2[disabled]:focus, .btn-default-2[disabled].focus, fieldset[disabled] .btn-default-2:hover, fieldset[disabled] .btn-default-2:focus, fieldset[disabled] .btn-default-2.focus {
-  background-color: #a4a4a4;
-  border-color: #979797;
+
+.btn.disabled, .btn[disabled] {
+  cursor: default;
+  background-color: #e6e6e6;
+  background-image: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
-.btn-default-2 .badge {
-  color: #a4a4a4;
-  background-color: #fff;
+
+.btn-primary-2.active,
+.btn-warning-2.active,
+.btn-danger-2.active,
+.btn-success-2.active,
+.btn-info-2.active {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.btn,
+.btn-default-2 {
+  border-color: #c5c5c5;
+  border-color: rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
 }
 
 .btn-primary-2 {
   color: #fff;
-  background-color: #4199e1;
-  border-color: #2b8dde;
-}
-.btn-primary-2:focus, .btn-primary-2.focus {
-  color: #fff;
-  background-color: #2180ce;
-  border-color: #134976;
-}
-.btn-primary-2:hover {
-  color: #fff;
-  background-color: #2180ce;
-  border-color: #1c6db0;
-}
-.btn-primary-2:active, .btn-primary-2.active, .open > .btn-primary-2.dropdown-toggle {
-  color: #fff;
-  background-color: #2180ce;
-  border-color: #1c6db0;
-}
-.btn-primary-2:active:hover, .btn-primary-2:active:focus, .btn-primary-2:active.focus, .btn-primary-2.active:hover, .btn-primary-2.active:focus, .btn-primary-2.active.focus, .open > .btn-primary-2.dropdown-toggle:hover, .open > .btn-primary-2.dropdown-toggle:focus, .open > .btn-primary-2.dropdown-toggle.focus {
-  color: #fff;
-  background-color: #1c6db0;
-  border-color: #134976;
-}
-.btn-primary-2:active, .btn-primary-2.active, .open > .btn-primary-2.dropdown-toggle {
-  background-image: none;
-}
-.btn-primary-2.disabled:hover, .btn-primary-2.disabled:focus, .btn-primary-2.disabled.focus, .btn-primary-2[disabled]:hover, .btn-primary-2[disabled]:focus, .btn-primary-2[disabled].focus, fieldset[disabled] .btn-primary-2:hover, fieldset[disabled] .btn-primary-2:focus, fieldset[disabled] .btn-primary-2.focus {
-  background-color: #4199e1;
-  border-color: #2b8dde;
-}
-.btn-primary-2 .badge {
-  color: #4199e1;
-  background-color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #006dcc;
+  background-image: -moz-linear-gradient(top, #08c, #0044cc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#08c), to(#0044cc));
+  background-image: -webkit-linear-gradient(top, #08c, #0044cc);
+  background-image: -o-linear-gradient(top, #08c, #0044cc);
+  background-image: linear-gradient(to bottom, #08c, #0044cc);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF0088CC', endColorstr='#FF0044CC', GradientType=0);
+  border-color: #0044cc #0044cc #002b80;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) fadein(rgba(0, 0, 0, 0.1), 15%);
+  *background-color: #0044cc;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
 
-.btn-info-2 {
+.btn-primary-2:hover, .btn-primary-2:active, .btn-primary-2.active, .btn-primary-2.disabled, .btn-primary-2[disabled] {
   color: #fff;
-  background-color: #40b2cc;
-  border-color: #33a5bf;
-}
-.btn-info-2:focus, .btn-info-2.focus {
-  color: #fff;
-  background-color: #2e94ab;
-  border-color: #184e5b;
-}
-.btn-info-2:hover {
-  color: #fff;
-  background-color: #2e94ab;
-  border-color: #267c8f;
-}
-.btn-info-2:active, .btn-info-2.active, .open > .btn-info-2.dropdown-toggle {
-  color: #fff;
-  background-color: #2e94ab;
-  border-color: #267c8f;
-}
-.btn-info-2:active:hover, .btn-info-2:active:focus, .btn-info-2:active.focus, .btn-info-2.active:hover, .btn-info-2.active:focus, .btn-info-2.active.focus, .open > .btn-info-2.dropdown-toggle:hover, .open > .btn-info-2.dropdown-toggle:focus, .open > .btn-info-2.dropdown-toggle.focus {
-  color: #fff;
-  background-color: #267c8f;
-  border-color: #184e5b;
-}
-.btn-info-2:active, .btn-info-2.active, .open > .btn-info-2.dropdown-toggle {
-  background-image: none;
-}
-.btn-info-2.disabled:hover, .btn-info-2.disabled:focus, .btn-info-2.disabled.focus, .btn-info-2[disabled]:hover, .btn-info-2[disabled]:focus, .btn-info-2[disabled].focus, fieldset[disabled] .btn-info-2:hover, fieldset[disabled] .btn-info-2:focus, fieldset[disabled] .btn-info-2.focus {
-  background-color: #40b2cc;
-  border-color: #33a5bf;
-}
-.btn-info-2 .badge {
-  color: #40b2cc;
-  background-color: #fff;
+  background-color: #0044cc;
+  *background-color: #003cb3;
 }
 
-.btn-success-2 {
+.btn-primary-2:active, .btn-primary-2.active {
+  background-color: #003399 \9;
+}
+
+.btn-warning-2 {
   color: #fff;
-  background-color: #9bcc3f;
-  border-color: #8ebf33;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #faa732;
+  background-image: -moz-linear-gradient(top, #fbb450, #f89406);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
+  background-image: -webkit-linear-gradient(top, #fbb450, #f89406);
+  background-image: -o-linear-gradient(top, #fbb450, #f89406);
+  background-image: linear-gradient(to bottom, #fbb450, #f89406);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFBB450', endColorstr='#FFF89406', GradientType=0);
+  border-color: #f89406 #f89406 #ad6704;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) fadein(rgba(0, 0, 0, 0.1), 15%);
+  *background-color: #f89406;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
-.btn-success-2:focus, .btn-success-2.focus {
+
+.btn-warning-2:hover, .btn-warning-2:active, .btn-warning-2.active, .btn-warning-2.disabled, .btn-warning-2[disabled] {
   color: #fff;
-  background-color: #7fab2d;
-  border-color: #435a18;
+  background-color: #f89406;
+  *background-color: #df8505;
 }
-.btn-success-2:hover {
-  color: #fff;
-  background-color: #7fab2d;
-  border-color: #6a8e26;
-}
-.btn-success-2:active, .btn-success-2.active, .open > .btn-success-2.dropdown-toggle {
-  color: #fff;
-  background-color: #7fab2d;
-  border-color: #6a8e26;
-}
-.btn-success-2:active:hover, .btn-success-2:active:focus, .btn-success-2:active.focus, .btn-success-2.active:hover, .btn-success-2.active:focus, .btn-success-2.active.focus, .open > .btn-success-2.dropdown-toggle:hover, .open > .btn-success-2.dropdown-toggle:focus, .open > .btn-success-2.dropdown-toggle.focus {
-  color: #fff;
-  background-color: #6a8e26;
-  border-color: #435a18;
-}
-.btn-success-2:active, .btn-success-2.active, .open > .btn-success-2.dropdown-toggle {
-  background-image: none;
-}
-.btn-success-2.disabled:hover, .btn-success-2.disabled:focus, .btn-success-2.disabled.focus, .btn-success-2[disabled]:hover, .btn-success-2[disabled]:focus, .btn-success-2[disabled].focus, fieldset[disabled] .btn-success-2:hover, fieldset[disabled] .btn-success-2:focus, fieldset[disabled] .btn-success-2.focus {
-  background-color: #9bcc3f;
-  border-color: #8ebf33;
-}
-.btn-success-2 .badge {
-  color: #9bcc3f;
-  background-color: #fff;
+
+.btn-warning-2:active, .btn-warning-2.active {
+  background-color: #c67605 \9;
 }
 
 .btn-danger-2 {
   color: #fff;
-  background-color: #fa8a48;
-  border-color: #f97a2f;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #da4f49;
+  background-image: -moz-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f));
+  background-image: -webkit-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -o-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: linear-gradient(to bottom, #ee5f5b, #bd362f);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFEE5F5B', endColorstr='#FFBD362F', GradientType=0);
+  border-color: #bd362f #bd362f #802420;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) fadein(rgba(0, 0, 0, 0.1), 15%);
+  *background-color: #bd362f;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
-.btn-danger-2:focus, .btn-danger-2.focus {
+
+.btn-danger-2:hover, .btn-danger-2:active, .btn-danger-2.active, .btn-danger-2.disabled, .btn-danger-2[disabled] {
   color: #fff;
-  background-color: #f96a16;
-  border-color: #a54004;
+  background-color: #bd362f;
+  *background-color: #a9302a;
 }
-.btn-danger-2:hover {
+
+.btn-danger-2:active, .btn-danger-2.active {
+  background-color: #942a25 \9;
+}
+
+.btn-success-2 {
   color: #fff;
-  background-color: #f96a16;
-  border-color: #e55906;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #5bb75b;
+  background-image: -moz-linear-gradient(top, #62c462, #51a351);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));
+  background-image: -webkit-linear-gradient(top, #62c462, #51a351);
+  background-image: -o-linear-gradient(top, #62c462, #51a351);
+  background-image: linear-gradient(to bottom, #62c462, #51a351);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF62C462', endColorstr='#FF51A351', GradientType=0);
+  border-color: #51a351 #51a351 #387038;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) fadein(rgba(0, 0, 0, 0.1), 15%);
+  *background-color: #51a351;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
-.btn-danger-2:active, .btn-danger-2.active, .open > .btn-danger-2.dropdown-toggle {
+
+.btn-success-2:hover, .btn-success-2:active, .btn-success-2.active, .btn-success-2.disabled, .btn-success-2[disabled] {
   color: #fff;
-  background-color: #f96a16;
-  border-color: #e55906;
+  background-color: #51a351;
+  *background-color: #499249;
 }
-.btn-danger-2:active:hover, .btn-danger-2:active:focus, .btn-danger-2:active.focus, .btn-danger-2.active:hover, .btn-danger-2.active:focus, .btn-danger-2.active.focus, .open > .btn-danger-2.dropdown-toggle:hover, .open > .btn-danger-2.dropdown-toggle:focus, .open > .btn-danger-2.dropdown-toggle.focus {
+
+.btn-success-2:active, .btn-success-2.active {
+  background-color: #408140 \9;
+}
+
+.btn-info-2 {
   color: #fff;
-  background-color: #e55906;
-  border-color: #a54004;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #49afcd;
+  background-image: -moz-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#5bc0de), to(#2f96b4));
+  background-image: -webkit-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: -o-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: linear-gradient(to bottom, #5bc0de, #2f96b4);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF5BC0DE', endColorstr='#FF2F96B4', GradientType=0);
+  border-color: #2f96b4 #2f96b4 #1f6377;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) fadein(rgba(0, 0, 0, 0.1), 15%);
+  *background-color: #2f96b4;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
-.btn-danger-2:active, .btn-danger-2.active, .open > .btn-danger-2.dropdown-toggle {
-  background-image: none;
+
+.btn-info-2:hover, .btn-info-2:active, .btn-info-2.active, .btn-info-2.disabled, .btn-info-2[disabled] {
+  color: #fff;
+  background-color: #2f96b4;
+  *background-color: #2a85a0;
 }
-.btn-danger-2.disabled:hover, .btn-danger-2.disabled:focus, .btn-danger-2.disabled.focus, .btn-danger-2[disabled]:hover, .btn-danger-2[disabled]:focus, .btn-danger-2[disabled].focus, fieldset[disabled] .btn-danger-2:hover, fieldset[disabled] .btn-danger-2:focus, fieldset[disabled] .btn-danger-2.focus {
-  background-color: #fa8a48;
-  border-color: #f97a2f;
-}
-.btn-danger-2 .badge {
-  color: #fa8a48;
-  background-color: #fff;
+
+.btn-info-2:active, .btn-info-2.active {
+  background-color: #24748c \9;
 }
 
 .launchpad-container {

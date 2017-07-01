@@ -81,7 +81,10 @@
 @import "common/jquery-ui";
 
 //【app/desktop】按钮
-@import "common/btn";
+//@import "common/btn";
+
+//【app/desktop】按钮 bs-v2
+@import "common/btn-v2";
 
 //【app/desktop】应用启动面板
 @import "page/launchpad";
