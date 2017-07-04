@@ -6156,7 +6156,7 @@ body {
 
 body {
   color: #333;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.35;
   font-family: "Microsoft YaHei", 'Arial','Verdana','Tahoma', sans-serif;
 }
@@ -7298,6 +7298,7 @@ Pagination Styles
   bottom: 0;
   right: 0;
   overflow: hidden;
+  background-color: #fff;
 }
 
 .da-win-header {
