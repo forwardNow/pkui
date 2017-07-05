@@ -1,0 +1,77 @@
+<form class="da-form"
+      action="__CTX__/admin/sysRoleSave" method="post"
+      data-pkui-component="validator|form"
+      data-done-callback="editSysRoleDoneCallback"
+      data-fail-callback="editSysRoleFailCallback"
+      data-always-callback="editSysRoleAlwaysCallback" >
+
+    <input type="hidden" name="roleId" value="{{ roleId }}" />
+    <input type="hidden" name="roleLevel" value="{{ roleLevel }}" /> <!-- 角色暂不分级，默认为0 -->
+
+    <div class="da-form-heading">编辑角色</div>
+    <div class="da-form-body">
+        <table class="da-form-table da-table da-table-striped">
+            <colgroup>
+                <col width="20%">
+                <col width="80%">
+            </colgroup>
+
+            <tr>
+                <td class="text-right"><label class="da-control-label required">角色名称：</label></td>
+                <td><input type="text" class="da-form-control" name="roleName" value="{{ roleName }}"
+                           data-rule='“角色名称”: required;'></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">角色描述：</label></td>
+                <td><input type="text" class="da-form-control" name="roleDerc" value="{{ roleDerc }}"
+                           data-rule='“角色描述”: required;'></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">排序：</label></td>
+                <td><input type="text" class="da-form-control" name="orderFlag" value="{{ orderFlag }}"
+                           data-rule='“排序”: integer(+0);'></td>
+            </tr>
+        </table>
+    </div>
+    <div class="da-form-footer">
+        <button type="submit" class="btn btn-success-2">确定</button>
+    </div>
+</form>
+<script>
+
+    // 请求发送成功，对服务器端返回的数据进行处理
+    function editSysRoleDoneCallback($form, jsonResult) {
+        jsonResult = window.PKUI.handleJsonResult( jsonResult );
+        // 服务器端处理成功
+        if ( jsonResult.success ) {
+            // 提示
+            layer.alert( '添加成功！', { icon: 1 }, function ( index ) {
+                var
+                    containerId = $( "#editSysRoleLayer" ).closest( ".layui-layer" ).attr( "id" ),
+                    containerIndex = containerId.replace( "layui-layer", "" )
+                ;
+
+                // 关闭提示
+                layer.close( index );
+                // 关闭容器
+                layer.close( parseInt( containerIndex ) );
+            } );
+        }
+        // 服务器端处理失败
+        else {
+            // 提示
+            layer.alert( '添加失败！', { icon: 2 } );
+        }
+    }
+
+    // 请求发送失败
+    function editSysRoleFailCallback($form) {
+        // 提示网络错误
+        layer.alert( '网络错误！', { icon: 0 } );
+    }
+
+    // 无论请求发送成功与否
+    function editSysRoleAlwaysCallback($form) {
+        // 无论
+    }
+</script>

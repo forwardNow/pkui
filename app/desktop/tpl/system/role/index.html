@@ -14,7 +14,9 @@
         <ul class="sysrole-tree-list"
             data-list-url="__CTX__/admin/getAllSysRole"
             data-delete-url="__CTX__/admin/sysRoleDelete"
-            data-save-url="__CTX__/admin/sysRoleSave">
+            data-save-url="__CTX__/admin/sysRoleSave"
+            data-view-url="__CTX__/static/desktop/tpl/system/role/edit.html"
+            data-model-url="__CTX__/admin/sysRoleModel">
             <!--
             <li class="sysrole-tree-item">
                 <a href="javascript:void(0);" class="sysrole-tree-anchor"><i class="fa fa-user-circle-o"></i><span class="text">派出所民警</span></a>
@@ -152,6 +154,7 @@
         height: 100%;
     }
     .sysrole-tree {
+        position: relative;
         overflow: auto;
         float: left;
         width: 240px;
@@ -173,6 +176,7 @@
     .sysrole-tree-item {
         position: relative;
     }
+    .sysrole-tree-item.active .sysrole-item-ope,
     .sysrole-tree-item:hover .sysrole-item-ope {
         display: inline-block;
     }
