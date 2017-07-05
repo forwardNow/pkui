@@ -24,6 +24,8 @@
     <button type="button" class="btn btn-default-2"><i class="fa fa-search"></i> 高级查询</button>
 
     <form id="sysUserQueryForm">
+        <button class="btn btn-default-2 pull-right" style="margin-left: 6px;" type="button"
+                onclick='jQuery( "#sysUserDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
         <div class="input-group pull-right" style="width: 280px;">
             <input type="text" class="da-form-control" placeholder="真实姓名" name="userName" data-operator="like">
             <span class="input-group-btn">

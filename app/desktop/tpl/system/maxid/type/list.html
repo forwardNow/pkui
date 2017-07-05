@@ -18,6 +18,8 @@
             ><i class="fa fa-trash-o"></i> 删除</button>
 
     <form id="sysMaxIdTypeQueryForm">
+        <button class="btn btn-default-2 pull-right" style="margin-left: 6px;" type="button"
+                onclick='jQuery( "#sysMaxIdTypeDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
         <div class="input-group pull-right" style="width: 280px;">
             <input type="text" class="da-form-control" placeholder="编号名称" name="idName" data-operator="like">
             <span class="input-group-btn">

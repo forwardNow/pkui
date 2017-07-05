@@ -19,6 +19,8 @@
             ><i class="fa fa-trash-o"></i> 删除</button>
 
     <form id="sysParaQueryForm">
+        <button class="btn btn-default-2 pull-right" style="margin-left: 6px;" type="button"
+                onclick='jQuery( "#sysParaDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
         <div class="input-group pull-right" style="width: 280px;">
             <input type="text" class="da-form-control" placeholder="参数名称" name="paraName" data-operator="like">
             <span class="input-group-btn">
