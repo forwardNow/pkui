@@ -20,6 +20,15 @@
                 <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysLogDatagrid" ).bootgrid( "reload" )'><i class="fa fa-search"></i></button>
             </span>
         </div>
+        <div class="pull-right" style="margin-right: 6px;">
+            <input type="text" class="da-form-control"
+                   name="logTime" placeholder="日期" data-operator=">" data-datatype="3"
+
+                   data-pkui-component="datepicker"
+                   data-pkui-component-options='{
+                        "format": "yyyy-mm-dd"
+                   }'/>
+        </div>
     </form>
 </div>
 
