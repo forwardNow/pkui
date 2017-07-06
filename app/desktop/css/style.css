@@ -7350,6 +7350,7 @@ Pagination Styles
   left: 0;
   bottom: 0;
   width: 240px;
+  padding-bottom: 28px;
   background-color: #f6f7fb;
   -webkit-transition: left 0.3s;
   -o-transition: left 0.3s;
@@ -7360,24 +7361,25 @@ Pagination Styles
   left: -250px;
 }
 
-.sidebar-collapse-toggle {
+.da-win-sidebar-toggle {
+  z-index: 10;
   position: absolute;
-  left: 214px;
-  top: 47px;
-  border: none 0;
-  background: none;
-  padding: 0;
-  cursor: pointer;
-  -webkit-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  transition: all 0.3s;
+  bottom: 0;
+  left: 0;
+  width: 240px;
+  height: 28px;
+  line-height: 28px;
+  background-color: #0a396f;
+  background-color: rgba(10, 57, 111, 0.8);
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  -webkit-transition: width 0.3s;
+  -o-transition: width 0.3s;
+  transition: width 0.3s;
 }
-.sidebar-collapse-toggle:focus {
-  outline: none 0;
-}
-.sidebar-collapse-toggle.collapsed {
-  left: 14px;
-  top: 12px;
+.da-win-sidebar-toggle.collapsed {
+  width: 36px;
 }
 
 .sidebar-menuItem {
@@ -7612,7 +7614,7 @@ Pagination Styles
   background-color: #33a6e7;
 }
 
-.desktop-sprite, .icon-home, .topbar-home, .icon-history, .topbar-history, .icon-close, .dock-item-btn, .icon-dashboard, .icon-logout, .icon-message, .icon-more, .icon-search, .icon-user, .icon-triangle-down, .toolbar-item-indicator, .icon-add, .icon-setting, .icon-arrow-left, .launchpad-pagination-previous, .icon-arrow-right, .launchpad-pagination-next, .icon-circle-1, .icon-circle-2, .icon-win-close, .pkui-dialog-close, .icon-win-close-hover, .icon-win-max, .pkui-dialog-max, .icon-win-max-hover, .icon-win-maxmin, .pkui-dialog-restore, .icon-win-maxmin-hover, .icon-win-min, .pkui-dialog-min, .icon-win-min-hover, .icon-dock-dropmenu-indicator, .dock-dropmenu-indicator, .icon-sidebar-toggle-on, .sidebar-collapse-toggle.collapsed, .icon-sidebar-toggle-off, .sidebar-collapse-toggle {
+.desktop-sprite, .icon-home, .topbar-home, .icon-history, .topbar-history, .icon-close, .dock-item-btn, .icon-dashboard, .icon-logout, .icon-message, .icon-more, .icon-search, .icon-user, .icon-triangle-down, .toolbar-item-indicator, .icon-add, .icon-setting, .icon-arrow-left, .launchpad-pagination-previous, .icon-arrow-right, .launchpad-pagination-next, .icon-circle-1, .icon-circle-2, .icon-win-close, .pkui-dialog-close, .icon-win-close-hover, .icon-win-max, .pkui-dialog-max, .icon-win-max-hover, .icon-win-maxmin, .pkui-dialog-restore, .icon-win-maxmin-hover, .icon-win-min, .pkui-dialog-min, .icon-win-min-hover, .icon-dock-dropmenu-indicator, .dock-dropmenu-indicator, .icon-sidebar-toggle-on, .icon-sidebar-toggle-off {
   background-image: url('../images/desktop-saceabef4e0.png');
   background-repeat: no-repeat;
 }
@@ -7785,13 +7787,13 @@ Pagination Styles
   background-position: 0 -321px;
 }
 
-.icon-sidebar-toggle-on, .sidebar-collapse-toggle.collapsed {
+.icon-sidebar-toggle-on {
   width: 16px;
   height: 16px;
   background-position: 0 -551px;
 }
 
-.icon-sidebar-toggle-off, .sidebar-collapse-toggle {
+.icon-sidebar-toggle-off {
   width: 16px;
   height: 16px;
   background-position: 0 -535px;

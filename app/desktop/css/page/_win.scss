@@ -61,6 +61,7 @@
     left: 0;
     bottom: 0;
     width: 240px ;
+    padding-bottom: 28px;
     //border-right: solid 1px #dedede;
     //background-color: #fff;
     background-color: #f6f7fb;
@@ -71,27 +72,24 @@
     }
     overflow: auto;
 }
-
-.sidebar-collapse-toggle {
+.da-win-sidebar-toggle {
+    z-index: 10;
     position: absolute;
-    left: 214px;
-    top: 47px;
-    border: none 0;
-    background: none;
-    padding: 0;
-    cursor: pointer;
-    @include transition(all .3s);
-    &:focus {
-        outline: none 0;
-    }
+    bottom: 0;
+    left: 0;
+    width: 240px;
+    height: 28px;
+    line-height: 28px;
+    background-color: #0a396f;
+    background-color: rgba(10, 57, 111, .80);
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+    @include transition( width .3s );
     &.collapsed {
-        left: 14px;
-        top: 12px;
-        @extend .icon-sidebar-toggle-on;
+        width: 36px;
     }
-    @extend .icon-sidebar-toggle-off;
 }
-
 .sidebar-menu {
 }
 

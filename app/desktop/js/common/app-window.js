@@ -305,8 +305,8 @@ define( function ( require ) {
             } );
 
             // 折叠
-            pkuiOptions.$dialogContainer.on( "click.sidebar", ".sidebar-collapse-toggle", function () {
-                $( this ).toggleClass( "collapsed" );
+            pkuiOptions.$dialogContainer.on( "click.sidebar", ".da-win-sidebar-toggle", function () {
+                $( this ).toggleClass( "collapsed" ).children( ".fa" ).toggleClass( "fa-indent" );
                 pkuiOptions.$dialogContainer.find( ".da-win-sidebar" ).toggleClass( "collapsed" );
                 pkuiOptions.$dialogContainer.find( ".da-win-main" ).toggleClass( "collapsed" );
             } );
