@@ -1,3 +1,8 @@
+/**
+ * @fileOverview 对jstree的封装
+ *
+ * @author 吴钦飞（wuqf@pkusoft.net）
+ */
 define( function ( require ) {
     require( "../3.3.4/jstree.js" );
     require( "../3.3.4/themes/default/style.css" );
@@ -5,7 +10,8 @@ define( function ( require ) {
 
 
     var $ = require( "jquery" ),
-        namespace = "pkui.menutree"
+        namespace = "pkui.menutree",
+        layer = window.layer
     ;
 
     /**
@@ -19,7 +25,9 @@ define( function ( require ) {
         // 指定根节点（menuId），省略则取将所有 parentId 为null 的作为根节点
         menuId: null,
         // 是否显示不可见的菜单
-        showInvisible: false
+        showInvisible: false,
+        // 初始化后，第一个菜单项条目是否被选中
+        isFirstMenuItemSelected: true
     };
 
     /**
@@ -66,26 +74,35 @@ define( function ( require ) {
         $.ajax( {
             url: url
         } ).done( function ( gridResult ) {
-            if ( !gridResult || gridResult && ( gridResult.success === false || gridResult.data == null ) ) {
-                window.layer.alert( ( gridResult && gridResult.message ) || "获取菜单数据失败！", { icon: 2 } );
+            if ( !gridResult ||
+                 gridResult.success === false ||
+                 gridResult.data === null ||
+                 gridResult.data === undefined ) {
+
+                layer.msg( ( gridResult && gridResult.message ) || "菜单树构建失败！", { icon: 2 } );
                 return;
             }
             MenuTree.cache[ url ] = gridResult;
             initTree( gridResult );
         } ).fail( function ( xhr ) {
             var msg = "菜单树构建失败：" + xhr.status + " (" + xhr.statusText + ")";
-            window.layer.alert( msg, { icon: 0 } );
+            layer.msg( msg, { icon: 0 } );
             $.error( msg );
         } ).always( function () {
             _this.$target.isLoading( "hide" );
         } );
 
+        /**
+         * 初始化 jstree
+         * @param gridResult {{data:*}}
+         */
         function initTree( gridResult ) {
             var
                 originData,
                 fmtData,
                 jstreeData,
-                jstreeOptions = {}
+                jstreeOptions = {},
+                $jstreeAnchor
                 ;
 
             originData = gridResult.data;
@@ -115,6 +132,10 @@ define( function ( require ) {
             }
 
             _this.$target.jstree( jstreeOptions );
+
+            $jstreeAnchor = _this.$target.find( ".jstree-anchor" );
+
+            $jstreeAnchor.eq( 0 ).trigger( "click" );
         }
 
     };
