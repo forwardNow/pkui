@@ -102,6 +102,9 @@ seajs.config( {
         "intro": "lib/component/intro/2.5.0/intro",
         "Intro": "lib/component/intro/2.5.0.x/intro",
 
+        //【lib/component】datepicker
+        "datepicker": "lib/component/datepicker/1.7.0.x/datepicker",
+
         //【component/common 】 数据源
         "dataSource": "component/common/dataSource/1.0.0/dataSource",
 
