@@ -241,7 +241,7 @@ define( function ( require ) {
             var
                 sysMenuIconList
             ;
-            if ( gridResult && gridResult.success ) {
+            if ( gridResult && ( gridResult.success || gridResult.totalRecords >= 0  ) ) {
                 sysMenuIconList = gridResult.data;
                 // 放入缓存
                 if ( sysMenuIconList && $.isArray( sysMenuIconList ) && sysMenuIconList.length > 0 ) {

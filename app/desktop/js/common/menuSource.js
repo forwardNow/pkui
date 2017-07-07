@@ -36,7 +36,7 @@ define( function ( require ) {
             url: this.opts.url,
             async: false
         } ).done( function ( gridResult ) {
-            if ( gridResult && gridResult.success ) {
+            if ( gridResult && ( gridResult.success || gridResult.totalRecords >= 0  ) ) {
                 if ( gridResult.data == null || gridResult.data.length === 0 ) {
                     $.error( "菜单数据为空。" )
                 }
