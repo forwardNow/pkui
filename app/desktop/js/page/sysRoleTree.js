@@ -1,20 +1,38 @@
 /**
- * 角色管理相关
- * SysRoleTree 与 SysRoleContent 的通过自定义事件进行通信。
+ * @fileOverview 角色管理-树
+ *
+ *  SysRoleTree 与 SysRoleContent 的通过自定义事件进行通信。
+ *  事件的注册和监听都在 $container 上。
+ *
+ * @author 吴钦飞（wuqf@pkusoft.net）
  */
 define( function ( require ) {
-
+    "use strict";
     var
         $ = require( "jquery" ),
         layer = window.layer,
         Template = require( "template" ),
-        namespace = "pkui.sysrole"
-        ;
+        ArtTemplate = require( "artTemplate" ),
+        namespace = "pkui.sysrole.tree"
+    ;
 
-    require( "bootstrap-tab" );
+    /**
+     * 工厂方法
+     * @returns {SysRoleTree}
+     */
+    SysRoleTree.init = function ( options ) {
+        return new SysRoleTree( options );
+    };
 
-    SysRole.prototype.defaults = {
+    /**
+     * 默认参数
+     */
+    SysRoleTree.prototype.defaults = {
+
+        containerSelector: "#sysrole-container",
+
         sysRoleTreeSelector: "#sysRoleTree",
+
         createSysRoleButtonSelector: "#createSysRoleButton",
         createSysRoleInputSelector: "#createSysRoleInput",
 
@@ -39,29 +57,33 @@ define( function ( require ) {
 
     };
 
-    function SysRole( options ) {
-        this.opts = $.extend( true, {}, this.defaults, options );
-        this.init();
-    }
-
-    SysRole.prototype.init = function () {
-        this.tree = new SysRoleTree( this.opts );
-        this.content = new SysRoleContent( this.opts );
-    };
-
-
+    /**
+     * 构造函数
+     * @param options {*?}
+     * @constructor
+     */
     function SysRoleTree( options ) {
-        this.opts = options;
-        this.init( options );
+        this.opts = $.extend( true, {}, this.defaults, options );
+        this._init( options );
     }
 
-    SysRoleTree.prototype.init = function () {
-        this.render();
+    /**
+     * 初始化方法
+     * @private
+     */
+    SysRoleTree.prototype._init = function () {
+        this._render();
         this.drawSysRoleTree();
-        this.bind();
+        this._bind();
     };
-    SysRoleTree.prototype.render = function () {
+    /**
+     * 渲染
+     * @private
+     */
+    SysRoleTree.prototype._render = function () {
         var options = this.opts;
+
+        this.$container = $( options.containerSelector );
 
         this.$sysRoleTree = $( options.sysRoleTreeSelector );
         this.$sysRoleTreeList = this.$sysRoleTree.find( options.sysRoleTreeListSelector );
@@ -69,7 +91,11 @@ define( function ( require ) {
         this.$createSysRoleButton = $( options.createSysRoleButtonSelector );
         this.$createSysRoleInput = $( options.createSysRoleInputSelector );
 
+        this.templateRender = ArtTemplate.compile( this.opts.sysRoleTreeItemTemplete );
     };
+    /**
+     * 发送Ajax请求数据，并绘制树
+     */
     SysRoleTree.prototype.drawSysRoleTree = function (  ) {
         var
             _this = this,
@@ -89,7 +115,10 @@ define( function ( require ) {
             if ( jsonResult.success ) {
 
                 $.each( jsonResult.data, function ( index, sysRole ) {
-                    html += _this._getSysRoleTreeItemHtml( sysRole[ "roleId" ], sysRole[ "roleName" ] )
+                    html += _this.templateRender( {
+                        roleId: sysRole[ "roleId" ],
+                        roleName: sysRole[ "roleName" ]
+                    } );
                 } );
                 _this.$sysRoleTreeList.html( html );
             }
@@ -106,7 +135,12 @@ define( function ( require ) {
         } );
 
     };
-    SysRoleTree.prototype.bind = function () {
+
+    /**
+     * 绑定事件
+     * @private
+     */
+    SysRoleTree.prototype._bind = function () {
         var
             _this = this
         ;
@@ -128,14 +162,14 @@ define( function ( require ) {
 
         // 添加
         _this.$createSysRoleButton.on( "click." + namespace, function () {
-            _this.createSysRole();
+            _this._createSysRole();
         } );
 
         // 编辑
         _this.$sysRoleTreeList.on( "click." + namespace, this.opts.editSysRoleButtonSelector, function ( event ) {
             // 阻止冒泡
             event.stopPropagation();
-            _this.editSysRole( $( this ) );
+            _this._editSysRole( $( this ) );
         } );
 
         // 删除
@@ -152,7 +186,7 @@ define( function ( require ) {
                 },
                 // 确认
                 function(){
-                    _this.deleteSysRole( $this );
+                    _this._deleteSysRole( $this );
                 },
                 // 取消
                 function(){
@@ -162,7 +196,11 @@ define( function ( require ) {
         } );
     };
 
-    SysRoleTree.prototype.createSysRole = function () {
+    /**
+     * 创建角色
+     * @private
+     */
+    SysRoleTree.prototype._createSysRole = function () {
         var
             _this = this,
             $button = this.$createSysRoleButton,
@@ -204,7 +242,10 @@ define( function ( require ) {
 
                 // 将其追加到角色树
                 _this.$sysRoleTreeList.append(
-                    _this._getSysRoleTreeItemHtml( sysRole[ "roleId" ], sysRole[ "roleName" ] )
+                    _this.templateRender( {
+                        roleId: sysRole[ "roleId" ],
+                            roleName: sysRole[ "roleName" ]
+                        } )
                 )
             }
             // 服务器端处理失败
@@ -222,7 +263,10 @@ define( function ( require ) {
 
     };
 
-    SysRoleTree.prototype.editSysRole = function ( $btn ) {
+    /**
+     * 编辑角色
+     */
+    SysRoleTree.prototype._editSysRole = function ( $btn ) {
         var
             _this = this,
             $sysRoleTreeItem = $btn.parent(),
@@ -271,7 +315,11 @@ define( function ( require ) {
         } );
 
     };
-    SysRoleTree.prototype.deleteSysRole = function ( $btn ) {
+    /**
+     * 删除角色
+     * @private
+     */
+    SysRoleTree.prototype._deleteSysRole = function ( $btn ) {
         var
             $sysRoleTreeItem = $btn.parent(),
             roleId = $sysRoleTreeItem.attr( "roleid" ),
@@ -314,16 +362,7 @@ define( function ( require ) {
             $btn.removeClass( "fa-spinner" );
         } );
     };
-    SysRoleTree.prototype._getSysRoleTreeItemHtml = function ( roleId, roleName ) {
-        return this.opts.sysRoleTreeItemTemplete
-            .replace( /{{roleId}}/g, roleId )
-            .replace( /{{roleName}}/g,  roleName );
-    };
 
 
-    function SysRoleContent( options ) {
-
-    }
-
-    return SysRole;
+    return SysRoleTree;
 } );
