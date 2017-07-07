@@ -96,6 +96,10 @@ define( function ( require ) {
             configSet = this._configSet
         ;
 
+        if ( !target ) {
+            return target;
+        }
+
         target = target.replace( this._regex, function ( fullMatch, group1 ) {
             if ( ! configSet.hasOwnProperty( group1 ) ) {
                 throw "占位符替换失败：没有配置[" + group1 + "]占位符";
