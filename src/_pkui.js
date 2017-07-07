@@ -460,6 +460,9 @@ define( function ( require ) {
                                 case "datagrid":
                                     moduleId = "bootgrid";
                                     break;
+                                case "bootgrid":
+                                    moduleId = "bootgrid";
+                                    break;
                                 case "datagrid-delete":
                                     moduleId = "datagrid-delete";
                                     break;
