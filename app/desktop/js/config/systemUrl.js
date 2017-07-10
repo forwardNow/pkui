@@ -12,6 +12,12 @@ define( function ( require ) {
         config = {}
     ;
 
+    $.extend( config, {
+        // desktop/js/common/menuSource.js
+        "system.menu.sysMenuListData": "__CTX__/admin/sysMenuListData"
+
+    } );
+
 
     $.extend( config,
 

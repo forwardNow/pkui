@@ -7,14 +7,15 @@
  */
 define( function ( require ) {
     "use strict";
-    var $,
+    var $ = require( "jquery" ),
         Menu = {},
         layer = window.layer
         ;
-    $ = require( "jquery" );
+
+    require( "../config/systemUrl" );
 
     Menu.opts = {
-        url: "__CTX__/admin/sysMenuListData"
+        url: "{% system.menu.sysMenuListData %}"
     };
 
     Menu.originData = null;
