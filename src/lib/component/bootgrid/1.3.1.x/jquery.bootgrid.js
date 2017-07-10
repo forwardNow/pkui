@@ -2107,8 +2107,9 @@ define( function( require ) {
                 totalRecords,
                 $element = this.$element,
                 gridId = $element.get( 0 ).id,
-                $footer = $( "#" + gridId + "-footer" )
-                ;
+                $footer = $( "#" + gridId + "-footer" ),
+                maxTotalRecords = 1e8
+            ;
 
 
             // 老式接口（GridResult）：处理成功
@@ -2133,19 +2134,23 @@ define( function( require ) {
             totalRecords = response.totalRecords;
 
             // 对于不计数（没有 totalRecords）的情况
-            if ( totalRecords === 0 || ( totalRecords === undefined && ! totalRecordsUrl ) ) {
+            if ( totalRecords === 0 || totalRecords === maxTotalRecords || ( totalRecords === undefined && ! totalRecordsUrl ) ) {
                 // 隐藏“最有一页” “共xx条”
                 $footer.addClass( "no-totalRecords" );
 
                 gridData = response.data || response;
 
-                // 如果是最后一页
-                if ( gridData.length < rowCount ) {
+                // list.length = 0
+                if ( gridData.length === 0 ) {
+                    totalRecords = maxTotalRecords;
+                }
+                // 如果是最后一页（ 0 < list.length < pageSize ）
+                else if ( gridData.length < rowCount ) {
                     totalRecords = ( requestPage - 1 ) * rowCount + gridData.length;
                 }
-                // 设置 totalRecords 为一个很大的值(1千万)
+                // list.length = pageSize，设置 totalRecords 为一个很大的值(1千万)
                 else {
-                    totalRecords = 1e8;
+                    totalRecords = maxTotalRecords;
                 }
 
             }
