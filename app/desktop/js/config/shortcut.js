@@ -12,15 +12,19 @@ define( function() {
     /**
      * 每个元素对应一个快捷方式
      *
-     *      menuId: SYS_MENU.menu_id。（此属性必须指定，其余属性可省略。）
+     *      menuId: SYS_MENU.MENU_ID。（此属性必须指定，其余属性可省略。）
      *
-     *      menuName: 名称。默认为 SYS_MENU.menu_name
+     *      menuName: 快捷方式的名称。
+     *                默认为 SYS_MENU.MENU_NAME（SYS_MENU表的MENU_NAME字段的值）
      *
-     *      icon: 图标，可指定png图片（绝对路径）。默认为 SYS_MENU.icon
+     *      icon: 快捷方式的图标，可指定png图片（绝对路径）。
+     *            默认为 SYS_MENU.ICON（SYS_MENU表的ICON字段的值）
      *
-     *      mode: 快捷方式的打开方式。默认为 "default"
+     *      mode: 快捷方式的打开方式。
+     *            默认为 "default"
      *
-     *      src: 打开的窗口，主界面显示的页面。默认为 "__CTX__/static/desktop/tpl/system/index.html"
+     *      src: 打开的窗口，主界面显示的页面（欢迎页面）。
+     *           默认为 "__CTX__/static/desktop/tpl/system/index.html"
      *
      * @type {[*]}
      */
