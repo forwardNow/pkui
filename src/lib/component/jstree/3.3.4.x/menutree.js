@@ -136,6 +136,8 @@ define( function ( require ) {
             $jstreeAnchor = _this.$target.find( ".jstree-anchor" );
 
             $jstreeAnchor.eq( 0 ).trigger( "click" );
+
+            _this.$target.addClass( "jstree-menutree" );
         }
 
     };

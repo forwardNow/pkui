@@ -2,31 +2,31 @@
     z-index: 100000;
 }
 
-.jstree-icon.fa {
-    font-size: 16px;
-    color: #d4dae0;
+.jstree-menutree {
+
+    .jstree-icon.fa {
+        font-size: 16px;
+        color: #d4dae0;
+    }
+
+    .jstree-hovered > .fa {
+        color: #33a6e7;
+    }
+    .jstree-clicked > .fa {
+        color: #fff;
+    }
+    .jstree-clicked.jstree-anchor {
+        color: #fff;
+    }
+
 }
 
-.jstree-default .jstree-node {
-    /*padding-bottom: .2em;*/
-    /*padding-top: .2em;*/
-}
-.jstree-hovered > .fa {
-    color: #33a6e7;
-}
-.jstree-clicked > .fa {
-    color: #fff;
-}
-.jstree-clicked.jstree-anchor {
-    color: #fff;
-}
-
-.jstree-default .jstree-wholerow-hovered {
+.jstree-menutree .jstree-wholerow-hovered {
     background: #beebff;
     background: -webkit-linear-gradient(top, #beebff 0%, #a8e4ff 100%);
     background: linear-gradient(to bottom, #beebff 0%, #a8e4ff 100%);
 }
-.jstree-default .jstree-wholerow-clicked {
+.jstree-menutree .jstree-wholerow-clicked {
     background: #33a6e7;
     background: -webkit-linear-gradient(top, #48aeea 0%, #33a6e7 100%);
     background: linear-gradient(to bottom, #48aeea 0%, #33a6e7 100%);
@@ -37,7 +37,7 @@
         position: relative;
         top: 4px;
     }
-    .jstree-default {
+    .jstree-menutree {
         .jstree-node {
             min-height: 32px;
             line-height: 32px;
