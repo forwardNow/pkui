@@ -253,7 +253,7 @@ define(function( require ) {
     };
 
     AbstractChosen.prototype.result_add_option = function(option) {
-      var classes, option_el;
+      var classes, option_el, opts;
       if (!option.search_match) {
         return '';
       }
@@ -261,6 +261,7 @@ define(function( require ) {
         return '';
       }
       classes = [];
+      opts = this.options;
       if (!option.disabled && !(option.selected && this.is_multiple)) {
         classes.push("active-result");
       }
@@ -282,7 +283,15 @@ define(function( require ) {
       option_el.setAttribute("data-option-array-index", option.array_index);
       // FIX 修改option结果
       // option_el.innerHTML = option.search_text;
+      // FIX 判断如果ID是UUID（36位），则不显示ID
+      if ( typeof this._isUUID !== "boolean" ) {
+          this._isUUID = option.value && String( option.value ).length > 24;
+      }
+      if ( this._isUUID === true) {
+          option_el.innerHTML = '</span><span class="option-text">' + option.html + '</span><span class="option-spell">' + option.spell + '</span>';
+      } else {
         option_el.innerHTML = '<span class="option-code">' + option.value + '</span><span class="option-text">' + option.html + '</span><span class="option-spell">' + option.spell + '</span>';
+      }
       if (option.title) {
         option_el.title = option.title;
       }
