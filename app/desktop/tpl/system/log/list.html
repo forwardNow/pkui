@@ -21,13 +21,20 @@
             </span>
         </div>
         <div class="pull-right" style="margin-right: 6px;">
-            <input type="text" class="da-form-control"
-                   name="logTime" placeholder="日期" data-operator=">" data-datatype="3"
+            <input type="text" class="da-form-control" name="logTime" placeholder="结束日期"
+                    data-operator="<" data-datatype="3"
 
                    data-pkui-component="datepicker"
                    data-pkui-component-options='{
 
                    }'/>
+        </div>
+        <div class="pull-right" style="margin-right: 6px;">
+            <input type="text" class="da-form-control"
+                   name="logTime" placeholder="开始日期时间" data-operator=">" data-datatype="4"
+
+                   data-pkui-component="datetimepicker"
+                   data-pkui-component-options='{}'/>
         </div>
     </form>
 </div>
@@ -39,11 +46,11 @@
             "multiSelect": true
        }'
        data-url="{% system.log.list.sysLogListData_new_getPage %}"
-       data-total-records-url="{% system.log.list.sysLogListData_new_getCount %}"
        data-query-form-selector="#sysLogQueryForm"
        >
     <thead>
     <!--
+    data-total-records-url="{% system.log.list.sysLogListData_new_getCount %}"
     data-total-records-url="{% system.log.list.sysLogTotalRecords %}"
     -->
 
