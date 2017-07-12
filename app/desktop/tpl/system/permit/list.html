@@ -1,0 +1,91 @@
+
+<div class="win-btnGroup">
+    <button type="button" class="btn btn-success-2"
+            id="addSysPermitBtn"
+            data-pkui-component="drawer"
+            data-pkui-component-options='{
+                "url":"__CTX__/static/desktop/tpl/system/permit/add.html",
+                "container": ".da-win-main"}'
+            ><i class="fa fa-plus"></i> 添加</button>
+    <!--<button type="button" class="btn btn-info-2"><i class="fa fa-pencil"></i> 修改</button>-->
+    <button type="button" class="btn btn-danger-2"
+            data-pkui-component="datagrid-delete"
+            data-pkui-component-options='{
+                "datagridSelector": "#sysPermitDatagrid",
+                "PKName": "permitId",
+                "url": "{% system.permit.list.sysPermitDelete %}"
+            }'
+            title="删除勾选的记录（可多选）"
+            ><i class="fa fa-trash-o"></i> 删除</button>
+
+    <form id="sysPermitQueryForm">
+        <button class="btn btn-default-2 pull-right" style="margin-left: 6px;" type="button"
+                onclick='jQuery( "#sysPermitDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
+        <div class="input-group pull-right" style="width: 280px;">
+            <input type="text" class="da-form-control" placeholder="单位名称" name="permitName" data-operator="like">
+            <span class="input-group-btn">
+                <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysPermitDatagrid" ).bootgrid( "reload" );'><i class="fa fa-search"></i></button>
+            </span>
+        </div>
+    </form>
+</div>
+
+<table id="sysPermitDatagrid"
+       data-pkui-component="datagrid"
+       data-pkui-component-options='{
+            "selection": true,
+            "multiSelect": true
+       }'
+       data-url="{% system.permit.list.sysPermitListData %}"
+       data-query-form-selector="#sysPermitQueryForm"
+       >
+    <!--
+     data-url="http://localhost:8080/pkui/admin/sysPermitListData"
+    -->
+    <thead>
+
+    <tr>
+        <!--
+            data-column-id：对应bean的属性名
+            data-identifier： Boolean。data-row-id，行ID。（只对一个列使用）
+            data-visible：Boolean。此列是否可见。（可用于标记 行ID 的列）
+            data-sortable：Boolean。此列是否可排序（升序、降序），会拼接 order by 子句，发送请求
+            data-width：行宽度，可以使用百分比和数字，如 25%、200。
+            data-formatter：对内容进行格式化，使用全局函数，会传递两个参数 column、row，返回HTML字符串
+                                column.id 获取该列“data-column-id”
+                                row 该行数据，如 { permitId: 123, permitName: "某部门", ... }
+        -->
+        <th data-column-id="permitId" data-identifier="true" data-visible="false" data-sortable="false">数据权限ID</th>
+        <th data-column-id="permitCode" data-sortable="false" data-dic="DIC_PERMIT_TYPE" data-width="">数据权限类型</th>
+        <th data-column-id="permitValue" data-sortable="false" data-width="">数据权限值</th>
+        <th data-column-id="permitDesc" data-sortable="false" data-width="120">备注</th>
+        <th data-column-id="__" data-sortable="false" data-formatter="sysPermitOpe">操作</th>
+    </tr>
+    </thead>
+
+</table>
+
+<script>
+
+    /**
+     * 操作
+     */
+    function sysPermitOpe(column, row) {
+        return '<a href="javascript:void(0)" '
+        +           ' id=viewSysPermit_' + row.permitId
+        +           ' data-pkui-component="drawer"'
+        +           ' data-pkui-component-options=\'{'
+        +               '"url":"__CTX__/static/desktop/tpl/system/permit/detail.html",'
+        +               '"model":"{% system.permit.list.sysPermitModel %}?permitId=' + row.permitId + '",'
+        +               '"container": ".da-win-main"}\'><i class="fa fa-file-o"></i> 查看</a>　'
+
+        +       '<a href="javascript:void(0)" '
+        +           ' id=editSysPermit_' + row.permitId
+        +           ' data-pkui-component="drawer"'
+        +           ' data-pkui-component-options=\'{'
+        +               '"url":"__CTX__/static/desktop/tpl/system/permit/edit.html",'
+        +               '"model":"{% system.permit.list.sysPermitModel %}?permitId=' + row.permitId + '",'
+        +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>';
+    }
+
+</script>
