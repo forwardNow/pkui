@@ -608,7 +608,7 @@ define( function ( require ) {
         },
         /**
          * 转换树结构
-         * @param options {{data: Array, rootId: Number, idName: string, parentIdName: string, childrenName: string}}
+         * @param options {{data: Array, rootId: *, idName: string, parentIdName: string, childrenName: string}}
          * @example
          * PKUI.getTreeList( {
                 data: [
@@ -619,7 +619,7 @@ define( function ( require ) {
                     { menuId: 11, menuName: "用户管理2", treeParentid: 10 },
                     { menuId: 12, menuName: "单位管理2", treeParentid: 10 }
                 ],
-                rootId: 0, // 省略则取将所有 parentId 为null或-1 的作为根节点
+                rootId: 0, // 省略则取将所有 parentId 为null或-1 的作为根节点，可以是 { rootId_1: xxx, rootId_2: xxx } 的形式
                 idName: "menuId",
                 parentIdName: "treeParentid",
                 childrenName: "children"
@@ -669,15 +669,29 @@ define( function ( require ) {
                 } );
             }
             else {
-                $.each( data, function ( index, elt ) {
-                    var
-                        id = elt[ idName ]
-                    ;
-                    if ( id === rootId ) {
-                        rootList.push( elt );
-                        return false;
-                    }
-                } );
+                // 多个 rootId
+                if ( typeof rootId === "object" ) {
+                    $.each( data, function ( index, elt ) {
+                        var
+                            id = elt[ idName ]
+                        ;
+                        if ( rootId.hasOwnProperty( id ) ) {
+                            rootList.push( elt );
+                        }
+                    } );
+                }
+                // 单个
+                else {
+                    $.each( data, function ( index, elt ) {
+                        var
+                            id = elt[ idName ]
+                        ;
+                        if ( id === rootId ) {
+                            rootList.push( elt );
+                            return false;
+                        }
+                    } );
+                }
             }
 
 
@@ -702,7 +716,7 @@ define( function ( require ) {
                     var record = elt,
                         newRecord
                         ;
-                    newRecord = $.extend( {}, record );
+                    newRecord = $.extend( true, {}, record );
                     newRecord[ childrenName ] = fmtData( childrenCollection[ record[ idName ] ] );
                     list.push( newRecord );
                 } );
