@@ -165,6 +165,14 @@ define( function ( require ) {
             "system.permit.list.sysPermitListData": "__CTX__/admin/sysPermitListData",
             "system.permit.list.sysPermitModel": "__CTX__/admin/sysPermitModel"
         },
+        // permit/edit.html
+        {
+            "system.permit.edit.sysPermitSave": "__CTX__/admin/sysPermitSave"
+        },
+        // permit/add.html
+        {
+            "system.permit.add.sysPermitSave": "__CTX__/admin/sysPermitSave"
+        },
 
         {
 
