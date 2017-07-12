@@ -146,12 +146,20 @@ define( function ( require ) {
             "system.user.add.sysUserSave": "__CTX__/admin/sysUserSave",
             "system.user.add.sysDeptDic": "__CTX__/admin/sysDeptDic"
         },
+
         // user/edit.html
         {
             "system.user.edit.sysUserSave": "__CTX__/admin/sysUserSave",
             "system.user.edit.sysDeptDic": "__CTX__/admin/sysDeptDic"
         },
 
+        // resource/list.html
+        {
+            "system.resource.list.sysResourceDelete": "__CTX__/admin/sysResourceDelete",
+            "system.resource.list.sysResourceListData": "__CTX__/admin/sysResourceListData",
+            "system.resource.list.sysResourceModel": "__CTX__/admin/sysResourceModel"
+
+        },
 
         {
 
