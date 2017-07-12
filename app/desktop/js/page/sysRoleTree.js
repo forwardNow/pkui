@@ -16,6 +16,14 @@ define( function ( require ) {
         namespace = "pkui.sysrole.tree"
     ;
 
+    /*
+     * @event clickSysRoleTreeItem
+     *      点击菜单树条目
+     *
+     */
+
+    SysRoleTree.namespace = namespace;
+
     /**
      * 工厂方法
      * @returns {SysRoleTree}
@@ -73,7 +81,7 @@ define( function ( require ) {
      */
     SysRoleTree.prototype._init = function () {
         this._render();
-        this.drawSysRoleTree();
+        this.draw();
         this._bind();
     };
     /**
@@ -93,10 +101,29 @@ define( function ( require ) {
 
         this.templateRender = ArtTemplate.compile( this.opts.sysRoleTreeItemTemplete );
     };
+
+    /**
+     * 重新绘制
+     * @param roleId {*} 使指定ID的条目高亮
+     */
+    SysRoleTree.prototype.redraw = function ( roleId ) {
+        var
+            _this = this
+        ;
+        this.draw( function() {
+            if ( roleId === undefined || roleId === null ) {
+                return;
+            }
+            _this.$sysRoleTreeList.find( _this.opts.sysRoleTreeItemSelector ).filter( '[roleid="' + roleId + '"]' )
+                .addClass( "active" );
+        } )
+    };
+
     /**
      * 发送Ajax请求数据，并绘制树
+     * @param callback {Function?} 成功后的回调
      */
-    SysRoleTree.prototype.drawSysRoleTree = function (  ) {
+    SysRoleTree.prototype.draw = function ( callback ) {
         var
             _this = this,
             $sysRoleTree = this.$sysRoleTree,
@@ -121,6 +148,7 @@ define( function ( require ) {
                     } );
                 } );
                 _this.$sysRoleTreeList.html( html );
+                callback && callback();
             }
             else {
                 // 提示
@@ -155,8 +183,10 @@ define( function ( require ) {
             // 高亮状态
             $this.addClass( "active" ).siblings().removeClass( "active" );
 
-            // 事件通知
-            _this.$sysRoleTree.trigger( "clickSysRoleTreeItem." + namespace, { roleId: $this.attr( "roleid" ) } )
+            /**
+             * @event clickSysRoleTreeItem
+             */
+            _this.$container.trigger( "clickSysRoleTreeItem." + namespace, { roleId: $this.attr( "roleid" ) } )
 
         } );
 
@@ -307,7 +337,7 @@ define( function ( require ) {
             end: function () {
                 // 重新绘制
                 if ( $layerContent ) {
-                    _this.drawSysRoleTree();
+                    // _this.draw();
                 }
                 $layerContent = null;
 

@@ -43,19 +43,26 @@
                     <button type="button" id="sysRoleUser-removeBtn" class="btn btn-danger-2"><i class="fa fa-trash-o"></i> 从角色中删除用户</button>
 
                     <form id="sysRoleUserQueryForm">
+
+                        <button class="btn btn-default-2 pull-right" style="margin-left: 6px;" type="button"
+                                onclick='jQuery( "#sysRoleUserDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
+
                         <div class="input-group pull-right" style="width: 280px;">
+
+                            <!-- roleId 无值时，是查不到数据的-->
+                            <input type="hidden" id="sysRoleUser-roleId" name="roleId"/>
+
                             <input type="text" class="da-form-control" placeholder="真实姓名" name="userName" data-operator="like" value="">
-                            <input type="hidden" id="sysRoleUser-roleId" name="roleId" value="25"/>
                             <span class="input-group-btn">
-                                <button class="btn btn-info-2" type="button"
+                                <button class="btn btn-info-2" type="button" id="sysRoleUserDatagrid-reloadBtn"
                                         onclick='jQuery( "#sysRoleUserDatagrid" ).bootgrid( "reload" )'><i class="fa fa-search"></i></button>
                             </span>
                         </div>
                         <div class="da-form-radio pull-right" style="margin: 5px 12px 0 0;">
                             <!-- in / notIn -->
-                            <span>用户是否已关联：</span>
-                            <label><input type="radio" name="roleIdOper" value="in" checked/>是</label>
-                            <label><input type="radio" name="roleIdOper" value="notIn" />否</label>
+                            <span>是否拥有该角色：</span>
+                            <label><input type="radio" name="roleIdOper" value="in" class="roleIdOper checked" checked/>是</label>
+                            <label><input type="radio" name="roleIdOper" value="notIn" class="roleIdOper"/>否</label>
                         </div>
                     </form>
                 </div>
@@ -67,7 +74,7 @@
                             "selection": true,
                             "multiSelect": true
                        }'
-                       data-url="__CTX__/admin/sysRoleUserListDataExt"
+                       data-url="__CTX__/admin/sysRoleUserListData"
                        data-query-form-selector="#sysRoleUserQueryForm">
                     <thead>
                     <tr>
@@ -86,15 +93,70 @@
             </div>
             <!-- 菜单权限 -->
             <div role="tabpanel" class="tab-pane" id="sysroleRelMenu">
-                2
+
+                <div class="tab-pane-heading">
+                    <button type="button" class="btn btn-success-2 " id="sysroleRelMenu-saveBtn"
+                        data-options='{
+                            "url": "__CTX__/admin/sysRoleMenuSave"
+                        }'
+                    ><i class="fa fa-save"></i> 保存</button>
+                </div>
+                <div class="tab-pane-body">
+                    <div id="sysroleRelMenu-treeContainer"
+                         data-options='{
+                            "url": "__CTX__/admin/sysRoleMenuListData",
+                            "jstreeOptions": {
+                                "openAll": true,
+                                "dblclick_toggle": false
+                            }
+                         }'></div>
+                </div>
+
+
             </div>
             <!-- 资源权限 -->
             <div role="tabpanel" class="tab-pane" id="sysroleRelResource">
-                3
+
+                <div class="tab-pane-heading">
+                    <button type="button" class="btn btn-success-2 " id="sysroleRelResource-saveBtn"
+                            data-options='{
+                            "url": "__CTX__/admin/sysRoleResouceSave"
+                        }'
+                    ><i class="fa fa-save"></i> 保存</button>
+                </div>
+                <div class="tab-pane-body">
+                    <div id="sysroleRelResource-treeContainer"
+                         data-options='{
+                            "url": "__CTX__/admin/sysRoleResouceListData",
+                            "jstreeOptions": {
+                                "openAll": false,
+                                "dblclick_toggle": false
+                            }
+                         }'></div>
+                </div>
+
             </div>
             <!-- 数据权限 -->
             <div role="tabpanel" class="tab-pane" id="sysroleRelPermit">
-                4
+
+                <div class="tab-pane-heading">
+                    <button type="button" class="btn btn-success-2 " id="sysroleRelPermit-saveBtn"
+                            data-options='{
+                            "url": "__CTX__/admin/sysRolePermitSave"
+                        }'
+                    ><i class="fa fa-save"></i> 保存</button>
+                </div>
+                <div class="tab-pane-body">
+                    <div id="sysroleRelPermit-treeContainer"
+                         data-options='{
+                            "url": "__CTX__/admin/sysRolePermitListData",
+                            "jstreeOptions": {
+                                "openAll": false,
+                                "dblclick_toggle": false
+                            }
+                         }'></div>
+                </div>
+
             </div>
         </div>
 
@@ -189,16 +251,32 @@
         height: 100%;
         overflow: auto;
     }
+    .sysrole-content .nav-tabs {
+        z-index: 3;
+        position: absolute;
+        width: 100%;
+        background-color: #fff;
+    }
     .sysrole-content .tab-content {
         border: none 0;
+        padding-top: 42px;
     }
     .sysrole-content .tab-pane {
         padding: 6px;
     }
 
+    .sysrole-content .tab-pane-heading {
+        padding: 6px;
+    }
+
+    .sysrole-content .tab-pane-body {
+        padding: 6px;
+    }
+
+
 </style>
 <script>
-    seajs.use( "__CTX__/static/desktop/js/page/sysRoleTree", function ( SysRoleTree ) {
-        SysRoleTree.init();
+    seajs.use( [ "__CTX__/static/desktop/js/page/sysRole" ], function ( SysRole ) {
+        SysRole.init();
     } );
 </script>
