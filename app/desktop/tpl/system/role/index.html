@@ -39,8 +39,17 @@
 
                 <div class="win-btnGroup">
 
-                    <button type="button" id="sysRoleUser-addBtn" class="btn btn-success-2 hidden"><i class="fa fa-plus"></i> 添加用户到角色</button>
-                    <button type="button" id="sysRoleUser-removeBtn" class="btn btn-danger-2"><i class="fa fa-trash-o"></i> 从角色中删除用户</button>
+                    <button type="button" id="sysRoleUser-addBtn" class="btn btn-success-2 hidden"
+                            data-options='{
+                                "url": "__CTX__/admin/sysRoleUserSave"
+                            }'
+                    ><i class="fa fa-plus"></i> 添加用户到角色</button>
+
+                    <button type="button" id="sysRoleUser-removeBtn" class="btn btn-danger-2"
+                            data-options='{
+                                "url": "__CTX__/admin/sysRoleUserDelete"
+                            }'
+                    ><i class="fa fa-trash-o"></i> 从角色中删除用户</button>
 
                     <form id="sysRoleUserQueryForm">
 

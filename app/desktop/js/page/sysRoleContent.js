@@ -44,6 +44,9 @@ define( function ( require ) {
         sysRoleUserAddUserBtnSelector: "#sysRoleUser-addBtn",
         // 从角色中删除用户
         sysRoleUserRemoveUserBtnSelector: "#sysRoleUser-removeBtn",
+        // table
+        sysRoleUserDatagridSelector: "#sysRoleUserDatagrid",
+
 
         /* 菜单权限 */
         // tabpanel
@@ -117,6 +120,7 @@ define( function ( require ) {
         this.$sysRoleUserDatagridReloadBtn = $( opts.sysRoleUserDatagridReloadBtnSelector );
         this.$sysRoleUserAddUserBtn = $( opts.sysRoleUserAddUserBtnSelector );
         this.$sysRoleUserRemoveUserBtn = $( opts.sysRoleUserRemoveUserBtnSelector );
+        this.$sysRoleUserDatagrid = $( opts.sysRoleUserDatagridSelector );
 
         this.$sysRoleMenuTabpanel = $( opts.sysRoleMenuTabpanelSelector );
         this.$sysRoleMenuTreeContainer = $( opts.sysRoleMenuTreeContainerSelector );
@@ -238,6 +242,102 @@ define( function ( require ) {
             _this[ drawMethodName ]( roleId );
 
         } );
+
+        // 添加用户到角色
+        this.$sysRoleUserAddUserBtn.on( "click." + namespace, function () {
+            opeUser( $( this ), "add" );
+        } );
+
+        // 从角色中删除用户
+        this.$sysRoleUserRemoveUserBtn.on( "click." + namespace, function () {
+            opeUser( $( this ), "remove" );
+        } );
+
+        function opeUser ( $button, ope ) {
+            var
+                $table,
+                seletedRowIds
+
+            ;
+
+            // 如果处于 isloading 状态，则退出
+            if ( $button.attr( "disabled" ) ) {
+                return;
+            }
+
+            $table = _this.$sysRoleUserDatagrid;
+            seletedRowIds = $table.bootgrid( "getSelectedRows" );
+
+
+            if ( seletedRowIds.length === 0 ) {
+                layer.msg( '请选中一条或多条记录进行操作！', { icon: 0 } );
+                return;
+            }
+
+            // 确认
+            layer.confirm(
+                "请确认您的操作？",
+                {
+                    btn: ['确认','取消'] //按钮
+                },
+                // 确认
+                function(){
+                    doDelete();
+                },
+                // 取消
+                function(){
+
+                }
+            );
+
+            function doDelete () {
+                var
+                    data = "",
+                    roleId = _this.$sysRoleUserTabpanel.attr( "roleid" ),
+                    url = $button.data( "options" ).url
+                ;
+                // 打开 loading
+                $button.isLoading( { position: "insideButton" } );
+
+                // 将 [ 1, 2, 3 ] 转换为 "userId=1&userId=2&userId=3"
+                $.each( seletedRowIds, function ( index, userId ) {
+                    if ( index >= 0 ) {
+                        data += "&";
+                    }
+                    data += "userId=" + userId;
+                } );
+
+                data = "roleId=" + roleId + data;
+
+                $.ajax( {
+                    url: url,
+                    data: data
+                } ).done( function ( jsonResult ) {
+                    // 服务器端处理成功
+                    if ( jsonResult.success ) {
+                        // 提示
+                        layer.msg( jsonResult.message || "操作成功！", { icon: 1 } );
+                        // 标志删除的那行
+                        $table.bootgrid( "deleteRow", seletedRowIds );
+                    }
+                    // 服务器端处理失败
+                    else {
+                        // 提示
+                        var msg = "操作失败：" + ( jsonResult.message || "未知的错误" );
+                        layer.alert( msg, { icon: 2 } );
+                        $.error( msg );
+                    }
+                } ).fail( function () {
+                    // 提示网络错误
+                    var msg = '操作失败：网络错误/登陆失效！';
+                    layer.alert( msg, { icon: 0 } );
+                    $.error( msg );
+                } ).always( function () {
+                    // 关闭 loading
+                    $button.isLoading( "hide" );
+                } );
+            }
+        }
 
         // 菜单权限：点击“保存”按钮
         this.$sysRoleMenuSaveBtn.on( "click." + namespace, function () {
