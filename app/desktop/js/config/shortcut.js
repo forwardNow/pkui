@@ -44,7 +44,8 @@ define( function() {
         { menuId: 7 },
         { menuId: 8 },
         { menuId: 9 },
-        { menuId: 10 }
+        { menuId: 10 },
+        { menuId: 114 }
     ];
 
     return templateConfig;
