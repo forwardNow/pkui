@@ -70,6 +70,9 @@ seajs.config( {
         //【lib/jQuery/plugin】bootstrap tab
         "bootstrap-tab": "lib/jquery/plugin/bootstrap/3.3.6/tab",
 
+        //【lib/jQuery/plugin】jquery-mousewheel
+        "jquery-mousewheel": "lib/jquery/plugin/mousewheel/3.1.13.x/jquery.mousewheel",
+
         //【lib/component】轮播图组件
         "swiper": "lib/component/swiper/2.7.6.x/swiper",
 
@@ -104,6 +107,9 @@ seajs.config( {
 
         //【lib/component】datepicker
         "datepicker": "lib/component/datepicker/1.7.0.x/datepicker",
+
+        //【lib/component】datetimepicker
+        "datetimepicker": "lib/component/datetimepicker/2.5.4.x/datetimepicker",
 
         //【component/common 】 数据源
         "dataSource": "component/common/dataSource/1.0.0/dataSource",
@@ -160,7 +166,7 @@ seajs.config( {
 
     if ( !timestamp ) { // 没设置
         timestamp = "v=please-set-version";
-    } else if ( timestamp == "dev" ) { // 开发模式
+    } else if ( timestamp === "dev" ) { // 开发模式
         timestamp = "v=" + new Date().getTime();
     } else if ( timestamp.indexOf( "=" ) === -1 ) { // 生产模式：但没有请求参数名
         timestamp = "v=" + timestamp;
