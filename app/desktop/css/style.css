@@ -8829,7 +8829,7 @@ Pagination Styles
   display: inline-block;
 }
 
-.sysrole-item-ope {
+.sysrole-tree-item .sysrole-item-ope {
   display: none;
   position: absolute;
   top: 2px;
@@ -8841,21 +8841,17 @@ Pagination Styles
   color: #fff;
   border-radius: 1px;
 }
-
-.sysrole-item-ope-edit {
+.sysrole-tree-item .sysrole-item-ope-edit {
   right: 36px;
   background: #40b2cc;
 }
-
-.sysrole-item-ope-edit:hover {
+.sysrole-tree-item .sysrole-item-ope-edit:hover {
   background: #2e94ab;
 }
-
-.sysrole-item-ope-delete {
+.sysrole-tree-item .sysrole-item-ope-delete {
   background: #fa8a48;
 }
-
-.sysrole-item-ope-delete:hover {
+.sysrole-tree-item .sysrole-item-ope-delete:hover {
   background: #f96a16;
 }
 
