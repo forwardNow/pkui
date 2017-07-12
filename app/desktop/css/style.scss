@@ -101,8 +101,11 @@
 //【app/desktop】窗口相关
 @import "page/win";
 
-//【app/desktop】sysMenu菜单管理
+//【app/desktop】sysMenu 菜单管理
 @import "page/sysMenu";
+
+//【app/desktop】sysRole 角色管理
+@import "page/sysRole";
 
 
 //【app/desktop】雪碧图（置于最下面，否则@extend的样式会提前）

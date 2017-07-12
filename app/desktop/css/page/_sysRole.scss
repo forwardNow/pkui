@@ -1,0 +1,108 @@
+.sysrole-container {
+    margin: 0 -12px;
+    overflow: hidden;
+    height: 100%;
+}
+.sysrole-tree {
+    position: relative;
+    overflow: auto;
+    float: left;
+    width: 240px;
+    height: 100%;
+    border-right: 1px solid silver;
+}
+.sysrole-tree-ope {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 228px;
+    padding: 6px 6px;
+    background: #f0f0f0;
+}
+.sysrole-tree-list {
+    margin-top: 40px;
+}
+.sysrole-tree-item {
+    position: relative;
+}
+.sysrole-tree-item.active .sysrole-item-ope,
+.sysrole-tree-item:hover .sysrole-item-ope {
+    display: inline-block;
+}
+.sysrole-item-ope {
+    display: none;
+    position: absolute;
+    top: 2px;
+    right: 6px;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    color: #fff;
+    border-radius: 1px;
+}
+.sysrole-item-ope-edit {
+    right: 36px;
+    background: #40b2cc;
+}
+.sysrole-item-ope-edit:hover {
+    background: #2e94ab;
+}
+.sysrole-item-ope-delete {
+    background: #fa8a48;
+}
+.sysrole-item-ope-delete:hover {
+    background: #f96a16;
+}
+
+.sysrole-tree-item-editable .sysrole-tree-anchor > .fa,
+.sysrole-tree-item-editable.sysrole-tree-item .sysrole-item-ope {
+    display: none;
+}
+.sysrole-tree-item .edit-input {
+    display: none;
+}
+.sysrole-tree-item-editable .edit-input {
+    display: table;
+}
+.sysrole-tree-anchor {
+    display: block;
+    padding: 6px;
+}
+.sysrole-tree-anchor > .fa {
+    margin-right: .5em;
+}
+.sysrole-tree-item:hover .sysrole-tree-anchor {
+
+}
+.sysrole-tree-item.active .sysrole-tree-anchor {
+    color: #fff;
+    background-color: #33a6e7;
+}
+
+.sysrole-content {
+    height: 100%;
+    overflow: auto;
+}
+.sysrole-content .nav-tabs {
+    z-index: 3;
+    position: absolute;
+    width: 100%;
+    background-color: #fff;
+}
+.sysrole-content .tab-content {
+    border: none 0;
+    padding-top: 42px;
+}
+.sysrole-content .tab-pane {
+    padding: 6px;
+}
+
+.sysrole-content .tab-pane-heading {
+    padding: 6px;
+}
+
+.sysrole-content .tab-pane-body {
+    padding: 6px;
+}
