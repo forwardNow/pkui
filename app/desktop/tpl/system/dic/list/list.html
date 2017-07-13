@@ -1,38 +1,39 @@
-<div class="win-btnGroup">
-    <button type="button" class="btn btn-success-2"
-            id="addSysDicListBtn"
-            data-pkui-component="drawer"
-            data-pkui-component-options='{
-                "url":"__CTX__/static/desktop/tpl/system/dic/list/add.html",
-                "container": ".da-win-main"}'
-    ><i class="fa fa-plus"></i> 添加
-    </button>
-    <!--<button type="button" class="btn btn-info-2"><i class="fa fa-pencil"></i> 修改</button>-->
-    <button type="button" class="btn btn-danger-2"
-            data-pkui-component="datagrid-delete"
-            data-pkui-component-options='{
-                "datagridSelector": "#sysDicListDatagrid",
-                "PKName": "dicName",
-                "url": "{% system.dic.list.list.sysDicListDelete %}"
-            }'
-            title="删除勾选的记录（可多选）"
-    ><i class="fa fa-trash-o"></i> 删除
-    </button>
-    <button type="button" class="btn btn-primary-2"
-            onclick="doCreateDicListDic(this)"
-            title="1、将指定字典（勾选的记录）生成字典文件；2、（不勾选任何记录时）将所有字典生成字典文件"
-    ><i class="fa fa-book"></i> 生成字典
-    </button>
+<div class="win-main-topbar">
+    <div class="main-topbar-func">
+        <button type="button" class="btn btn-success-2"
+                id="addSysDicListBtn"
+                data-pkui-component="drawer"
+                data-pkui-component-options='{
+                    "url":"__CTX__/static/desktop/tpl/system/dic/list/add.html",
+                    "container": ".da-win-main"}'
+        ><i class="fa fa-plus"></i> 添加
+        </button>
+        <!--<button type="button" class="btn btn-info-2"><i class="fa fa-pencil"></i> 修改</button>-->
+        <button type="button" class="btn btn-danger-2"
+                data-pkui-component="datagrid-delete"
+                data-pkui-component-options='{
+                    "datagridSelector": "#sysDicListDatagrid",
+                    "PKName": "dicName",
+                    "url": "{% system.dic.list.list.sysDicListDelete %}"
+                }'
+                title="删除勾选的记录（可多选）"
+        ><i class="fa fa-trash-o"></i> 删除
+        </button>
+        <button type="button" class="btn btn-primary-2"
+                onclick="doCreateDicListDic(this)"
+                title="1、将指定字典（勾选的记录）生成字典文件；2、（不勾选任何记录时）将所有字典生成字典文件"
+        ><i class="fa fa-book"></i> 生成字典
+        </button>
 
-    <button type="button" class="btn btn-success-2"
-            id="importSysDicListBtn"
-            data-pkui-component="drawer"
-            data-pkui-component-options='{
-                "url":"__CTX__/static/desktop/tpl/system/dic/list/import.html",
-                "container": ".da-win-main"}'
-            title="上传excel文件：文件名为字典名（如 DIC_GENDER.xls、DIC_CODE.xls），文件内容格式请参考导出的字典文件。"
-    ><i class="fa fa-upload"></i> 导入字典
-    </button>
+        <button type="button" class="btn btn-success-2"
+                id="importSysDicListBtn"
+                data-pkui-component="drawer"
+                data-pkui-component-options='{
+                    "url":"__CTX__/static/desktop/tpl/system/dic/list/import.html",
+                    "container": ".da-win-main"}'
+                title="上传excel文件：文件名为字典名（如 DIC_GENDER.xls、DIC_CODE.xls），文件内容格式请参考导出的字典文件。"
+        ><i class="fa fa-upload"></i> 导入字典
+        </button>
 <!--
 
     <button type="button" class="btn btn-info-2"
@@ -42,19 +43,22 @@
     </button>
 -->
 
-
-    <form id="sysDicListQueryForm">
-        <button class="btn btn-default-2 pull-right" style="margin-left: 6px;" type="button"
-                onclick='jQuery( "#sysDicListDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
-        <div class="input-group pull-right" style="width: 280px;">
-            <input type="text" class="da-form-control" placeholder="字典描述" name="dicDesc" data-operator="like">
-            <span class="input-group-btn">
-                <button class="btn btn-info-2" type="button"
-                        onclick='jQuery( "#sysDicListDatagrid" ).bootgrid( "reload" );'><i
-                        class="fa fa-search"></i></button>
-            </span>
-        </div>
-    </form>
+    </div>
+    <div class="main-topbar-query">
+        <form id="sysDicListQueryForm">
+            <div class="input-group pull-left" style="width: 280px;">
+                <span class="input-group-addon">字典描述</span>
+                <input type="text" class="da-form-control" placeholder="模糊查询" name="dicDesc" data-operator="like">
+                <span class="input-group-btn">
+                    <button class="btn btn-info-2" type="button"
+                            onclick='jQuery( "#sysDicListDatagrid" ).bootgrid( "reload" );'><i
+                            class="fa fa-search"></i></button>
+                </span>
+            </div>
+            <button class="btn btn-default-2" style="margin-left: 6px;" type="button"
+                    onclick='jQuery( "#sysDicListDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
+        </form>
+    </div>
 </div>
 
 <table id="sysDicListDatagrid"
