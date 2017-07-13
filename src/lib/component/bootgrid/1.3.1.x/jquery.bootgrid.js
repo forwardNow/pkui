@@ -107,8 +107,43 @@ define( function( require ) {
     function _handleEvent( instance ) {
         var
             $element = instance.element,
-            options = instance.options
+            options = instance.options,
+            $queryForm = $( options.queryFormSelector ),
+            $queryFormInput,
+            $queryFormReloadBtn
         ;
+
+        // FIX 回车后进行刷新
+        if ( $queryForm.size() === 1 ) {
+
+            $queryFormReloadBtn = $queryForm.find( "[onclick*='reload']" ).eq( 0 );
+            $queryFormInput = $queryForm.find( ":input[type='text']" );
+
+            $queryForm.on( "submit" +namespace, function ( event ) {
+                // 阻止表单提交
+                event.preventDefault();
+                $queryFormReloadBtn.trigger( "click" );
+            } );
+
+
+            /*
+             如果表单里有一个type=”submit”的按钮，回车键生效。
+             如果表单里只有一个type=”text”的input，不管按钮是什么type，回车键生效。
+             */
+            if ( $queryForm.find( ":submit" ).size() === 1 ) {
+                // after enter，will be auto submit
+            } else if ( $queryFormInput.size() === 1 ) {
+                // after enter，will be auto submit
+            } else {
+                $queryFormInput.on( "keypress" + namespace, function ( event ) {
+                    var keycode = event.keyCode ? event.keyCode : event.which;
+                    if ( keycode === 13 || keycode === "13" ) {
+                        $queryFormReloadBtn.trigger( "click" );
+                    }
+                } );
+            }
+        }
+
         if ( options.selectedCallback && typeof window[ options.selectedCallback ] === "function" ) {
             $element.on( "selected" + namespace, function ( e, selectedRows ) {
                 window[ options.selectedCallback ].call( instance, selectedRows );
