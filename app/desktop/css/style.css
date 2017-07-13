@@ -3,6 +3,10 @@
   position: relative;
 }
 
+.blur {
+  filter: blur(20px);
+}
+
 /*
 YUI 3.18.1 (build f7e7bcb)
 Copyright 2014 Yahoo! Inc. All rights reserved.

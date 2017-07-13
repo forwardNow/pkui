@@ -27,6 +27,8 @@ define( function ( require ) {
     Search.prototype.defaults = {
         // 目标元素的CSS选择器，指定触发搜索的元素
         targetSelector: null,
+        // 显示时，模糊的元素
+        blurElementSelector: ".da",
         // 弹出层的HTML模板
         template: '<div class="pkui-search-popup" id="pkui-search-popup">'
             +       '<i class="fa fa-search pkui-search-icon"></i>'
@@ -50,12 +52,17 @@ define( function ( require ) {
      */
     Search.prototype.init = function () {
 
+        this._render();
+
         // 获取菜单数据
         this._getData();
         this._fmtData();
 
         this._bind();
 
+    };
+    Search.prototype._render = function () {
+        this.$blur = $( this.opts.blurElementSelector );
     };
     /**
      * 绑定事件处理函数
@@ -158,6 +165,10 @@ define( function ( require ) {
         if ( ! this.isCreated ) {
             this._create();
         }
+        if ( this.$blur.size() === 0 ) {
+            this.$blur = $( this.opts.blurElementSelector );
+        }
+        this.$blur.addClass( "blur" );
         this.$popup.show();
     };
 
@@ -166,6 +177,7 @@ define( function ( require ) {
      */
     Search.prototype.hide = function () {
         this.$popup.hide();
+        this.$blur.removeClass( "blur" );
     };
 
 
