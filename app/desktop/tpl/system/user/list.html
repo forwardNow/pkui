@@ -1,39 +1,44 @@
+<div class="win-main-topbar">
+    <div class="main-topbar-func">
+        <button type="button" class="btn btn-success-2"
+                id="addSysUserBtn"
+                data-pkui-component="drawer"
+                data-pkui-component-options='{
+                    "url": "__CTX__/static/desktop/tpl/system/user/add.html",
+                    "model": "{% system.user.list.sysUserModel %}",
+                    "container": ".da-win-main"}'
+                ><i class="fa fa-plus"></i> 添加</button>
+        <button type="button" class="btn btn-danger-2"
+                data-pkui-component="datagrid-delete"
+                data-pkui-component-options='{
+                    "datagridSelector": "#sysUserDatagrid",
+                    "PKName": "userId",
+                    "url": "{% system.user.list.sysUserDelete %}"
+                }'
+                title="删除勾选的记录（可多选）"
+                ><i class="fa fa-trash-o"></i> 删除</button>
+        <button type="button" class="btn btn-info-2"
+                onclick="resetSysUserPwd(this)"
+                title="重置勾选的记录的密码（可多选）"
+                ><i class="fa fa-reply"></i> 重置密码</button>
 
-<div class="win-btnGroup">
-    <button type="button" class="btn btn-success-2"
-            id="addSysUserBtn"
-            data-pkui-component="drawer"
-            data-pkui-component-options='{
-                "url": "__CTX__/static/desktop/tpl/system/user/add.html",
-                "model": "{% system.user.list.sysUserModel %}",
-                "container": ".da-win-main"}'
-            ><i class="fa fa-plus"></i> 添加</button>
-    <button type="button" class="btn btn-danger-2"
-            data-pkui-component="datagrid-delete"
-            data-pkui-component-options='{
-                "datagridSelector": "#sysUserDatagrid",
-                "PKName": "userId",
-                "url": "{% system.user.list.sysUserDelete %}"
-            }'
-            title="删除勾选的记录（可多选）"
-            ><i class="fa fa-trash-o"></i> 删除</button>
-    <button type="button" class="btn btn-info-2"
-            onclick="resetSysUserPwd(this)"
-            title="重置勾选的记录的密码（可多选）"
-            ><i class="fa fa-reply"></i> 重置密码</button>
-    <button type="button" class="btn btn-default-2"><i class="fa fa-search"></i> 高级查询</button>
+        <!--<button type="button" class="btn btn-default-2"><i class="fa fa-search"></i> 高级查询</button>-->
 
-    <form id="sysUserQueryForm">
-        <button class="btn btn-default-2 pull-right" style="margin-left: 6px;" type="button"
-                onclick='jQuery( "#sysUserDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
-        <div class="input-group pull-right" style="width: 280px;">
-            <input type="text" class="da-form-control" placeholder="真实姓名" name="userName" data-operator="like">
-            <span class="input-group-btn">
-                <button class="btn btn-info-2" type="button"
-                        onclick='jQuery( "#sysUserDatagrid" ).bootgrid( "reload" )'><i class="fa fa-search"></i></button>
-            </span>
-        </div>
-    </form>
+    </div>
+    <div class="main-topbar-query">
+        <form id="sysUserQueryForm">
+            <div class="input-group pull-left" style="width: 280px;">
+                <span class="input-group-addon">真实姓名</span>
+                <input type="text" class="da-form-control" name="userName" data-operator="like" placeholder="模糊查询">
+                <span class="input-group-btn">
+                    <button class="btn btn-info-2" type="button"
+                            onclick='jQuery( "#sysUserDatagrid" ).bootgrid( "reload" )'><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+            <button class="btn btn-default-2 " style="margin-left: 6px;" type="button"
+                    onclick='jQuery( "#sysUserDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
+        </form>
+    </div>
 </div>
 
 <table id="sysUserDatagrid"
