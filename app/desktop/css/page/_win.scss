@@ -190,18 +190,41 @@
     overflow-x: hidden;
     @include box-sizing(border-box);
 }
-.win-btnGroup {
+
+.win-main-topbar {
     padding: 12px 0;
-    //margin: 0 -12px;
     border-bottom: solid 1px #fbfbfb;
     @include clearfix();
-    > .btn {
-        float: left;
-        margin-right: 6px;
-    }
     * {
         @include box-sizing(border-box);
     }
+}
+.win-main-topbar:after {
+    display: table;
+    content: " ";
+    clear: both;
+}
+.main-topbar-func {
+    float: left;
+}
+.main-topbar-query {
+    float: right;
+}
+.main-topbar-query {
+
+}
+.main-topbar-query .input-group-addon {
+    color: #108cee;
+    border-color: #d2ecfd;
+    background: #eaf6fe;
+}
+.main-topbar-query .da-form-control {
+    border-color: #d2ecfd;
+}
+.main-topbar-query .da-form-control:focus,
+.main-topbar-query .da-form-control:active,
+.main-topbar-query .da-form-control:hover {
+    border-color: #66afe9;
 }
 
 .pkui-icon-image {
