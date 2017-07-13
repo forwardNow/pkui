@@ -133,9 +133,54 @@
     .launchpad-pagination-next {
         @extend .icon-arrow-light-right;
     }
+    .launchpad-shortcut-icon {
+        -webkit-box-reflect: below 2px  -webkit-linear-gradient(top,rgba(250,250,250,0),rgba(250,250,250,.0) 40%,rgba(250,250,250,0.2));
+        box-reflect: below 2px -webkit-linear-gradient(top,rgba(250,250,250,0),rgba(250,250,250,.0) 40%,rgba(250,250,250,0.2));
+    }
+
     .launchpad-shortcut-fonticon {
         border-radius: 4px;
         text-shadow: 0 -1px 0px rgba(0, 0, 0, 0.25);
+    }
+    .launchpad-shortcut {
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        position: relative;
+        overflow: hidden;
+        -webkit-transition-property: color, border-color;
+        transition-property: color, border-color;
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+        &:hover {
+            border-color: transparent;
+            background-color: transparent;
+            &:before {
+                -webkit-transform: scale(2);
+                transform: scale(2);
+            }
+        }
+        &:before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 100%;
+            -webkit-transform: scale(0);
+            transform: scale(0);
+            -webkit-transition-property: transform;
+            transition-property: transform;
+            -webkit-transition-duration: 0.8s;
+            transition-duration: 0.8s;
+            -webkit-transition-timing-function: ease-out;
+            transition-timing-function: ease-out;
+        }
+        &:hover {
+
+        }
     }
 }
 
