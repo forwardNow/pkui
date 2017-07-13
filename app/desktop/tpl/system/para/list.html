@@ -1,33 +1,41 @@
+<div class="win-main-topbar">
+    <div class="main-topbar-func">
+        <button type="button" class="btn btn-success-2"
+                id="addSysParaBtn"
+                data-pkui-component="drawer"
+                data-pkui-component-options='{
+                    "url": "__CTX__/static/desktop/tpl/system/para/add.html",
+                    "container": ".da-win-main"}'
+                ><i class="fa fa-plus"></i> 添加</button>
 
-<div class="win-btnGroup">
-    <button type="button" class="btn btn-success-2"
-            id="addSysParaBtn"
-            data-pkui-component="drawer"
-            data-pkui-component-options='{
-                "url": "__CTX__/static/desktop/tpl/system/para/add.html",
-                "container": ".da-win-main"}'
-            ><i class="fa fa-plus"></i> 添加</button>
+        <button type="button" class="btn btn-danger-2"
+                data-pkui-component="datagrid-delete"
+                data-pkui-component-options='{
+                    "datagridSelector": "#sysParaDatagrid",
+                    "PKName": "paraCode",
+                    "url": "{% system.para.list.sysParaDelete %}"
+                }'
+                title="删除勾选的记录（可多选）"
+                ><i class="fa fa-trash-o"></i> 删除</button>
+    </div>
+    <div class="main-topbar-query">
 
-    <button type="button" class="btn btn-danger-2"
-            data-pkui-component="datagrid-delete"
-            data-pkui-component-options='{
-                "datagridSelector": "#sysParaDatagrid",
-                "PKName": "paraCode",
-                "url": "{% system.para.list.sysParaDelete %}"
-            }'
-            title="删除勾选的记录（可多选）"
-            ><i class="fa fa-trash-o"></i> 删除</button>
+        <form id="sysParaQueryForm">
 
-    <form id="sysParaQueryForm">
-        <button class="btn btn-default-2 pull-right" style="margin-left: 6px;" type="button"
-                onclick='jQuery( "#sysParaDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
-        <div class="input-group pull-right" style="width: 280px;">
-            <input type="text" class="da-form-control" placeholder="参数名称" name="paraName" data-operator="like">
-            <span class="input-group-btn">
-                <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysParaDatagrid" ).bootgrid( "reload" )'><i class="fa fa-search"></i></button>
-            </span>
-        </div>
-    </form>
+            <div class="input-group" >
+                <span class="input-group-addon">参数名称</span>
+                <input type="text" class="da-form-control" placeholder="模糊查询" name="paraName" data-operator="like">
+                <span class="input-group-btn">
+                    <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysParaDatagrid" ).bootgrid( "reload" )'><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+
+            <button class="btn btn-default-2" type="button"
+                    onclick='jQuery( "#sysParaDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
+
+        </form>
+    </div>
+
 </div>
 
 <table id="sysParaDatagrid"

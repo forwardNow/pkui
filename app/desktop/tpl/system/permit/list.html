@@ -1,35 +1,42 @@
+<div class="win-main-topbar">
+    <div class="main-topbar-func">
 
-<div class="win-btnGroup">
-    <button type="button" class="btn btn-success-2"
-            id="addSysPermitBtn"
-            data-pkui-component="drawer"
-            data-pkui-component-options='{
-                "url":"__CTX__/static/desktop/tpl/system/permit/add.html",
-                "container": ".da-win-main"}'
-            ><i class="fa fa-plus"></i> 添加</button>
-    <!--<button type="button" class="btn btn-info-2"><i class="fa fa-pencil"></i> 修改</button>-->
-    <button type="button" class="btn btn-danger-2"
-            data-pkui-component="datagrid-delete"
-            data-pkui-component-options='{
-                "datagridSelector": "#sysPermitDatagrid",
-                "PKName": "permitId",
-                "url": "{% system.permit.list.sysPermitDelete %}"
-            }'
-            title="删除勾选的记录（可多选）"
-            ><i class="fa fa-trash-o"></i> 删除</button>
+        <button type="button" class="btn btn-success-2"
+                id="addSysPermitBtn"
+                data-pkui-component="drawer"
+                data-pkui-component-options='{
+                    "url":"__CTX__/static/desktop/tpl/system/permit/add.html",
+                    "container": ".da-win-main"}'
+                ><i class="fa fa-plus"></i> 添加</button>
+        <!--<button type="button" class="btn btn-info-2"><i class="fa fa-pencil"></i> 修改</button>-->
+        <button type="button" class="btn btn-danger-2"
+                data-pkui-component="datagrid-delete"
+                data-pkui-component-options='{
+                    "datagridSelector": "#sysPermitDatagrid",
+                    "PKName": "permitId",
+                    "url": "{% system.permit.list.sysPermitDelete %}"
+                }'
+                title="删除勾选的记录（可多选）"
+                ><i class="fa fa-trash-o"></i> 删除</button>
 
-    <form id="sysPermitQueryForm">
-        <button class="btn btn-default-2 pull-right" style="margin-left: 6px;" type="button"
-                onclick='jQuery( "#sysPermitDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
-        <!--
-        <div class="input-group pull-right" style="width: 280px;">
-            <input type="text" class="da-form-control" placeholder="数据权限名称" name="permitName" data-operator="like">
-            <span class="input-group-btn">
-                <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysPermitDatagrid" ).bootgrid( "reload" );'><i class="fa fa-search"></i></button>
-            </span>
-        </div>
-        -->
-    </form>
+    </div>
+    <div class="main-topbar-query">
+
+        <form id="sysPermitQueryForm">
+            <button class="btn btn-default-2" type="button"
+                    onclick='jQuery( "#sysPermitDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
+            <!--
+            <div class="input-group pull-right" style="width: 280px;">
+                <input type="text" class="da-form-control" placeholder="数据权限名称" name="permitName" data-operator="like">
+                <span class="input-group-btn">
+                    <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysPermitDatagrid" ).bootgrid( "reload" );'><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+            -->
+        </form>
+
+    </div>
+
 </div>
 
 <table id="sysPermitDatagrid"

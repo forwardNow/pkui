@@ -1,33 +1,44 @@
+<div class="win-main-topbar">
+    <div class="main-topbar-func">
 
-<div class="win-btnGroup">
-    <button type="button" class="btn btn-success-2"
-            id="addSysResourceBtn"
-            data-pkui-component="drawer"
-            data-pkui-component-options='{
-                "url":"__CTX__/static/desktop/tpl/system/resource/add.html",
-                "container": ".da-win-main"}'
-            ><i class="fa fa-plus"></i> 添加</button>
-    <!--<button type="button" class="btn btn-info-2"><i class="fa fa-pencil"></i> 修改</button>-->
-    <button type="button" class="btn btn-danger-2"
-            data-pkui-component="datagrid-delete"
-            data-pkui-component-options='{
-                "datagridSelector": "#sysResourceDatagrid",
-                "PKName": "resourceId",
-                "url": "{% system.resource.list.sysResourceDelete %}"
-            }'
-            title="删除勾选的记录（可多选）"
-            ><i class="fa fa-trash-o"></i> 删除</button>
+        <button type="button" class="btn btn-success-2"
+                id="addSysResourceBtn"
+                data-pkui-component="drawer"
+                data-pkui-component-options='{
+                    "url":"__CTX__/static/desktop/tpl/system/resource/add.html",
+                    "container": ".da-win-main"}'
+                ><i class="fa fa-plus"></i> 添加</button>
+        <!--<button type="button" class="btn btn-info-2"><i class="fa fa-pencil"></i> 修改</button>-->
+        <button type="button" class="btn btn-danger-2"
+                data-pkui-component="datagrid-delete"
+                data-pkui-component-options='{
+                    "datagridSelector": "#sysResourceDatagrid",
+                    "PKName": "resourceId",
+                    "url": "{% system.resource.list.sysResourceDelete %}"
+                }'
+                title="删除勾选的记录（可多选）"
+                ><i class="fa fa-trash-o"></i> 删除</button>
 
-    <form id="sysResourceQueryForm">
-        <button class="btn btn-default-2 pull-right" style="margin-left: 6px;" type="button"
-                onclick='jQuery( "#sysResourceDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
-        <div class="input-group pull-right" style="width: 280px;">
-            <input type="text" class="da-form-control" placeholder="单位名称" name="resourceName" data-operator="like">
-            <span class="input-group-btn">
-                <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysResourceDatagrid" ).bootgrid( "reload" );'><i class="fa fa-search"></i></button>
-            </span>
-        </div>
-    </form>
+    </div>
+    <div class="main-topbar-query">
+
+        <form id="sysResourceQueryForm">
+
+            <div class="input-group">
+                <span class="input-group-addon">单位名称</span>
+                <input type="text" class="da-form-control" placeholder="模糊查询" name="resourceName" data-operator="like">
+                <span class="input-group-btn">
+                    <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysResourceDatagrid" ).bootgrid( "reload" );'><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+
+            <button class="btn btn-default-2 pull-right" style="margin-left: 6px;" type="button"
+                    onclick='jQuery( "#sysResourceDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
+
+        </form>
+
+    </div>
+
 </div>
 
 <table id="sysResourceDatagrid"

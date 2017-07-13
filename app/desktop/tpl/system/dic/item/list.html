@@ -1,35 +1,41 @@
 <div class="win-main-body">
-    <div class="win-btnGroup">
-        <button type="button" class="btn btn-success-2"
-                id="addSysDicItemBtn"
-                data-pkui-component="drawer"
-                data-pkui-component-options='{
-                    "url":"__CTX__/static/desktop/tpl/system/dic/item/add.html",
-                    "model": { "dicName": "{{dicName}}" },
-                    "container": ".da-win-main"}'
-                ><i class="fa fa-plus"></i> 添加</button>
-        <!--<button type="button" class="btn btn-info-2"><i class="fa fa-pencil"></i> 修改</button>-->
-        <button type="button" class="btn btn-danger-2"
-                data-pkui-component="datagrid-delete"
-                data-pkui-component-options='{
-                    "datagridSelector": "#sysDicItemDatagrid",
-                    "PKName": "itemId",
-                    "url": "{% system.dic.item.list.sysDicItemDelete %}"
-                }'
-                title="删除勾选的记录（可多选）"
-                ><i class="fa fa-trash-o"></i> 删除</button>
+    <div class="win-main-topbar">
+        <div class="main-topbar-func">
+            <button type="button" class="btn btn-success-2"
+                    id="addSysDicItemBtn"
+                    data-pkui-component="drawer"
+                    data-pkui-component-options='{
+                        "url":"__CTX__/static/desktop/tpl/system/dic/item/add.html",
+                        "model": { "dicName": "{{dicName}}" },
+                        "container": ".da-win-main"}'
+                    ><i class="fa fa-plus"></i> 添加</button>
+            <!--<button type="button" class="btn btn-info-2"><i class="fa fa-pencil"></i> 修改</button>-->
+            <button type="button" class="btn btn-danger-2"
+                    data-pkui-component="datagrid-delete"
+                    data-pkui-component-options='{
+                        "datagridSelector": "#sysDicItemDatagrid",
+                        "PKName": "itemId",
+                        "url": "{% system.dic.item.list.sysDicItemDelete %}"
+                    }'
+                    title="删除勾选的记录（可多选）"
+                    ><i class="fa fa-trash-o"></i> 删除</button>
 
-        <form id="sysDicItemQueryForm">
-            <button class="btn btn-default-2 pull-right" style="margin-left: 6px;" type="button"
-                    onclick='jQuery( "#sysDicItemDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
-            <div class="input-group pull-right" style="width: 280px;">
-                <input type="hidden" name="dicName" value="{{dicName}}">
-                <input type="text" class="da-form-control" placeholder="字典条目名称" name="itemValue" data-operator="like">
-                <span class="input-group-btn">
-                    <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysDicItemDatagrid" ).bootgrid( "reload" );'><i class="fa fa-search"></i></button>
-                </span>
-            </div>
-        </form>
+        </div>
+        <div class="main-topbar-query">
+
+            <form id="sysDicItemQueryForm">
+                <div class="input-group" >
+                    <input type="hidden" name="dicName" value="{{dicName}}">
+                    <span class="input-group-addon">字典条目名称</span>
+                    <input type="text" class="da-form-control" placeholder="模糊查询" name="itemValue" data-operator="like">
+                    <span class="input-group-btn">
+                        <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysDicItemDatagrid" ).bootgrid( "reload" );'><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+                <button class="btn btn-default-2" type="button"
+                        onclick='jQuery( "#sysDicItemDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
+            </form>
+        </div>
     </div>
 
     <table id="sysDicItemDatagrid"

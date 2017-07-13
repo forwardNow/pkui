@@ -1,42 +1,54 @@
+<div class="win-main-topbar">
+    <div class="main-topbar-func">
 
-<div class="win-btnGroup">
+        <button type="button" class="btn btn-danger-2"
+                data-pkui-component="datagrid-delete"
+                data-pkui-component-options='{
+                    "datagridSelector": "#sysLogDatagrid",
+                    "PKName": "logId",
+                    "url": "{% system.log.list.sysLogDeleteByIds %}"
+                }'
+                title="删除勾选的记录（可多选）"
+                ><i class="fa fa-trash-o"></i> 删除</button>
 
-    <button type="button" class="btn btn-danger-2"
-            data-pkui-component="datagrid-delete"
-            data-pkui-component-options='{
-                "datagridSelector": "#sysLogDatagrid",
-                "PKName": "logId",
-                "url": "{% system.log.list.sysLogDeleteByIds %}"
-            }'
-            title="删除勾选的记录（可多选）"
-            ><i class="fa fa-trash-o"></i> 删除</button>
+    </div>
+    <div class="main-topbar-query main-topbar-query-ext">
 
-    <form id="sysLogQueryForm">
-        <button class="btn btn-default-2 pull-right" style="margin-left: 6px;" type="button"
-                onclick='jQuery( "#sysLogDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
-        <div class="input-group pull-right" style="width: 280px;">
-            <input type="text" class="da-form-control" placeholder="登录名" name="loginName" data-operator="like">
-            <span class="input-group-btn">
-                <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysLogDatagrid" ).bootgrid( "reload" )'><i class="fa fa-search"></i></button>
-            </span>
-        </div>
-        <div class="pull-right" style="margin-right: 6px;">
-            <input type="text" class="da-form-control" name="logTime" placeholder="结束日期"
-                    data-operator="<" data-datatype="3"
+        <form id="sysLogQueryForm">
 
-                   data-pkui-component="datepicker"
-                   data-pkui-component-options='{
+            <div class="input-group">
+                <span class="input-group-addon">开始日期时间</span>
+                <input type="text" class="da-form-control"
+                       name="logTime" placeholder="请选择" data-operator=">" data-datatype="4"
 
-                   }'/>
-        </div>
-        <div class="pull-right" style="margin-right: 6px;">
-            <input type="text" class="da-form-control"
-                   name="logTime" placeholder="开始日期时间" data-operator=">" data-datatype="4"
+                       data-pkui-component="datetimepicker"
+                       data-pkui-component-options='{}'/>
+            </div>
 
-                   data-pkui-component="datetimepicker"
-                   data-pkui-component-options='{}'/>
-        </div>
-    </form>
+            <div class="input-group">
+                <span class="input-group-addon">结束日期</span>
+                <input type="text" class="da-form-control" name="logTime" placeholder="请选择"
+                        data-operator="<" data-datatype="3"
+
+                       data-pkui-component="datepicker"
+                       data-pkui-component-options='{
+
+                       }'/>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon">登录名</span>
+                <input type="text" class="da-form-control" placeholder="登录名" name="模糊查询" data-operator="like">
+            </div>
+
+            <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysLogDatagrid" ).bootgrid( "reload" )'><i class="fa fa-search"></i></button>
+
+            <button class="btn btn-default-2" type="button"
+                    onclick='jQuery( "#sysLogDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
+
+        </form>
+
+    </div>
 </div>
 
 <table id="sysLogDatagrid"

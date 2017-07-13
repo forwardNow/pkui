@@ -8801,6 +8801,43 @@ Pagination Styles
   border-color: #66afe9;
 }
 
+.main-topbar-query > form > .input-group {
+  float: left;
+  width: 280px;
+  margin-left: 6px;
+}
+.main-topbar-query > form > .btn {
+  float: left;
+  margin-left: 6px;
+}
+.main-topbar-query > form > input {
+  margin-left: 6px;
+}
+.main-topbar-query > form .da-form-radio {
+  height: 28px;
+  float: left;
+  border: solid 1px #d2ecfd;
+}
+.main-topbar-query > form .da-form-radio .da-form-radio-label {
+  border-right: solid 1px #d2ecfd;
+  color: #108cee;
+  background: #eaf6fe;
+  padding: 6px 12px;
+  line-height: 1;
+  font-size: 14px;
+  height: 26px;
+  display: inline-block;
+}
+.main-topbar-query > form .da-form-radio label {
+  margin-right: 6px;
+  margin-left: 6px;
+}
+
+.main-topbar-query-ext {
+  margin-top: 12px;
+  clear: both;
+}
+
 .pkui-icon-image {
   display: inline-block;
   background: no-repeat center center;

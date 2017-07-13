@@ -1,5 +1,6 @@
 <div class="win-main-topbar">
     <div class="main-topbar-func">
+
         <button type="button" class="btn btn-success-2"
                 id="addSysUserBtn"
                 data-pkui-component="drawer"
@@ -26,8 +27,9 @@
 
     </div>
     <div class="main-topbar-query">
+
         <form id="sysUserQueryForm">
-            <div class="input-group pull-left" style="width: 280px;">
+            <div class="input-group">
                 <span class="input-group-addon">真实姓名</span>
                 <input type="text" class="da-form-control" name="userName" data-operator="like" placeholder="模糊查询">
                 <span class="input-group-btn">
@@ -35,7 +37,7 @@
                             onclick='jQuery( "#sysUserDatagrid" ).bootgrid( "reload" )'><i class="fa fa-search"></i></button>
                 </span>
             </div>
-            <button class="btn btn-default-2 " style="margin-left: 6px;" type="button"
+            <button class="btn btn-default-2 " type="button"
                     onclick='jQuery( "#sysUserDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
         </form>
     </div>

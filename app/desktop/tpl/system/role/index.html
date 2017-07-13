@@ -37,43 +37,48 @@
             <!-- 关联用户 -->
             <div role="tabpanel" class="tab-pane active" id="sysroleRelUser">
 
-                <div class="win-btnGroup">
+                <div class="win-main-topbar">
+                    <div class="main-topbar-func">
 
-                    <button type="button" id="sysRoleUser-addBtn" class="btn btn-success-2 hidden"
-                            data-options='{
-                                "url": "__CTX__/admin/sysRoleUserSave"
-                            }'
-                    ><i class="fa fa-plus"></i> 添加用户到角色</button>
+                        <button type="button" id="sysRoleUser-addBtn" class="btn btn-success-2 hidden"
+                                data-options='{
+                                    "url": "__CTX__/admin/sysRoleUserSave"
+                                }'
+                        ><i class="fa fa-plus"></i> 添加用户到角色</button>
 
-                    <button type="button" id="sysRoleUser-removeBtn" class="btn btn-danger-2"
-                            data-options='{
-                                "url": "__CTX__/admin/sysRoleUserDelete"
-                            }'
-                    ><i class="fa fa-trash-o"></i> 从角色中删除用户</button>
+                        <button type="button" id="sysRoleUser-removeBtn" class="btn btn-danger-2"
+                                data-options='{
+                                    "url": "__CTX__/admin/sysRoleUserDelete"
+                                }'
+                        ><i class="fa fa-trash-o"></i> 从角色中删除用户</button>
+                    </div>
 
-                    <form id="sysRoleUserQueryForm">
+                    <div class="main-topbar-query">
+                        <form id="sysRoleUserQueryForm">
 
-                        <button class="btn btn-default-2 pull-right" style="margin-left: 6px;" type="button"
-                                onclick='jQuery( "#sysRoleUserDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
-
-                        <div class="input-group pull-right" style="width: 280px;">
+                            <div class="da-form-radio">
+                                <!-- in / notIn -->
+                                <span class="da-form-radio-label">是否拥有该角色：</span>
+                                <label><input type="radio" name="roleIdOper" value="in" class="roleIdOper checked" checked/>是</label>
+                                <label><input type="radio" name="roleIdOper" value="notIn" class="roleIdOper"/>否</label>
+                            </div>
 
                             <!-- roleId 无值时，是查不到数据的-->
                             <input type="hidden" id="sysRoleUser-roleId" name="roleId"/>
 
-                            <input type="text" class="da-form-control" placeholder="真实姓名" name="userName" data-operator="like" value="">
-                            <span class="input-group-btn">
-                                <button class="btn btn-info-2" type="button" id="sysRoleUserDatagrid-reloadBtn"
-                                        onclick='jQuery( "#sysRoleUserDatagrid" ).bootgrid( "reload" )'><i class="fa fa-search"></i></button>
-                            </span>
-                        </div>
-                        <div class="da-form-radio pull-right" style="margin: 5px 12px 0 0;">
-                            <!-- in / notIn -->
-                            <span>是否拥有该角色：</span>
-                            <label><input type="radio" name="roleIdOper" value="in" class="roleIdOper checked" checked/>是</label>
-                            <label><input type="radio" name="roleIdOper" value="notIn" class="roleIdOper"/>否</label>
-                        </div>
-                    </form>
+                            <div class="input-group">
+                                <span class="input-group-addon">真实姓名</span>
+                                <input type="text" class="da-form-control" placeholder="模糊查询" name="userName" data-operator="like" value="">
+                            </div>
+
+                            <button class="btn btn-info-2" type="button" id="sysRoleUserDatagrid-reloadBtn"
+                                    onclick='jQuery( "#sysRoleUserDatagrid" ).bootgrid( "reload" )'><i class="fa fa-search"></i></button>
+
+                            <button class="btn btn-default-2" type="button"
+                                    onclick='jQuery( "#sysRoleUserDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
+
+                        </form>
+                    </div>
                 </div>
 
 
