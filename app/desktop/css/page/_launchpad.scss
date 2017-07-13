@@ -57,10 +57,10 @@
 .launchpad-shortcut-fonticon {
     line-height: 76px;
     text-align: center;
-    font-size: 46px;
+    font-size: 32px;
     color: #d4dae0;
 
-    background: url(../images/apps/fonticon_bg.png) no-repeat center center;
+    // background: url(../images/apps/fonticon_bg.png) no-repeat center center;
 }
 
 .launchpad-shortcut-title {
@@ -100,6 +100,7 @@
     @extend .icon-arrow-right;
     right: 5%;
 }
+
 .launchpad-pagination-switchList {
     //background: rgba(0,0,0,.2);
     position: absolute;
@@ -123,4 +124,58 @@
 }
 .launchpad-pagination-switchItem-active {
         background-color: #fff;
+}
+
+.da-theme-light {
+    .launchpad-pagination-previous {
+        @extend .icon-arrow-light-left;
+    }
+    .launchpad-pagination-next {
+        @extend .icon-arrow-light-right;
+    }
+    .launchpad-shortcut-fonticon {
+        border-radius: 4px;
+        text-shadow: 0 -1px 0px rgba(0, 0, 0, 0.25);
+    }
+}
+
+.fonticon-default {
+    background: #41a0f0;
+    color: #fff;
+}
+
+// 青色（跟默认色很像）
+.fonticon-cyan {
+    color: #fff;
+    background: #3fa1f2;
+}
+// 灰白色
+.fonticon-grayWhite {
+    color: #31b6ff;
+    background: #f1f7f7;
+}
+// 绿色
+.fonticon-green {
+    color: #ebffea;
+    background: #3ec245;
+}
+// 橙色
+.fonticon-orange {
+    color: #fcfbf6;
+    background: #fd813c;
+}
+// 橙色
+.fonticon-red {
+    color: #ede9e6;
+    background: #f9614e;
+}
+// 紫色
+.fonticon-purple {
+    color: #f5f0f7;
+    background: #747ef9;
+}
+// 黄色
+.fonticon-yellow {
+    color: #fbfffd;
+    background: #ffcd03;
 }

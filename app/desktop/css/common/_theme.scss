@@ -1,13 +1,28 @@
 .da-theme {
+}
+
+.da-theme-default {
     background-repeat: no-repeat;
     background-size: cover;
     -webkit-transition: background-position .8s ease;
             transition: background-position .8s ease;
-}
-
-.da-theme-default {
     background-image: url(#{$image-path}/da_bg.jpg);
     .da-topbar {
         background: url(#{$image-path}/topbar_bg.png) repeat-x 0 0;
     }
 }
+
+
+// 青色
+.da-theme-light {
+    background: url(#{$image-path}/da_bg.png) 0 0 repeat-x #fff;
+    .da-topbar {
+        filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#3F7E9FC2', endColorstr='#3F7E9FC2');
+    }
+}
+
+:root .da-theme-light .da-topbar {
+    filter:none;	 /*处理IE9浏览器中的滤镜效果*/
+    background-color:rgba(126,159,194,0.25);
+}
+

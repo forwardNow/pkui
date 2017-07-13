@@ -26,11 +26,11 @@ define( function ( require ) {
         +"         \"src\": \"{{src}}\","
         +"         \"menuId\": {{menuId}},"
         +"         \"mode\": \"{{mode}}\"}'>"
-        +"    {{if isFontIcon}} "
-        +"        <span class=\"launchpad-shortcut-icon launchpad-shortcut-fonticon\"><i class=\"{{icon}}\"></i></span>"
-        +"    {{else}} "
-        +"        <img class=\"launchpad-shortcut-icon\" src=\"{{icon}}\" alt=\"\">"
-        +"    {{/if}} "
+        +"{{if isFontIcon}} "
+    +"        <span class=\"launchpad-shortcut-icon launchpad-shortcut-fonticon {{ fontIconClass }} \" style=\"{{ fontIconStyle }}\"><i class=\"{{icon}}\"></i></span>"
+        +"{{else}} "
+    +"        <img class=\"launchpad-shortcut-icon\" src=\"{{icon}}\" alt=\"\">"
+        +"{{/if}} "
         +"    <p class=\"launchpad-shortcut-title\">{{menuName}}</p></div>"
     ;
 
@@ -70,7 +70,9 @@ define( function ( require ) {
                 isFontIcon = true,
                 sysMenu,
                 icon,
-                menuId
+                menuId,
+                fontIconClass = "",
+                fontIconStyle = ""
             ;
 
             sysMenu = sysMenuSet[ item.menuId ];
@@ -91,6 +93,10 @@ define( function ( require ) {
                 menuId = '"' + menuId + '"';
             }
 
+            if ( isFontIcon ) {
+                fontIconStyle = getFontIconStyle( item.fontIconStyle );
+            }
+
             // 翻译模板
             shortcutHtml = _this.render( {
                 icon: icon,
@@ -98,7 +104,9 @@ define( function ( require ) {
                 menuId: menuId,
                 src: item.src || defaultSrc,
                 mode: item.mode || defaultMode,
-                isFontIcon: isFontIcon
+                isFontIcon: isFontIcon,
+                fontIconClass: item.fontIconClass || "fonticon-default",
+                fontIconStyle: fontIconStyle
             } );
 
             html += shortcutHtml;
@@ -106,6 +114,26 @@ define( function ( require ) {
 
         return html;
     };
+
+
+    /**
+     * 格式化样式
+     * @param fontIconStyle {{ bgColor:String, color:String }} 样式对象
+     * @returns {string} 样式类
+     */
+    function getFontIconStyle( fontIconStyle ) {
+        var
+            bgColor,
+            color
+        ;
+        if ( typeof fontIconStyle !== "object") {
+            return "";
+        }
+        bgColor = fontIconStyle.bgColor;
+        color = fontIconStyle.color;
+        return "background-color: " + bgColor + "; color: " + color + ";";
+    }
+
 
     Shortcut._init();
 

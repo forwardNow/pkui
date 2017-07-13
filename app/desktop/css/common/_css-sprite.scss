@@ -77,6 +77,18 @@
     @include desktop-sprite(icon_arrow_right);
 }
 
+.icon-arrow-light-left {
+    width: 33px;
+    height: 60px;
+    @include desktop-sprite(icon_arrow_light_left);
+}
+
+.icon-arrow-light-right {
+    width: 33px;
+    height: 60px;
+    @include desktop-sprite(icon_arrow_light_right);
+}
+
 .icon-circle-1 {
     width: 12px;
     height: 12px;
