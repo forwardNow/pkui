@@ -8915,6 +8915,9 @@ Pagination Styles
   -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.6) inset;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.6) inset;
 }
+.da-theme-light .win-main-heading {
+  background-color: #e9e8e9;
+}
 .da-theme-light .pkui-dialog-body {
   background: #e9e8e9;
   border-radius: 0 0 4px 4px;
