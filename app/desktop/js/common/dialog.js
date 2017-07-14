@@ -161,7 +161,8 @@ define( function ( require ) {
             ;
             pkuiOptions.$dialogContainer.draggable( {
                 handle: pkuiOptions.$dialogHeader.get(),
-                opacity: 0.35
+                opacity: 0.35,
+                containment: $( "#daDesktop" )
             } );
 
             // 最大化时，取消拖拽；还原后，启动拖拽。
@@ -195,13 +196,15 @@ define( function ( require ) {
                 pageHeight,
                 topbarHeight,
                 dialogHeaderHeight,
-                pkuiOptions
+                pkuiOptions,
+                $topbar
                 ;
             pkuiOptions = artDialog.options.pkuiOptions;
 
             pageWidth = Utils.getPageWidth();
             pageHeight = Utils.getPageHeight();
-            topbarHeight = $( ".da-topbar" ).height();
+            $topbar = $( "#daTopbar" );
+            topbarHeight = $topbar.height();
             dialogHeaderHeight = pkuiOptions.$dialogHeader.height();
 
             // 保存原始宽高和位置
@@ -211,8 +214,9 @@ define( function ( require ) {
             pkuiOptions.originLeft = pkuiOptions.$dialogContainer.css( "left" );
 
             // 1. 设置最外围的container
+            // 如果 topbar 在下面，则top = 0
             pkuiOptions.$dialogContainer.css( {
-                "top": topbarHeight,
+                "top": $topbar.css( "bottom" ) === "0px" ? 0 : topbarHeight,
                 "left": 0
             } );
 
