@@ -145,7 +145,9 @@ define( function ( require ) {
                 $dialogContent.resizable( "destroy" );
             } );
             AOP.after( artDialog, "content", function () {
-                $dialogContent.resizable();
+                $dialogContent.resizable( {
+                    containment: "#daDesktop"
+                } );
             } );
             return this;
         },
