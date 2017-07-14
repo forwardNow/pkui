@@ -38,7 +38,7 @@ define( function ( require ) {
             async: false
         } ).done( function ( gridResult ) {
             if ( gridResult && ( gridResult.success || gridResult.totalRecords >= 0  ) ) {
-                if ( gridResult.data == null || gridResult.data.length === 0 ) {
+                if ( !gridResult.data || gridResult.data.length === 0 ) {
                     $.error( "菜单数据为空。" )
                 }
                 _this.originData = gridResult.data;
@@ -57,7 +57,7 @@ define( function ( require ) {
      * @param isIncludeInvisibleMenu {Boolean?} 是否包含不可用的菜单
      * @returns {Array}
      */
-    Menu.getList = function ( isIncludeInvisibleMenu) {
+    Menu.getList = function ( isIncludeInvisibleMenu ) {
         var
             list
         ;
@@ -71,7 +71,7 @@ define( function ( require ) {
             var copy = $.extend( true, {}, sysMenu );
             if ( isIncludeInvisibleMenu ) {
                 list.push( copy );
-            } else if ( sysMenu[ "visiable" ] == 1 ) {
+            } else if ( sysMenu[ "visiable" ] === "1" || sysMenu[ "visiable" ] === 1 ) {
                 list.push( copy );
             }
         } );
@@ -100,7 +100,7 @@ define( function ( require ) {
             ;
             if ( isIncludeInvisibleMenu ) {
                 set[ menuId ] = copy;
-            } else if ( sysMenu[ "visiable" ] == 1 ) {
+            } else if ( sysMenu[ "visiable" ] === "1" || sysMenu[ "visiable" ] === 1 ) {
                 set[ menuId ] = copy;
             }
         } );

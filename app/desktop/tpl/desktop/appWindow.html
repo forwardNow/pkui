@@ -8,14 +8,14 @@
 
 
     <!-- 侧边栏 -->
-    <aside class="da-win-sidebar jstree-sidebar">
+    <aside class="da-win-sidebar jstree-sidebar" data-is-hide-when-there-is-only-one-node="true">
         <div style="margin-left: -9px;"
              data-pkui-component="menuTree"
              data-pkui-component-options='{
                 "url": "{{menuUrl}}",
                 "dnd": false,
                 "menuId": {{menuId}},
-                "isFirstMenuItemSelected": true
+                "isHideSingleRootNode": true
              }'></div>
     </aside>
     <a class="da-win-sidebar-toggle" href="javascript:void(0)" title="展开/收起"><i class="fa fa-dedent"></i></a>

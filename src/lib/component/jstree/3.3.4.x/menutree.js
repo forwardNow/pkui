@@ -27,7 +27,9 @@ define( function ( require ) {
         // 是否显示不可见的菜单
         showInvisible: false,
         // 初始化后，第一个菜单项条目是否被选中
-        isFirstMenuItemSelected: true
+        isFirstMenuItemSelected: false,
+        // 是否隐藏根节点
+        isHideSingleRootNode: false
     };
 
     /**
@@ -102,7 +104,8 @@ define( function ( require ) {
                 fmtData,
                 jstreeData,
                 jstreeOptions = {},
-                $jstreeAnchor
+                $jstreeAnchor,
+                children
                 ;
 
             originData = gridResult.data;
@@ -116,6 +119,25 @@ define( function ( require ) {
                 parentIdName: "treeParentid",
                 childrenName: "children"
             } );
+
+            // 如果只有一个根节点
+            if ( jstreeData.length === 1 ) {
+
+                // 如果该根节点下还有 children
+                // 则将其删除（避免过多重复：标签名、窗口标题名、根节点名都是相同的）
+                if ( options.isHideSingleRootNode ) {
+
+
+                    children = jstreeData[ 0 ].children;
+
+                    if ( children && children.length !==0 ) {
+                        jstreeData = children;
+                    }
+
+                }
+            }
+
+
             jstreeOptions.core = {
                 "data" : jstreeData,
                 "worker": false,
@@ -133,10 +155,14 @@ define( function ( require ) {
 
             _this.$target.jstree( jstreeOptions );
 
-            $jstreeAnchor = _this.$target.find( ".jstree-anchor" );
+            /* 此操作放在
+            if ( options.isFirstMenuItemSelected ) {
+                $jstreeAnchor = _this.$target.find( ".jstree-anchor" );
+                $jstreeAnchor.eq( 0 ).trigger( "click" );
+            }
+            */
 
-            $jstreeAnchor.eq( 0 ).trigger( "click" );
-
+            // 标志
             _this.$target.addClass( "jstree-menutree" );
         }
 

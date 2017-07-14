@@ -264,7 +264,9 @@ define( function ( require ) {
                 url: templateUrl
             } ).done( function ( data ) {
                 var html,
-                    $temp
+                    $temp,
+                    $jstreeAnchor,
+                    $sidebar
                 ;
                 contentHtml = data;
                 $temp = $( "<div>" );
@@ -272,6 +274,23 @@ define( function ( require ) {
                 html = $temp.html();
                 _this.options.content = html;
                 _this.artDialog.content( html );
+
+                // 侧边栏只有一个菜单的情况下，隐藏侧边栏之后，触发菜单的点击
+                $sidebar = _this.artDialog.options.pkuiOptions.$dialogContainer.find( ".da-win-sidebar" );
+                $sidebar.children( '[data-pkui-component="menuTree"]' ).one( "ready.jstree", function() {
+                    $jstreeAnchor = $sidebar.find( ".jstree-anchor" );
+                    if ( $jstreeAnchor.size() === 1 ) {
+                        if ( $sidebar.data( "isHideWhenThereIsOnlyOneNode" ) ) {
+                            $sidebar.next( ".da-win-sidebar-toggle" ).trigger( "click" );
+                            $sidebar.closest( ".da-win" ).addClass( "only-one-node" );
+                            window.setTimeout( function() {
+                                $jstreeAnchor.eq( 0 ).trigger( "click" );
+                            }, 360 )
+                        }
+                    }
+                } );
+
+
                 $temp = null;
             } ).fail( function ( xhr ) {
                 var str = "[" + xhr.status + "]" + xhr.statusText;
@@ -306,9 +325,8 @@ define( function ( require ) {
 
             // 折叠
             pkuiOptions.$dialogContainer.on( "click.sidebar", ".da-win-sidebar-toggle", function () {
-                $( this ).toggleClass( "collapsed" ).children( ".fa" ).toggleClass( "fa-indent" );
-                pkuiOptions.$dialogContainer.find( ".da-win-sidebar" ).toggleClass( "collapsed" );
-                pkuiOptions.$dialogContainer.find( ".da-win-main" ).toggleClass( "collapsed" );
+                $( this ).children( ".fa" ).toggleClass( "fa-indent" );
+                pkuiOptions.$dialogContainer.find( ".da-win" ).toggleClass( "collapsed" );
             } );
             // 则请求相应页面
             pkuiOptions.$dialogContainer.on( "click.sidebar.anchor", ".da-win-sidebar .jstree-anchor", function ( event ) {
