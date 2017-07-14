@@ -94,6 +94,21 @@
         background-image: linear-gradient(to bottom, #f6f6f6, #d4d4d4);
         background-repeat: repeat-x;
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF6F6F6', endColorstr='#FFD4D4D4', GradientType=0);
+
+        &:hover {
+            .pkui-dialog-close {
+                @extend .icon-win-close-hover;
+            }
+            .pkui-dialog-max {
+                @extend .icon-win-max-hover;
+            }
+            .pkui-dialog-restore {
+                @extend .icon-win-maxmin-hover;
+            }
+            .pkui-dialog-min {
+                @extend .icon-win-min-hover;
+            }
+        }
     }
     .pkui-dialog-title {
         padding: 6px 12px;
