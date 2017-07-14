@@ -8929,7 +8929,7 @@ Pagination Styles
 
 .sysmenu-treeOpe {
   position: absolute;
-  top: 0;
+  top: 40px;
   left: 0;
   z-index: 10;
   width: 240px;
@@ -9032,6 +9032,10 @@ Pagination Styles
 
 .menuicon-image-chosen .item.active {
   background-color: #33a6e7;
+}
+
+.only-one-node .sysmenu-treeOpe {
+  padding-top: 0;
 }
 
 .sysrole-container {
