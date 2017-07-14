@@ -75,3 +75,29 @@
 .pkui-dialog {
     box-shadow: 1px 1px 50px rgba(0,0,0,.3);
 }
+
+.da-theme-light {
+    .pkui-dialog {
+        background-color: transparent;
+    }
+    .pkui-dialog-header {
+        > button {
+            margin-top: 8px;
+        }
+        border-radius: 4px 4px 0 0;
+        border-bottom: solid 1px #b1b1b1;
+        background-color: whitesmoke;
+        background-image: -moz-linear-gradient(top, #f6f6f6, #d4d4d4);
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f6f6f6), to(#d4d4d4));
+        background-image: -webkit-linear-gradient(top, #f6f6f6, #d4d4d4);
+        background-image: -o-linear-gradient(top, #f6f6f6, #d4d4d4);
+        background-image: linear-gradient(to bottom, #f6f6f6, #d4d4d4);
+        background-repeat: repeat-x;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF6F6F6', endColorstr='#FFD4D4D4', GradientType=0);
+    }
+    .pkui-dialog-title {
+        padding: 6px 12px;
+        color: #4f4f4f;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+    }
+}
