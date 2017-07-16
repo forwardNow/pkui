@@ -7760,12 +7760,16 @@ Pagination Styles
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF6F6F6', endColorstr='#FFD4D4D4', GradientType=0);
 }
 .da-theme-light .pkui-dialog-header > button {
-  margin-top: 8px;
+  margin-top: 13px;
 }
 .da-theme-light .pkui-dialog-title {
-  padding: 6px 12px;
+  padding: 9px 12px;
   color: #4f4f4f;
+  font-size: 16px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+.da-theme-light .pkui-dialog-title-fonticon {
+  margin-right: 6px;
 }
 
 .ui-resizable {

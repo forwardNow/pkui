@@ -82,7 +82,7 @@
     }
     .pkui-dialog-header {
         > button {
-            margin-top: 8px;
+            margin-top: 13px;
         }
         border-radius: 4px 4px 0 0;
         border-bottom: solid 1px #b1b1b1;
@@ -111,8 +111,12 @@
         }
     }
     .pkui-dialog-title {
-        padding: 6px 12px;
+        padding: 9px 12px;
         color: #4f4f4f;
+        font-size: 16px;
         text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+    }
+    .pkui-dialog-title-fonticon {
+        margin-right: 6px;
     }
 }
