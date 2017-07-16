@@ -305,7 +305,35 @@
 
 .da-theme-light {
     .topbar-dock-item {
-        border-radius: 2px;
+
+        border-radius: 1px;
+
+        border: solid 1px #d1deed;
+        background-color: #b1c7e0;
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#c2d3e7), to(#b3c9e1));
+        background-image: -webkit-linear-gradient(top, #c2d3e7, #b3c9e1);
+        background-image: -o-linear-gradient(top, #c2d3e7, #b3c9e1);
+        background-image: linear-gradient(to bottom, #c2d3e7, #b3c9e1);
+        background-repeat: repeat-x;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFC2D3E7', endColorstr='#FFB3C9E1', GradientType=0);
+        box-shadow: 0 0 1px #5a6776;
+
+        @include opacity(0.8);
+        
+        &.active {
+            border: solid 1px #eff4f9;
+            background-color: #c8d7e9;
+            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#dee8f2), to(#d6e2ef));
+            background-image: -webkit-linear-gradient(top, #dee8f2, #d6e2ef);
+            background-image: -o-linear-gradient(top, #dee8f2, #d6e2ef);
+            background-image: linear-gradient(to bottom, #dee8f2, #d6e2ef);
+            background-repeat: repeat-x;
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFDEE8F2', endColorstr='#FFD6E2EF', GradientType=0);
+            box-shadow: 0 0 1px #262c32;
+
+            @include opacity(1);
+        }
+
     }
     .topbar-toolbar-userItem {
         .dropdown-menu {

@@ -208,12 +208,12 @@ define( function ( require ) {
             pageWidth = Utils.getPageWidth();
             pageHeight = Utils.getPageHeight();
             $topbar = $( "#daTopbar" );
-            topbarHeight = $topbar.height();
-            dialogHeaderHeight = pkuiOptions.$dialogHeader.height();
+            topbarHeight = $topbar.outerHeight() + 2;
+            dialogHeaderHeight = pkuiOptions.$dialogHeader.outerHeight();
 
             // 保存原始宽高和位置
             pkuiOptions.originWidth = pkuiOptions.$dialogContainer.width();
-            pkuiOptions.originHeight = pkuiOptions.$dialogContainer.height();
+            pkuiOptions.originHeight = pkuiOptions.$dialogContainer.outerHeight();
             pkuiOptions.originTop = pkuiOptions.$dialogContainer.css( "top" );
             pkuiOptions.originLeft = pkuiOptions.$dialogContainer.css( "left" );
 
