@@ -17,9 +17,17 @@
 .da-theme-light {
     background: url(#{$image-path}/da_bg.png) 0 0 repeat-x #fff;
     .da-topbar {
-        filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#BF7E9FC2', endColorstr='#BF7E9FC2');
+        filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#99A7C0DC', endColorstr='#99A7C0DC');
         top: auto;
         bottom: 0;
+
+        height: 45px;
+
+        //background-color: #a7c0dc;
+        //background-color: rgba(167, 192, 220, 0.6);
+        border-top: solid 1px #cad9ea;
+        border-top-color: rgba(202, 217, 234, 0.6);
+
     }
     .da-desktop {
         bottom: 46px;
@@ -34,6 +42,6 @@
 
 :root .da-theme-light .da-topbar {
     filter:none;	 /*处理IE9浏览器中的滤镜效果*/
-    background-color:rgba(126,159,194,0.75);
+    background-color:rgba(167,192,220,0.6);
 }
 
