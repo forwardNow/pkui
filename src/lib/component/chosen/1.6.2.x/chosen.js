@@ -282,16 +282,21 @@ define(function( require ) {
       option_el.style.cssText = option.style;
       option_el.setAttribute("data-option-array-index", option.array_index);
       // FIX 修改option结果
-      // option_el.innerHTML = option.search_text;
-      // FIX 判断如果ID是UUID（36位），则不显示ID
-      if ( typeof this._isUUID !== "boolean" ) {
-          this._isUUID = option.value && String( option.value ).length > 24;
-      }
-      if ( this._isUUID === true) {
-          option_el.innerHTML = '</span><span class="option-text">' + option.html + '</span><span class="option-spell">' + option.spell + '</span>';
+      if ( opts.dic ) {
+          // FIX 判断如果ID是UUID（36位），则不显示ID
+          if ( typeof this._isUUID !== "boolean" ) {
+              this._isUUID = option.value && String( option.value ).length > 24;
+          }
+          if ( this._isUUID === true) {
+              option_el.innerHTML = '</span><span class="option-text">' + option.html + '</span><span class="option-spell">' + option.spell + '</span>';
+          } else {
+            option_el.innerHTML = '<span class="option-code">' + option.value + '</span><span class="option-text">' + option.html + '</span><span class="option-spell">' + option.spell + '</span>';
+          }
+
       } else {
-        option_el.innerHTML = '<span class="option-code">' + option.value + '</span><span class="option-text">' + option.html + '</span><span class="option-spell">' + option.spell + '</span>';
+          option_el.innerHTML = option.search_text;
       }
+
       if (option.title) {
         option_el.title = option.title;
       }
@@ -389,8 +394,11 @@ define(function( require ) {
             results_group.active_options += 1;
           }
           // FIX 修改搜索的属性
-          // option.search_text = option.group ? option.label : option.html;
-          option.search_text = option.group ? option.label : option.html + option.value + option.spell;
+          if ( this.options.dic ) {
+            option.search_text = option.group ? option.label : option.html + option.value + option.spell;
+          } else {
+              option.search_text = option.group ? option.label : option.html;
+          }
           if (!(option.group && !this.group_search)) {
             option.search_match = this.search_string_match(option.search_text, regex);
             if (option.search_match && !option.group) {
