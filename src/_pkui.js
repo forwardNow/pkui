@@ -64,6 +64,11 @@ define( function ( require ) {
             // 组件容器
             component: {},
 
+            // 数据表格使用 dateFormatter 时，日期格式化后的日期
+            datagridDateFormat: "YYYY-MM-DD",
+            // 数据表格使用 datetimeFormatter 时，日期时间格式化后的日期时间
+            datagridDatetimeFormat: "YYYY-MM-DD HH:mm:ss",
+
             // 自动渲染标志
             isAutoRender: true,
 
@@ -231,7 +236,18 @@ define( function ( require ) {
                 return DataSource.getDicValue( dicName, code );
             } );
             ArtTemplate.helper( "dateFormat", function ( date, format ) {
-                return moment( date ).format( format );
+                var
+                    momentInstance
+                ;
+                if ( typeof date === "number" ) {
+                    momentInstance = moment( date );
+                } else if ( typeof date === "string" ) {
+                    momentInstance = moment( date, [ "YYYYMMDDHHmmss", "YYYY-MM-DD HH:mm:ss", "YYYY/MM/DD HH:mm:ss" ] );
+                }
+
+                format = format || "YYYY-MM-DD";
+
+                return momentInstance.format( format );
             } );
             ArtTemplate.helper( "iconFormat", function ( icon, imageSize ) {
                 var style, url;
@@ -260,13 +276,31 @@ define( function ( require ) {
             PKUI.bootgridFormatter = {
                 // 日期 转 格式化后的年月日
                 dateFormatter: function ( column, row ) {
-                    var date = row[ column.id ];
-                    return moment( date ).format( "YYYY年MM月DD日" )
+                    var
+                        date = row[ column.id ],
+                        momentInstance
+                    ;
+                    if ( typeof date === "number" ) {
+                        momentInstance = moment( date );
+                    } else if ( typeof date === "string" ) {
+                        momentInstance = moment( date, [ "YYYYMMDDHHmmss", "YYYY-MM-DD HH:mm:ss", "YYYY/MM/DD HH:mm:ss" ] );
+                    }
+
+                    return momentInstance.format( PKUI.datagridDateFormat )
                 },
                 // 日期 转 格式化后的年月日时分秒
                 datetimeFormatter: function ( column, row ) {
-                    var date = row[ column.id ];
-                    return moment( date ).format( "YYYY年MM月DD日 HH时mm分ss秒" )
+                    var
+                        date = row[ column.id ],
+                        momentInstance
+                    ;
+                    if ( typeof date === "number" ) {
+                        momentInstance = moment( date );
+                    } else if ( typeof date === "string" ) {
+                        momentInstance = moment( date, [ "YYYYMMDDHHmmss", "YYYY-MM-DD HH:mm:ss", "YYYY/MM/DD HH:mm:ss" ] );
+                    }
+
+                    return momentInstance.format( PKUI.datagridDatetimeFormat )
                 },
                 // 标志状态（正常/停用）
                 statusFormatter: function ( column, row ) {
