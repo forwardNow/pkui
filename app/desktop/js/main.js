@@ -8,6 +8,16 @@
  * @requires module:common/app
  */
 define( function ( require ) {
+    "use strict";
+    // 载入系统功能URL配置文件
+    require( "./config/systemUrl" );
+
+    // 载入全局设置的配置文件
+    require( "./config/globalSetting" );
+
+    // 载入配置文件
+    require( "./config/shortcut" );
+
     var
         $ = require( "jquery" ),
         Launchpad = require( "./common/launchpad" ),
@@ -18,11 +28,7 @@ define( function ( require ) {
         menuSource = require( "./common/menuSource" )
     ;
 
-    // 载入系统功能URL配置文件
-    require( "./config/systemUrl" );
 
-    // 载入全局设置的配置文件
-    require( "./config/globalSetting" );
 
     if ( window.isIE8 ) {
         seajs.use( "./css/page/ie8-hack.css" );
