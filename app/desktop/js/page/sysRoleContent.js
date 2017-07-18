@@ -10,6 +10,7 @@ define( function ( require ) {
     var
         $ = require( "jquery" ),
         layer = window.layer,
+        PKUI = window.PKUI,
         namespace = "pkui.sysrole.content"
     ;
 
@@ -70,7 +71,38 @@ define( function ( require ) {
         // tree
         sysRolePermitTreeContainerSelector: "#sysroleRelPermit-treeContainer",
         // save btn
-        sysRolePermitSaveBtnSelector: "#sysroleRelPermit-saveBtn"
+        sysRolePermitSaveBtnSelector: "#sysroleRelPermit-saveBtn",
+
+        /* 数据权限（新） */
+        // tabpanel
+        sysRoleNewPermitTabpanelSelector: "#sysroleRelNewPermit",
+        // table
+        sysRoleNewPermitTableSelector: "#sysroleRelNewPermit-table",
+        // save btn
+        sysRoleNewPermitSaveBtnSelector: "#sysroleRelNewPermit-saveBtn",
+        // 添加新行的按钮
+        sysRoleNewPermitAddNewRowBtnSelector: "#sysroleRelNewPermit-addNewRow",
+        sysRoleNewPermitRemoveUnusedRowBtnSelector: "#sysroleRelNewPermit-removeUnusedRow",
+        // 模板
+        sysRoleNewPermitTemplate: {
+            row: '<tr> <td></td> <td></td> <td></td> </tr>',
+            deleteBtn: '<button type="button" class="btn btn-danger-2 js--deleteRow"><i class="fa fa-trash"></i></button>',
+            select:   '<select name="_newpermitSelect" data-pkui-component="chosen">'
+            +         '    <option value="=">=</option>'
+            +         '    <option value="in">in</option>'
+            +         '    <option value="like">like</option>'
+            +         '    <option value="between">between</option>'
+            +         '</select>',
+            singleValueInput: '<input type="text" class="da-form-control">',
+            doubleValueInput: '<div class="input-group">'
+            +                 '    <span class="input-group-addon">最小值</span>'
+            +                 '    <input type="text" class="da-form-control">'
+            +                 '</div>'
+            +                 '<div class="input-group">'
+            +                 '    <span class="input-group-addon">最大值</span>'
+            +                 '    <input type="text" class="da-form-control">'
+            +                 '</div>'
+        }
 
     };
 
@@ -133,6 +165,12 @@ define( function ( require ) {
         this.$sysRolePermitTabpanel = $( opts.sysRolePermitTabpanelSelector );
         this.$sysRolePermitTreeContainer = $( opts.sysRolePermitTreeContainerSelector );
         this.$sysRolePermitSaveBtn = $( opts.sysRolePermitSaveBtnSelector );
+
+        this.$sysRoleNewPermitTabpanel = $( opts.sysRoleNewPermitTabpanelSelector );
+        this.$sysRoleNewPermitTable = $( opts.sysRoleNewPermitTableSelector );
+        this.$sysRoleNewPermitSaveBtn = $( opts.sysRoleNewPermitSaveBtnSelector );
+        this.$sysRoleNewPermitAddNewRowBtn = $( opts.sysRoleNewPermitAddNewRowBtnSelector );
+        this.$sysRoleNewPermitRemoveUnusedRowBtn = $( opts.sysRoleNewPermitRemoveUnusedRowBtnSelector );
 
     };
 
@@ -230,6 +268,11 @@ define( function ( require ) {
             else if ( tabpanelSelector === _this.opts.sysRolePermitTabpanelSelector ) {
                 $tabpanle = _this.$sysRolePermitTabpanel;
                 drawMethodName = "drawRolePermit";
+            }
+            // 数据权限（新）
+            else if ( tabpanelSelector === _this.opts.sysRoleNewPermitTabpanelSelector ) {
+                $tabpanle = _this.$sysRoleNewPermitTabpanel;
+                drawMethodName = "drawRoleNewPermit";
             }
 
             roleId = $tabpanle.attr( "roleid" );
@@ -530,6 +573,154 @@ define( function ( require ) {
             } );
 
         } );
+
+        // 数据权限（新）：新增一行
+        this.$sysRoleNewPermitAddNewRowBtn.on( "click." + namespace, function () {
+            var
+                template = _this.opts.sysRoleNewPermitTemplate,
+                $tbody = _this.$sysRoleNewPermitTable.find( "tbody" ),
+                $row = $( template.row ),
+                $deleteBtn = $( template.deleteBtn ),
+                $select = $( template.select ),
+                $value = $( template.singleValueInput )
+            ;
+            $row.children().eq( 0 ).append( $deleteBtn )
+                .end().eq( 1 ).append( $select )
+                .end().eq( 2 ).append( $value );
+            $tbody.append( $row );
+
+            PKUI.render();
+        } );
+
+
+        // 数据权限（新）：删除一行
+        this.$sysRoleNewPermitTable.on( "click." + namespace, ".js--deleteRow", function ( event, isForceDelete ) {
+            var _this = this;
+            if ( isForceDelete ) {
+                $( _this ).closest( "tr" ).remove();
+                return;
+            }
+            // 确认
+            layer.confirm(
+                "确定删除该条数据",
+                {
+                    btn: ['删除','取消'] //按钮
+                },
+                // 确认
+                function ( index ) {
+                    $( _this ).closest( "tr" ).remove();
+                    layer.close( index );
+                },
+                // 取消
+                function(){
+
+                }
+            );
+
+        } );
+        // 数据权限（新）：当选择的是between时
+        this.$sysRoleNewPermitTable.on( "change." + namespace, "select", function () {
+            var
+                $this = $( this ),
+                val = $this.val(),
+                $valueInputCell = $this.closest( "tr" ).children().eq( 2 ),
+                $input = $valueInputCell.find( "input" ),
+                inputNum = $input.size(),
+                template = _this.opts.sysRoleNewPermitTemplate
+            ;
+            if ( val === "between" && inputNum === 1 ) {
+                $valueInputCell.html( template.doubleValueInput );
+            } else if ( val !== "between" && inputNum === 2 ) {
+                $valueInputCell.html( template.singleValueInput );
+            }
+        } );
+
+        // 数据权限（新）：保存
+        this.$sysRoleNewPermitSaveBtn.on( "click." + namespace, function () {
+            var
+                $button = $( this ),
+                data = [],
+                url = _this.$sysRoleNewPermitSaveBtn.data( "options" ).url,
+                roleId
+            ;
+            // 清除无效的数据
+            _this.$sysRoleNewPermitRemoveUnusedRowBtn.trigger( "click." + namespace );
+
+            // 获取数据
+            _this.$sysRoleNewPermitTable.find( "tbody" ).children( "tr" ).each( function() {
+                var
+                    $row = $( this ),
+                    $select = $row.children().eq( 1 ).find( "select" ),
+                    $input = $row.children().eq( 2 ).find( "input" ) ,
+                    operator,
+                    value, value2,
+                    item
+                ;
+                operator = $select.val();
+                value = $input.eq( 0 ).val();
+
+                item = {
+                    operator: operator,
+                    value: value.replace(/%/g, "%25").replace(/&/g, "%26").replace(/\+/g, "%2B")
+                };
+
+                if ( operator === "between" ) {
+                    value2 = $input.eq( 1 ).val();
+                    item.value2 = value2.replace(/%/g, "%25").replace(/&/g, "%26").replace(/\+/g, "%2B");
+                }
+
+                data.push( item );
+            } );
+
+
+            // 打开 loading
+            $button.isLoading( { position: "insideButton" } );
+
+
+            roleId = _this.$sysRoleNewPermitTabpanel.attr( "roleid" );
+
+            $.ajax( {
+                url: url,
+                data: "roleId=" + roleId + "&data=" + window.JSON.stringify( data )
+            } ).done( function ( jsonResult ) {
+                // 服务器端处理成功
+                if ( jsonResult.success ) {
+                    // 提示
+                    layer.msg( jsonResult.message || "[数据权限]保存成功！", { icon: 1 } );
+                    // 重新绘制
+                    _this.drawRoleNewPermit( roleId );
+                }
+                // 服务器端处理失败
+                else {
+                    // 提示
+                    var msg = "[数据权限]保存失败：" + ( jsonResult.message || "未知的错误" );
+                    layer.alert( msg, { icon: 2 } );
+                    $.error( msg );
+                }
+            } ).fail( function () {
+                // 提示网络错误
+                layer.alert( '[数据权限]保存失败：网络错误/登陆失效！', { icon: 0 } );
+                $.error( '[数据权限]保存失败：网络错误/登陆失效！' );
+            } ).always( function () {
+                // 关闭 loading
+                $button.isLoading( "hide" );
+            } );
+
+        } );
+        // 数据权限（新）：清理无效数据
+        this.$sysRoleNewPermitRemoveUnusedRowBtn.on( "click." + namespace, function () {
+            _this.$sysRoleNewPermitTable.find( ".da-form-control" ).each( function () {
+                var
+                    $this = $( this )
+                ;
+                if ( $this.val() === "" ) {
+                    $this.closest( "tr" ).remove();
+                }
+
+            } );
+        } );
+
+
     };
 
     /**
@@ -548,6 +739,7 @@ define( function ( require ) {
         this.redrawRoleMenu( roleId );
         this.redrawRolePermit( roleId );
         this.redrawRoleResource( roleId );
+        this.redrawRoleNewPermit( roleId );
     };
 
     /**
@@ -1130,6 +1322,111 @@ define( function ( require ) {
 
         // 标志已被绘制
         $tabpanel.attr( "draw-for-roleid", roleId );
+    };
+
+
+    /**
+     * 重新绘制“数据权限（新）”
+     * @param roleId {*} 角色ID
+     */
+    SysRoleContent.prototype.redrawRoleNewPermit = function ( roleId ) {
+
+        // 标志需要为 选中的角色树条目 绘制
+        this.$sysRoleNewPermitTabpanel.attr( "roleid", roleId );
+
+        // 如果当前页签为active状态，则进行绘制；
+        if ( this.$sysRoleNewPermitTabpanel.is( ".active" ) ) {
+            this.drawRoleNewPermit( roleId );
+        }
+    };
+
+    /**
+     * 绘制“数据权限（新）”
+     * @param roleId {*} 角色ID
+     */
+    SysRoleContent.prototype.drawRoleNewPermit = function ( roleId ) {
+        var
+            _this = this,
+            $panel = _this.$sysRoleNewPermitTabpanel,
+            $tbody = _this.$sysRoleNewPermitTable.find( "tbody" )
+        ;
+
+        $panel.isLoading();
+
+        $.ajax( {
+            url: _this.$sysRoleNewPermitTable.data( "options" ).url,
+            data: {
+                roleId: roleId
+            }
+        } ).done( function ( gridResult ) {
+            var
+                html = ""
+            ;
+            // 服务器端处理成功
+            if ( gridResult.success || gridResult.data ) {
+                $.each( gridResult.data, function ( index, item ) {
+                    var
+                        operator,
+                        value,
+                        value2,
+                        tr
+                    ;
+                    if ( !item ) {
+                        return;
+                    }
+                    operator = item.operator;
+                    value = item.value;
+                    value2 = item.value2;
+
+                    if ( operator === "between" && value2 !== undefined )  {
+                        //tr = '<tr> <td></td> <td>' + operator + '</td> <td>最小值：' + value + '。 最大值：' + value2 + '。</td> </tr>';
+                        tr =  '<tr>'
+                            + '    <td title="删除此条数据后，需要点击“保存”。">' + _this.opts.sysRoleNewPermitTemplate.deleteBtn + '</td>'
+                            + '    <td>' + operator
+                            + '        <select class="hidden">'
+                            + '            <option value="' + operator + '" selected></option>'
+                            + '        </select>'
+                            + '    </td>'
+                            + '    <td>最小值：' + value + '。 最大值：' + value2 + '。'
+                            + '        <input type="text" class="da-form-control hidden" value="' + value + '">'
+                            + '        <input type="text" class="da-form-control hidden" value="' + value2 + '">'
+                            + '    </td>'
+                            + '</tr>'
+                        ;
+                    } else {
+                        //tr = '<tr> <td></td> <td>' + operator + '</td> <td>' + value + '</td> </tr>';
+                        tr =  '<tr>'
+                            + '    <td title="删除此条数据后，需要点击“保存”。">' + _this.opts.sysRoleNewPermitTemplate.deleteBtn + '</td>'
+                            + '    <td>' + operator
+                            + '        <select class="hidden">'
+                            + '            <option value="' + operator + '" selected></option>'
+                            + '        </select>'
+                            + '    </td>'
+                            + '    <td>' + value
+                            + '        <input type="text" class="da-form-control hidden" value="' + value + '">'
+                            + '    </td>'
+                            + '</tr>'
+                        ;
+                    }
+                    html += tr;
+                } );
+                $tbody.html( html );
+            }
+            // 服务器端处理失败
+            else {
+                // 提示
+                var msg = "[数据权限]获取数据失败";
+                layer.alert( msg, { icon: 2 } );
+                $.error( msg );
+            }
+        } ).fail( function () {
+            // 提示网络错误
+            layer.alert( '[数据权限]获取数据失败', { icon: 0 } );
+            $.error( '[数据权限]获取数据失败' );
+        } ).always( function () {
+            // 关闭 loading
+            $panel.isLoading( "hide" );
+        } );
     };
 
     return SysRoleContent;

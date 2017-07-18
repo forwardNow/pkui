@@ -29,6 +29,7 @@
             <li><a href="#sysroleRelMenu" role="tab" ><i class="fa fa-link"></i> 菜单权限</a></li>
             <li><a href="#sysroleRelResource" role="tab" ><i class="fa fa-cubes"></i> 资源权限</a></li>
             <li><a href="#sysroleRelPermit" role="tab" ><i class="fa fa-wrench"></i> 数据权限</a></li>
+            <li><a href="#sysroleRelNewPermit" role="tab" ><i class="fa fa-wrench"></i> 数据权限（新）</a></li>
         </ul>
         <!-- /Nav tabs -->
 
@@ -58,7 +59,7 @@
 
                             <div class="da-form-radio">
                                 <!-- in / notIn -->
-                                <span class="da-form-radio-label">是否拥有该角色：</span>
+                                <span class="da-form-radio-label">是否拥有该角色</span>
                                 <label><input type="radio" name="roleIdOper" value="in" class="roleIdOper checked" checked/>是</label>
                                 <label><input type="radio" name="roleIdOper" value="notIn" class="roleIdOper"/>否</label>
                             </div>
@@ -172,13 +173,67 @@
                 </div>
 
             </div>
+            <!-- 数据权限（新） -->
+            <div role="tabpanel" class="tab-pane" id="sysroleRelNewPermit">
+
+                <div class="tab-pane-heading">
+                    <button type="button" class="btn btn-success-2 " id="sysroleRelNewPermit-saveBtn"
+                            data-options='{
+                                "url": "__CTX__/admin/sysRoleNewPermitSave"
+                            }'
+                    ><i class="fa fa-save"></i> 保存</button>
+
+                    <button type="button" class="btn btn-danger-2" id="sysroleRelNewPermit-removeUnusedRow"><i class="fa fa-trash"></i> 清理无效数据</button>
+                </div>
+
+                <div class="tab-pane-body">
+                    <table id="sysroleRelNewPermit-table" class="table table-bordered table-striped table-hover table-newpermit"
+                         data-options='{
+                            "url": "__CTX__/admin/sysRoleNewPermitListData",
+                            "selectControl": [
+                                { "value": "=", "text": "=" },
+                                { "value": "in", "text": "in" },
+                                { "value": "like", "text": "like" },
+                                { "value": "between", "text": "between" }
+                            ]
+                         }'>
+                        <colgroup>
+                            <col width="54">
+                            <col width="200">
+                            <col width="">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th></th> <th>操作符</th> <th>值</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+
+                    </table>
+                    <button type="button" class="btn btn-info-2 pull-right" id="sysroleRelNewPermit-addNewRow"><i class="fa fa-plus"></i> 新增一行</button>
+                </div>
+
+            </div>
+
         </div>
 
     </div>
 
 </div>
+<style>
+    .table-newpermit .input-group {
+        float: left;
+        width: 48%;
+
+    }
+    .table-newpermit .input-group:last-child {
+        float: right;
+    }
+</style>
 <script>
     seajs.use( [ "__CTX__/static/desktop/js/page/sysRole" ], function ( SysRole ) {
         SysRole.init();
     } );
 </script>
+
