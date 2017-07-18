@@ -26,6 +26,10 @@ define( function() {
      *      src: 打开的窗口，主界面显示的页面（欢迎页面）。
      *           默认为 "__CTX__/static/desktop/tpl/system/index.html"
      *
+     *      fontIconClass: 设置快捷方式的样式类
+     *
+     *      fontIconStyle: 设置快捷方式的样式
+     *
      * @type {[*]}
      */
     templateConfig = [
