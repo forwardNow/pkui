@@ -8,7 +8,8 @@
 define( function( require ) {
     "use strict";
     var
-        $ = require( "jquery" )
+        $ = require( "jquery" ),
+        PKUI = window.PKUI
     ;
 
     // 日期控件
@@ -36,5 +37,11 @@ define( function( require ) {
         // 每周从星期一开始
         dayOfWeekStart: 1
     } );
+
+    // 数据表格使用 dateFormatter 时，日期格式化后的日期
+    PKUI.datagridDateFormat = "YYYY-MM-DD";
+
+    // 数据表格使用 datetimeFormatter 时，日期时间格式化后的日期时间
+    PKUI.datagridDatetimeFormat = "YYYY-MM-DD HH:mm:ss";
 
 } );
