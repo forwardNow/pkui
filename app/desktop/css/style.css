@@ -9320,6 +9320,9 @@ Pagination Styles
 .only-one-node .sysmenu-treeOpe {
   padding-top: 0;
 }
+.only-one-node.collapsed .sysmenu-treeOpe {
+  top: 0;
+}
 
 .sysrole-container {
   margin: 0 -12px;
