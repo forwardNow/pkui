@@ -7,10 +7,10 @@ define( function ( require ) {
         $ = require( "jquery" ),
         layer = window.layer,
         PKUI = window.PKUI,
-        __CTX__ = PKUI.ctxPath
+        __CTX__ = PKUI.ctxPath,
+        MenuTree = require( "menutree" )
     ;
 
-    require( "menutree" );
 
     function SysMenu( opts ) {
         this.opts = $.extend( true, {}, this.defaults, opts );
@@ -188,7 +188,10 @@ define( function ( require ) {
             selectedNode = ref.get_node( parentNodeId );
 
             // menuId 存的是 parentId（详情请查看 com.pkusoft.admin.service.impl.SysMenuServiceImpl.insertSysMenu(SysMenu sysMenu) ）
-            newNodeData.menuId = selectedNode.original.menuId;
+            var selectedNodeOriginal = selectedNode.original;
+            newNodeData.menuId = selectedNodeOriginal.menuId;
+            newNodeData.sysId = selectedNodeOriginal.sysId;
+            newNodeData.sysName = selectedNodeOriginal.sysName;
             newNodeId = ref.create_node( parentNodeId, newNodeData );
         }
 
@@ -252,6 +255,9 @@ define( function ( require ) {
         }
         // 已存在的菜单：修改
         else {
+            // loading
+            _this.$displayArea.isLoading();
+
             PKUI.component.Template.getModelAndView(
                 // viewUrl
                 __CTX__ + "/static/desktop/tpl/system/menu/edit.html",
@@ -259,6 +265,7 @@ define( function ( require ) {
                 "{% system.menu.list.js.sysMenuModel %}?menuId=" + selectedNode.data.menuId,
                 // callback
                 function( htmlString ) {
+                    _this.$displayArea.isLoading( "hide" );
                     _this.$displayArea.html( htmlString );
                 },
                 {
@@ -422,6 +429,9 @@ define( function ( require ) {
             ;
         // 销毁 jstree
         ref.destroy();
+
+        // 清空 MenuTree 的缓存
+        MenuTree.cache = {};
 
         // 删除 MenuTree引用 和 isrendered标志
         $tree
