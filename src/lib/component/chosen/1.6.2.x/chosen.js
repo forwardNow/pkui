@@ -617,7 +617,10 @@ define(function( require ) {
           if ( options.dic ) {
               supportPkuDic( $this, options );
           }
-
+          // FIX 远程请求
+          else if ( options.url ) {
+              supportRemoteRequest( $this, options );
+          }
           $this.data('chosen', new Chosen(this, options));
 
         }
@@ -1348,6 +1351,54 @@ define(function( require ) {
       $select.html( optionsHtml );
 
       console.info( dataList );
+  }
+
+  // FIX 远程请求
+  function supportRemoteRequest ( $select, options ) {
+      var
+          dataList,
+          url = options.url,
+          selectedValue = options.selectedValue,
+          optionsHtml = "<option></option>"
+
+      ;
+      // 获取远程数据
+      if ( ! supportRemoteRequest.cache ) {
+          supportRemoteRequest.cache = {};
+      }
+
+      // 如果已经换成，则使用缓存
+      if ( supportRemoteRequest.cache[ url ] ) {
+          dataList = supportRemoteRequest.cache[ url ];
+      } else {
+          $.ajax( {
+              url: url,
+              async: false
+          } ).done( function( gridResult ) {
+              var msg = url + ", 请求失败。";
+              if ( $.isArray( gridResult ) ) {
+                  dataList = gridResult;
+              } else if ( $.isArray( gridResult.data ) ) {
+                  dataList = gridResult.data;
+              } else {
+                  $.error( msg );
+              }
+              supportRemoteRequest.cache[ url ] = dataList;
+          } ).fail( function() {
+              $.error( url + ", 请求失败。" );
+          } );
+      }
+      // 构造options
+      $.each( dataList, function ( index, item ) {
+          var
+              value = item.value + "",
+              text = item.text
+          ;
+          optionsHtml += '<option ' + (value === selectedValue ? 'selected ' : ' ') + 'value="' + value + '">' + text + '</option>';
+      } );
+
+      $select.html( optionsHtml );
+
   }
 
 
