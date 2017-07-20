@@ -39,7 +39,8 @@ define( function ( require ) {
         } ).done( function ( gridResult ) {
             if ( gridResult && ( gridResult.success || gridResult.totalRecords >= 0  ) ) {
                 if ( !gridResult.data || gridResult.data.length === 0 ) {
-                    $.error( "菜单数据为空。" )
+                    console.error( "菜单数据为空。" );
+                    return;
                 }
                 _this.originData = gridResult.data;
             }

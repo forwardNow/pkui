@@ -72,7 +72,7 @@ define( function ( require ) {
             } ).fail( function ( xhr ) {
                 var str = "[" + xhr.status + "]" + xhr.statusText;
                 $winMainBody.html( str );
-                $.error( str );
+                console.error( str );
             } ).always( function () {
                 $winMainBody.isLoading( "hide" );
             } );

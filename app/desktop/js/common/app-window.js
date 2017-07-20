@@ -295,7 +295,7 @@ define( function ( require ) {
             } ).fail( function ( xhr ) {
                 var str = "[" + xhr.status + "]" + xhr.statusText;
                 _this.artDialog.content( str );
-                $.error( str );
+                console.error( str );
             } );
 
             return this.options.content;
@@ -378,7 +378,7 @@ define( function ( require ) {
                 } ).fail( function ( xhr ) {
                     var str = "[" + xhr.status + "]" + xhr.statusText;
                     $winMainBody.html( str );
-                    $.error( str );
+                    console.error( str );
                 } ).always( function() {
                     $winMainBody.isLoading( "hide" );
                 } );

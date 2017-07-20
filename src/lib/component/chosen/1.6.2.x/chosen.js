@@ -1381,11 +1381,11 @@ define(function( require ) {
               } else if ( $.isArray( gridResult.data ) ) {
                   dataList = gridResult.data;
               } else {
-                  $.error( msg );
+                  console.error( msg );
               }
               supportRemoteRequest.cache[ url ] = dataList;
           } ).fail( function() {
-              $.error( url + ", 请求失败。" );
+              console.error( url + ", 请求失败。" );
           } );
       }
       // 构造options

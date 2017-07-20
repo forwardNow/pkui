@@ -423,7 +423,7 @@ define( function ( require ) {
             || !recentUsedMenuList
             || !oftenUsedMenuList ) {
 
-            $.error( "无法重新绘制侧边栏。" );
+            console.error( "无法重新绘制侧边栏。" );
             return;
 
         }
@@ -528,7 +528,7 @@ define( function ( require ) {
         }
 
         if ( !recent || !often ) {
-            $.error( "侧边栏数据有问题。" );
+            console.error( "侧边栏数据有问题。" );
             return;
         }
 

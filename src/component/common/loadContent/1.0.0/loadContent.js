@@ -56,7 +56,7 @@ define( function( require ) {
         }
 
         if ( this.$target.jquery && this.$target.size() === 0 ) {
-            $.error( "[loadContent] targetSelector参数 指定的选择器不正确。" );
+            console.error( "[loadContent] targetSelector参数 指定的选择器不正确。" );
         }
     };
 
@@ -80,7 +80,7 @@ define( function( require ) {
 
                 } );
             } else {
-                $.error( "[loadContent] loadContentFromWhichModuleId参数 指定的模块必须通过 getHtml() 方法。" );
+                console.error( "[loadContent] loadContentFromWhichModuleId参数 指定的模块必须通过 getHtml() 方法。" );
             }
         } );
     };

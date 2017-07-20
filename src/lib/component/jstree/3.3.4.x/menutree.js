@@ -89,7 +89,7 @@ define( function ( require ) {
         } ).fail( function ( xhr ) {
             var msg = "菜单树构建失败：" + xhr.status + " (" + xhr.statusText + ")";
             layer.msg( msg, { icon: 0 } );
-            $.error( msg );
+            console.error( msg );
         } ).always( function () {
             _this.$target.isLoading( "hide" );
         } );

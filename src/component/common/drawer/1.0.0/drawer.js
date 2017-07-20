@@ -256,7 +256,7 @@ define( function( require ) {
         } else if ( typeof method === 'object' || !method ) {
             return Drawer.init.apply( this, arguments );
         } else {
-            $.error( 'Method ' + method + ' does not exist on [' + Drawer.namespace + "]" );
+            console.error( 'Method ' + method + ' does not exist on [' + Drawer.namespace + "]" );
         }
     };
 

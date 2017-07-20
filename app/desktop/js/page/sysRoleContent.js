@@ -368,13 +368,15 @@ define( function ( require ) {
                         // 提示
                         var msg = "操作失败：" + ( jsonResult.message || "未知的错误" );
                         layer.alert( msg, { icon: 2 } );
-                        $.error( msg );
+                        // $.error( msg );
+                        console.error( msg );
                     }
                 } ).fail( function () {
                     // 提示网络错误
                     var msg = '操作失败：网络错误/登陆失效！';
                     layer.alert( msg, { icon: 0 } );
-                    $.error( msg );
+                    // $.error( msg );
+                    console.error( msg );
                 } ).always( function () {
                     // 关闭 loading
                     $button.isLoading( "hide" );
@@ -433,12 +435,12 @@ define( function ( require ) {
                     // 提示
                     var msg = "[菜单权限]保存失败：" + ( jsonResult.message || "未知的错误" );
                     layer.alert( msg, { icon: 2 } );
-                    $.error( msg );
+                    console.error( msg );
                 }
             } ).fail( function () {
                 // 提示网络错误
                 layer.alert( '[菜单权限]保存失败：网络错误/登陆失效！', { icon: 0 } );
-                $.error( '[菜单权限]保存失败：网络错误/登陆失效！' );
+                console.error( '[菜单权限]保存失败：网络错误/登陆失效！' );
             } ).always( function () {
                 // 关闭 loading
                 $button.isLoading( "hide" );
@@ -497,12 +499,12 @@ define( function ( require ) {
                     // 提示
                     var msg = "[资源权限]保存失败：" + ( jsonResult.message || "未知的错误" );
                     layer.alert( msg, { icon: 2 } );
-                    $.error( msg );
+                    console.error( msg );
                 }
             } ).fail( function () {
                 // 提示网络错误
                 layer.alert( '[资源权限]保存失败：网络错误/登陆失效！', { icon: 0 } );
-                $.error( '[资源权限]保存失败：网络错误/登陆失效！' );
+                console.error( '[资源权限]保存失败：网络错误/登陆失效！' );
             } ).always( function () {
                 // 关闭 loading
                 $button.isLoading( "hide" );
@@ -561,12 +563,12 @@ define( function ( require ) {
                     // 提示
                     var msg = "[数据权限]保存失败：" + ( jsonResult.message || "未知的错误" );
                     layer.alert( msg, { icon: 2 } );
-                    $.error( msg );
+                    console.error( msg );
                 }
             } ).fail( function () {
                 // 提示网络错误
                 layer.alert( '[数据权限]保存失败：网络错误/登陆失效！', { icon: 0 } );
-                $.error( '[数据权限]保存失败：网络错误/登陆失效！' );
+                console.error( '[数据权限]保存失败：网络错误/登陆失效！' );
             } ).always( function () {
                 // 关闭 loading
                 $button.isLoading( "hide" );
@@ -695,12 +697,12 @@ define( function ( require ) {
                     // 提示
                     var msg = "[数据权限]保存失败：" + ( jsonResult.message || "未知的错误" );
                     layer.alert( msg, { icon: 2 } );
-                    $.error( msg );
+                    console.error( msg );
                 }
             } ).fail( function () {
                 // 提示网络错误
                 layer.alert( '[数据权限]保存失败：网络错误/登陆失效！', { icon: 0 } );
-                $.error( '[数据权限]保存失败：网络错误/登陆失效！' );
+                console.error( '[数据权限]保存失败：网络错误/登陆失效！' );
             } ).always( function () {
                 // 关闭 loading
                 $button.isLoading( "hide" );
@@ -819,14 +821,14 @@ define( function ( require ) {
 
                 msg = ( gridResult && gridResult.message ) || "菜单权限树构建失败！";
                 layer.msg( msg, { icon: 2 } );
-                $.error( msg );
+                console.error( msg );
                 return;
             }
             initTree( gridResult );
         } ).fail( function ( xhr ) {
             var msg = "菜单权限树构建失败：" + xhr.status + " (" + xhr.statusText + ")";
             layer.msg( msg, { icon: 0 } );
-            $.error( msg );
+            console.error( msg );
         } ).always( function () {
             $tabpanel.isLoading( "hide" );
         } );
@@ -977,14 +979,14 @@ define( function ( require ) {
                 msg = ( gridResult && gridResult.message ) || "资源权限构建失败！"
 
                 layer.msg( msg, { icon: 2 } );
-                $.error( msg );
+                console.error( msg );
                 return;
             }
             initTree( gridResult );
         } ).fail( function ( xhr ) {
             var msg = "资源权限构建失败：" + xhr.status + " (" + xhr.statusText + ")";
             layer.msg( msg, { icon: 0 } );
-            $.error( msg );
+            console.error( msg );
         } ).always( function () {
             $tabpanel.isLoading( "hide" );
         } );
@@ -1176,14 +1178,14 @@ define( function ( require ) {
                 msg = ( gridResult && gridResult.message ) || "数据权限构建失败！"
 
                 layer.msg( msg, { icon: 2 } );
-                $.error( msg );
+                console.error( msg );
                 return;
             }
             initTree( gridResult );
         } ).fail( function ( xhr ) {
             var msg = "数据权限构建失败：" + xhr.status + " (" + xhr.statusText + ")";
             layer.msg( msg, { icon: 0 } );
-            $.error( msg );
+            console.error( msg );
         } ).always( function () {
             $tabpanel.isLoading( "hide" );
         } );
@@ -1417,12 +1419,12 @@ define( function ( require ) {
                 // 提示
                 var msg = "[数据权限]获取数据失败";
                 layer.alert( msg, { icon: 2 } );
-                $.error( msg );
+                console.error( msg );
             }
         } ).fail( function () {
             // 提示网络错误
             layer.alert( '[数据权限]获取数据失败', { icon: 0 } );
-            $.error( '[数据权限]获取数据失败' );
+            console.error( '[数据权限]获取数据失败' );
         } ).always( function () {
             // 关闭 loading
             $panel.isLoading( "hide" );
