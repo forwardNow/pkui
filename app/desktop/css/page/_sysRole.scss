@@ -107,3 +107,23 @@
 .sysrole-content .tab-pane-body {
     padding: 6px;
 }
+.table-newpermit .input-group {
+    float: left;
+    width: 48%;
+
+}
+.table-newpermit .input-group:last-child {
+    float: right;
+}
+.sysrole-tree-list {
+    margin-top: 40px;
+}
+.sysrole-tree-list .jstree-node {
+    color: #555;
+}
+.sysrole-tree-list .fa-folder {
+    color: #f3d488;
+}
+.sysrole-tree-list .jstree-leaf {
+    color: #33a6e7;
+}

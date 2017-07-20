@@ -9444,6 +9444,31 @@ Pagination Styles
   padding: 6px;
 }
 
+.table-newpermit .input-group {
+  float: left;
+  width: 48%;
+}
+
+.table-newpermit .input-group:last-child {
+  float: right;
+}
+
+.sysrole-tree-list {
+  margin-top: 40px;
+}
+
+.sysrole-tree-list .jstree-node {
+  color: #555;
+}
+
+.sysrole-tree-list .fa-folder {
+  color: #f3d488;
+}
+
+.sysrole-tree-list .jstree-leaf {
+  color: #33a6e7;
+}
+
 .desktop-sprite, .icon-home, .topbar-home, .icon-history, .topbar-history, .icon-close, .dock-item-btn, .icon-dashboard, .icon-logout, .icon-message, .icon-more, .icon-search, .icon-user, .icon-triangle-down, .toolbar-item-indicator, .icon-add, .icon-setting, .icon-arrow-left, .launchpad-pagination-previous, .icon-arrow-right, .launchpad-pagination-next, .icon-arrow-light-left, .da-theme-light .launchpad-pagination-previous, .icon-arrow-light-right, .da-theme-light .launchpad-pagination-next, .icon-circle-1, .icon-circle-2, .icon-win-close, .pkui-dialog-close, .icon-win-close-hover, .da-theme-light .pkui-dialog-header:hover .pkui-dialog-close, .icon-win-max, .pkui-dialog-max, .icon-win-max-hover, .da-theme-light .pkui-dialog-header:hover .pkui-dialog-max, .icon-win-maxmin, .pkui-dialog-restore, .icon-win-maxmin-hover, .da-theme-light .pkui-dialog-header:hover .pkui-dialog-restore, .icon-win-min, .pkui-dialog-min, .icon-win-min-hover, .da-theme-light .pkui-dialog-header:hover .pkui-dialog-min, .icon-dock-dropmenu-indicator, .dock-dropmenu-indicator, .icon-sidebar-toggle-on, .icon-sidebar-toggle-off {
   background-image: url('../images/desktop-sac1ba4ec60.png');
   background-repeat: no-repeat;
