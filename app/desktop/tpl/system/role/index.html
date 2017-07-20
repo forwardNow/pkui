@@ -21,11 +21,11 @@
             </div>
         </div>
         <div id="sysrole-tree-list" class="sysrole-tree-list"
-            data-list-url="__CTX__/admin/getAllSysRole"
-            data-delete-url="__CTX__/admin/sysRoleDelete"
-            data-save-url="__CTX__/admin/sysRoleSave"
+            data-list-url="{% system.role.index.getAllSysRole %}"
+            data-delete-url="{% system.role.index.sysRoleDelete %}"
+            data-save-url="{% system.role.index.sysRoleSave %}"
             data-view-url="__CTX__/static/desktop/tpl/system/role/edit.html"
-            data-model-url="__CTX__/admin/sysRoleModel">
+            data-model-url="{% system.role.index.sysRoleModel %}">
 
         </div>
     </div>
@@ -54,13 +54,13 @@
 
                         <button type="button" id="sysRoleUser-addBtn" class="btn btn-success-2 hidden"
                                 data-options='{
-                                    "url": "__CTX__/admin/sysRoleUserSave"
+                                    "url": "{% system.role.index.sysRoleUserSave %}"
                                 }'
                         ><i class="fa fa-plus"></i> 添加用户到角色</button>
 
                         <button type="button" id="sysRoleUser-removeBtn" class="btn btn-danger-2"
                                 data-options='{
-                                    "url": "__CTX__/admin/sysRoleUserDelete"
+                                    "url": "{% system.role.index.sysRoleUserDelete %}"
                                 }'
                         ><i class="fa fa-trash-o"></i> 从角色中删除用户</button>
                     </div>
@@ -100,7 +100,7 @@
                             "selection": true,
                             "multiSelect": true
                        }'
-                       data-url="__CTX__/admin/sysRoleUserListData"
+                       data-url="{% system.role.index.sysRoleUserListData %}"
                        data-query-form-selector="#sysRoleUserQueryForm">
                     <thead>
                     <tr>
@@ -123,14 +123,14 @@
                 <div class="tab-pane-heading">
                     <button type="button" class="btn btn-success-2 " id="sysroleRelMenu-saveBtn"
                         data-options='{
-                            "url": "__CTX__/admin/sysRoleMenuSave"
+                            "url": "{% system.role.index.sysRoleMenuSave %}"
                         }'
                     ><i class="fa fa-save"></i> 保存</button>
                 </div>
                 <div class="tab-pane-body">
                     <div id="sysroleRelMenu-treeContainer"
                          data-options='{
-                            "url": "__CTX__/admin/sysRoleMenuListData",
+                            "url": "{% system.role.index.sysRoleMenuListData %}",
                             "jstreeOptions": {
                                 "openAll": true,
                                 "dblclick_toggle": false
@@ -146,14 +146,14 @@
                 <div class="tab-pane-heading">
                     <button type="button" class="btn btn-success-2 " id="sysroleRelResource-saveBtn"
                             data-options='{
-                            "url": "__CTX__/admin/sysRoleResouceSave"
+                            "url": "{% system.role.index.sysRoleResouceSave %}"
                         }'
                     ><i class="fa fa-save"></i> 保存</button>
                 </div>
                 <div class="tab-pane-body">
                     <div id="sysroleRelResource-treeContainer"
                          data-options='{
-                            "url": "__CTX__/admin/sysRoleResouceListData",
+                            "url": "{% system.role.index.sysRoleResouceListData %}",
                             "jstreeOptions": {
                                 "openAll": false,
                                 "dblclick_toggle": false
@@ -168,14 +168,14 @@
                 <div class="tab-pane-heading">
                     <button type="button" class="btn btn-success-2 " id="sysroleRelPermit-saveBtn"
                             data-options='{
-                            "url": "__CTX__/admin/sysRolePermitSave"
+                            "url": "{% system.role.index.sysRolePermitSave %}"
                         }'
                     ><i class="fa fa-save"></i> 保存</button>
                 </div>
                 <div class="tab-pane-body">
                     <div id="sysroleRelPermit-treeContainer"
                          data-options='{
-                            "url": "__CTX__/admin/sysRolePermitListData",
+                            "url": "{% system.role.index.sysRolePermitListData %}",
                             "jstreeOptions": {
                                 "openAll": false,
                                 "dblclick_toggle": false
@@ -190,7 +190,7 @@
                 <div class="tab-pane-heading">
                     <button type="button" class="btn btn-success-2 " id="sysroleRelNewPermit-saveBtn"
                             data-options='{
-                                "url": "__CTX__/admin/sysRoleNewPermitSave"
+                                "url": "{% system.role.index.sysRoleNewPermitSave %}"
                             }'
                     ><i class="fa fa-save"></i> 保存</button>
 
@@ -200,7 +200,7 @@
                 <div class="tab-pane-body">
                     <table id="sysroleRelNewPermit-table" class="table table-bordered table-striped table-hover table-newpermit"
                          data-options='{
-                            "url": "__CTX__/admin/sysRoleNewPermitListData",
+                            "url": "{% system.role.index.sysRoleNewPermitListData %}",
                             "selectControl": [
                                 { "value": "=", "text": "=" },
                                 { "value": "in", "text": "in" },

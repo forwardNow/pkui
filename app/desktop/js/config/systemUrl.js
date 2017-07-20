@@ -14,7 +14,28 @@ define( function ( require ) {
 
     $.extend( config, {
         // desktop/js/common/menuSource.js
-        "system.menu.sysMenuListData": "__CTX__/admin/sysMenuListData"
+        "system.menu.sysMenuListData": "__CTX__/admin/sysMenuListData",
+
+        // 获取所有子系统对象
+        "system.accessSystemlistData": "__CTX__/admin/subSysListData",
+
+        // role/index.html
+        "system.role.index.getAllSysRole": "__CTX__/admin/getAllSysRole",
+        "system.role.index.sysRoleDelete": "__CTX__/admin/sysRoleDelete",
+        "system.role.index.sysRoleSave": "__CTX__/admin/sysRoleSave",
+        "system.role.index.sysRoleModel": "__CTX__/admin/sysRoleModel",
+
+        "system.role.index.sysRoleUserSave": "__CTX__/admin/sysRoleUserSave",
+        "system.role.index.sysRoleUserDelete": "__CTX__/admin/sysRoleUserDelete",
+        "system.role.index.sysRoleUserListData": "__CTX__/admin/sysRoleUserListData",
+        "system.role.index.sysRoleMenuSave": "__CTX__/admin/sysRoleMenuSave",
+        "system.role.index.sysRoleMenuListData": "__CTX__/admin/sysRoleMenuListData",
+        "system.role.index.sysRoleResouceSave": "__CTX__/admin/sysRoleResouceSave",
+        "system.role.index.sysRoleResouceListData": "__CTX__/admin/sysRoleResouceListData",
+        "system.role.index.sysRolePermitSave": "__CTX__/admin/sysRolePermitSave",
+        "system.role.index.sysRolePermitListData": "__CTX__/admin/sysRolePermitListData",
+        "system.role.index.sysRoleNewPermitSave": "__CTX__/admin/sysRoleNewPermitSave",
+        "system.role.index.sysRoleNewPermitListData": "__CTX__/admin/sysRoleNewPermitListData"
 
     } );
 

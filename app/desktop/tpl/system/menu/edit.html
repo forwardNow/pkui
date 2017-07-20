@@ -32,7 +32,7 @@
                     <select name="sysId" data-placeholder="请选择"
                             data-pkui-component="chosen"
                             data-pkui-component-options='{
-                                "url":"__CTX__/admin/subSysListData",
+                                "url":"{% system.accessSystemlistData %}",
                                 "selectedValue": "{{sysId}}"
                             }'
                             data-rule="“所属系统”: required"
