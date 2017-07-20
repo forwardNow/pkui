@@ -324,8 +324,9 @@ define( function ( require ) {
                     btn: ['确认','取消'] //按钮
                 },
                 // 确认
-                function(){
+                function( index ){
                     doDelete();
+                    layer.close( index );
                 },
                 // 取消
                 function(){
