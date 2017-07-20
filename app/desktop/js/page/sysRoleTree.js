@@ -12,9 +12,11 @@ define( function ( require ) {
         $ = require( "jquery" ),
         layer = window.layer,
         Template = require( "template" ),
-        ArtTemplate = require( "artTemplate" ),
+        //ArtTemplate = require( "artTemplate" ),
         namespace = "pkui.sysrole.tree"
     ;
+
+    require( "jstree" );
 
     /*
      * @event clickSysRoleTreeItem
@@ -42,27 +44,11 @@ define( function ( require ) {
         sysRoleTreeSelector: "#sysRoleTree",
 
         createSysRoleButtonSelector: "#createSysRoleButton",
-        createSysRoleInputSelector: "#createSysRoleInput",
 
-        editSysRoleButtonSelector: ".sysrole-item-ope-edit",
-        deleteSysRoleButtonSelector: ".sysrole-item-ope-delete",
+        editSysRoleButtonSelector: "#editSysRoleButton",
+        deleteSysRoleButtonSelector: "#deleteSysRoleButton",
 
-        sysRoleTreeListSelector: ".sysrole-tree-list",
-        sysRoleTreeItemSelector: ".sysrole-tree-item",
-
-        sysRoleTreeItemTemplete: '<li class="sysrole-tree-item" roleid={{roleId}} rolename="{{roleName}}">'
-        +                            '<a href="javascript:void(0);" class="sysrole-tree-anchor">'
-        +                            '<i class="fa fa-user-circle-o"></i><span class="text">{{roleName}}</span></a>'
-        +                            '<span class="input-group edit-input">'
-        +                                '<input type="text" class="da-form-control" value="{{roleName}}">'
-        +                                '<span class="input-group-btn">'
-        +                                    '<button class="btn btn-success-2" type="button"><i class="fa fa-save"></i></button>'
-        +                                '</span>'
-        +                            '</span>'
-        +                            '<i class="sysrole-item-ope sysrole-item-ope-edit fa fa-edit"></i>'
-        +                            '<i class="sysrole-item-ope sysrole-item-ope-delete fa fa-trash-o"></i>'
-        +                        '</li>'
-
+        sysRoleTreeListSelector: "#sysrole-tree-list"
     };
 
     /**
@@ -80,8 +66,13 @@ define( function ( require ) {
      * @private
      */
     SysRoleTree.prototype._init = function () {
+        var
+            _this = this
+        ;
         this._render();
-        this.draw();
+        this.draw( function () {
+            _this._bindTreeEvent();
+        } );
         this._bind();
     };
     /**
@@ -97,9 +88,10 @@ define( function ( require ) {
         this.$sysRoleTreeList = this.$sysRoleTree.find( options.sysRoleTreeListSelector );
 
         this.$createSysRoleButton = $( options.createSysRoleButtonSelector );
-        this.$createSysRoleInput = $( options.createSysRoleInputSelector );
+        this.$editSysRoleButton = $( options.editSysRoleButtonSelector );
+        this.$deleteSysRoleButton = $( options.deleteSysRoleButtonSelector );
 
-        this.templateRender = ArtTemplate.compile( this.opts.sysRoleTreeItemTemplete );
+        // this.templateRender = ArtTemplate.compile( this.opts.sysRoleTreeItemTemplete );
     };
 
     /**
@@ -111,11 +103,15 @@ define( function ( require ) {
             _this = this
         ;
         this.draw( function() {
+
+            _this._bindTreeEvent();
+
             if ( roleId === undefined || roleId === null ) {
                 return;
             }
-            _this.$sysRoleTreeList.find( _this.opts.sysRoleTreeItemSelector ).filter( '[roleid="' + roleId + '"]' )
-                .addClass( "active" );
+            // 让指定node被选中
+            _this.$sysRoleTreeList.find( '.jstree-anchor[roleid="' + roleId + '"]' ).trigger( "click" );
+
         } )
     };
 
@@ -137,17 +133,39 @@ define( function ( require ) {
             url: url
         } ).done( function ( jsonResult ) {
             var
-                html = ""
+                originalData,
+                fmtData,
+                treeData,
+                ref
             ;
             if ( jsonResult.success ) {
 
-                $.each( jsonResult.data, function ( index, sysRole ) {
-                    html += _this.templateRender( {
-                        roleId: sysRole[ "roleId" ],
-                        roleName: sysRole[ "roleName" ]
-                    } );
+                originalData = jsonResult.data;
+                fmtData = fmtSysRoleList( originalData );
+                treeData = genTreeData( fmtData );
+
+                ref = _this.$sysRoleTreeList.jstree( true );
+
+                if ( ref ) {
+                    ref.destroy();
+                }
+
+                _this.$sysRoleTreeList.jstree( {
+                    "core": {
+                        "data" : treeData,
+                        "dblclick_toggle": true,
+                        "worker": false,
+                        "multiple" : false, // no multiselection
+                        "themes" : {
+                            "dots" : true // no connecting dots between dots
+                        }
+                    },
+                    "plugins" : [
+                        "search",
+                        "wholerow" // 引用此插件后，连接线消失。
+                    ]
                 } );
-                _this.$sysRoleTreeList.html( html );
+
                 callback && callback();
             }
             else {
@@ -162,6 +180,116 @@ define( function ( require ) {
             $sysRoleTree.isLoading( "hide" );
         } );
 
+
+        function fmtSysRoleList( list ) {
+            var
+                fmtList = [],
+                timestamp = "jstree_"  +( new Date() ).getTime() + "_"
+            ;
+            // 添加 jstree 必须的属性
+            $.each( list, function ( index, sysRole ) {
+
+                fmtList.push( sysRole );
+
+                // 绑定的 data
+                sysRole.data = $.extend( true, {}, sysRole );
+
+                // href
+                sysRole.a_attr = {
+                    href: "javascript:void(0)",
+                    roleid: sysRole.roleId
+                };
+
+                // id
+                sysRole.id = timestamp + sysRole[ "roleId" ];
+                // text
+                sysRole.text = sysRole[ "roleName" ];
+                // icon
+                sysRole.icon = "fa fa-vcard";
+                // state
+                sysRole.state = {
+                    opened: true
+                };
+
+
+            } );
+            return fmtList;
+        }
+
+        function genTreeData ( list ) {
+            var
+                timestamp = "jstree_"  + ( new Date() ).getTime() + "_",
+                childrenSet = {
+                    "defaultGroup": []
+                },
+                treeData = [],
+                sysId, node
+            ;
+            // 分组
+            $.each( list, function ( index, item ) {
+                var
+                    sysId = item.sysId
+                ;
+                if ( sysId === null || sysId === undefined ) {
+                    childrenSet[ "defaultGroup" ].push( item );
+                } else {
+                    if ( childrenSet[ sysId ] === undefined ) {
+                        childrenSet[ sysId ] = [];
+                    }
+                    childrenSet[ sysId ].push( item );
+                }
+            } );
+
+            for( sysId in childrenSet ) {
+                node = {
+                    id: timestamp + sysId,
+                    icon: "fa fa-folder",
+                    state: {
+                        opened: true
+                    },
+                    children: childrenSet[ sysId ]
+                };
+                if ( sysId === "defaultGroup" ) {
+                    node.text = "未分类";
+                    node.data = { "sysId": null };
+                } else {
+                    node.text = childrenSet[ sysId ][ 0 ].sysName;
+                    node.data = { "sysId": sysId };
+                }
+
+                node.data.isRoot = true;
+
+                treeData.push( node );
+            }
+
+            return treeData;
+        }
+    };
+
+    /**
+     * 绑定jstree相关的事件
+     * @private
+     */
+    SysRoleTree.prototype._bindTreeEvent = function () {
+        var
+            _this = this
+        ;
+
+
+        // 单击角色树条目
+        _this.$sysRoleTreeList.on( "select_node.jstree", function ( event, selected ) {
+            var
+                data = selected.node.data
+            ;
+            if ( data.isRoot || ! data.roleId ) {
+                return;
+            }
+            /**
+             * @event clickSysRoleTreeItem
+             */
+            _this.$container.trigger( "clickSysRoleTreeItem." + namespace, { roleId: data.roleId } );
+        } );
+
     };
 
     /**
@@ -173,50 +301,88 @@ define( function ( require ) {
             _this = this
         ;
 
-
-        // 单击角色树条目
-        _this.$sysRoleTreeList.on( "click." + namespace, this.opts.sysRoleTreeItemSelector, function () {
-            var
-                $this = $( this )
-            ;
-
-            // 高亮状态
-            $this.addClass( "active" ).siblings().removeClass( "active" );
-
-            /**
-             * @event clickSysRoleTreeItem
-             */
-            _this.$container.trigger( "clickSysRoleTreeItem." + namespace, { roleId: $this.attr( "roleid" ) } )
-
-        } );
-
         // 添加
         _this.$createSysRoleButton.on( "click." + namespace, function () {
-            _this._createSysRole();
+            var
+                ref = _this.$sysRoleTreeList.jstree( true ),
+                selectedNodeIds = ref.get_selected(),
+                selectedNode,
+                data
+            ;
+
+            // 如果没有被选中的
+            if ( selectedNodeIds.length === 0 ) {
+                // layer.msg( "请选择菜单项！", { icon: 0 } );
+                // return;
+            }
+            else {
+                selectedNode = ref.get_node( selectedNodeIds[ 0 ] );
+                data = selectedNode.data;
+            }
+
+            _this._createSysRole( data );
         } );
 
         // 编辑
-        _this.$sysRoleTreeList.on( "click." + namespace, this.opts.editSysRoleButtonSelector, function ( event ) {
-            // 阻止冒泡
-            event.stopPropagation();
-            _this._editSysRole( $( this ) );
+        _this.$editSysRoleButton.on( "click." + namespace, function () {
+            var
+                ref = _this.$sysRoleTreeList.jstree( true ),
+                selectedNodeIds = ref.get_selected(),
+                selectedNode,
+                data
+            ;
+
+            // 如果没有被选中的
+            if ( selectedNodeIds.length === 0 ) {
+                layer.msg( "请选择角色！", { icon: 0 } );
+                return;
+            }
+
+            selectedNode = ref.get_node( selectedNodeIds[ 0 ] );
+            data = selectedNode.original;
+
+            if ( data.isRoot || data.roleId === undefined ) {
+                layer.msg( "此项无法进行编辑！", { icon: 0 } );
+                return;
+            }
+
+            _this._editSysRole( data );
         } );
 
         // 删除
-        _this.$sysRoleTreeList.on( "click." + namespace, this.opts.deleteSysRoleButtonSelector, function ( event ) {
-            var $this = $( this ),
-                roleName = $this.closest( _this.opts.sysRoleTreeItemSelector ).attr( "rolename" );
-            // 阻止冒泡
-            event.stopPropagation();
+        _this.$deleteSysRoleButton.on( "click." + namespace, function () {
+            var
+                ref = _this.$sysRoleTreeList.jstree( true ),
+                selectedNodeIds = ref.get_selected(),
+                selectedNode,
+                data
+            ;
+
+            // 如果没有被选中的
+            if ( selectedNodeIds.length === 0 ) {
+                layer.msg( "请选择角色！", { icon: 0 } );
+                return;
+            }
+
+            selectedNode = ref.get_node( selectedNodeIds[ 0 ] );
+            data = selectedNode.data;
+
+            if ( data.isRoot || data.roleId === undefined ) {
+                layer.msg( "此项无法删除！", { icon: 0 } );
+                return;
+            }
+
+
             // 确认删除
             layer.confirm(
-                "是否删除角色[" + roleName + "]？",
+                "是否删除角色[" + data.roleName + "]？",
                 {
                     btn: ['删除','取消'] //按钮
                 },
                 // 确认
-                function(){
-                    _this._deleteSysRole( $this );
+                function( index ){
+                    _this._deleteSysRole( data );
+                    layer.close( index );
                 },
                 // 取消
                 function(){
@@ -230,65 +396,47 @@ define( function ( require ) {
      * 创建角色
      * @private
      */
-    SysRoleTree.prototype._createSysRole = function () {
+    SysRoleTree.prototype._createSysRole = function ( data ) {
         var
-            _this = this,
-            $button = this.$createSysRoleButton,
-            url = this.$sysRoleTreeList.attr( "data-save-url" ),
-            roleName = this.$createSysRoleInput.val()
+            viewUrl = this.$sysRoleTreeList.attr( "data-view-url" ),
+            $layerContent
         ;
 
-        roleName = $.trim( roleName );
-
-        if ( $.trim( roleName ) === "" ) {
-            layer.msg( '请输入角色名！', { icon: 2 } );
-            return;
+        if ( data ) {
+            data = {
+                sysId: data.sysId,
+                orderFlag: data.orderFlag || 10
+            };
         }
 
-        // 打开 loading
-        $button.isLoading( { position: "insideButton" } );
+        layer.open( {
+            id: "editSysRoleLayer",
+            title: "添加角色",
+            type: 1,
+            skin: 'layui-layer-rim', //加上边框
+            area: ['600px', '380px'], //宽高
+            content: '',
+            success: function ( layero ) {
 
-        $.ajax( {
-            url: url,
-            data: {
-                roleName: roleName,
-                roleLevel: 1,
-                roleDerc: roleName
-            }
-        } ).done( function ( jsonResult ) {
-            var
-                sysRole
-            ;
-            // 服务器端处理成功
-            if ( jsonResult.success ) {
-                sysRole = jsonResult.data;
-                if ( ! sysRole ) {
-                    layer.alert( "角色[" + roleName + "]添加成功，但服务器没有返回该角色的ID。", { icon: 2 } );
-                    return;
-                }
-                // 提示
-                layer.msg( jsonResult.message || "添加角色[" + roleName + "]成功！", { icon: 1 } );
+                $layerContent = layero.find( ".layui-layer-content" );
 
+                // 开启loading
+                $layerContent.isLoading();
 
-                // 将其追加到角色树
-                _this.$sysRoleTreeList.append(
-                    _this.templateRender( {
-                        roleId: sysRole[ "roleId" ],
-                            roleName: sysRole[ "roleName" ]
-                        } )
-                )
+                Template.getModelAndView( viewUrl, data, function ( htmlString ) {
+                    if ( ! $layerContent ) {
+                        return;
+                    }
+                    // 关闭 loading
+                    $layerContent.isLoading( "hide" );
+
+                    $layerContent.html( htmlString );
+                } );
+
+            },
+            end: function () {
+                $layerContent = null;
             }
-            // 服务器端处理失败
-            else {
-                // 提示
-                layer.alert( "添加角色[" + roleName + "]失败：" + ( jsonResult.message || "服务器内部错误。" ), { icon: 2 } );
-            }
-        } ).fail( function () {
-            // 提示网络错误
-            layer.alert(  "添加角色[" + roleName + "]失败：", { icon: 0 } );
-        } ).always( function () {
-            // 关闭 loading
-            $button.isLoading( "hide" );
         } );
 
     };
@@ -296,25 +444,21 @@ define( function ( require ) {
     /**
      * 编辑角色
      */
-    SysRoleTree.prototype._editSysRole = function ( $btn ) {
+    SysRoleTree.prototype._editSysRole = function ( data ) {
         var
-            _this = this,
-            $sysRoleTreeItem = $btn.parent(),
-            roleId = $sysRoleTreeItem.attr( "roleid" ),
-            roleName = $sysRoleTreeItem.attr( "rolename" ),
             viewUrl = this.$sysRoleTreeList.attr( "data-view-url" ),
             modelUrl = this.$sysRoleTreeList.attr( "data-model-url" ),
             $layerContent
         ;
 
-        modelUrl += "?roleId=" + roleId;
+        modelUrl += "?roleId=" + data.roleId;
 
         layer.open( {
             id: "editSysRoleLayer",
-            title: "编辑角色—— " + roleName,
+            title: "编辑角色—— " + data.roleName,
             type: 1,
             skin: 'layui-layer-rim', //加上边框
-            area: ['600px', '320px'], //宽高
+            area: ['600px', '380px'], //宽高
             content: '',
             success: function ( layero ) {
 
@@ -335,12 +479,7 @@ define( function ( require ) {
 
             },
             end: function () {
-                // 重新绘制
-                if ( $layerContent ) {
-                    // _this.draw();
-                }
                 $layerContent = null;
-
             }
         } );
 
@@ -349,21 +488,17 @@ define( function ( require ) {
      * 删除角色
      * @private
      */
-    SysRoleTree.prototype._deleteSysRole = function ( $btn ) {
+    SysRoleTree.prototype._deleteSysRole = function ( sysRole ) {
         var
-            $sysRoleTreeItem = $btn.parent(),
-            roleId = $sysRoleTreeItem.attr( "roleid" ),
-            roleName = $sysRoleTreeItem.attr( "rolename" ),
-            url = this.$sysRoleTreeList.attr( "data-delete-url" )
+            _this = this,
+            url = this.$sysRoleTreeList.attr( "data-delete-url" ),
+            $button = this.$deleteSysRoleButton,
+            roleId = sysRole.roleId,
+            roleName = sysRole.roleName
         ;
 
-        if ( $btn.is( ".fa-spinner" ) ) {
-            layer.alert( "删除中，请稍等" , { icon: 2 } );
-            return;
-        }
-
         // 打开 loading
-        $btn.addClass( "fa-spinner" );
+        $button.isLoading( { position: "insideButton" } );
 
         $.ajax( {
             url: url,
@@ -375,9 +510,7 @@ define( function ( require ) {
             if ( jsonResult.success ) {
                 // 提示
                 layer.msg( jsonResult.message || "删除角色[" + roleName + "]成功！", { icon: 1 } );
-
-                // 将其从角色树中删除
-                $sysRoleTreeItem.remove();
+                _this.redraw();
             }
             // 服务器端处理失败
             else {
@@ -389,7 +522,7 @@ define( function ( require ) {
             layer.alert(  "删除角色[" + roleName + "]失败：：网络错误/登陆失效。", { icon: 0 } );
         } ).always( function () {
             // 关闭 loading
-            $btn.removeClass( "fa-spinner" );
+            $button.isLoading( "hide" );
         } );
     };
 

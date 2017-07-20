@@ -15,7 +15,19 @@
                 <col width="20%">
                 <col width="80%">
             </colgroup>
-
+            <tr>
+                <td class="text-right"><label class="da-control-label required">所属系统：</label></td>
+                <td>
+                    <select name="sysId" data-placeholder="请选择"
+                            data-pkui-component="chosen"
+                            data-pkui-component-options='{
+                                "url":"__CTX__/admin/subSysListData",
+                                "selectedValue": "{{sysId}}"
+                            }'
+                            data-rule="“所属系统”: required"
+                    ></select>
+                </td>
+            </tr>
             <tr>
                 <td class="text-right"><label class="da-control-label required">角色名称：</label></td>
                 <td><input type="text" class="da-form-control" name="roleName" value="{{ roleName }}"
@@ -45,7 +57,7 @@
         // 服务器端处理成功
         if ( jsonResult.success ) {
             // 提示
-            layer.alert( '添加成功！', { icon: 1 }, function ( index ) {
+            layer.alert( '保存成功！', { icon: 1 }, function ( index ) {
                 var
                     containerId = $( "#editSysRoleLayer" ).closest( ".layui-layer" ).attr( "id" ),
                     containerIndex = containerId.replace( "layui-layer", "" )

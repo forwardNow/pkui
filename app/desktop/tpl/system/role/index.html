@@ -1,8 +1,8 @@
 <div class="sysrole-container clearfix" id="sysrole-container">
 
     <div class="sysrole-tree" id="sysRoleTree">
-        <div class="sysrole-tree-ope input-group">
-
+        <div class="sysrole-tree-ope">
+<!--
             <div class="input-group">
                 <input type="text" class="da-form-control" id="createSysRoleInput" placeholder="角色名" title="新建角色：请输入角色名">
                 <span class="input-group-btn">
@@ -10,15 +10,24 @@
                             id="createSysRoleButton"><i class="fa fa-plus"></i></button>
                 </span>
             </div>
+-->
+            <div class="btn-group">
+                <button type="button" class="btn btn-success-2" title="添加角色"
+                        id="createSysRoleButton"><i class="fa fa-plus"></i></button>
+                <button type="button" class="btn btn-info-2" title="修改角色"
+                        id="editSysRoleButton"><i class="fa fa-edit"></i></button>
+                <button type="button" class="btn btn-danger-2" title="删除角色"
+                        id="deleteSysRoleButton"><i class="fa fa-trash-o"></i></button>
+            </div>
         </div>
-        <ul class="sysrole-tree-list"
+        <div id="sysrole-tree-list" class="sysrole-tree-list"
             data-list-url="__CTX__/admin/getAllSysRole"
             data-delete-url="__CTX__/admin/sysRoleDelete"
             data-save-url="__CTX__/admin/sysRoleSave"
             data-view-url="__CTX__/static/desktop/tpl/system/role/edit.html"
             data-model-url="__CTX__/admin/sysRoleModel">
 
-        </ul>
+        </div>
     </div>
 
     <div class="sysrole-content" id="sysroleContent">
@@ -229,6 +238,18 @@
     }
     .table-newpermit .input-group:last-child {
         float: right;
+    }
+    .sysrole-tree-list {
+        margin-top: 40px;
+    }
+    .sysrole-tree-list .jstree-node {
+        color: #555;
+    }
+    .sysrole-tree-list .fa-folder {
+        color: #f3d488;
+    }
+    .sysrole-tree-list .jstree-leaf {
+        color: #33a6e7;
     }
 </style>
 <script>
