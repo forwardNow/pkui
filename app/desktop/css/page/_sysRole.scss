@@ -83,6 +83,7 @@
 }
 
 .sysrole-content {
+    //position: relative;
     height: 100%;
     overflow: auto;
 }
@@ -94,7 +95,7 @@
 }
 .sysrole-content .tab-content {
     border: none 0;
-    padding-top: 42px;
+    //padding-top: 42px;
 }
 .sysrole-content .tab-pane {
     padding: 6px;
@@ -126,4 +127,22 @@
 }
 .sysrole-tree-list .jstree-leaf {
     color: #33a6e7;
+}
+.sysrole-info {
+    height: 38px;
+    padding-left: 16px;
+    margin-top: 41px;
+    line-height: 38px;
+    border: solid 1px transparent;
+    margin-bottom: 2px;
+}
+.sysrole-info.warning {
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+    color: #8a6d3b;
+}
+.sysrole-info.info {
+    background-color: #f1f9f7;
+    border: solid 1px #e0f1e9;
+    color: #1d9d74;
 }

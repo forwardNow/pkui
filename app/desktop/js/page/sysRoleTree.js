@@ -287,7 +287,7 @@ define( function ( require ) {
             /**
              * @event clickSysRoleTreeItem
              */
-            _this.$container.trigger( "clickSysRoleTreeItem." + namespace, { roleId: data.roleId } );
+            _this.$container.trigger( "clickSysRoleTreeItem." + namespace, { roleId: data.roleId, roleName: data.roleName } );
         } );
 
     };

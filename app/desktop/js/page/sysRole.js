@@ -26,7 +26,8 @@ define( function ( require ) {
      * 默认参数
      */
     SysRole.prototype.defaults = {
-        containerSelector: "#sysrole-container"
+        containerSelector: "#sysrole-container",
+        sysRoleInfoSelector: "#sysrole-info"
     };
 
     /**
@@ -54,6 +55,7 @@ define( function ( require ) {
      */
     SysRole.prototype._render = function () {
         this.$container = $( this.opts.containerSelector );
+        this.$sysRoleInfo = $( this.opts.sysRoleInfoSelector );
         this.sysRoleTreeInstance = new SysRoleTree();
         this.sysRoleContentInstance = new SysRoleContent();
     };
@@ -70,6 +72,7 @@ define( function ( require ) {
         // 点击角色列表条目后，重新绘制 sysRoleContent
         this.$container.on( "clickSysRoleTreeItem." + SysRoleTree.namespace, function ( event, params ) {
             selectedRoleId = params.roleId;
+            _this.$sysRoleInfo.addClass( "info" ).html( "正在操作的角色：" + ( params.roleName || "未命名的角色" ) );
             _this.sysRoleContentInstance.redraw( selectedRoleId );
         } );
 
