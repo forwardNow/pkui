@@ -205,6 +205,10 @@ define( function ( require ) {
             };
 
             function processAjaxUrl( url ) {
+                if ( typeof url !== "string" ) {
+                    console.error( "[" + url + "] 不是字符串" );
+                    return url;
+                }
                 return url.replace( /.*__CTX__/, PKUI.ctxPath );
             }
 
