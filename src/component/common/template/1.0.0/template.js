@@ -57,8 +57,8 @@ define( function ( require ) {
 
             // 2. 获取数据
             // 2.1 如果 modelUrl 是对象，则直接使用
-            if ( typeof modelUrl === "object" ) {
-                Status.data = modelUrl;
+            if ( typeof modelUrl === "object" || modelUrl === null || modelUrl === undefined ) {
+                Status.data = modelUrl || {};
                 Status.update();
                 return;
             }
