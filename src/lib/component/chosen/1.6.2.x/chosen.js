@@ -621,6 +621,10 @@ define(function( require ) {
           else if ( options.url ) {
               supportRemoteRequest( $this, options );
           }
+          // FIX 直接传入数组 [ { value: 1, text: "a" }, { value: 2, text: "b" }, ... ]
+          else if ( $.isArray( options.data ) ) {
+              supportData( $this, options );
+          }
           $this.data('chosen', new Chosen(this, options));
 
         }
@@ -1413,5 +1417,25 @@ define(function( require ) {
 
   }
 
+  // FIX 直接传入数组
+  function supportData( $select, options ) {
+      var
+          optionsHtml = ""
+      ;
+
+      // 构造<option>
+      $.each( options.data, function ( index, item ) {
+          var
+              value,
+              text
+          ;
+
+          value = item.value;
+          text = item.text;
+          optionsHtml += '<option ' + ( item.selected ? 'selected ' : ' ') + 'value="' + value + '">' + text + '</option>';
+      } );
+
+      $select.html( optionsHtml );
+  }
 
 });
