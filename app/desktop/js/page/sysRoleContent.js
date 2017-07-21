@@ -87,12 +87,7 @@ define( function ( require ) {
         sysRoleNewPermitTemplate: {
             row: '<tr> <td></td> <td></td> <td></td> </tr>',
             deleteBtn: '<button type="button" class="btn btn-danger-2 js--deleteRow"><i class="fa fa-trash"></i></button>',
-            select:   '<select name="_newpermitSelect" data-pkui-component="chosen">'
-            +         '    <option value="=">=</option>'
-            +         '    <option value="in">in</option>'
-            +         '    <option value="like">like</option>'
-            +         '    <option value="between">between</option>'
-            +         '</select>',
+            select:   '<select name="_newpermitSelect" data-pkui-component="chosen" data-pkui-component-options=\'{ "data": null }\'></select>',
             singleValueInput: '<input type="text" class="da-form-control">',
             doubleValueInput: '<div class="input-group">'
             +                 '    <span class="input-group-addon">最小值</span>'
@@ -171,6 +166,12 @@ define( function ( require ) {
         this.$sysRoleNewPermitSaveBtn = $( opts.sysRoleNewPermitSaveBtnSelector );
         this.$sysRoleNewPermitAddNewRowBtn = $( opts.sysRoleNewPermitAddNewRowBtnSelector );
         this.$sysRoleNewPermitRemoveUnusedRowBtn = $( opts.sysRoleNewPermitRemoveUnusedRowBtnSelector );
+
+        // 给 chosen 添加data
+        var sysRoleNewPermitTemplate = opts.sysRoleNewPermitTemplate;
+        sysRoleNewPermitTemplate.select = sysRoleNewPermitTemplate.select.replace( "null",
+            window.JSON.stringify( this.$sysRoleNewPermitTable.data( "options" ).selectControlData )
+        )
 
     };
 
