@@ -1359,7 +1359,10 @@ define(function( require ) {
           dataList,
           url = options.url,
           selectedValue = options.selectedValue,
-          optionsHtml = "<option></option>"
+          optionsHtml = "<option></option>",
+          optionMapping = options.optionMapping,
+          valueProp,
+          textProp
 
       ;
       // 获取远程数据
@@ -1367,7 +1370,7 @@ define(function( require ) {
           supportRemoteRequest.cache = {};
       }
 
-      // 如果已经换成，则使用缓存
+      // 如果已经缓存，则使用缓存
       if ( supportRemoteRequest.cache[ url ] ) {
           dataList = supportRemoteRequest.cache[ url ];
       } else {
@@ -1388,12 +1391,21 @@ define(function( require ) {
               console.error( url + ", 请求失败。" );
           } );
       }
-      // 构造options
+
+      if ( optionMapping ) {
+          valueProp = optionMapping.value || "value";
+          textProp = optionMapping.text || "text";
+      }
+
+      // 构造<option>
       $.each( dataList, function ( index, item ) {
           var
-              value = item.value + "",
-              text = item.text
+              value,
+              text
           ;
+
+          value = item[ valueProp ];
+          text = item[ textProp ];
           optionsHtml += '<option ' + (value === selectedValue ? 'selected ' : ' ') + 'value="' + value + '">' + text + '</option>';
       } );
 
