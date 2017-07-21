@@ -114,6 +114,9 @@ define( function ( require ) {
             // 暴露到全局名称空间
             window.PKUI = PKUI;
 
+            // 处理低版本IE
+            this._handleLowVersionIE();
+
             // 注册在当前模块中使用的组件
             this._registerComponent();
 
@@ -137,6 +140,22 @@ define( function ( require ) {
 
             // 设置自动渲染
             this.setAutoRender( this.isAutoRender );
+        },
+        /**
+         * 处理低版本IE
+         */
+        _handleLowVersionIE: function () {
+            var
+                div = document.createElement('div')
+            ;
+            div.innerHTML = '<!--[if lt IE 8]><i></i><![endif]-->';
+            if ( div.getElementsByTagName( "i" ).length > 0 ) {
+                $( document.body ).append(
+                    '<div class="alert alert-warning text-center" style="position:fixed; z-index: 99999; top: 0; left: 0; width: 100%;">'
+                  +     '很抱歉，您的IE浏览器版本过低，在您的使用过程中会带来一些不好的体验。建议您使用IE8及以上版本，或使用其他现代浏览器。'
+                  + '</div>'
+                );
+            }
         },
         /**
          * 注册在当前模块中使用的组件
