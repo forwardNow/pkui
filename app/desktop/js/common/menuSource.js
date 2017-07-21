@@ -19,6 +19,7 @@ define( function ( require ) {
     };
 
     Menu.originData = null;
+    Menu.originSet = null;
 
     Menu.init = function ( options ) {
         this.opts = $.extend( true, {}, this.opts, options );
@@ -106,6 +107,25 @@ define( function ( require ) {
             }
         } );
         return set;
+    };
+
+    /**
+     * 根据菜单ID获取菜单对象
+     * @param menuId {string|number}
+     * @returns {{}|null}
+     */
+    Menu.getSysMenuById = function ( menuId ) {
+        var
+            sysMenu
+        ;
+        if ( ! this.originSet ) {
+            this.originSet = this.getSet( true );
+        }
+        sysMenu = this.originSet[ menuId ];
+        if ( ! sysMenu ) {
+            return null;
+        }
+        return $.extend( true, {}, sysMenu );
     };
 
     Menu.init();
