@@ -112,9 +112,10 @@ define( function ( require ) {
     /**
      * 根据菜单ID获取菜单对象
      * @param menuId {string|number}
+     * @param isClone {boolean?} 是否为副本
      * @returns {{}|null}
      */
-    Menu.getSysMenuById = function ( menuId ) {
+    Menu.getSysMenuById = function ( menuId, isClone ) {
         var
             sysMenu
         ;
@@ -125,10 +126,29 @@ define( function ( require ) {
         if ( ! sysMenu ) {
             return null;
         }
-        return $.extend( true, {}, sysMenu );
+        if ( isClone ) {
+            return $.extend( true, {}, sysMenu );
+        }
+        return sysMenu;
+    };
+
+    /**
+     * 根据ID获取name
+     * @param menuId {string|number}
+     */
+    Menu.getSysMenuNameById = function ( menuId ) {
+        var
+            sysMenu = this.getSysMenuById( menuId )
+        ;
+        if ( !sysMenu ) {
+            return "";
+        }
+        return sysMenu.menuName || "";
     };
 
     Menu.init();
+
+    PKUI.MenuSource = Menu;
 
     return Menu;
 } );
