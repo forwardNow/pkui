@@ -25,7 +25,7 @@
         <form id="sysResourceQueryForm">
 
             <div class="input-group">
-                <span class="input-group-addon">单位名称</span>
+                <span class="input-group-addon">资源名称</span>
                 <input type="text" class="da-form-control" placeholder="模糊查询" name="resourceName" data-operator="like">
                 <span class="input-group-btn">
                     <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysResourceDatagrid" ).bootgrid( "reload" );'><i class="fa fa-search"></i></button>
@@ -68,7 +68,7 @@
         -->
         <th data-column-id="resourceId" data-identifier="true" data-visible="false" data-sortable="false">资源ID</th>
         <th data-column-id="resourceName" data-sortable="false" data-width="">资源名称</th>
-        <th data-column-id="menuId" data-sortable="false" data-dic="DIC_MENU" data-width="">资源菜单</th>
+        <th data-column-id="menuId" data-sortable="false" data-formatter="sysResourceTranslateMenu" data-width="">所属菜单</th>
         <th data-column-id="resourceDesc" data-sortable="false" data-width="">资源描述</th>
         <th data-column-id="resourceUrl" data-sortable="false" data-width="">资源路径</th>
         <th data-column-id="__" data-sortable="false" data-formatter="sysResourceOpe">操作</th>
@@ -98,6 +98,13 @@
         +               '"url":"__CTX__/static/desktop/tpl/system/resource/edit.html",'
         +               '"model":"{% system.resource.list.sysResourceModel %}?resourceId=' + row.resourceId + '",'
         +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>';
+    }
+
+    /**
+     * 根据菜单ID翻译成菜单名称
+     */
+    function sysResourceTranslateMenu(column, row) {
+        return window.PKUI.MenuSource.getSysMenuNameById( row.menuId );
     }
 
 </script>

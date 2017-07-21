@@ -180,6 +180,10 @@ define( function ( require ) {
             "system.resource.list.sysResourceListData": "__CTX__/admin/sysResourceListData",
             "system.resource.list.sysResourceModel": "__CTX__/admin/sysResourceModel"
         },
+        // resource/add.html
+        {
+            "system.resource.add.sysResourceSave": "__CTX__/admin/sysResourceSave"
+        },
         // permit/list.html
         {
             "system.permit.list.sysPermitDelete": "__CTX__/admin/sysPermitDelete",
