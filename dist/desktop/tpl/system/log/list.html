@@ -1,0 +1,93 @@
+<div class="win-main-topbar">
+    <div class="main-topbar-func">
+
+        <button type="button" class="btn btn-danger-2"
+                data-pkui-component="datagrid-delete"
+                data-pkui-component-options='{
+                    "datagridSelector": "#sysLogDatagrid",
+                    "PKName": "logId",
+                    "url": "{% system.log.list.sysLogDeleteByIds %}"
+                }'
+                title="删除勾选的记录（可多选）"
+                ><i class="fa fa-trash-o"></i> 删除</button>
+
+    </div>
+    <div class="main-topbar-query main-topbar-query-ext">
+
+        <form id="sysLogQueryForm">
+
+            <div class="input-group">
+                <span class="input-group-addon">开始日期时间</span>
+                <input type="text" class="da-form-control"
+                       name="logTime" placeholder="请选择" data-operator=">" data-datatype="4"
+
+                       data-pkui-component="datetimepicker"
+                       data-pkui-component-options='{}'/>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon">结束日期</span>
+                <input type="text" class="da-form-control" name="logTime" placeholder="请选择"
+                        data-operator="<" data-datatype="3"
+
+                       data-pkui-component="datepicker"
+                       data-pkui-component-options='{
+
+                       }'/>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon">登录名</span>
+                <input type="text" class="da-form-control" placeholder="登录名" name="模糊查询" data-operator="like">
+            </div>
+
+            <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysLogDatagrid" ).bootgrid( "reload" )'><i class="fa fa-search"></i></button>
+
+            <button class="btn btn-default-2" type="button"
+                    onclick='jQuery( "#sysLogDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
+
+        </form>
+
+    </div>
+</div>
+
+<table id="sysLogDatagrid"
+       data-pkui-component="datagrid"
+       data-pkui-component-options='{
+            "selection": true,
+            "multiSelect": true
+       }'
+       data-url="{% system.log.list.sysLogListData_new_getPage %}"
+       data-query-form-selector="#sysLogQueryForm"
+       >
+    <thead>
+    <!--
+    data-total-records-url="{% system.log.list.sysLogListData_new_getCount %}"
+    data-total-records-url="{% system.log.list.sysLogTotalRecords %}"
+    -->
+
+    <tr>
+        <!--
+            data-column-id：对应bean的属性名
+            data-identifier： Boolean。data-row-id，行ID。（只对一个列使用）
+            data-visible：Boolean。此列是否可见。（可用于标记 行ID 的列）
+            data-sortable：Boolean。此列是否可排序（升序、降序），会拼接 order by 子句，发送请求
+            data-width：行宽度，可以使用百分比和数字，如 25%、200。
+            data-formatter：对内容进行格式化，使用全局函数，会传递两个参数 column、row，返回HTML字符串
+                                column.id 获取该列“data-column-id”
+                                row 该行数据，如 { deptId: 123, deptName: "某部门", ... }
+        -->
+        <th data-column-id="logId" data-identifier="true" data-visible="false" data-sortable="false">ID</th>
+        <th data-column-id="loginName" data-sortable="true" data-width="">登陆账号</th>
+        <th data-column-id="deptName" data-sortable="true" data-width="">单位名称</th>
+        <th data-column-id="logInfo" data-sortable="true" data-width="" >日志数据说明</th>
+        <th data-column-id="logType" data-sortable="true" data-dic="DIC_LOG_TYPE" data-width="" >日志类型</th>
+        <th data-column-id="functionId" data-sortable="true" data-dic="DIC_LOG_FUNCTION" data-width="" >业务类型</th>
+        <th data-column-id="operType" data-sortable="true" data-dic="DIC_OPERATE_TYPE" data-width="" >操作类型</th>
+        <th data-column-id="logTime" data-sortable="true" data-order="desc" data-formatter="dateFormatter">记录时间</th>
+        <th data-column-id="ip" data-sortable="true" >访问地址</th>
+
+    </tr>
+    </thead>
+
+</table>

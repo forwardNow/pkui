@@ -1,0 +1,36 @@
+<form class="da-form" >
+
+    <div class="da-form-heading">{{resourceName}}</div>
+    <div class="da-form-body">
+        <table class="da-form-table da-table da-table-striped">
+            <colgroup>
+                <col width="10%">
+                <col width="90%">
+            </colgroup>
+            <tr>
+                <td class="text-right"><label class="da-control-label">资源名称：</label></td>
+                <td>{{resourceName}}</td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">所属菜单：</label></td>
+                <td id="sysResourceMenuIdCell">{{menuId}}</td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">资源路径：</label></td>
+                <td>{{resourceUrl}}</td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">资源描述：</label></td>
+                <td>{{resourceDesc}}</td>
+            </tr>
+        </table>
+    </div>
+</form>
+<script>
+    +function () {
+        var
+            $sysResourceMenuIdCell = $( "#sysResourceMenuIdCell" )
+        ;
+        $sysResourceMenuIdCell.text( PKUI.MenuSource.getSysMenuNameById( $sysResourceMenuIdCell.text() ) );
+    }();
+</script>

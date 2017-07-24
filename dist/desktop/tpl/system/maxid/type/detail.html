@@ -1,0 +1,46 @@
+<form class="da-form" >
+
+    <div class="da-form-heading">{{idName}}</div>
+    <div class="da-form-body">
+        <table class="da-form-table da-table da-table-striped">
+            <colgroup>
+                <col width="10%">
+                <col width="90%">
+            </colgroup>
+            <tr>
+                <td class="text-right"><label class="da-control-label">编号类型：</label></td>
+                <td>{{idType}}</td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label ">编号名称：</label></td>
+                <td>{{idName}}</td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">编号长度：</label></td>
+                <td>{{idSize}}</td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">最小值：</label></td>
+                <td>{{idBegin}}</td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">最大值：</label></td>
+                <td>{{idEnd}}</td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">是否可循环：</label></td>
+                <td>
+                    {{if idLoop === "1"}}
+                    <span class="text-success"><i class="fa fa-circle"></i> 是</span>
+                    {{else if idLoop === "0"}}
+                    <span class="text-danger"><i class="fa fa-circle"></i> 否</span>
+                    {{/if}}
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">描述：</label></td>
+                <td>{{idDes}}</td>
+            </tr>
+        </table>
+    </div>
+</form>

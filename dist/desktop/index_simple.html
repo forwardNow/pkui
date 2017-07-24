@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>执法监督平台——用户名</title>
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="css/style.css">
+    <!--
+        data-main：当前应用的入口js文件
+        data-timestamp: 时间戳（dev为开发模式），比如 data-timestamp="v=2017-02-27"
+    -->
+    <script data-main="./js/main_simple" data-timestamp="2017-07-01" src="../pkui/pkui.js"></script>
+</head>
+<body>
+<div class="da-win" id="da-win">
+
+    <!-- 主体 -->
+    <main class="da-win-main">
+
+    </main>
+    <!-- /主体 -->
+
+
+    <!-- 侧边栏 -->
+    <aside class="da-win-sidebar jstree-sidebar">
+        <div style="margin-left: -9px;"
+             data-pkui-component="menuTree"
+             data-pkui-component-options='{
+                "url": "__CTX__/admin/sysMenuListData",
+                "dnd": false,
+                "menuId": 1
+             }'></div>
+    </aside>
+    <!-- /侧边栏 -->
+
+</div>
+
+</body>
+</html>

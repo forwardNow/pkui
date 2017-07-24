@@ -1,0 +1,162 @@
+<div class="win-main-topbar">
+    <div class="main-topbar-func">
+
+        <button type="button" class="btn btn-success-2"
+                id="addSysUserBtn"
+                data-pkui-component="drawer"
+                data-pkui-component-options='{
+                    "url": "__CTX__/static/desktop/tpl/system/user/add.html",
+                    "model": "{% system.user.list.sysUserModel %}",
+                    "container": ".da-win-main"}'
+                ><i class="fa fa-plus"></i> 添加</button>
+        <button type="button" class="btn btn-danger-2"
+                data-pkui-component="datagrid-delete"
+                data-pkui-component-options='{
+                    "datagridSelector": "#sysUserDatagrid",
+                    "PKName": "userId",
+                    "url": "{% system.user.list.sysUserDelete %}"
+                }'
+                title="删除勾选的记录（可多选）"
+                ><i class="fa fa-trash-o"></i> 删除</button>
+        <button type="button" class="btn btn-info-2"
+                onclick="resetSysUserPwd(this)"
+                title="重置勾选的记录的密码（可多选）"
+                ><i class="fa fa-reply"></i> 重置密码</button>
+
+        <!--<button type="button" class="btn btn-default-2"><i class="fa fa-search"></i> 高级查询</button>-->
+
+    </div>
+    <div class="main-topbar-query">
+
+        <form id="sysUserQueryForm">
+            <div class="input-group">
+                <span class="input-group-addon">真实姓名</span>
+                <input type="text" class="da-form-control" name="userName" data-operator="like" placeholder="模糊查询">
+                <span class="input-group-btn">
+                    <button class="btn btn-info-2" type="button"
+                            onclick='jQuery( "#sysUserDatagrid" ).bootgrid( "reload" )'><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+            <button class="btn btn-default-2 " type="button"
+                    onclick='jQuery( "#sysUserDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
+        </form>
+    </div>
+</div>
+
+<table id="sysUserDatagrid"
+       data-pkui-component="datagrid"
+       data-pkui-component-options='{
+            "selection": true,
+            "multiSelect": true
+       }'
+       data-url="{% system.user.list.sysUserListData %}"
+       data-query-form-selector="#sysUserQueryForm"
+       >
+    <thead>
+
+    <tr>
+        <!--
+            data-column-id：对应bean的属性名
+            data-identifier： Boolean。data-row-id，行ID。（只对一个列使用）
+            data-visible：Boolean。此列是否可见。（可用于标记 行ID 的列）
+            data-sortable：Boolean。此列是否可排序（升序、降序），会拼接 order by 子句，发送请求
+            data-width：行宽度，可以使用百分比和数字，如 25%、200。
+            data-formatter：对内容进行格式化，使用全局函数，会传递两个参数 column、row，返回HTML字符串
+                                column.id 获取该列“data-column-id”
+                                row 该行数据，如 { deptId: 123, deptName: "某部门", ... }
+        -->
+        <th data-column-id="userId" data-identifier="true" data-visible="false" data-sortable="false">用户标识号</th>
+        <th data-column-id="loginName" data-sortable="false" data-width="120">登录名</th>
+        <th data-column-id="userName" data-sortable="false" data-width="120">真实姓名</th>
+        <th data-column-id="policeCode" data-sortable="false" data-width="100">警号</th>
+        <th data-column-id="deptId" data-sortable="false" data-dic="DIC_DEPT">所属单位</th>
+        <th data-column-id="userType" data-sortable="true" data-dic="DIC_USER_TYPE" data-width="100">用户类型</th>
+        <th data-column-id="status" data-sortable="true" data-formatter="statusFormatter" data-width="80">状态</th>
+        <th data-column-id="addTime" data-sortable="true" data-formatter="dateFormatter" data-width="140">录入时间</th>
+
+        <th data-column-id="__" data-sortable="false" data-formatter="sysUserOpe" data-width="160">操作</th>
+
+    </tr>
+    </thead>
+
+</table>
+
+<script>
+
+    /**
+     * 操作
+     */
+    function sysUserOpe(column, row) {
+        return '<a href="javascript:void(0)" '
+        +           ' id=viewSysUser_' + row.userId
+        +           ' data-pkui-component="drawer"'
+        +           ' data-pkui-component-options=\'{'
+        +               '"url":"__CTX__/static/desktop/tpl/system/user/detail.html",'
+        +               '"model":"{% system.user.list.sysUserModel %}?userId=' + row.userId + '",'
+        +               '"container": ".da-win-main"}\'><i class="fa fa-file-o"></i> 查看</a>　'
+
+        +       '<a href="javascript:void(0)" '
+        +           ' id=editSysUser_' + row.userId
+        +           ' data-pkui-component="drawer"'
+        +           ' data-pkui-component-options=\'{'
+        +               '"url":"__CTX__/static/desktop/tpl/system/user/edit.html",'
+        +               '"model":"{% system.user.list.sysUserModel %}?userId=' + row.userId + '",'
+        +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>';
+    }
+
+
+    /**
+     *  重置密码
+     */
+    function resetSysUserPwd ( button ) {
+        var
+            $button = $( button ),
+            $table = jQuery( "#sysUserDatagrid" ),
+            seletedRowIds = $table.bootgrid( "getSelectedRows" ),
+            data = ""
+            ;
+
+        // 如果处于 isloading 状态，则退出
+        if ( $button.attr( "disabled") ) {
+            return;
+        }
+
+        if ( seletedRowIds.length === 0 ) {
+            layer.msg( '请选中一条或多条记录进行密码重置！', { icon: 0 } );
+            return;
+        }
+
+        // 打开 loading
+        $button.isLoading( { position: "insideButton" } );
+
+        // 将 [ 1, 2, 3 ] 转换为 "userId=1&userId=2&userId=3"
+        $.each( seletedRowIds, function ( index, userId ) {
+            if ( index > 0 ) {
+                data += "&";
+            }
+            data += "userId=" + userId;
+        } );
+
+        jQuery.ajax( {
+            url: "{% system.user.list.sysUserResetPWD %}",
+            data: data
+        } ).done( function ( jsonResult ) {
+            // 服务器端处理成功
+            if ( jsonResult.success ) {
+                // 提示
+                layer.msg( jsonResult.message || "重置用户密码成功！", { icon: 1 } );
+            }
+            // 服务器端处理失败
+            else {
+                // 提示
+                layer.alert( "重置用户密码失败：" + ( jsonResult.message || "未知的错误" ), { icon: 2 } );
+            }
+        } ).fail( function () {
+            // 提示网络错误
+            layer.alert( '网络错误！', { icon: 0 } );
+        } ).always( function () {
+            // 关闭 loading
+            $button.isLoading( "hide" );
+        } );
+    }
+</script>
