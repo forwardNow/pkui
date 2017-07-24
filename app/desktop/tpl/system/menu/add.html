@@ -32,7 +32,9 @@
                     {{if sysId }}
                         {{ sysName }} （继承自父级菜单）
                         <input type="hidden" name="sysId" value="{{sysId}}">
+                        <input type="hidden" name="sysName" value="{{sysName}}">
                     {{else}}
+                        <input type="hidden" name="sysName">
                         <select name="sysId" data-placeholder="请选择"
                                 data-pkui-component="chosen"
                                 data-pkui-component-options='{
@@ -41,7 +43,8 @@
                                     "optionMapping": {
                                         "value": "sysId",
                                         "text": "sysName"
-                                    }
+                                    },
+                                    "relateInputName": "sysName"
                                 }'
                                 data-rule="“所属系统”: required"
                         ></select>

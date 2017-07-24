@@ -29,6 +29,7 @@
             <tr>
                 <td class="text-right"><label class="da-control-label required">所属系统：</label></td>
                 <td>
+                    <input type="hidden" name="sysName">
                     <select name="sysId" data-placeholder="请选择"
                             data-pkui-component="chosen"
                             data-pkui-component-options='{
@@ -37,7 +38,8 @@
                                 "optionMapping": {
                                     "value": "sysId",
                                     "text": "sysName"
-                                }
+                                },
+                                "relateInputName": "sysName"
                             }'
                             data-rule="“所属系统”: required"
                     ></select>
