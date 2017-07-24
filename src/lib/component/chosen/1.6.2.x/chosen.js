@@ -627,6 +627,16 @@ define(function( require ) {
           }
           $this.data('chosen', new Chosen(this, options));
 
+          // FIX 当值改变时，注入到关联的输入域
+          if( options.relateInputName ) {
+              $this.on( "change", function() {
+                  var
+                      $selectOption = $this.find( "option:selected" ),
+                      $relateInput = $this.closest( "form" ).find( "[name='" + options.relateInputName + "']" )
+                  ;
+                  $relateInput.val( $selectOption.text() );
+              } );
+          }
         }
       });
     }
