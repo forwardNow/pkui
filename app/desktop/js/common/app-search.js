@@ -75,7 +75,7 @@ define( function ( require ) {
         // 点击 target 时，启动搜索功能
         this.$target.on( "click." + namespace, function ( event ) {
 
-            if ( ! _this.data ) {
+            if ( ! _this._data ) {
                 layer.alert( "初始时获取菜单数据失败，无法启用搜索功能，正在尝试重新获取菜单数据！", { icon: 2 } );
                 _this._getData();
                 _this._fmtData();
@@ -118,10 +118,10 @@ define( function ( require ) {
         $( "#pkui-search-input" ).autocomplete({
             appendTo: "#pkui-search-popup",
             // autoFocus: true,
-            //source: this.data
+            //source: this._data
             source: function ( request, response ) {
                 var matcher = new RegExp( $.ui.autocomplete.escapeRegex( request.term ), "i" );
-                response( $.map( _this.data, function ( item ) {
+                response( $.map( _this._data, function ( item ) {
                     var menuName = item.value;
                     if  ( !request.term || matcher.test( menuName ) ) {
                         return {
@@ -186,7 +186,7 @@ define( function ( require ) {
      * @private
      */
     Search.prototype._getData = function () {
-        this.data = MenuSource.getList();
+        this._data = MenuSource.getList();
     };
 
     /**
@@ -195,7 +195,7 @@ define( function ( require ) {
      */
     Search.prototype._fmtData = function () {
         var fmtData = [];
-        $.each( this.data, function ( index, item ) {
+        $.each( this._data, function ( index, item ) {
             if ( item[ "visiable" ] !== "1" ) {
                 return;
             }
@@ -206,7 +206,7 @@ define( function ( require ) {
                 icon: item[ "icon" ]
             } )
         } );
-        this.data = fmtData;
+        this._data = fmtData;
     };
 
     return Search;

@@ -211,10 +211,10 @@ seajs.config( {
 
         // 预加载项
         preload: [
-            "_pkui"
-            //isSupportES5 ? "" : "es5-sham",
-            //isSupportJSON ? "" : "json3",
-            //isSupportMediaQuery ? "" : "respond",
+            "_pkui",
+            isSupportES5 ? "" : "es5-shim",
+            isSupportJSON ? "" : "json3",
+            isSupportMediaQuery ? "" : "respond"
         ],
 
         // 调试模式
