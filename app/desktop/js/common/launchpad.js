@@ -10,14 +10,15 @@
  */
 define( function ( require ) {
     var $,
-        Swiper,
         Launchpad,
         Utils
         ;
     $ = require( "jquery" );
-    Swiper = require( "swiper" );
     require( "jquery-ui" );
     Utils = require( "../base/utils" );
+
+    require( "swiper" );
+
 
     /**
      * 应用启动面板单例
@@ -50,7 +51,7 @@ define( function ( require ) {
         bind: function () {
             var _this;
             _this = this;
-            this.swiper = new Swiper( ".swiper-container", {
+            this.swiper = new window.Swiper( ".swiper-container", {
                 // eventTarget : 'wrapper',
                 // noSwiping : true,
                 pagination: this.$pagination,
