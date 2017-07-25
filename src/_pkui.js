@@ -5,6 +5,7 @@
  *      2. 其他的处理
  *
  * @author 吴钦飞（wuqf@pkusoft.net）
+ * @version 1.0.2
  */
 define( function ( require ) {
     "use strict";
@@ -75,7 +76,10 @@ define( function ( require ) {
             // 是否正在渲染
             __isrendering: false,
             // 渲染次数（render()被调用的次数）
-            __renderedTimes: 0
+            __renderedTimes: 0,
+
+
+            version: "1.0.2"
 
         }
         ;
