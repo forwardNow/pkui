@@ -9,10 +9,10 @@
 (function(factory){
     if (typeof define === "function" && define.amd) {
         define( [ "jquery" ], factory );
-    } else if ( typeof define === "function" && define.cmd ) {
+    /*} else if ( typeof define === "function" && define.cmd ) {
     	define( function ( require ) {
             factory( require( "jquery" ) );
-		} );
+		} );*/
     } else if (typeof exports === 'object') {
         factory(require('jquery'));
     } else {
