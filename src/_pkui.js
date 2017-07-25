@@ -80,6 +80,12 @@ define( function ( require ) {
         }
         ;
 
+    var
+        handleSeajsBugInIE8Timer
+    ;
+
+
+
     /**
      * 控制台打印
      * @type {{info: info, warn: warn, error: error}}
@@ -169,6 +175,51 @@ define( function ( require ) {
          * 绑定事件
          */
         _bindEvent: function () {
+            var
+                originErrorHandler
+            ;
+            // IE8时，处理error
+            if ( ns.isIE8 ) {
+
+                originErrorHandler = window.onerror;
+
+                window.onerror = function () {
+
+                    // layer.msg( "有未处理的异常！" );
+
+                    if ( handleSeajsBugInIE8Timer ) {
+                        return;
+                    }
+
+                    handleSeajsBugInIE8Timer = window.setTimeout( function() {
+                        window.layer.alert(
+                            "您正在使用的IE8，未能正确载入脚本文件，请刷新页面！（2秒后自动刷新。）",
+                            {
+                                title: "提示",
+                                btn: ['刷新'], //按钮
+                                icon : 2,
+                                time: 2400,
+                                end: function() {
+                                    layer.msg("refresh");
+                                    window.location.reload();
+                                }
+                            },
+                            // 确认
+                            function( index ){
+                                layer.close( index );
+                                window.location.reload();
+                            }
+                        );
+                        window.onerror = originErrorHandler;
+                    }, 300 );
+
+                };
+                // 4秒后，如果没有error，则删除掉handler
+                window.setTimeout( function() {
+                    window.onerror = originErrorHandler;
+                }, 4 * 1000 );
+            }
+
             // DOM树构建完毕，执行一次渲染
             $doc.ready( PKUI.render );
         },
@@ -190,6 +241,16 @@ define( function ( require ) {
                 dataType: "json",
                 //请求失败遇到异常触发
                 error: function ( xhr ) {
+
+                    // 处理IE8下，seajs的使用bug
+                    if ( ns.isIE8 ) {
+                        if ( handleSeajsBugInIE8Timer && handleSeajsBugInIE8Timer !== true ) {
+                            window.clearTimeout( handleSeajsBugInIE8Timer );
+                        } else {
+                            handleSeajsBugInIE8Timer = true; // 可能是登陆失效引起的错误。
+                        }
+                    }
+
                     var msg = "Ajax请求失败：" + xhr.status + " (" + xhr.statusText + ")。请刷新网页，如果依旧存在此提示，请联系管理员。";
                     // window.layer.alert( msg, { icon: 0 } );
                     // $.error( msg );
