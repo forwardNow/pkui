@@ -6,12 +6,12 @@
     } else if (typeof module === "object" && module.exports) {
         // CommonJS
         module.exports = factory( require( "jquery" ) );
-    } else if (typeof define === "function" && define.cmd) {
+    } /*else if (typeof define === "function" && define.cmd) {
         // CMD
         define( function( require, exports, module ) {
             module.exports = factory( require( "jquery" ) );
         } );
-    } else {
+    } */else {
         // Browser globals (root is window)
         root.Swiper = factory( root.Swiper );
     }
