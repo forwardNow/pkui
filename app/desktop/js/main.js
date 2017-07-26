@@ -66,7 +66,7 @@ define( function ( require ) {
 
     } );
 
-    // 如果未注册
+    // 退出系统
     if ( ! $.isFunction( window.existSystemAndGoToLogin ) ) {
         /**
          * 注销后，返回登陆页
@@ -128,4 +128,41 @@ define( function ( require ) {
             } );
         };
     }
+
+    if ( ! $.isFunction( window.handleUserDropdown ) ) {
+
+        window.handleUserDropdown = function ( target ) {
+            var
+                $target = $( target ),
+                currentSysUserUrl = $target.attr( "data-current-sysuser-url" ),
+                $currentSysUserUserName = $( "#currentSysUserUserName" )
+            ;
+            if ( ! $currentSysUserUserName.attr( "inited" ) ) {
+
+                $.ajax( {
+                    url: currentSysUserUrl
+                } ).done( function( jsonResult ) {
+                    var
+                        sysUser
+                    ;
+                    if ( jsonResult && jsonResult.success === true ) {
+                        sysUser = jsonResult.data;
+                    }
+                    if ( ! sysUser ) {
+                        $currentSysUserUserName.html( "unknown response" );
+                        return;
+                    }
+                    $currentSysUserUserName.html( sysUser.userName || "sysUser.userName" );
+                    $currentSysUserUserName.attr( "inited", true );
+                } ).error( function() {
+                    $currentSysUserUserName.html( "[error]view console!" )
+                } );
+
+            }
+
+        };
+
+    }
+
+
 } );

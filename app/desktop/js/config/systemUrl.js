@@ -13,10 +13,16 @@ define( function ( require ) {
     ;
 
     $.extend( config, {
+
         // 注销，Ajax请求，返回JsonResult（ { "success": true, ... } ）
         "system.login.doLogout": "__CTX__/doLogout",
+
         // 登陆页
-        "system.login.login": "__CTX__/login"
+        "system.login.login": "__CTX__/login",
+
+        // 获取当前登陆的用户，用于：判断是否session过期 和 显示相关信息。
+        "system.user.getCurrentSysUser": "__CTX__/admin/getCurrentSysUser"
+
     } );
 
     $.extend( config, {
