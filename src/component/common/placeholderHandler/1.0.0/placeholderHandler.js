@@ -4,7 +4,8 @@
 define( function ( require ) {
     var
         $ = require( "jquery" ),
-        PlaceholderHandler = {}
+        PlaceholderHandler = {},
+        __CTX__ = ""
     ;
 
     PlaceholderHandler.defaults = {
@@ -65,6 +66,9 @@ define( function ( require ) {
         if ( !config ) {
             throw "error";
         }
+        if ( ! __CTX__ ) {
+            __CTX__ = window.PKUI.ctxPath;
+        }
         for ( key in config ) {
             if ( ! config.hasOwnProperty( key ) ) {
                 continue;
@@ -73,11 +77,11 @@ define( function ( require ) {
                 if ( isNotOverride ) {
                     console.warn( "同名属性[" + key + "]，处理方式：跳过。" );
                 } else {
-                    _configSet[ key ] = config[ key ];
+                    _configSet[ key ] = config[ key ].replace( "__CTX__", __CTX__ );
                     console.warn( "同名属性[" + key + "]，处理方式：覆盖原属性。" );
                 }
             } else {
-                _configSet[ key ] = config[ key ];
+                _configSet[ key ] = config[ key ].replace( "__CTX__", __CTX__ );
             }
         }
     };
