@@ -13,6 +13,13 @@ define( function ( require ) {
     ;
 
     $.extend( config, {
+        // 注销，Ajax请求，返回JsonResult（ { "success": true, ... } ）
+        "system.login.doLogout": "__CTX__/doLogout",
+        // 登陆页
+        "system.login.login": "__CTX__/login"
+    } );
+
+    $.extend( config, {
         // desktop/js/common/menuSource.js
         "system.menu.sysMenuListData": "__CTX__/admin/sysMenuListData",
 
@@ -38,7 +45,6 @@ define( function ( require ) {
         "system.role.index.sysRoleNewPermitListData": "__CTX__/admin/sysRoleNewPermitListData"
 
     } );
-
 
     $.extend( config,
 
@@ -205,6 +211,6 @@ define( function ( require ) {
 
     );
 
-    // 添加进占位符处理器匹配源数据源
+    // 添加进占位符处理器匹配源
     PlaceholderHandler.appendMatchSource( config );
 } );
