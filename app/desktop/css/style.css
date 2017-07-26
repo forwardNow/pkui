@@ -6037,13 +6037,13 @@ table th[class*="col-"] {
 }
 
 .isloading-wrapper.isloading-wrapper-dark {
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#19000000', endColorstr='#19000000');
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#33000000', endColorstr='#33000000');
 }
 
 :root .isloading-wrapper.isloading-wrapper-dark {
   filter: none;
   /*处理IE9浏览器中的滤镜效果*/
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .isloading-icon {
