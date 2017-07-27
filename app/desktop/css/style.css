@@ -7662,12 +7662,12 @@ b {
   background: url(../images/da_bg.png) 0 0 repeat-x #fff;
 }
 .da-theme-light .da-topbar {
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#99A7C0DC', endColorstr='#99A7C0DC');
   top: auto;
   bottom: 0;
   height: 45px;
   border-top: solid 1px #cad9ea;
   border-top-color: rgba(202, 217, 234, 0.6);
+  background-color: #A7C0DC;
 }
 .da-theme-light .da-desktop {
   bottom: 46px;
@@ -8711,7 +8711,7 @@ Pagination Styles
 
 .toolbar-msgItem-label {
   position: absolute;
-  top: 0px;
+  top: 0;
   left: 6px;
   padding: 2px 3px;
   text-align: center;

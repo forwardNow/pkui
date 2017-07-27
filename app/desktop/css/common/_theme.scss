@@ -17,7 +17,6 @@
 .da-theme-light {
     background: url(#{$image-path}/da_bg.png) 0 0 repeat-x #fff;
     .da-topbar {
-        filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#99A7C0DC', endColorstr='#99A7C0DC');
         top: auto;
         bottom: 0;
 
@@ -27,6 +26,9 @@
         //background-color: rgba(167, 192, 220, 0.6);
         border-top: solid 1px #cad9ea;
         border-top-color: rgba(202, 217, 234, 0.6);
+
+        background-color: #A7C0DC;
+        // filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#99A7C0DC', endColorstr='#99A7C0DC');
 
     }
     .da-desktop {
