@@ -9,9 +9,6 @@
 define( function ( require ) {
     "use strict";
 
-    // 依赖 jquery ui 的 autocomplete 模块
-    require( "jquery-ui" );
-
     var
         $ = require( "jquery" ),
         MenuSource = require( "./menuSource" ),
@@ -19,6 +16,9 @@ define( function ( require ) {
         App = require( "./app" ),
         namespace = "pkui.search"
         ;
+
+    // 依赖 jquery ui 的 autocomplete 模块
+    require( "jquery-ui" );
 
     /**
      * 默认参数
