@@ -1,5 +1,5 @@
 .desktop-sprite, .swiper-pagination-switch, .swiper-active-switch, .swiper-pagination-switch:hover {
-  background-image: url('../../images/desktop-s8d3429f616.png');
+  background-image: url('../../images/desktop-sac1ba4ec60.png');
   background-repeat: no-repeat;
 }
 
@@ -20,12 +20,12 @@
 
 .swiper-pagination-switch {
   background-color: transparent;
-  background-position: 0 -256px;
+  background-position: 0 -496px;
 }
 
 .swiper-active-switch, .swiper-pagination-switch:hover {
   background-color: transparent;
-  background-position: 0 -268px;
+  background-position: 0 -508px;
 }
 
 .pkui-menu-dark {
