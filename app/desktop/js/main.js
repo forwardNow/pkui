@@ -10,7 +10,6 @@
 define( function ( require ) {
     "use strict";
 
-
     // 载入系统功能URL配置文件
     require( "./config/systemUrl" );
 
@@ -20,66 +19,81 @@ define( function ( require ) {
     // 载入配置文件
     require( "./config/shortcut" );
 
+    // 菜单数据源
+    require( "./common/menuSource" );
+
+    //
+    require( "template" );
+
     var
         $ = require( "jquery" ),
         Launchpad = require( "./common/launchpad" ),
         App = require( "./common/app" ),
-        Template = require( "template" ),
         AppSearch = require( "./common/app-search" ),
         AppSidebar = require( "./common/app-sidebar" ),
-        menuSource = require( "./common/menuSource" ),
-        PlaceholderHandler = require( "placeholderHandler" )
+        PlaceholderHandler = require( "placeholderHandler" ),
+        ToolbarUserDropdown
     ;
 
-
-
     if ( window.isIE8 ) {
-        seajs.use( "./css/page/ie8-hack.css" );
+        require( "../css/page/ie8-hack.css" );
     }
 
-    // DOM树构建完毕后执行
-    $( document ).ready( function () {
 
-        // 启动 Launchpad
-        Launchpad.init();
+    /**
+     * 任务栏上的用户下拉菜单
+     */
+    ToolbarUserDropdown = {
+        $target: null,
+        $userName: null,
+        $existSystem: null,
 
-        // 启动 应用（App）系统
-        App.init();
+        namespace: "toolbar.userDropdown",
 
-        // 启动搜索功能
-        new AppSearch( {
-            targetSelector: "#topbar-toolbar-search"
-        } );
+        getCurrentSysUserUrl: "{% system.user.getCurrentSysUser %}",
+        doLogoutUrl: "{% system.login.doLogout %}",
+        loginPageUrl: "{% system.login.login %}",
 
-        // 启动应用侧边栏
-        new AppSidebar( {
-            toggleSelector: "#topbar-history",
-            sidebarSelector: "#daSidebar",
-            sidebarBodySelecotr: "#da-sidebar-body",
-            oftenUsedUrl: "__CTX__/admin/oftenUsedSysMenu",
-            recentUsedUrl: "__CTX__/admin/recentUsedSysMenu",
-            saveUsedMenuUrl: "__CTX__/admin/saveUsedMenu",
+        init: function () {
+            this.render();
+            this.bindEvent();
+        },
+        render: function () {
+            this.$target = $( "#toolbarUserDropdown" );
+            this.$userName = $( "#toolbarUserDropdown-userName" );
+            this.$existSystem = $( "#toolbarUserDropdown-existSystem" );
 
-            maxOftenUsedItemNum: 6,
-            maxRecentUsedItemNum: 10
-        } );
+        },
+        bindEvent: function () {
+            var
+                _this = this,
+                namespace = this.namespace
+            ;
 
-    } );
+            // 当第一次打开dropdown时，对用户名进行初始化
+            this.$target.one( "click." + namespace, function () {
+                _this._injectUserName();
+            } );
 
-    // 退出系统
-    if ( ! $.isFunction( window.existSystemAndGoToLogin ) ) {
-        /**
-         * 注销后，返回登陆页
-         * @param existUrl {string?}
-         * @param loginUrl {string?}
-         */
-        window.existSystemAndGoToLogin = function( existUrl, loginUrl ) {
+            // 取消 <a href="..."> 的默认行为
+            this.$target.find( "a[href]" ).on( "click." + namespace, function ( event ) {
+                event.preventDefault();
+            } );
 
-            existUrl = existUrl || "{% system.login.doLogout %}";
-            loginUrl = loginUrl || PlaceholderHandler.process( "{% system.login.login %}" );
+            // 添加“退出系统”功能
+            this.$existSystem.on( "click." + namespace, function () {
+                _this.existSystem();
+            } );
 
+        },
+        existSystem: function () {
+            var
+                _this = this
+            ;
             $.ajax( {
-                url: existUrl
+
+                url: this.doLogoutUrl
+
             } ).done( function( jsonResult ) {
                 var
                     isSuccess = true,
@@ -115,7 +129,7 @@ define( function ( require ) {
                         icon: 1,
                         time: 3000,
                         end: function() {
-                            window.location = loginUrl;
+                            window.location = PlaceholderHandler.process( _this.loginPageUrl );
                         }
                     } );
 
@@ -126,43 +140,66 @@ define( function ( require ) {
             } ).error( function( xhr ) {
                 layer.msg( "处理失败：" + xhr.status + " (" + xhr.statusText + ")", { icon: 0 } );
             } );
-        };
-    }
-
-    if ( ! $.isFunction( window.handleUserDropdown ) ) {
-
-        window.handleUserDropdown = function ( target ) {
+        },
+        _injectUserName: function () {
             var
-                $target = $( target ),
-                currentSysUserUrl = $target.attr( "data-current-sysuser-url" ),
-                $currentSysUserUserName = $( "#currentSysUserUserName" )
+                _this = this
             ;
-            if ( ! $currentSysUserUserName.attr( "inited" ) ) {
+            $.ajax( {
+                url: _this.getCurrentSysUserUrl
+            } ).done( function( jsonResult ) {
+                var
+                    sysUser
+                ;
+                if ( jsonResult && jsonResult.success === true ) {
+                    sysUser = jsonResult.data;
+                }
+                if ( ! sysUser || ! sysUser.hasOwnProperty( "userName" )) {
+                    _this.$userName.html( "unknown response" );
+                    return;
+                }
+                _this.$userName.html( sysUser.userName );
 
-                $.ajax( {
-                    url: currentSysUserUrl
-                } ).done( function( jsonResult ) {
-                    var
-                        sysUser
-                    ;
-                    if ( jsonResult && jsonResult.success === true ) {
-                        sysUser = jsonResult.data;
-                    }
-                    if ( ! sysUser ) {
-                        $currentSysUserUserName.html( "unknown response" );
-                        return;
-                    }
-                    $currentSysUserUserName.html( sysUser.userName || "sysUser.userName" );
-                    $currentSysUserUserName.attr( "inited", true );
-                } ).error( function() {
-                    $currentSysUserUserName.html( "[error]view console!" )
-                } );
+            } ).error( function() {
+                _this.$userName.html( "[error]view console!" )
+            } );
+        }
 
-            }
+    };
 
-        };
 
-    }
+    // DOM树构建完毕后执行
+    $( document ).ready( function () {
 
+
+
+        // 启动 Launchpad
+        Launchpad.init();
+
+        // 启动 应用（App）系统
+        App.init();
+
+        // 启动搜索功能
+        new AppSearch( {
+            targetSelector: "#topbar-toolbar-search"
+        } );
+
+        // 启动应用侧边栏
+        new AppSidebar( {
+            toggleSelector: "#topbar-history",
+            sidebarSelector: "#daSidebar",
+            sidebarBodySelecotr: "#da-sidebar-body",
+            oftenUsedUrl: "__CTX__/admin/oftenUsedSysMenu",
+            recentUsedUrl: "__CTX__/admin/recentUsedSysMenu",
+            saveUsedMenuUrl: "__CTX__/admin/saveUsedMenu",
+
+            maxOftenUsedItemNum: 6,
+            maxRecentUsedItemNum: 10
+        } );
+
+        // 右下角下拉菜单功能
+        ToolbarUserDropdown.init();
+
+    } );
 
 } );
