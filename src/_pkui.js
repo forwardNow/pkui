@@ -259,9 +259,9 @@ define( function ( require ) {
                     // window.layer.alert( msg, { icon: 0 } );
                     // $.error( msg );
                     console.error( msg );
-                    
+
                     if ( xhr.status === 0 ) {
-                        console.info( "%c%s", "background-color: #fcf8e3; color: #8a6d3b;",
+                        console.info(
                             "可能原因："
                             + "1、url不存在；"
                             + "2、url不可达；"
@@ -269,7 +269,7 @@ define( function ( require ) {
                             + "4、数据格式错；"
                             + "5、ajax在完成之前请求已经被取消（ajax请求没有发出），"
                             + "例如：页面已经跳转或跳转太快、浏览器输入新的url、按钮立即新的点击等。"
-                        )
+                        );
                     }
                 }
             } );
