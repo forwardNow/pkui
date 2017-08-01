@@ -5,7 +5,7 @@
  *      2. 其他的处理
  *
  * @author 吴钦飞（wuqf@pkusoft.net）
- * @version 1.0.3
+ * @version 1.0.4
  */
 define( function ( require ) {
     "use strict";
@@ -79,7 +79,7 @@ define( function ( require ) {
             __renderedTimes: 0,
 
 
-            version: "1.0.3"
+            version: "1.0.4"
 
         }
         ;
