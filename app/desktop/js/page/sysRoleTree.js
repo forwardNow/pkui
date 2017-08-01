@@ -405,6 +405,7 @@ define( function ( require ) {
         if ( data ) {
             data = {
                 sysId: data.sysId,
+                sysName: data.sysName,
                 orderFlag: data.orderFlag || 10
             };
         }
