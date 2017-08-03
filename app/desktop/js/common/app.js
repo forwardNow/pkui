@@ -29,6 +29,7 @@ define( function ( require ) {
         // 如果没有初始化，就先初始化。
         !App.isInited && App.init( null );
 
+        // 避免重复菜单的窗口
         if ( opts && opts.menuId && App.get( opts.menuId ) ) {
             App.get( opts.menuId ).show();
             return;
@@ -112,7 +113,7 @@ define( function ( require ) {
             $this = $( this );
             appInstance = $this.data( "appInstance" );
 
-            if ( appInstance ) {
+            if ( appInstance && appInstance.options.mode !== "browserTab" ) {
                 appInstance.show();
                 return;
             }
@@ -192,9 +193,21 @@ define( function ( require ) {
          * @private
          */
         _init: function ( opts ) {
-
+            var
+                _this = this
+            ;
             // 1. 获取参数
             this.options = $.extend( true, {}, this.defaults, opts, this._getOptsFromTarget() );
+
+            if ( _this.options.mode === "browserTab" ) {
+                _this.$target.on( "click.app.newtab", function () {
+                    var targetWindowName = _this.$target.data( "targetWindowName" )
+                        || ( "newWindow_" + ( new Date() ).getTime() );
+                    window.open(  _this.options.src || "_blank", targetWindowName );
+                } );
+                return this;
+            }
+
 
             // 2. 创建一个 页签（dock）
             this.appDock = new AppDock( this.options );
