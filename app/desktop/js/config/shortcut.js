@@ -49,7 +49,18 @@ define( function() {
         { menuId: 8, fontIconClass: "fonticon-purple" },
         { menuId: 9, fontIconClass: "fonticon-yellow" },
         { menuId: 10, fontIconStyle: { bgColor: "#f8e2b3", color: "#5a4118" } },
-        { menuId: 114 }
+        { menuId: 114 },
+
+        { menuId: 446, fontIconStyle: { bgColor: "#fff", color: "#2319dc" },
+            menuName: "mode(iframe)",
+            icon: "fa fa-search",
+            mode: "iframe",
+            src: "http://www.baidu.com/" },
+        { menuId: 447, fontIconStyle: { bgColor: "#fff", color: "#2319dc" },
+            menuName: "mode(browserTab)",
+            icon: "fa fa-search",
+            mode: "browserTab",
+            src: "http://www.baidu.com/"}
     ];
 
     return templateConfig;
