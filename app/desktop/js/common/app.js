@@ -201,9 +201,10 @@ define( function ( require ) {
 
             if ( _this.options.mode === "browserTab" ) {
                 _this.$target.on( "click.app.newtab", function () {
-                    var targetWindowName = _this.$target.data( "targetWindowName" )
-                        || ( "newWindow_" + ( new Date() ).getTime() );
-                    window.open(  _this.options.src || "_blank", targetWindowName );
+                    if ( ! _this.$target.data( "targetWindowName" ) ) {
+                        _this.$target.data( "targetWindowName", "newWindow_" + ( new Date() ).getTime() );
+                    }
+                    window.open(  _this.options.src || "_blank", _this.$target.data( "targetWindowName" ) );
                 } );
                 return this;
             }
