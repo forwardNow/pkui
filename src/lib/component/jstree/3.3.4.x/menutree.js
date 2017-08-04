@@ -104,11 +104,11 @@ define( function ( require ) {
                 fmtData,
                 jstreeData,
                 jstreeOptions = {},
-                $jstreeAnchor,
                 children
                 ;
 
             originData = gridResult.data;
+
 
             fmtData = fmtSysMenuList( originData, options.showInvisible );
 
@@ -176,6 +176,8 @@ define( function ( require ) {
      */
     function fmtSysMenuList( list, showInvisible ) {
         var
+            iconPath = window.PKUI.iconPath,
+            ctxPath = window.PKUI.ctxPath,
             fmtList = [],
             timestamp = "jstree_"  +( new Date() ).getTime() + "_"
         ;
@@ -183,21 +185,40 @@ define( function ( require ) {
         $.each( list, function ( index, sysMenu ) {
             var
                 icon = sysMenu[ "icon" ] || "fa fa-file-o",
-                visiable = sysMenu[ "visiable" ] === "1"
+                visiable = sysMenu[ "visiable" ] === "1",
+                patchIcon = sysMenu[ "reserve1" ],
+                url = sysMenu[ "menuUrl" ],
+                patchUrl = sysMenu[ "reserve2" ]
             ;
             if ( !visiable && !showInvisible) {
                 return;
             }
+
             fmtList.push( sysMenu );
-            if ( icon && icon.indexOf( ".png" ) !== -1 ) {
-                icon = window.PKUI.iconPath + "/24x24/" + icon;
+
+            if ( icon.indexOf( ".png" ) !== -1 && icon.indexOf( iconPath ) === -1 ) {
+                icon = iconPath + "/" + icon;
             }
+
+            if ( typeof patchIcon === "string" && patchIcon.indexOf( "fa-" ) !== -1 ) {
+                icon = patchIcon;
+            }
+            if ( typeof patchUrl === "string" && patchUrl.indexOf( "/" ) === 0 ) {
+                url = patchUrl;
+            }
+
+            if ( url ) {
+                url = ctxPath + url;
+            } else {
+                url = "#";
+            }
+
             // 绑定的 data
             sysMenu.data = $.extend( true, {}, sysMenu );
 
             // href
             sysMenu.a_attr = {
-                href: sysMenu[ "menuUrl" ] ? ( window.PKUI.ctxPath + sysMenu[ "menuUrl" ] ) : "#",
+                href: url,
                 menuicon: icon
             };
 

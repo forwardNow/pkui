@@ -53,8 +53,8 @@ define( function ( require ) {
             // pkui的基本路径：${ ctx }/static/pkui
             basePath: ns.pkuiBasePath,
 
-            // icon的基本路径：${ ctx }/static/desktop/images/icon
-            iconPath: ns.ctxPath + "/static/desktop/images/icon",
+            // icon的基本路径：${ ctx }/static/images/icons/16x16
+            iconPath: ns.ctxPath + "/static/images/icons/16x16",
 
             // 字典路径：${ ctx }/static/dic/
             dicPath: ns.ctxPath + "/static/dic/",
@@ -361,7 +361,7 @@ define( function ( require ) {
                 }
                 if ( icon.indexOf( ".png" ) !== -1 ) {
                     imageSize = parseInt( imageSize ) || 24;
-                    url = PKUI.iconPath + "/" + imageSize + "x" + imageSize + "/" + icon;
+                    url = PKUI.iconPath + "/" + icon;
                     style = "background-image: url(" + url + "); width: " + imageSize + "px; height: " + imageSize + "px;";
                     return '<span class="pkui-icon-image" style="' + style + '"></span>';
                 }
