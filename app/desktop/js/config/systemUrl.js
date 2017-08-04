@@ -153,13 +153,13 @@ define( function ( require ) {
         // para/list.html
         {
             "system.para.list.sysParaDelete": "__CTX__/admin/sysParaDelete",
-            "system.para.list.sysParaListData": "__CTX__/admin/sysParaListData",
+            "system.para.list.sysParaListData": "__CTX__/admin/sysParaListDataExt",
             "system.para.list.sysParaModel": "__CTX__/admin/sysParaModel"
         },
         // para/add.html
         {
             "system.para.add.sysParaSave": "__CTX__/admin/sysParaSave",
-            "system.para.add.checksysParaForm": "__CTX__/admin/checksysParaForm"
+            "system.para.add.checksysParaForm": "__CTX__/admin/checksysParaFormExt"
         },
         // para/edit.html
         {
@@ -189,7 +189,7 @@ define( function ( require ) {
         // resource/list.html
         {
             "system.resource.list.sysResourceDelete": "__CTX__/admin/sysResourceDelete",
-            "system.resource.list.sysResourceListData": "__CTX__/admin/sysResourceListData",
+            "system.resource.list.sysResourceListData": "__CTX__/admin/sysResourceListDataExt",
             "system.resource.list.sysResourceModel": "__CTX__/admin/sysResourceModel"
         },
         // resource/add.html

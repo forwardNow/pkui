@@ -897,7 +897,7 @@ define( function ( require ) {
                 ;
                 fmtList.push( sysMenuView );
                 if ( icon && icon.indexOf( ".png" ) !== -1 ) {
-                    icon = window.PKUI.iconPath + "/24x24/" + icon;
+                    icon = window.PKUI.iconPath + "/" + icon;
                 }
                 // 绑定的 data
                 sysMenuView.data = $.extend( true, {}, sysMenuView );

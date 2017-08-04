@@ -140,7 +140,7 @@ define( function ( require ) {
             _this._getIconNameList( function ( iconNameList ) {
                 var
                     html = "",
-                    pathPrefix = PKUI.iconPath + "/24x24/",
+                    pathPrefix = PKUI.iconPath + "/",
                     icon = _this.icon
                 ;
 

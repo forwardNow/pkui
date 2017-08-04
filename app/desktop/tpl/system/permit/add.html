@@ -58,7 +58,7 @@
         // 服务器端处理成功
         if ( jsonResult.success ) {
             // 提示
-            layer.alert( '修改数据权限成功！', { icon: 1 }, function ( index ) {
+            layer.alert( '添加数据权限成功！', { icon: 1 }, function ( index ) {
                 layer.close( index );
                 // 关闭抽屉层
                 $form.closest( ".pkui-drawer" ).find( ".pkui-drawer-button" ).trigger( "click" );
@@ -67,7 +67,7 @@
         // 服务器端处理失败
         else {
             // 提示
-            layer.alert( '修改数据权限失败！', { icon: 2 } );
+            layer.alert( '添加数据权限失败！', { icon: 2 } );
         }
     }
 

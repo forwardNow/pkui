@@ -57,7 +57,7 @@ define( function() {
             mode: "iframe",
             src: "http://www.baidu.com/" },
         { menuId: 447, fontIconStyle: { bgColor: "#fff", color: "#2319dc" },
-            menuName: "mode(browserTab)",
+            menuName: "mode (browserTab)",
             icon: "fa fa-search",
             mode: "browserTab",
             src: "http://www.baidu.com/"}

@@ -6,7 +6,7 @@
       data-always-callback="editSysRoleAlwaysCallback" >
 
     <input type="hidden" name="roleId" value="{{ roleId }}" />
-    <input type="hidden" name="roleLevel" value="{{ roleLevel }}" /> <!-- 角色暂不分级，默认为0 -->
+    <input type="hidden" name="roleLevel" value="{{if roleLevel }}{{ roleLevel }}{{else}}1{{/if}}" /> <!-- 角色暂不分级，默认为0 -->
 
     <div class="da-form-heading"></div>
     <div class="da-form-body">

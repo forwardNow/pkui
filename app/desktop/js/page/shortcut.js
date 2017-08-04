@@ -70,8 +70,8 @@ define( function ( require ) {
                 isFontIcon = true,
                 sysMenu,
                 icon,
+                patchIcon,
                 menuId,
-                fontIconClass = "",
                 fontIconStyle = ""
             ;
 
@@ -82,7 +82,13 @@ define( function ( require ) {
                 return true; // continue
             }
 
+            patchIcon = sysMenu[ "reserve1" ];
+
             icon = item.icon || sysMenu.icon || "fa fa-play";
+
+            if ( typeof patchIcon === "string" && patchIcon.indexOf( "fa-" ) !== -1 ) {
+                icon = patchIcon;
+            }
 
             if ( icon.indexOf( ".png" ) !== -1  ) {
                 isFontIcon = false;
