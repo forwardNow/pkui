@@ -78,6 +78,7 @@ define( function ( require ) {
             // 渲染次数（render()被调用的次数）
             __renderedTimes: 0,
 
+            isIE8: ns.isIE8,
 
             version: "1.0.5"
 

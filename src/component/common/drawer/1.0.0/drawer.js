@@ -133,16 +133,20 @@ define( function( require ) {
         open: function () {
             var
                 $this = $( this ),
-                options = Drawer.getOptions.call( this )
+                options = Drawer.getOptions.call( this ),
+                speed = 400
             ;
+
 
             if ( ! options.isCreated ) {
                 Drawer._create.call( this );
             }
-
+            if ( window.PKUI.isIE8 ) {
+                speed = 0;
+            }
             options.$drawer
                 // .addClass( Drawer.clazz.open )
-                .animate( { left: "0" }, function() {
+                .animate( { left: "0" }, speed, function() {
                     var openCallback = options.onOpen
                     ;
                     if ( window[ openCallback ] && typeof window[ openCallback ] === "function" ) {
