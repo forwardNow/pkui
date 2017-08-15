@@ -610,6 +610,12 @@ define(function( require ) {
           return;
         }
         if (!(chosen instanceof Chosen)) {
+
+          // FIX 限制option数量
+          if ( !options.max_shown_results || options.max_shown_results > 300) {
+              options.max_shown_results = 50;
+          }
+
           // FIX 标志已注册
           $this.attr( "isrendered", true );
 
