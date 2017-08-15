@@ -5286,6 +5286,35 @@ table th[class*="col-"] {
   filter: alpha(opacity=50);
 }
 
+.text-magnifier {
+  display: none;
+  z-index: 20000;
+  position: absolute;
+  border: solid 1px transparent;
+  padding: 6px;
+  font-size: 18px;
+}
+.text-magnifier.success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+.text-magnifier.info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+.text-magnifier.warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+.text-magnifier.danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
 /*!
  * pkui-dialog.css
  * Date: 2014-07-03
