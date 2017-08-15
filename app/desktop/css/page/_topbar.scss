@@ -253,7 +253,17 @@
 .pkui-search-popup .ui-menu-item strong {
     color: #ff8000;
 }
-
+.pkui-search-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 19999;
+    background-color: #000;
+    @include opacity(0.3);
+}
 .da-sidebar {
     z-index: 6000;
     position: absolute;

@@ -27,12 +27,14 @@ define( function ( require ) {
     Search.prototype.defaults = {
         // 目标元素的CSS选择器，指定触发搜索的元素
         targetSelector: null,
-        // 显示时，模糊的元素
-        blurElementSelector: ".da",
+        // 遮罩层
+        backdrop: true,
         // 弹出层的HTML模板
         template: '<div class="pkui-search-popup" id="pkui-search-popup">'
             +       '<i class="fa fa-search pkui-search-icon"></i>'
             +       '<input type="text" id="pkui-search-input" class="pkui-search-input" placeholder="请输入应用名称">'
+            +     '</div>'
+            +     '<div class="pkui-search-backdrop">'
             +     '</div>'
     };
 
@@ -62,7 +64,7 @@ define( function ( require ) {
 
     };
     Search.prototype._render = function () {
-        this.$blur = $( this.opts.blurElementSelector );
+        // this.$blur = $( this.opts.blurElementSelector );
     };
     /**
      * 绑定事件处理函数
@@ -108,6 +110,8 @@ define( function ( require ) {
         var _this = this;
 
         this.$popup = $( this.opts.template ).appendTo( $( document.body ) );
+
+        this.$backdrop = this.$popup.find( ".pkui-search-backdrop" );
 
         $.ui.autocomplete.prototype._renderItem = function( ul, item ) {
             return $( "<li>" )
@@ -165,10 +169,11 @@ define( function ( require ) {
         if ( ! this.isCreated ) {
             this._create();
         }
-        if ( this.$blur.size() === 0 ) {
-            this.$blur = $( this.opts.blurElementSelector );
+
+        if ( this.opts.backdrop ) {
+            this.$backdrop.show();
         }
-        this.$blur.addClass( "blur" );
+
         this.$popup.show();
     };
 
@@ -177,7 +182,10 @@ define( function ( require ) {
      */
     Search.prototype.hide = function () {
         this.$popup.hide();
-        this.$blur.removeClass( "blur" );
+        // this.$blur.removeClass( "blur" );
+        if ( this.opts.backdrop ) {
+            this.$backdrop.hide();
+        }
     };
 
 
