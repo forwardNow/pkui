@@ -132,6 +132,9 @@ seajs.config( {
         //【component/common 】处理占位符
         "placeholderHandler": "component/common/placeholderHandler/1.0.0/placeholderHandler",
 
+        //【component/common 】文本放大镜
+        "textMagnifier": "component/common/textMagnifier/1.0.0/textMagnifier",
+
         //【component/logic 】datagrid的扩展
         "datagrid-delete": "component/logic/datagridExt/1.0.0/datagrid-delete"
 
