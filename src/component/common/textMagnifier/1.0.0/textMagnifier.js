@@ -6,6 +6,7 @@ define( function( require ) {
     "use strict";
     var
         $ = require( "jquery" ),
+        IDValidator = require( "IDValidator" ),
         PKUI = window.PKUI,
 
         namespace = "pkui.textMagnifier"
@@ -22,7 +23,9 @@ define( function( require ) {
         // 主题：waring | success | danger | info
         theme: "warning",
         // 模板
-        template: "<div class='text-magnifier'></div>"
+        containerTemplate: "<div class='text-magnifier'></div>",
+        fmtValueTemplate: "<div class='text-magnifier-fmtvalue'></div>",
+        tipsTemplate: "<div class='text-magnifier-tips'></div>"
     };
 
     /**
@@ -57,12 +60,6 @@ define( function( require ) {
      * @private
      */
     TextMagnifier.prototype._render = function () {
-        var
-            splitType = this.opts.splitType
-        ;
-        if ( typeof splitType === "string" ) {
-            this.opts.splitType = TextMagnifier.splitTypeMapping[ splitType ];
-        }
     };
 
     /**
@@ -70,8 +67,9 @@ define( function( require ) {
      * @private
      */
     TextMagnifier.prototype._create = function () {
-        this.$container = $( this.opts.template ).appendTo( $( "body" ) );
+        this.$container = $( this.opts.containerTemplate ).appendTo( $( "body" ) );
         this.$container.addClass( this.opts.theme );
+        this.$fmtValue = $( this.opts.fmtValueTemplate ).appendTo( this.$container );
     };
 
     /**
@@ -168,7 +166,39 @@ define( function( require ) {
         } else {
             this.$container.show();
         }
-        this.$container.text( fmtValue );
+        this.$fmtValue.text( fmtValue );
+
+        if ( this.opts.splitType === "id" ) {
+            this._displayIDInfo();
+        }
+    };
+
+    /**
+     * 显示身份证号中提取的信息。
+     * @private
+     */
+    TextMagnifier.prototype._displayIDInfo = function () {
+        var
+            idCode = this.$target.val(),
+            tipsHtml,
+            address, age, gender
+        ;
+
+        this.$tips && this.$tips.remove();
+
+        // 验证不通过
+        if ( ! IDValidator.validateID( idCode ) ) {
+            return;
+        }
+        address = IDValidator.getIDAddressText( idCode );
+        age = IDValidator.getIDAge( idCode );
+        gender = IDValidator.getIDGenderText( idCode );
+
+        tipsHtml = "地址：" + ( address || "" ) + "。<br>" +
+            "性别：" + gender + "。 年龄：" + age+ "。";
+
+        this.$tips =  $( this.opts.tipsTemplate ).html( tipsHtml ).appendTo( this.$container );
+
     };
 
     /**
@@ -194,6 +224,10 @@ define( function( require ) {
         ;
         if ( !originValue ) {
             return "";
+        }
+
+        if ( typeof splitType === "string" ) {
+            splitType = TextMagnifier.splitTypeMapping[ splitType ];
         }
 
         for ( i = 0, len = splitType.length; i < len; i++ ) {

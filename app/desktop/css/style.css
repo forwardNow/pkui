@@ -5292,7 +5292,7 @@ table th[class*="col-"] {
   position: absolute;
   border: solid 1px transparent;
   padding: 6px;
-  font-size: 18px;
+  font-size: 20px;
 }
 .text-magnifier.success {
   color: #3c763d;
@@ -5313,6 +5313,13 @@ table th[class*="col-"] {
   color: #a94442;
   background-color: #f2dede;
   border-color: #ebccd1;
+}
+
+.text-magnifier-tips {
+  font-size: 12px;
+  border-top: dashed 1px;
+  margin-top: 2px;
+  padding-top: 2px;
 }
 
 /*!
