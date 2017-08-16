@@ -13,16 +13,23 @@ define( function( require ) {
 
 
     TextMagnifier.prototype.defaults = {
-        // 显示的位置：top | bottom | left | right
+        // 显示的位置: top | bottom
         placement: "bottom",
-        // 拆分规则
-        splitType: [ 6, 8, 4 ],
+        // 拆分规则: Array | String
+        splitType: "id",
         // 分隔符
         delimiter: " ",
         // 主题：waring | success | danger | info
         theme: "warning",
         // 模板
         template: "<div class='text-magnifier'></div>"
+    };
+
+    /**
+     * 拆分规则映射
+     */
+    TextMagnifier.splitTypeMapping = {
+        id: [ 6, 8, 4 ]
     };
 
     /**
@@ -42,7 +49,20 @@ define( function( require ) {
      * @private
      */
     TextMagnifier.prototype._init = function () {
+        this._render();
         this._bind();
+    };
+    /**
+     * 初始化一些变量之类
+     * @private
+     */
+    TextMagnifier.prototype._render = function () {
+        var
+            splitType = this.opts.splitType
+        ;
+        if ( typeof splitType === "string" ) {
+            this.opts.splitType = TextMagnifier.splitTypeMapping[ splitType ];
+        }
     };
 
     /**
@@ -77,7 +97,7 @@ define( function( require ) {
         this.$target
             .off( "keyup." + namespace )
             .on( "keyup." + namespace, function () {
-                _this.$container.text( _this._fmtValue() );
+                _this._displayFmtValue();
             } );
 
     };
@@ -88,6 +108,24 @@ define( function( require ) {
      */
     TextMagnifier.prototype._show = function () {
 
+        // 创建
+        this._create();
+
+        //
+        this.$container.show();
+
+        // 定位
+        this._position();
+
+        // 显示格式化后的值
+        this._displayFmtValue();
+    };
+
+    /**
+     * 定位显示框
+     * @private
+     */
+    TextMagnifier.prototype._position = function () {
         var
             docPos = this.$target.offset(),
             docTop = docPos.top,
@@ -96,11 +134,6 @@ define( function( require ) {
             top,
             left
         ;
-
-        // 创建
-        this._create();
-        this.$container.show();
-
         switch ( this.opts.placement ) {
             case "top": {
                 left = docLeft;
@@ -120,7 +153,22 @@ define( function( require ) {
             top: top
         } );
 
-        this.$container.text( this._fmtValue() );
+    };
+
+    /**
+     * 显示 格式化后的值
+     * @private
+     */
+    TextMagnifier.prototype._displayFmtValue = function () {
+        var
+            fmtValue = this._fmtValue()
+        ;
+        if ( fmtValue === "" ) {
+            this.$container.hide();
+        } else {
+            this.$container.show();
+        }
+        this.$container.text( fmtValue );
     };
 
     /**
@@ -147,6 +195,7 @@ define( function( require ) {
         if ( !originValue ) {
             return "";
         }
+
         for ( i = 0, len = splitType.length; i < len; i++ ) {
             s = originValue.substr( count, splitType[ i ] );
             if ( s.length > 0 ) {
