@@ -14,6 +14,14 @@ define( function( require ) {
     ;
 
     /**
+     * 已经验证过的 ID
+     * @private
+     */
+    IDValidator._idCodeCache = {
+
+    };
+
+    /**
      * 地址缓存，避免在 GB2260 中重复查找
      * @private
      */
@@ -35,7 +43,9 @@ define( function( require ) {
      * @return {Boolean}
      */
     IDValidator.validateID = function ( idCode ) {
-
+        var
+            result = true
+        ;
         if ( !idCode ) {
             return false;
         }
@@ -44,35 +54,41 @@ define( function( require ) {
             idCode += "";
         }
 
+        // 从缓存里取
+        if ( this._idCodeCache.hasOwnProperty( idCode ) ) {
+            return this._idCodeCache[ idCode ];
+        }
+
         // 验证长度 15位或18位
         if ( this._validateIDLength( idCode ) === false ) {
             console.info( idCode + " 长度 不符合要求。" );
-            return false;
+            result = false;
         }
 
         // 验证 地址码（6位）
-        if ( this._validateIDAddress( idCode ) === false ) {
+        else if ( this._validateIDAddress( idCode ) === false ) {
             console.info( idCode + " 地址码 不符合要求。" );
-            return false;
+            result = false;
         }
 
         // 验证 出生日期（8位）
-        if ( this._validateIDBirthday( idCode ) === false ) {
+        else if ( this._validateIDBirthday( idCode ) === false ) {
             console.info( idCode + " 出生日期 不符合要求。" );
-            return false;
+            result = false;
         }
 
         // 验证 顺序号（3位）
 
         // 验证 校验位（1位）
-        if ( this._validateIDCheckBit( idCode ) === false ) {
+        else if ( this._validateIDCheckBit( idCode ) === false ) {
             console.info( idCode + " 校验位 不符合要求。" );
-            return false;
+            result = false;
         }
 
         //
+        this._idCodeCache[ idCode ] = result;
 
-        return true;
+        return result;
     };
 
     /**
@@ -327,7 +343,7 @@ define( function( require ) {
             return gender + "";
         }
 
-        return gender === "1" ? "男" : "女";
+        return gender === 1 ? "男" : "女";
     };
 
     /**
