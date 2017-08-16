@@ -2317,10 +2317,39 @@ define( function( require ) {
 
     function idCardValidator( element, params ) {
         var
-            idCode = element.value
+            idCode = element.value,
+            $form,
+            paramsList,
+            birthday,
+            gender,
+            addressCode,
+            i, len, pair, key, fieldName
         ;
 
+        // 验证通过，将信息填充到指定name的表单域
         if ( IDValidator.validateID( idCode ) ) {
+            // "birthdayFieldName=csrq,genderFieldName=xb,addressCodeFieldName=sxxqdm"
+            if ( params && params[ 0 ] ) {
+                $form = $( element ).closest( "form" );
+                paramsList = params[ 0 ].split( "," );
+                birthday = IDValidator.getIDBirthday( idCode );
+                gender = IDValidator.getIDGenderCode( idCode );
+                addressCode = IDValidator.getIDAddressCode( idCode );
+
+                for ( i = 0, len = paramsList.length; i < len; i++ ) {
+                    pair = paramsList[ i ].split( "=" );
+                    key = $.trim( pair[ 0 ] );
+                    fieldName = $.trim( pair[ 1 ] );
+                    if ( key === "birthdayFieldName" ) {
+                        $form.find( "[name='" + fieldName + "']" ).val( birthday );
+                    } else if ( key === "genderFieldName" ) {
+                        $form.find( "[name='" + fieldName + "']" ).val( gender );
+                    } else if ( key === "addressCodeFieldName" ) {
+                        $form.find( "[name='" + fieldName + "']" ).val( addressCode );
+                    }
+                }
+
+            }
             return true;
         } else {
             return { "error": "身份证号码验证不通过" }
