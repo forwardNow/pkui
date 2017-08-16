@@ -48,9 +48,7 @@ seajs.config( {
         "moment-local-zh": "lib/utils/moment/2.18.0.x/locale/zh-cn",
 
         //【lib/utils】中国身份证号校验
-        "IDValidator": "lib/utils/IDValidator/1.3.0/IDValidator",
-        // 行政区划
-        "IDValidator-GB2260": "lib/utils/IDValidator/1.3.0/GB2260",
+        "IDValidator": "lib/utils/IDValidator/1.3.0.x/IDValidator",
 
         //【lib/jQuery】
         "jquery": "lib/jquery/1.11.3.x/jquery",

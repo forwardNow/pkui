@@ -2,24 +2,12 @@
  * (c) 2012-2017 Jony Zhang <niceue@live.com>, MIT Licensed
  * https://github.com/niceue/nice-validator
  */
-;(function(factory) {
-    // AMD
-    if ( typeof define === 'function' && define.amd ) {
-        define(['jquery'], factory)
-    }
-    // CMD
-    else if ( typeof define === 'function' && define.cmd ) {
-        define( function ( require ) {
-            return factory( require( "jquery" ) );
-        } );
-    }
-    // window
-    else {
-        factory( jQuery );
-    }
-
-}(function($, undefined) {
+define( function( require ) {
     "use strict";
+    var
+        $ = require( "jquery" ),
+        IDValidator = require( "IDValidator" )
+    ;
 
     var NS = 'validator',
         CLS_NS = '.' + NS,
@@ -2206,7 +2194,7 @@
                 ,email: [/^[\w\+\-]+(\.[\w\+\-]+)*@[a-z\d\-]+(\.[a-z\d\-]+)*\.([a-z]{2,4})$/i, "请填写有效的邮箱"]
                 ,url: [/^(https?|s?ftp):\/\/\S+$/i, "请填写有效的网址"]
                 ,qq: [/^[1-9]\d{4,}$/, "请填写有效的QQ号"]
-                ,IDcard: [/^\d{6}(19|2\d)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)?$/, "请填写正确的身份证号码"]
+                ,IDcard: idCardValidator
                 ,tel: [/^(?:(?:0\d{2,3}[\- ]?[1-9]\d{6,7})|(?:[48]00[\- ]?[1-9]\d{6}))$/, "请填写有效的电话号码"]
                 ,mobile: [/^1[3-9]\d{9}$/, "请填写有效的手机号"]
                 ,zipcode: [/^\d{6}$/, "请检查邮政编码格式"]
@@ -2327,9 +2315,22 @@
 
 
 
+    function idCardValidator( element, params ) {
+        var
+            idCode = element.value
+        ;
+
+        if ( IDValidator.validateID( idCode ) ) {
+            return true;
+        } else {
+            return { "error": "身份证号码验证不通过" }
+        }
+
+    }
+
 
     return $[NS] = Validator;
 
-}));
+} );
 
 
