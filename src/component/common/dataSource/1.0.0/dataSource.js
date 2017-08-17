@@ -34,8 +34,8 @@ define( function ( require ) {
          * @param dicName: 字典文件的url
          * @returns {*}: 返回的格式
          * [
-         *      { code: "", text: "", spell: "", aspell: "" },
-         *      { code: "", text: "", spell: "", aspell: "" },
+         *      { code: "", text: "", spell: "", aspell: "", visible: "" },
+         *      { code: "", text: "", spell: "", aspell: "", visible: "" },
          *      ...
          * ]
          */
@@ -286,8 +286,8 @@ define( function ( require ) {
     DataSource.utils = {
         /**
          * 根据字典文件名获取其URL，如果不是"DIC_"的格式，则直接当做URL来处理
-         * @param dicName 字典文件名，如 DIC_GENDER
-         * @returns {*}
+         * @param dicName {string} 字典文件名，如 DIC_GENDER
+         * @returns {string}
          */
         getDicUrl: function ( dicName ) {
             // 不以"DIC_"打头的字典，不添加时间戳
@@ -314,7 +314,8 @@ define( function ( require ) {
                     "code": rowElt.getAttribute( "DIC_CODE" ),
                     "text": rowElt.getAttribute( "DIC_TEXT" ),
                     "spell": rowElt.getAttribute( "DIC_SPELL" ),
-                    "aspell": rowElt.getAttribute( "DIC_ASPELL" )
+                    "aspell": rowElt.getAttribute( "DIC_ASPELL" ),
+                    "visible": rowElt.getAttribute( "DIC_PERM" ) || "1"
                 } );
             } );
 
