@@ -16,14 +16,16 @@
 define( function( require ) {
     var
         SessionValidityManager,
-        $ = require( "jquery" )
+        $ = require( "jquery" ),
+        PlaceholderHandler = require( "placeholderHandler" )
     ;
 
-    require( "placeholderHandler" );
 
     SessionValidityManager = {
 
         url: "{% system.user.getCurrentSysUser %}",
+
+        pkuiLoginUrl: "{% system.login.pkuiLogin %}",
 
         currentSysUser: null,
 
@@ -109,7 +111,12 @@ define( function( require ) {
             } );
         },
         showAlert: function ( msg ) {
-            msg = msg || "由于您长时间未操作，导致会话过期，请您重新 <a href='" + window.PKUI.ctxPath + "' target='_self'>登陆</a>";
+            var
+                pkuiLoginUrl = PlaceholderHandler.process( this.pkuiLoginUrl )
+            ;
+
+
+            msg = msg || "由于您长时间未操作，导致会话过期，请您重新 <a href='" + pkuiLoginUrl + "' target='_self'>登陆</a>";
 
             if ( $( "#" + this.namespace ).size() > 0 ) {
                 return;

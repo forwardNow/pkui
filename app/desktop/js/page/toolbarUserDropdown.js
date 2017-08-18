@@ -7,19 +7,23 @@ define( function( require ) {
     var
         ToolbarUserDropdown,
         $ = require( "jquery" ),
-        PlaceholderHandler = require( "placeholderHandler" )
+        PlaceholderHandler = require( "placeholderHandler" ),
+        Template = require( "template" )
     ;
 
     ToolbarUserDropdown = {
         $target: null,
         $userName: null,
         $existSystem: null,
+        $modifyPassword: null,
 
         namespace: "toolbar.userDropdown",
 
         getCurrentSysUserUrl: "{% system.user.getCurrentSysUser %}",
         doLogoutUrl: "{% system.login.doLogout %}",
-        loginPageUrl: "{% system.login.login %}",
+        loginPageUrl: "{% system.login.pkuiLogin %}",
+
+        modifyPasswordTplUrl: window.PKUI.ctxPath + "/static/desktop/tpl/system/user/modifyPassword.html",
 
         init: function () {
             this.render();
@@ -29,6 +33,7 @@ define( function( require ) {
             this.$target = $( "#toolbarUserDropdown" );
             this.$userName = $( "#toolbarUserDropdown-userName" );
             this.$existSystem = $( "#toolbarUserDropdown-existSystem" );
+            this.$modifyPassword = $( "#toolbarUserDropdown-modifyPassword" );
 
         },
         bindEvent: function () {
@@ -52,6 +57,10 @@ define( function( require ) {
                 _this.existSystem();
             } );
 
+            // 添加“修改密码”功能
+            this.$modifyPassword.on( "click." + namespace, function () {
+                _this.modifyPassword();
+            } );
         },
         existSystem: function () {
             var
@@ -107,6 +116,51 @@ define( function( require ) {
             } ).error( function( xhr ) {
                 layer.msg( "处理失败：" + xhr.status + " (" + xhr.statusText + ")", { icon: 0 } );
             } );
+        },
+        modifyPassword: function () {
+            var
+                _this = this,
+                viewUrl = this.modifyPasswordTplUrl,
+                modelUrl = this.getCurrentSysUserUrl,
+                $layerContent,
+                layerIndex
+            ;
+
+            layerIndex = layer.open( {
+                id: "modifySysUserPassword",
+                title: "修改用户密码",
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                area: ['600px', '420px'], //宽高
+                content: '',
+                success: function ( layero ) {
+
+                    $layerContent = layero.find( ".layui-layer-content" );
+
+                    // 开启loading
+                    $layerContent.isLoading();
+
+                    Template.getModelAndView( viewUrl, modelUrl, function ( htmlString ) {
+                        if ( ! $layerContent ) {
+                            return;
+                        }
+                        // 关闭 loading
+                        $layerContent.isLoading( "hide" );
+
+                        $layerContent.html( htmlString );
+                    } );
+
+                },
+                end: function () {
+                    $layerContent = null;
+                }
+            } );
+
+            $( document ).one( "modifySysUserPasswordSuccess", function () {
+                layer.close( layerIndex );
+                window.location = PlaceholderHandler.process( _this.loginPageUrl );
+            } );
+
         },
         _injectUserName: function () {
             var
