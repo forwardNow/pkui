@@ -78,4 +78,9 @@ define( function ( require ) {
 
     } );
 
+    // 处理离开网页的情况
+    $( window ).on( "beforeunload", function () {
+        return "确认要离开?";
+    } );
+
 } );
