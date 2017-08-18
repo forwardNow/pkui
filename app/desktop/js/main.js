@@ -45,6 +45,9 @@ define( function ( require ) {
     // DOM树构建完毕后执行
     $( document ).ready( function () {
 
+        // 会话有效性验证（自动初始化）
+        require( "./page/sessionValidityManager" );
+
         // 启动 Launchpad
         Launchpad.init();
 
@@ -72,8 +75,6 @@ define( function ( require ) {
         // 右下角下拉菜单功能（自动初始化）
         require( "./page/toolbarUserDropdown" );
 
-        // 会话有效性验证（自动初始化）
-        require( "./page/sessionValidityManager" );
 
     } );
 
