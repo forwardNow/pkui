@@ -90,6 +90,7 @@ define( function( require ) {
             .off( "focusout." + namespace )
             .on( "focusout." + namespace, function () {
                 _this._hide();
+                _this._appendIDCheckBit();
             } );
 
         this.$target
@@ -238,6 +239,32 @@ define( function( require ) {
             count += splitType[ i ];
         }
         return output.join( this.opts.delimiter );
+    };
+
+    /**
+     * 追加校验位
+     * @private
+     */
+    TextMagnifier.prototype._appendIDCheckBit = function () {
+        var
+            value,
+            checkBit
+        ;
+
+
+        if ( this.opts.splitType !== "id" ) {
+            return;
+        }
+
+        value = $.trim( this.$target.val() );
+
+        if ( value.length !== 17 ) {
+            return;
+        }
+
+        checkBit = IDValidator.getIDCheckBit( value );
+
+        this.$target.val( value + checkBit );
     };
 
 
