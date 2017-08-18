@@ -14,11 +14,14 @@ define( function ( require ) {
 
     $.extend( config, {
 
-        // 注销，Ajax请求，返回JsonResult（ { "success": true, ... } ）
+        // 登陆，  Ajax请求，返回JsonResult（ { "success": true, ... } ）
+        "system.login.doLogin": "__CTX__/doLogin",
+
+        // 注销，  Ajax请求，返回JsonResult（ { "success": true, ... } ）
         "system.login.doLogout": "__CTX__/doLogout",
 
         // 登陆页
-        "system.login.login": "__CTX__/login",
+        "system.login.pkuiLogin": "__CTX__/pkuiLogin",
 
         // 获取当前登陆的用户，用于：判断是否session过期 和 显示相关信息。
         "system.user.getCurrentSysUser": "__CTX__/admin/getCurrentSysUser"
@@ -184,6 +187,12 @@ define( function ( require ) {
         {
             "system.user.edit.sysUserSave": "__CTX__/admin/sysUserSave",
             "system.user.edit.sysDeptDic": "__CTX__/admin/sysDeptDic"
+        },
+
+        // user/modifyPassword.html
+        {
+            "system.user.modifyPassword.checkSysUserPassword": "__CTX__/admin/checkSysUserPassword",
+            "system.user.modifyPassword.updateSysUserPassword": "__CTX__/admin/updateSysUserPassword"
         },
 
         // resource/list.html
