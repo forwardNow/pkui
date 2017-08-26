@@ -198,6 +198,10 @@ define( function ( require ) {
                     }
 
                     handleSeajsBugInIE8Timer = window.setTimeout( function() {
+
+                        // 清除 beforeunload，避免出现弹框。
+                        $( window ).off( "beforeunload" );
+
                         window.layer.alert(
                             "您正在使用的IE8，未能正确载入脚本文件，请刷新页面！（2秒后自动刷新。）",
                             {
