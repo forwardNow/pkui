@@ -76,6 +76,41 @@ define( function ( require ) {
         require( "./page/toolbarUserDropdown" );
 
 
+        // 顶部用户信息
+        var
+            $daTopUsername = $( "#daTopUsername" ),
+            $daTopDeptName = $( "#daTopDeptName" )
+        ;
+        $.ajax( {
+            url: "{% system.user.getCurrentSysUser %}"
+        } ).done( function( jsonResult ) {
+            var
+                sysUser,
+                msg
+            ;
+            if ( jsonResult && jsonResult.success === true ) {
+                sysUser = jsonResult.data;
+            }
+            if ( ! sysUser || ! sysUser.hasOwnProperty( "userName" )) {
+                msg = "unknown response";
+                $daTopUsername.html( msg );
+                $daTopDeptName.html( msg );
+                return;
+            }
+            $daTopUsername.html( sysUser.userName );
+
+            if ( ! sysUser.deptName && sysUser.deptId ) {
+                require.async( "dataSource", function ( DataSource ) {
+                    $daTopDeptName.html( DataSource.getDicValue( "DIC_DEPT", sysUser.deptId ) );
+                } );
+            } else {
+                $daTopDeptName.html( sysUser.deptName );
+            }
+
+        } ).error( function() {
+            $daTopUsername.html( "[error]view console!" )
+            $daTopDeptName.html( "[error]view console!" )
+        } );
     } );
 
     // 处理离开网页的情况

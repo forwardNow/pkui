@@ -96,7 +96,7 @@ define( function ( require ) {
 
             _this.artDialog = Dialog.create( {
 
-                appendTo: "#da",
+                appendTo: "#daDesktop",
 
                 title: _this.title ? _this.title + " —— " + document.title : document.title,
                 content: _this.content,

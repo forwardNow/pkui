@@ -95,7 +95,7 @@ define( function ( require ) {
          * @returns {*|jQuery}
          */
         getAllDialogContainer: function () {
-            return $( document.body ).children( ".pkui-popup" );
+            return $( document.body ).find( ".pkui-popup" );
         },
         /**
          * 初始化自定义参数
@@ -201,9 +201,17 @@ define( function ( require ) {
                 topbarHeight,
                 dialogHeaderHeight,
                 pkuiOptions,
-                $topbar
+                $topbar,
+                // 显示弹出层的那个容器
+                $popupAppendToContainer,
+                popupAppendToContainerWidth,
+                popupAppendToContainerHeight
                 ;
             pkuiOptions = artDialog.options.pkuiOptions;
+
+            $popupAppendToContainer = $( artDialog.options.appendTo );
+            popupAppendToContainerWidth = $popupAppendToContainer.width();
+            popupAppendToContainerHeight = $popupAppendToContainer.height();
 
             pageWidth = Utils.getPageWidth();
             pageHeight = Utils.getPageHeight();
@@ -220,14 +228,14 @@ define( function ( require ) {
             // 1. 设置最外围的container
             // 如果 topbar 在下面，则top = 0
             pkuiOptions.$dialogContainer.css( {
-                "top": $topbar.css( "bottom" ) === "0px" ? 0 : topbarHeight,
+                "top": 0,
                 "left": 0
             } );
 
             // 2. 设置内容区域的宽高 （.pkui-dialog-content）
             pkuiOptions.$dialogContent.css( {
-                "width": pageWidth,
-                "height": pageHeight - topbarHeight - dialogHeaderHeight
+                "width": popupAppendToContainerWidth,
+                "height": popupAppendToContainerHeight - dialogHeaderHeight
             } );
 
             // 3. 发生一次最大化的事件

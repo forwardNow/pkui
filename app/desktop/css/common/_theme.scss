@@ -33,7 +33,7 @@
     }
     .da-desktop {
         bottom: 46px;
-        top: 0;
+        top: 48px;
     }
     .da-sidebar {
         top: 0;
@@ -52,6 +52,39 @@
         -webkit-box-reflect: below -16px -webkit-linear-gradient(top, rgba(250, 250, 250, 0), rgba(250, 250, 250, 0) 40%, rgba(250, 250, 250, 0.2));
         box-reflect: below -16px -webkit-linear-gradient(top, rgba(250, 250, 250, 0), rgba(250, 250, 250, 0) 40%, rgba(250, 250, 250, 0.2));
         text-shadow: 0 0 2px rgba(0, 0, 0, .3), 0 0 4px rgba(255, 255, 255, 1);
+    }
+    .da-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 48px;
+        line-height: 48px;
+        /*background-color: rgba(63, 161, 242, 0.24);*/
+        /*background-color: #094E93;*/
+        /*background-color: rgba(9, 78, 147, 0.27);*/
+        color: #fff;
+        vertical-align: middle;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+        box-shadow: 0 0 4px rgba(0,0,0,0.5);
+        border-bottom: solid 1px #055e93\9;
+    }
+    .da-top-title {
+        float: left;
+        font-size: 24px;
+        letter-spacing: 3px;
+    }
+    .da-top-img {
+        height: 32px;
+        margin: 8px 6px 0 12px;
+        vertical-align: top;
+    }
+    .da-top-info {
+        float: right;
+    }
+    .da-top-info-item {
+        float: left;
+        margin-right: 24px;
     }
 }
 
