@@ -98,7 +98,7 @@ define( function ( require ) {
 
                 appendTo: "#da",
 
-                title: _this.title,
+                title: _this.title ? _this.title + " —— " + document.title : document.title,
                 content: _this.content,
                 url: this.options.mode === "iframe" ? this.options.src : null,
                 width: _this.options.width,

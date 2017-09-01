@@ -40,6 +40,19 @@
         bottom: 46px;
         overflow: hidden;
     }
+    .da-desktop-title {
+        position: absolute;
+        bottom: 20%;
+        left: 0;
+        width: 100%;
+        color: #ffffff;
+        font-size: 60px;
+        text-align: center;
+        letter-spacing: 6px;
+        -webkit-box-reflect: below -16px -webkit-linear-gradient(top, rgba(250, 250, 250, 0), rgba(250, 250, 250, 0) 40%, rgba(250, 250, 250, 0.2));
+        box-reflect: below -16px -webkit-linear-gradient(top, rgba(250, 250, 250, 0), rgba(250, 250, 250, 0) 40%, rgba(250, 250, 250, 0.2));
+        text-shadow: 0 0 2px rgba(0, 0, 0, .3), 0 0 4px rgba(255, 255, 255, 1);
+    }
 }
 
 :root .da-theme-light .da-topbar {
