@@ -74,6 +74,7 @@ define( function ( require ) {
                 e.preventDefault();
                 _this.swiper.swipeNext();
             } );
+            /*
             // 拖拽排序
             $( ".launchpad-shortcutpad" ).sortable( {
                 appendTo: document.body,
@@ -84,7 +85,7 @@ define( function ( require ) {
                 scroll: false,
                 tolerance: "pointer",
                 // 拖拽到页面边界会发生翻页，翻页时间间隔是1秒
-                sort: function ( event /*, ui */ ) {
+                sort: function ( event /!*, ui *!/ ) {
                     var x,
                         pageWidth
                         ;
@@ -114,6 +115,7 @@ define( function ( require ) {
 
                 }
             } ).disableSelection();
+            */
         }
     };
 
