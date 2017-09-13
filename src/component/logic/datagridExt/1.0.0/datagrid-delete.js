@@ -1,9 +1,9 @@
 /**
- * 对 bootgrid 的扩展
+ * @fileOverview 对 bootgrid 的扩展，扩展删除记录功能
+ * @author 吴钦飞（wuqf@pkusoft.net）
  */
 define( function ( require ) {
     var
-        bootgrid = require( "bootgrid" ),
         $ = require( "jquery" ),
         layer = window.layer,
 
