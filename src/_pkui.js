@@ -387,6 +387,9 @@ define( function ( require ) {
                         date = row[ column.id ],
                         momentInstance
                     ;
+                    if ( !date ) {
+                        return "";
+                    }
                     if ( typeof date === "number" ) {
                         momentInstance = moment( date );
                     } else if ( typeof date === "string" ) {
@@ -401,6 +404,9 @@ define( function ( require ) {
                         date = row[ column.id ],
                         momentInstance
                     ;
+                    if ( !date ) {
+                        return "";
+                    }
                     if ( typeof date === "number" ) {
                         momentInstance = moment( date );
                     } else if ( typeof date === "string" ) {
