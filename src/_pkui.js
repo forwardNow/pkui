@@ -425,8 +425,11 @@ define( function ( require ) {
                         return '<span class="text-success"><i class="fa fa-circle"></i> 正常</span>';
                     }
                     // 停用
-                    else {
+                    else if ( status === "0" ) {
                         return '<span class="text-danger"><i class="fa fa-circle"></i> 停用</span>';
+                    }
+                    else {
+                        return "";
                     }
                 },
                 // 标志状态（是/否）
@@ -439,8 +442,11 @@ define( function ( require ) {
                         return '<span class="text-success"><i class="fa fa-circle"></i> 是</span>';
                     }
                     // 停用
-                    else {
+                    else if ( status === "0" ) {
                         return '<span class="text-danger"><i class="fa fa-circle"></i> 否</span>';
+                    }
+                    else {
+                        return "";
                     }
                 }
             }

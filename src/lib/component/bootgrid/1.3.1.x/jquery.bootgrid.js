@@ -2404,6 +2404,7 @@ define( function( require ) {
                 ;
             $this = $( this );
 
+
             // 针对 radio（":radio:not(:checked)"）
             if ( $this.is( ":radio" ) && !$this.is( ":checked" ) ) {
                 return;
@@ -2421,6 +2422,11 @@ define( function( require ) {
             }
 
             params[ property ] = value;
+
+            // 过滤掉不包含在 oredCriteria 的字段，但会发送到服务器
+            if ( $this.attr( "data-not-in-criteria" ) ) {
+                return;
+            }
 
             if ( operator === "like" ) {
                 value = "%" + value + "%";
