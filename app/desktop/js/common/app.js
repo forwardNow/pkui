@@ -201,15 +201,10 @@ define( function ( require ) {
 
             // 如果是打开新浏览器页签
             if ( _this.options.mode === "browserTab" ) {
-                // 注册点击事件
-                _this.$target.on( "click.app.newtab", function () {
-                    if ( ! _this.$target.data( "targetWindowName" ) ) {
-                        _this.$target.data( "targetWindowName", "newWindow_" + ( new Date() ).getTime() );
-                    }
-                    window.open(  _this.options.src || "_blank", _this.$target.data( "targetWindowName" ) );
-                } );
-                // 立即触发，打开。
-                _this.$target.trigger( "click.app.newtab" );
+                if ( ! _this.$target.data( "targetWindowName" ) ) {
+                    _this.$target.data( "targetWindowName", "newWindow_" + ( new Date() ).getTime() );
+                }
+                window.open(  _this.options.src || "_blank", _this.$target.data( "targetWindowName" ) );
                 return this;
             }
 
