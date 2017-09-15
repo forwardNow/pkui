@@ -50,6 +50,7 @@ define( function() {
         { menuId: 9, fontIconClass: "fonticon-yellow" },
         { menuId: 10, fontIconStyle: { bgColor: "#f8e2b3", color: "#5a4118" } },
         { menuId: 114 },
+        { menuId: 450, fontIconClass: "fonticon-green" },
 
         { menuId: 446, fontIconStyle: { bgColor: "#fff", color: "#2319dc" },
             menuName: "mode(iframe)",

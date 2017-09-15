@@ -1,0 +1,115 @@
+<div class="win-main-topbar">
+    <div class="main-topbar-func">
+        <button type="button" class="btn btn-success-2"
+                id="addSysMessageBtn"
+                data-pkui-component="drawer"
+                data-pkui-component-options='{
+                    "url":"__CTX__/static/desktop/tpl/common/msg/add.html",
+                    "container": ".da-win-main"}'
+                ><i class="fa fa-plus"></i> 新建</button>
+        <button type="button" class="btn btn-danger-2"
+                data-pkui-component="datagrid-delete"
+                data-pkui-component-options='{
+                    "datagridSelector": "#sysMessageDatagrid",
+                    "PKName": "msgId",
+                    "url": "{% common.msg.list.sysMessageDelete %}",
+                    "extraData": {
+                        "isSend": "#sysMessage-isSend"
+                    }
+                }'
+                title="删除勾选的记录（可多选）"
+                ><i class="fa fa-trash-o"></i> 删除</button>
+    </div>
+    <div class="main-topbar-query">
+        <form id="sysMessageQueryForm">
+
+            <div class="input-group">
+                <span class="input-group-addon">本人角色</span>
+                <select name="isSend" id="sysMessage-isSend" data-not-in-criteria="true"
+                        data-pkui-component="chosen">
+                    <option value="false">接收者</option>
+                    <option value="true">创建者</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon">状态</span>
+                <select name="readFlag"
+                        data-pkui-component="chosen">
+                    <option value="">全部</option>
+                    <option value="1">已读</option>
+                    <option value="0">未读</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon">标题</span>
+                <input type="text" class="da-form-control" placeholder="模糊查询" name="msgTitle" data-operator="like">
+                <span class="input-group-btn">
+                    <button class="btn btn-info-2" type="button" onclick='jQuery( "#sysMessageDatagrid" ).bootgrid( "reload" );'><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+            <button class="btn btn-default-2" type="button"
+                    onclick='jQuery( "#sysMessageDatagrid" ).bootgrid( "reload" );'><i class="fa fa-refresh"></i></button>
+        </form>
+    </div>
+</div>
+
+<table id="sysMessageDatagrid"
+       data-pkui-component="datagrid"
+       data-pkui-component-options='{
+            "selection": true,
+            "multiSelect": true
+       }'
+       data-url="{% common.msg.list.sysMessageListData %}"
+       data-query-form-selector="#sysMessageQueryForm"
+       >
+    <thead>
+
+    <tr>
+        <!--
+            data-column-id：对应bean的属性名
+            data-identifier： Boolean。data-row-id，行ID。（只对一个列使用）
+            data-visible：Boolean。此列是否可见。（可用于标记 行ID 的列）
+            data-sortable：Boolean。此列是否可排序（升序、降序），会拼接 order by 子句，发送请求
+            data-width：行宽度，可以使用百分比和数字，如 25%、200。
+            data-formatter：对内容进行格式化，使用全局函数，会传递两个参数 column、row，返回HTML字符串
+                                column.id 获取该列“data-column-id”
+                                row 该行数据，如 { msgId: 123, msgName: "某部门", ... }
+        -->
+        <th data-column-id="msgId" data-identifier="true" data-visible="false" data-sortable="false">消息编号</th>
+        <th data-column-id="msgTitle" data-sortable="false" data-width="30%">标题</th>
+        <th data-column-id="sendTime" data-sortable="false" data-width="15%" data-formatter="datetimeFormatter">发送时间</th>
+        <th data-column-id="readFlag" data-sortable="false" data-width="10%" data-formatter="yesOrNoFormatter">是否已读</th>
+        <th data-column-id="receiveUserName" data-sortable="false" data-width="10%">接收者</th>
+        <th data-column-id="receiveTime" data-sortable="false" data-width="15%" data-formatter="datetimeFormatter">阅读时间</th>
+        <th data-column-id="__" data-sortable="false" data-formatter="sysMessageOpe">操作</th>
+    </tr>
+    </thead>
+
+</table>
+
+<script>
+
+    /**
+     * 操作
+     */
+    function sysMessageOpe(column, row) {
+        return '<a href="javascript:void(0)" '
+        +           ' id=viewSysMessage_' + row.msgId
+        +           ' data-pkui-component="drawer"'
+        +           ' data-pkui-component-options=\'{'
+        +               '"url":"__CTX__/static/desktop/tpl/common/msg/detail.html",'
+        +               '"model":"{% common.msg.list.sysMessageModel %}?msgId=' + row.msgId + '",'
+        +               '"container": ".da-win-main"}\'><i class="fa fa-file-o"></i> 查看</a>　'
+
+        +       '<a href="javascript:void(0)" '
+        +           ' id=editSysMessage_' + row.msgId
+        +           ' data-pkui-component="drawer"'
+        +           ' data-pkui-component-options=\'{'
+        +               '"url":"__CTX__/static/desktop/tpl/common/msg/edit.html",'
+        +               '"model":"{% common.msg.list.sysMessageModel %}?msgId=' + row.msgId + '",'
+        +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>';
+    }
+
+</script>

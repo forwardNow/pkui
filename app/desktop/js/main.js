@@ -11,6 +11,8 @@ define( function ( require ) {
 
     // 载入系统功能URL配置文件
     require( "./config/systemUrl" );
+    // 载入通用功能URL配置文件
+    require( "./config/commonUrl" );
 
     // 载入全局设置的配置文件
     require( "./config/globalSetting" );
