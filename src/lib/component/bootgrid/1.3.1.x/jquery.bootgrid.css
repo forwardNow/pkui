@@ -217,6 +217,9 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.pkui-grid-cell > .dropdown {
+  display: inline-block;
+}
 
 .pkui-grid-colresizable-grip {
   width: 18px;

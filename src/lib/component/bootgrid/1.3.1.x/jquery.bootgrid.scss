@@ -248,6 +248,9 @@
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     white-space: nowrap;
+    > .dropdown {
+        display: inline-block;
+    }
 }
 
 .pkui-grid-colresizable-grip {

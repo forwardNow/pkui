@@ -237,6 +237,51 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.pkui-grid-cell > .dropdown {
+  display: inline-block;
+}
+.pkui-grid-cell > .dropdown > .dropdown-menu {
+  z-index: auto;
+  left: auto;
+  top: auto;
+  right: 0;
+  bottom: 100%;
+  min-width: inherit;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+.pkui-grid-cell > .dropdown > .dropdown-menu > li > a:hover, .pkui-grid-cell > .dropdown > .dropdown-menu > li > a:focus {
+  color: #fff;
+  background-color: #0366d6;
+}
+.pkui-grid-cell > .dropdown > .dropdown-menu:before {
+  content: '';
+  display: inline-block;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid rgba(0, 0, 0, 0.15);
+  border-top: 0;
+  border-bottom-color: #ccc;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  right: 6px;
+  bottom: -7px;
+  border-bottom: 0;
+  border-top: 7px solid rgba(0, 0, 0, 0.15);
+}
+.pkui-grid-cell > .dropdown > .dropdown-menu:after {
+  content: '';
+  display: inline-block;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #fff;
+  border-top: 0;
+  position: absolute;
+  right: 7px;
+  bottom: -6px;
+  border-bottom: 0;
+  border-top: 6px solid #fff;
+}
 
 .pkui-grid-colresizable-grip {
   width: 18px;
@@ -259,4 +304,11 @@
 }
 .no-totalRecords > .pkui-grid-infos {
   display: none;
+}
+
+.hasDropdownMenu {
+  overflow: visible !important;
+}
+.hasDropdownMenu > .pkui-grid-cell {
+  overflow: visible !important;
 }

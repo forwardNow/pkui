@@ -90,16 +90,22 @@ define( function( require ) {
         // FIX 数据载入完毕后，在添加 colResizable，解决：出现滚动条后，右侧表格被隐藏的问题
         this.element.on( "loaded" + namespace, function () {
             var $this = $( this );
-            if ( $this.data( "isColResizable" ) === true ) {
-                return;
+            if ( $this.data( "isColResizable" ) !== true ) {
+                $this.colResizable( {
+                    // 实时显示拖拽后的表格
+                    liveDrag:true
+                    // 设置拖拽的标志
+                    //gripInnerHtml:"<div class='pkui-grid-colresizable-grip' title='可拖拽调整列宽'></div>"
+                } );
+                $this.data( "isColResizable", true );
             }
-            $this.colResizable( {
-                // 实时显示拖拽后的表格
-                liveDrag:true
-                // 设置拖拽的标志
-                //gripInnerHtml:"<div class='pkui-grid-colresizable-grip' title='可拖拽调整列宽'></div>"
+            // 让操作列点击事件不冒泡
+            $this.children( "tbody" ).children( "tr" ).children( "td:last-child" ).on( "click", function ( event ) {
+                event.stopPropagation()
             } );
-            $this.data( "isColResizable", true );
+            // “更多”
+            $this.find( '[data-toggle="dropdown"]' ).dropdown();
+
         });
     }
 
@@ -212,6 +218,8 @@ define( function( require ) {
                     formatter: that.options.formatters[ data.formatter ] || window[ data.formatter ] || window.PKUI.bootgridFormatter[ data.formatter ] || null,
                     // FIX 字典翻译
                     dic: data.dic,
+                    // FIX 是否有下拉菜单
+                    hasDropdownMenu: data.hasDropdownMenu,
                     order: (!sorted && (data.order === "asc" || data.order === "desc")) ? data.order : null,
                     searchable: !(data.searchable === false), // default: true
                     sortable: !(data.sortable === false), // default: true
@@ -662,6 +670,11 @@ define( function( require ) {
                                 column.converter.to( row[ column.id ] ),
                             cssClass = (column.cssClass.length > 0) ? " " + column.cssClass : "";
 
+                        // FIX 如果有下拉菜单，则添加 .hasDropdownMenu 类
+                        if ( column.hasDropdownMenu ) {
+                            cssClass += " hasDropdownMenu ";
+                        }
+
                         // FIX 字典翻译
                         try {
                             if ( column.dic ) {
@@ -683,6 +696,7 @@ define( function( require ) {
                             style: (column.width == null) ? "" : "width:" + column.width + ";",
                             title: title
                         } ) );
+
                     }
                 } );
 
@@ -2349,7 +2363,7 @@ define( function( require ) {
             actionDropDownCheckboxItem: "<li><label class=\"{{css.dropDownItem}}\"><input name=\"{{ctx.name}}\" type=\"checkbox\" value=\"1\" class=\"{{css.dropDownItemCheckbox}}\" {{ctx.checked}} /> {{ctx.label}}</label></li>",
             actions: "<div class=\"{{css.actions}}\"></div>",
             body: "<tbody></tbody>",
-            cell: "<td class=\"{{ctx.css}}\" style=\"{{ctx.style}}\"><p class=\"{{css.cell}}\" title=\"{{ctx.title}}\">{{ctx.content}}</p></td>",
+            cell: "<td class=\"{{ctx.css}}\" style=\"{{ctx.style}}\"><div class=\"{{css.cell}}\" title=\"{{ctx.title}}\">{{ctx.content}}</div></td>",
             footer: "<div id=\"{{ctx.id}}\" class=\"{{css.footer}}\"><p class=\"{{css.pagination}}\"></p><p class=\"{{css.infos}}\"></p></div>",
             header: "<div id=\"{{ctx.id}}\" class=\"{{css.header}}\"><p class=\"{{css.search}}\"></p><p class=\"{{css.actions}}\"></p><p title=\"列表设置\" class=\"pkui-grid-setting fa fa-gear\"></p></div>",
             headerCell: "<th data-column-id=\"{{ctx.column.id}}\" class=\"{{ctx.css}}\" style=\"{{ctx.style}}\"><a href=\"javascript:void(0);\" class=\"{{css.columnHeaderAnchor}} {{ctx.sortable}}\"><span class=\"{{css.columnHeaderText}}\">{{ctx.column.text}}{{ctx.icon}}</span></a></th>",
