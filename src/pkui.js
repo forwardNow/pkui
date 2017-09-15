@@ -115,6 +115,9 @@ seajs.config( {
         //【lib/component】datetimepicker
         "datetimepicker": "lib/component/datetimepicker/2.5.4.x/datetimepicker",
 
+        //【lib/component】umeditor
+        "umeditor": "lib/component/umeditor/1.2.3.x/wrapper",
+
         //【component/common 】 数据源
         "dataSource": "component/common/dataSource/1.0.0/dataSource",
 

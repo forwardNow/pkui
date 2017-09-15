@@ -652,6 +652,9 @@ define( function ( require ) {
                                 case "textMagnifier":
                                     moduleId = "textMagnifier";
                                     break;
+                                case "umeditor":
+                                    moduleId = "umeditor";
+                                    break;
                                 default:
                                     var errorMessage = "未被注册的组件[" + componentName + "]";
                                     console.info( moment().format("YYYY年MM月DD日 HH:MM:SS") + " " + errorMessage );
