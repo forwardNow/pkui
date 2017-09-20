@@ -1,0 +1,30 @@
+$ns: "pkui";
+
+.#{$ns}-table {
+    width: 100%;
+    max-width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    background-color: transparent;
+    color: #333;
+    > tbody > tr > td {
+        padding: 8px 6px;
+    }
+}
+.#{$ns}-table-default {
+
+    > tbody > tr > td {
+        border: solid 1px #dddddd;
+
+        &:nth-of-type(2n-1) {
+        }
+
+    }
+
+    .#{$ns}-control-label {
+        background: #f1f1f1;
+        color: #888;
+        text-align: right;
+        min-width: 80px;
+    }
+}
