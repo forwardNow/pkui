@@ -120,10 +120,11 @@ module.exports = function ( grunt ) {
                     "cd /Users/forwardNow/develop/workspace/pkui/WebContent/static",
                     "rm -Rf ./pkui/*",
                     "rm -Rf ./desktop/*",
+                    "rm -Rf ./laweye/*",
                     "cp -R /Users/forwardNow/develop/work/pkusoft/pkui/src/* ./pkui/",
                     "cp -R /Users/forwardNow/develop/work/pkusoft/pkui/app/desktop/* ./desktop/",
-                    // sed -i '' 's/..\/..\/src\/pkui.js/..\/pkui\/pkui.js/g' ./desktop/index.html
-                    "sed -i '' 's/..\\/..\\/src\\/pkui.js/..\\/pkui\\/pkui.js/g' ./desktop/index.html"
+                    "cp -R /Users/forwardNow/develop/work/pkusoft/pkui/app/laweye/* ./laweye/"
+                    // "sed -i '' 's/..\\/..\\/src\\/pkui.js/..\\/pkui\\/pkui.js/g' ./desktop/index.html"
                 ].join('&&')
             }
         }
