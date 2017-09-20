@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>执法监督平台</title>
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="../desktop/css/style.css">
+    <link rel="stylesheet" href="css/page/starter.css">
+
+    <!--
+        data-main：当前应用的入口js文件
+        data-timestamp: 时间戳（dev为开发模式），比如 data-timestamp="v=2017-02-27"
+    -->
+    <script data-main="./js/main.js" data-timestamp="2017-09-01" src="../pkui/pkui.js"></script>
+</head>
+<body>
+
+<!-- desktop app -->
+<!--
+<div class="da da-theme da-theme-default" id="da">
+-->
+<div class="da da-theme da-theme-light" id="da">
+
+    <div class="da-top clearfix" id="daTop">
+        <div class="da-top-title"><img class="da-top-img" src="images/logo.png" alt="">执法监督平台</div>
+        <div class="da-top-info">
+            <div class="da-top-info-item"><i class="fa fa-user-o"></i> <span id="daTopUsername">我是谁...<i class="fa fa-spinner fa-spin"></i></span></div>
+            <div class="da-top-info-item"><i class="fa fa-home"></i> <span id="daTopDeptName">属于哪个单位...<i class="fa fa-spinner fa-spin"></i></span></div>
+        </div>
+        <div class="da-top-message"><i class="fa fa-envelope-o"></i> 消息 <span class="caret"></span></div>
+    </div>
+
+    <style>
+        .da-top-message {
+            float: right;
+            margin-right: 20px;
+        }
+    </style>
+    <!-- 顶部栏 -->
+    <header class="da-topbar" id="daTopbar">
+
+        <!-- 显示桌面 -->
+        <div class="topbar-home" title="隐藏所有窗口"></div>
+        <!-- /显示桌面 -->
+
+        <!-- 已使用过的功能 -->
+        <div class="topbar-history" id="topbar-history" title="已使用过的应用"></div>
+        <!-- /已使用过的功能 -->
+
+        <!-- 任务栏 -->
+        <div class="topbar-dock">
+            <i class="dock-dropmenu-indicator" style="display: none;"></i>
+            <div class="dock-dropmenu" >
+                <div class="dock-dropmenu-list hidden">
+                </div>
+            </div>
+        </div>
+        <!-- /任务栏 -->
+
+        <!-- 工具栏 -->
+        <div class="topbar-toolbar">
+
+            <!-- 搜索 common/app-search.js -->
+            <div class="topbar-toolbar-item" id="topbar-toolbar-search" title="应用搜索"><i class="fa fa-search"></i></div>
+            <!-- /搜索 -->
+
+            <!-- 用户信息 -->
+            <div class="topbar-toolbar-item topbar-toolbar-userItem dropdown" id="toolbarUserDropdown">
+                <span data-toggle="dropdown"><i class="fa fa-user-o"></i> <span class="caret"></span></span>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-header"><i class="fa fa-user-o"></i> <span id="toolbarUserDropdown-userName">我是谁...<i class="fa fa-spinner fa-spin"></i></span></li>
+                    <li class="divider"></li>
+                    <li class="relative disabled"><a href="#"><i class="fa fa-envelope-o"></i><span class="toolbar-msgItem-label">0</span> 我的消息</a></li>
+                    <li id="toolbarUserDropdown-modifyPassword"><a href="#"><i class="fa fa-key"></i> 修改密码</a></li>
+                    <li id="toolbarUserDropdown-existSystem"><a href="#"><i class="fa fa-sign-out"></i> 退出系统</a></li>
+                </ul>
+            </div>
+            <!-- /用户信息 -->
+
+        </div>
+        <!-- /工具栏 -->
+
+    </header>
+    <!-- /顶部栏 -->
+
+    <!-- 桌面 -->
+    <main class="da-desktop" id="daDesktop">
+        <!-- 应用启动面板 common/launchpad.js -->
+        <div class="launchpad-container">
+
+            <!-- 显示区域 -->
+            <div class="launchpad-view swiper-container">
+                <div class="launchpad-view-pageList swiper-wrapper hidden">
+
+                    <!--
+                        首页（启动页、第一页）
+                    -->
+                    <!--
+                    <div class="launchpad-view-pageItem swiper-slide">
+                        <div class="launchpad-starter"
+                             data-pkui-component="loadContent"
+                             data-pkui-component-options='{
+                                        "targetSelector": "default",
+                                        "loadContentFromWhichModuleId": "__CTX__/static/desktop/js/page/index/starter"
+                                     }'>
+                        </div>
+                    </div>
+                    -->
+
+                    <div class="launchpad-view-pageItem swiper-slide">
+                        <div class="launchpad-starter container-fluid">
+
+                            <div class="row stater-row stater-row-top">
+                                <!-- 待办任务 -->
+                                <div class="col-xs-4">
+                                    <div class="starter-panel">
+                                        <div class="starter-panel-heading">待办任务</div>
+                                        <div class="starter-panel-body">
+                                            <div class="starter-list">
+                                                <div class="starter-item">
+                                                    <i class="starter-item-icon fa fa-tasks"></i>
+                                                    <span class="starter-item-content">
+                                                        <span class="starter-item-text">你所受理的二代证</span>
+                                                        <span class="starter-item-time">10分钟前</span>
+                                                    </span>
+                                                </div>
+                                                <div class="starter-item">
+                                                    <i class="starter-item-icon fa fa-tasks"></i>
+                                                    <span class="starter-item-content">
+                                                        <span class="starter-item-text">你所受理的二代证 测一(510107199012050031)</span>
+                                                        <span class="starter-item-time">10分钟前</span>
+                                                    </span>
+                                                </div>
+                                                <div class="starter-item">
+                                                    <i class="starter-item-icon fa fa-tasks"></i>
+                                                    <span class="starter-item-content">
+                                                        <span class="starter-item-text">你所受理的二代证 测一(510107199012050031) 分局签发不通过</span>
+                                                        <span class="starter-item-time">10分钟前</span>
+                                                    </span>
+                                                </div>
+                                                <div class="starter-item">
+                                                    <i class="starter-item-icon fa fa-tasks"></i>
+                                                    <span class="starter-item-content">
+                                                        <span class="starter-item-text">你所受理的二代证 测一(510107199012050031) 分局签发不通过,原因为：公民身份号码重号。</span>
+                                                        <span class="starter-item-time">10分钟前</span>
+                                                    </span>
+                                                </div>
+                                                <div class="starter-item">
+                                                    <i class="starter-item-icon fa fa-tasks"></i>
+                                                    <span class="starter-item-content">
+                                                        <span class="starter-item-text">你所受理的二代证 测一(510107199012050031) 分局签发不通过,原因为：公民身份号码重号。 --成都市公安局武侯区分局</span>
+                                                        <span class="starter-item-time">10分钟前</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /待办任务 -->
+
+                                <!-- 预警信息 -->
+                                <div class="col-xs-4">
+                                    <div class="starter-panel">
+                                        <div class="starter-panel-heading">预警信息</div>
+                                        <div class="starter-panel-body"></div>
+                                    </div>
+                                </div>
+                                <!-- /预警信息 -->
+
+                                <!-- 执法问题 -->
+                                <div class="col-xs-4">
+                                    <div class="starter-panel">
+                                        <div class="starter-panel-heading">执法问题</div>
+                                        <div class="starter-panel-body">
+                                            <div class="starter-list">
+                                                <div class="starter-item">
+                                                    <i class="starter-item-icon fa fa-question-circle"></i>
+                                                    <span class="starter-item-content">
+                                                        <span class="starter-item-text">你所受理的二代证</span>
+                                                        <span class="starter-item-time">2017年9月19日</span>
+                                                    </span>
+                                                </div>
+                                                <div class="starter-item">
+                                                    <i class="starter-item-icon fa fa-question-circle"></i>
+                                                    <span class="starter-item-content">
+                                                        <span class="starter-item-text">你所受理的二代证 测一(510107199012050031)</span>
+                                                        <span class="starter-item-time">2017年9月18日</span>
+                                                    </span>
+                                                </div>
+                                                <div class="starter-item">
+                                                    <i class="starter-item-icon fa fa-question-circle"></i>
+                                                    <span class="starter-item-content">
+                                                        <span class="starter-item-text">你所受理的二代证 测一(510107199012050031) 分局签发不通过</span>
+                                                        <span class="starter-item-time">2017年9月17日</span>
+                                                    </span>
+                                                </div>
+                                                <div class="starter-item">
+                                                    <i class="starter-item-icon fa fa-question-circle"></i>
+                                                    <span class="starter-item-content">
+                                                        <span class="starter-item-text">你所受理的二代证 测一(510107199012050031) 分局签发不通过,原因为：公民身份号码重号。</span>
+                                                        <span class="starter-item-time">2017年9月16日</span>
+                                                    </span>
+                                                </div>
+                                                <div class="starter-item">
+                                                    <i class="starter-item-icon fa fa-question-circle"></i>
+                                                    <span class="starter-item-content">
+                                                        <span class="starter-item-text">你所受理的二代证 测一(510107199012050031) 分局签发不通过,原因为：公民身份号码重号。 --成都市公安局武侯区分局</span>
+                                                        <span class="starter-item-time">2017年9月15日</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /执法问题 -->
+                            </div>
+
+                            <div class="row stater-row stater-row-bottom">
+
+                                <!-- 我的常用 -->
+                                <div class="col-xs-3">
+                                    <div class="starter-panel">
+                                        <div class="starter-panel-heading">我的常用</div>
+                                        <div class="starter-panel-body">
+                                            <div class="starter-shoutcutList clearfix">
+                                                <div class="starter-shoutcutItem">
+                                                    <div class="launchpad-shortcut">
+                                                        <span class="launchpad-shortcut-icon launchpad-shortcut-fonticon fonticon-default" ><i class="fa fa-folder"></i></span>
+                                                        <p class="launchpad-shortcut-title">执法监督应用综合门户</p>
+                                                    </div>
+                                                </div>
+                                                <div class="starter-shoutcutItem">
+                                                    <div class="launchpad-shortcut">
+                                                        <img class="launchpad-shortcut-icon" src="../desktop/images/apps/app_01.png">
+                                                        <p class="launchpad-shortcut-title">执法监督应用综合门户</p>
+                                                    </div>
+                                                </div>
+                                                <div class="starter-shoutcutItem">
+                                                    <div class="launchpad-shortcut">
+                                                        <span class="launchpad-shortcut-icon launchpad-shortcut-fonticon fonticon-default" ><i class="fa fa-folder"></i></span>
+                                                        <p class="launchpad-shortcut-title">执法监督应用综合门户</p>
+                                                    </div>
+                                                </div>
+                                                <div class="starter-shoutcutItem">
+                                                    <div class="launchpad-shortcut">
+                                                        <img class="launchpad-shortcut-icon" src="../desktop/images/apps/app_01.png">
+                                                        <p class="launchpad-shortcut-title">执法监督应用综合门户</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /我的常用 -->
+
+                                <!-- 功能导航 -->
+                                <div class="col-xs-6">
+                                    <div class="starter-panel starter-panel-linkList">
+                                        <div class="starter-panel-heading">功能导航</div>
+                                        <div class="starter-panel-body">
+                                            <div class="starter-linkList clearfix">
+                                                <div class="starter-linkItem">执法监督应用综合门户</div>
+                                                <div class="starter-linkItem disabled">执法监督可视化数据展示子系统</div>
+                                                <div class="starter-linkItem">分局执法监督可视化数据展示子系统</div>
+                                                <div class="starter-linkItem disabled">执法监督应用综合门户</div>
+                                                <div class="starter-linkItem">执法监督可视化数据展示子系统</div>
+                                                <div class="starter-linkItem disabled">分局执法监督可视化数据展示子系统</div>
+                                                <div class="starter-linkItem">执法监督应用综合门户</div>
+                                                <div class="starter-linkItem">执法监督可视化数据展示子系统</div>
+                                                <div class="starter-linkItem">分局执法监督可视化数据展示子系统</div>
+                                                <div class="starter-linkItem">执法监督应用综合门户</div>
+                                                <div class="starter-linkItem">执法监督可视化数据展示子系统</div>
+                                                <div class="starter-linkItem">分局执法监督可视化数据展示子系统</div>
+                                                <div class="starter-linkItem">执法监督应用综合门户</div>
+                                                <div class="starter-linkItem">执法监督可视化数据展示子系统</div>
+                                                <div class="starter-linkItem">分局执法监督可视化数据展示子系统</div>
+                                                <div class="starter-linkItem">执法监督应用综合门户</div>
+                                                <div class="starter-linkItem">执法监督可视化数据展示子系统</div>
+                                                <div class="starter-linkItem">分局执法监督可视化数据展示子系统</div>
+                                                <div class="starter-linkItem">执法监督应用综合门户</div>
+                                                <div class="starter-linkItem">执法监督可视化数据展示子系统</div>
+                                                <div class="starter-linkItem">分局执法监督可视化数据展示子系统</div>
+                                                <div class="starter-linkItem">执法监督应用综合门户</div>
+                                                <div class="starter-linkItem">执法监督可视化数据展示子系统</div>
+                                                <div class="starter-linkItem">分局执法监督可视化数据展示子系统</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /功能导航 -->
+
+                                <!-- 单点接入 -->
+                                <div class="col-xs-3">
+                                    <div class="starter-panel">
+                                        <div class="starter-panel-heading">单点接入</div>
+                                        <div class="starter-panel-body">
+                                            <div class="starter-shoutcutList clearfix">
+                                                <div class="starter-shoutcutItem">
+                                                    <div class="launchpad-shortcut">
+                                                        <span class="launchpad-shortcut-icon launchpad-shortcut-fonticon fonticon-default" ><i class="fa fa-folder"></i></span>
+                                                        <p class="launchpad-shortcut-title">执法监督应用综合门户</p>
+                                                    </div>
+                                                </div>
+                                                <div class="starter-shoutcutItem">
+                                                    <div class="launchpad-shortcut">
+                                                        <img class="launchpad-shortcut-icon" src="../desktop/images/apps/app_01.png">
+                                                        <p class="launchpad-shortcut-title">执法监督应用综合门户</p>
+                                                    </div>
+                                                </div>
+                                                <div class="starter-shoutcutItem">
+                                                    <div class="launchpad-shortcut">
+                                                        <span class="launchpad-shortcut-icon launchpad-shortcut-fonticon fonticon-default" ><i class="fa fa-folder"></i></span>
+                                                        <p class="launchpad-shortcut-title">执法监督应用综合门户</p>
+                                                    </div>
+                                                </div>
+                                                <div class="starter-shoutcutItem">
+                                                    <div class="launchpad-shortcut">
+                                                        <img class="launchpad-shortcut-icon" src="../desktop/images/apps/app_01.png">
+                                                        <p class="launchpad-shortcut-title">执法监督应用综合门户</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /单点接入 -->
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <!-- 快捷方式页 -->
+
+                    <div class="launchpad-view-pageItem swiper-slide">
+                        <!--
+                            快捷方式的配置参见：.../desktop/js/config/shortcut.js
+                        <div class="launchpad-shortcutpad"
+                             data-pkui-component="loadContent"
+                             data-pkui-component-options='{
+                                "targetSelector": "default",
+                                "loadContentFromWhichModuleId": "__CTX__/static/desktop/js/page/shortcut"
+                             }'>
+                        </div>
+                        -->
+
+                            <!--
+                            <div class="launchpad-shortcut" data-pkui-app="true"
+                                 data-pkui-app-options='{
+                                     "icon": "../desktop/images/apps/gear.png",
+                                     "title": "系统管理",
+                                     "src": "./tpl/system/index.html",
+                                     "menuId": "1",
+                                     "mode": "default"}'>
+                                <img class="launchpad-shortcut-icon" src="../desktop/images/apps/gear.png" alt="">
+                                <p class="launchpad-shortcut-title">系统管理</p></div>
+
+                            <div class="launchpad-shortcut" data-pkui-app="true"
+                                 data-pkui-app-options='{
+                                    "icon": "../desktop/images/apps/app_02.png",
+                                    "title": "执法问题动态跟踪子系统",
+                                    "src": "http://www.baidu.com",
+                                    "mode": "iframe"}'><img class="launchpad-shortcut-icon" src="../desktop/images/apps/app_02.png" alt=""><p class="launchpad-shortcut-title">执法问题动态跟踪子系统</p></div>
+                            -->
+
+                    </div>
+
+                    <!--
+                    <div class="launchpad-view-pageItem swiper-slide">
+                        <div class="launchpad-shortcutpad">
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="../desktop/images/apps/app_01.png" alt=""><p class="launchpad-shortcut-title">执法监督综合应用门户</p></div>
+                            <div class="launchpad-shortcut"><img class="launchpad-shortcut-icon" src="../desktop/images/apps/app_01.png" alt=""><p class="launchpad-shortcut-title">执法监督综合应用门户</p></div>
+                            <div class="launchpad-LastShortcut-placeholder">&lt;!&ndash; 作为占位符使用，避免当页面只有一个快捷方式时，无法拖拽到别的页面去 &ndash;&gt;</div>
+                        </div>
+                    </div>
+                    -->
+                </div>
+            </div>
+            <!-- 显示区域 -->
+
+            <!-- 分页器 -->
+            <div class="launchpad-pagination">
+                <!-- 导航 -->
+                <div class="launchpad-pagination-nav">
+                    <div class="launchpad-pagination-previous"><!-- 上一页 --></div>
+                    <div class="launchpad-pagination-next"><!-- 下一页 --></div>
+                </div>
+                <!-- /导航 -->
+                <!-- 切换按钮 -->
+                <div class="launchpad-pagination-switchList">
+                    <!--<a href="#" class="launchpad-pagination-switchItem active"></a>-->
+                </div>
+                <!-- /切换按钮 -->
+            </div>
+            <!-- 分页器 -->
+
+        </div>
+        <!-- /应用启动面板 -->
+
+        <!-- 标题 -->
+        <!--<div class="da-desktop-title">PKUI操作平台</div>-->
+        <!-- /标题 -->
+
+    </main>
+    <!-- /桌面 -->
+
+    <!-- 则边栏 common/app-sidebar.js -->
+    <aside class="da-sidebar" id="daSidebar">
+        <i class="da-sidebar-closeBtn fa fa-close"></i>
+        <div class="da-sidebar-body" id="da-sidebar-body"></div>
+    </aside>
+    <!-- /则边栏 -->
+
+</div>
+<!-- /desktop app -->
+
+</body>
+</html>
