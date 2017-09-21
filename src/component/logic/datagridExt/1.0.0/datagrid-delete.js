@@ -23,7 +23,21 @@ define( function ( require ) {
          *      "isSend": "#sysMessage-isSend"
          *  }
          */
-        extraData: null
+        extraData: null,
+
+        // 确认对话框-标题文字
+        confirmDialogTitle: "信息",
+        // 确认对话框-内容文字
+        confirmDialogContent: "是否删除？",
+        // 确认对话框-确认按钮上的文字
+        confirmDialogOkBtnText: "删除",
+        // 确认对话框-取消按钮上的文字
+        confirmDialogCancelBtnText: "取消",
+
+        // 发送删除请求并成功删除，如果返回的 JsonResult.message 为空，则显示默认的成功提示
+        successDeleteTips: "删除成功！",
+        // 发送删除请求但删除失败，如果返回的 JsonResult.message 为空，则显示默认的失败提示
+        failDeleteTips: "删除失败：未知的错误"
     };
 
     function DatagridDelete( target, options ) {
@@ -61,11 +75,17 @@ define( function ( require ) {
             return;
         }
 
+        /*
+        confirmDialogTitle: "信息",
+        confirmDialogContent: "是否删除？",
+        confirmDialogOkBtnText: "删除",
+        confirmDialogCancelBtnText: "取消"
+        */
         // 确认删除
-        layer.confirm(
-            "是否删除？",
+        layer.confirm( options.confirmDialogContent,
             {
-                btn: ['删除','取消'] //按钮
+                title: options.confirmDialogTitle,
+                btn: [ options.confirmDialogOkBtnText , options.confirmDialogCancelBtnText ] //按钮
             },
             // 确认
             function( index ){
@@ -112,14 +132,14 @@ define( function ( require ) {
                 // 服务器端处理成功
                 if ( jsonResult.success ) {
                     // 提示
-                    layer.msg( jsonResult.message || "删除成功！", { icon: 1 } );
+                    layer.msg( jsonResult.message || options.successDeleteTips, { icon: 1 } );
                     // 标志删除的那行
                     $table.bootgrid( "deleteRow", seletedRowIds );
                 }
                 // 服务器端处理失败
                 else {
                     // 提示
-                    layer.alert( "删除失败：" + ( jsonResult.message || "未知的错误" ), { icon: 2 } );
+                    layer.alert( jsonResult.message || options.failDeleteTips , { icon: 2 } );
                 }
             } ).fail( function () {
                 // 提示网络错误
