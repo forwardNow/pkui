@@ -79,4 +79,5 @@ define( function ( require ) {
     };
 
 
+    return ModifyPassword;
 } );
