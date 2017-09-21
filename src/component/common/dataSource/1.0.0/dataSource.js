@@ -292,6 +292,7 @@ define( function ( require ) {
         getDicUrl: function ( dicName ) {
             // 不以"DIC_"打头的字典，不添加时间戳
             if ( dicName.indexOf( "DIC_" ) !== 0 ){
+                dicName = dicName.replace( /__CTX__/gm, window.PKUI.ctxPath );
                 return dicName;
             }
             return window.PKUI.dicPath + dicName + ".xml?" + DataSource.timestamp;
