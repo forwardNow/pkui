@@ -100,6 +100,10 @@ define( function ( require ) {
             return;
         }
 
+        if ( ! UserInfo.sysUser.hasOwnProperty( sysUserPropertyName ) ) {
+            throw "UserInfo.sysUser 不存在属性：" + sysUserPropertyName;
+        }
+
         value = UserInfo.sysUser[ sysUserPropertyName ];
 
         if ( dicName ) {
