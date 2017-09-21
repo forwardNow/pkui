@@ -662,7 +662,7 @@ define( function ( require ) {
                                     $this.attr( "notrecognized", "not reg" );
                                     return;
                             }
-                            seajs.use( [ moduleId ], function () {
+                            require.async( [ moduleId ], function () {
                                 PKUI.component[ $.trim( componentName ) ].call( $this, options );
                             } );
                         }
