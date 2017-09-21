@@ -73,16 +73,19 @@
         float: left;
         font-size: 24px;
         letter-spacing: 3px;
+        @include clearfix();
     }
     .da-top-img {
         height: 32px;
         margin: 8px 6px 0 12px;
         vertical-align: top;
     }
-    .da-top-info {
+    .da-top-aside {
         float: right;
+        @include clearfix();
     }
-    .da-top-info-item {
+
+    .da-top-asideItem {
         float: left;
         margin-right: 24px;
     }

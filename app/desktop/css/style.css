@@ -7,6 +7,10 @@
   filter: blur(20px);
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 /*
 YUI 3.18.1 (build f7e7bcb)
 Copyright 2014 Yahoo! Inc. All rights reserved.
@@ -8696,15 +8700,29 @@ b {
   font-size: 24px;
   letter-spacing: 3px;
 }
+.da-theme-light .da-top-title:before, .da-theme-light .da-top-title:after {
+  content: " ";
+  display: table;
+}
+.da-theme-light .da-top-title:after {
+  clear: both;
+}
 .da-theme-light .da-top-img {
   height: 32px;
   margin: 8px 6px 0 12px;
   vertical-align: top;
 }
-.da-theme-light .da-top-info {
+.da-theme-light .da-top-aside {
   float: right;
 }
-.da-theme-light .da-top-info-item {
+.da-theme-light .da-top-aside:before, .da-theme-light .da-top-aside:after {
+  content: " ";
+  display: table;
+}
+.da-theme-light .da-top-aside:after {
+  clear: both;
+}
+.da-theme-light .da-top-asideItem {
   float: left;
   margin-right: 24px;
 }
