@@ -9,7 +9,6 @@
     <link rel="shortcut icon" href="images/favicon.ico" />
     <link rel="stylesheet" href="../desktop/css/style.css">
     <link rel="stylesheet" href="css/page/starter.css">
-
     <!--
         data-main：当前应用的入口js文件
         data-timestamp: 时间戳（dev为开发模式），比如 data-timestamp="v=2017-02-27"
@@ -26,19 +25,16 @@
 
     <div class="da-top clearfix" id="daTop">
         <div class="da-top-title"><img class="da-top-img" src="images/logo.png" alt="">执法监督平台</div>
-        <div class="da-top-info">
-            <div class="da-top-info-item"><i class="fa fa-user-o"></i> <span id="daTopUsername">我是谁...<i class="fa fa-spinner fa-spin"></i></span></div>
-            <div class="da-top-info-item"><i class="fa fa-home"></i> <span id="daTopDeptName">属于哪个单位...<i class="fa fa-spinner fa-spin"></i></span></div>
+        <div class="da-top-aside">
+            <div class="da-top-asideItem da-top-dept"><i class="fa fa-home"></i> <span id="daTopDeptName">属于哪个单位...<i class="fa fa-spinner fa-spin"></i></span></div>
+            <div class="da-top-asideItem da-top-username"><i class="fa fa-user-o"></i> <span id="daTopUsername">我是谁...<i class="fa fa-spinner fa-spin"></i></span></div>
+            <div class="da-top-asideItem da-top-message clickable"><i class="fa fa-envelope-o"></i> 消息 <span class="caret"></span></div>
+            <div class="da-top-asideItem da-top-search clickable" id="da-top-search"><i class="fa fa-search"></i> 应用搜索</div>
+            <div class="da-top-asideItem da-top-modifyPassword clickable" id="da-top-modifyPassword"><i class="fa fa-key"></i> 修改密码</div>
+            <div class="da-top-asideItem da-top-exit clickable" id="da-top-exit"><i class="fa fa-sign-out"></i> 退出</div>
         </div>
-        <div class="da-top-message"><i class="fa fa-envelope-o"></i> 消息 <span class="caret"></span></div>
     </div>
 
-    <style>
-        .da-top-message {
-            float: right;
-            margin-right: 20px;
-        }
-    </style>
     <!-- 顶部栏 -->
     <header class="da-topbar" id="daTopbar">
 
@@ -64,10 +60,11 @@
         <div class="topbar-toolbar">
 
             <!-- 搜索 common/app-search.js -->
-            <div class="topbar-toolbar-item" id="topbar-toolbar-search" title="应用搜索"><i class="fa fa-search"></i></div>
+            <!--<div class="topbar-toolbar-item" id="topbar-toolbar-search" title="应用搜索"><i class="fa fa-search"></i></div>-->
             <!-- /搜索 -->
 
             <!-- 用户信息 -->
+            <!--
             <div class="topbar-toolbar-item topbar-toolbar-userItem dropdown" id="toolbarUserDropdown">
                 <span data-toggle="dropdown"><i class="fa fa-user-o"></i> <span class="caret"></span></span>
                 <ul class="dropdown-menu">
@@ -78,6 +75,7 @@
                     <li id="toolbarUserDropdown-existSystem"><a href="#"><i class="fa fa-sign-out"></i> 退出系统</a></li>
                 </ul>
             </div>
+            -->
             <!-- /用户信息 -->
 
         </div>
@@ -347,24 +345,24 @@
                         </div>
                         -->
 
-                            <!--
-                            <div class="launchpad-shortcut" data-pkui-app="true"
-                                 data-pkui-app-options='{
-                                     "icon": "../desktop/images/apps/gear.png",
-                                     "title": "系统管理",
-                                     "src": "./tpl/system/index.html",
-                                     "menuId": "1",
-                                     "mode": "default"}'>
-                                <img class="launchpad-shortcut-icon" src="../desktop/images/apps/gear.png" alt="">
-                                <p class="launchpad-shortcut-title">系统管理</p></div>
+                        <!--
+                        <div class="launchpad-shortcut" data-pkui-app="true"
+                             data-pkui-app-options='{
+                                 "icon": "../desktop/images/apps/gear.png",
+                                 "title": "系统管理",
+                                 "src": "./tpl/system/index.html",
+                                 "menuId": "1",
+                                 "mode": "default"}'>
+                            <img class="launchpad-shortcut-icon" src="../desktop/images/apps/gear.png" alt="">
+                            <p class="launchpad-shortcut-title">系统管理</p></div>
 
-                            <div class="launchpad-shortcut" data-pkui-app="true"
-                                 data-pkui-app-options='{
-                                    "icon": "../desktop/images/apps/app_02.png",
-                                    "title": "执法问题动态跟踪子系统",
-                                    "src": "http://www.baidu.com",
-                                    "mode": "iframe"}'><img class="launchpad-shortcut-icon" src="../desktop/images/apps/app_02.png" alt=""><p class="launchpad-shortcut-title">执法问题动态跟踪子系统</p></div>
-                            -->
+                        <div class="launchpad-shortcut" data-pkui-app="true"
+                             data-pkui-app-options='{
+                                "icon": "../desktop/images/apps/app_02.png",
+                                "title": "执法问题动态跟踪子系统",
+                                "src": "http://www.baidu.com",
+                                "mode": "iframe"}'><img class="launchpad-shortcut-icon" src="../desktop/images/apps/app_02.png" alt=""><p class="launchpad-shortcut-title">执法问题动态跟踪子系统</p></div>
+                        -->
 
                     </div>
 
@@ -401,7 +399,7 @@
         <!-- /应用启动面板 -->
 
         <!-- 标题 -->
-        <!--<div class="da-desktop-title">PKUI操作平台</div>-->
+        <!--<div class="da-desktop-title">执法监督平台</div>-->
         <!-- /标题 -->
 
     </main>

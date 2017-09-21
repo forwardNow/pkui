@@ -58,7 +58,7 @@ define( function ( require ) {
 
         // 启动搜索功能
         new AppSearch( {
-            targetSelector: "#topbar-toolbar-search"
+            targetSelector: "#da-top-search"
         } );
 
         // 启动应用侧边栏
@@ -74,45 +74,30 @@ define( function ( require ) {
             maxRecentUsedItemNum: 10
         } );
 
-        // 右下角下拉菜单功能（自动初始化）
-        require( "../../desktop/js/page/toolbarUserDropdown" );
+        require.async( [
+            "../../desktop/js/page/toolbar/userInfo",
+            "../../desktop/js/page/toolbar/exitSystem",
+            "../../desktop/js/page/toolbar/modifyPassword"
+        ], function ( UserInfo, ExitSystem, ModifyPassword ) {
+            // 所属单位
+            UserInfo.inject( "#daTopDeptName", "deptId", "DIC_DEPT" );
 
+            // 用户名
+            UserInfo.inject( "#daTopUsername", "userName" );
 
-        // 顶部用户信息
-        var
-            $daTopUsername = $( "#daTopUsername" ),
-            $daTopDeptName = $( "#daTopDeptName" )
-        ;
-        $.ajax( {
-            url: "{% system.user.getCurrentSysUser %}"
-        } ).done( function( jsonResult ) {
-            var
-                sysUser,
-                msg
-            ;
-            if ( jsonResult && jsonResult.success === true ) {
-                sysUser = jsonResult.data;
-            }
-            if ( ! sysUser || ! sysUser.hasOwnProperty( "userName" )) {
-                msg = "unknown response";
-                $daTopUsername.html( msg );
-                $daTopDeptName.html( msg );
-                return;
-            }
-            $daTopUsername.html( sysUser.userName );
+            // 退出
+            $( "#da-top-exit" ).on( "click.exit", function () {
+                ExitSystem.exitAndGotoLoginPage( true );
+            } );
 
-            if ( ! sysUser.deptName && sysUser.deptId ) {
-                require.async( "dataSource", function ( DataSource ) {
-                    $daTopDeptName.html( DataSource.getDicValue( "DIC_DEPT", sysUser.deptId ) );
-                } );
-            } else {
-                $daTopDeptName.html( sysUser.deptName );
-            }
-
-        } ).error( function() {
-            $daTopUsername.html( "[error]view console!" )
-            $daTopDeptName.html( "[error]view console!" )
+            // 修改密码
+            $( "#da-top-modifyPassword" ).on( "click.modifyPassword", function () {
+                ModifyPassword.open();
+            } );
         } );
+
+
+
     } );
 
     // 处理离开网页的情况
