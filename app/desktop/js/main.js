@@ -58,7 +58,7 @@ define( function ( require ) {
 
         // 启动搜索功能
         new AppSearch( {
-            targetSelector: "#topbar-toolbar-search"
+            targetSelector: "#da-top-search"
         } );
 
         // 启动应用侧边栏
@@ -75,7 +75,7 @@ define( function ( require ) {
         } );
 
         // 右下角下拉菜单功能（自动初始化）
-        require( "./page/toolbarUserDropdown" );
+        // require( "./page/toolbarUserDropdown" );
 
 
         // 顶部用户信息
