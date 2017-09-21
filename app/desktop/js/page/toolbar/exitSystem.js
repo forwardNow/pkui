@@ -107,7 +107,9 @@ define( function ( require ) {
                     icon: 1,
                     time: 3000,
                     end: function() {
-                        window.location = ExitSystem.defaults.loginPageUrl;
+                        require.async( "placeholderHandler", function ( PlaceholderHandler ) {
+                            window.location = PlaceholderHandler.process( ExitSystem.defaults.loginPageUrl );
+                        });
                     }
                 } );
             },
@@ -118,4 +120,5 @@ define( function ( require ) {
 
     };
 
+    return ExitSystem;
 } );
