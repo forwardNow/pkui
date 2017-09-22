@@ -708,7 +708,7 @@ define( function ( require ) {
 
                 PKUI.setAutoRender.pointcutHandlerList = [
 
-                    // 1. 调用 jquery.html( value ) 方法之后
+                    // 1. 调用 jquery.html() 方法之后
                     AOP.after( $.prototype, "html", PKUI.render )
 
                     // 2. 调用 jquery.append( value ) 方法之后
