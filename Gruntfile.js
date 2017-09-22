@@ -126,6 +126,15 @@ module.exports = function ( grunt ) {
                     "cp -R /Users/forwardNow/develop/work/pkusoft/pkui/app/laweye/* ./laweye/"
                     // "sed -i '' 's/..\\/..\\/src\\/pkui.js/..\\/pkui\\/pkui.js/g' ./desktop/index.html"
                 ].join('&&')
+            },
+            generatePkuiDocV2: {
+                command: [
+                    "cd /Users/forwardNow/GitBook/Library/forwardnow",
+                    "gitbook build ./pkui-doc-v2 /Users/forwardNow/develop/work/pkusoft/pkui/doc",
+                    "cd /Users/forwardNow/develop/workspace/pkui/WebContent/static",
+                    "rm -Rf ./doc/*",
+                    "cp -R /Users/forwardNow/develop/work/pkusoft/pkui/doc/* ./doc/"
+                ].join('&&')
             }
         }
 
@@ -170,6 +179,10 @@ module.exports = function ( grunt ) {
         "cssmin:desktopToDist"
     ] );
 
+    grunt.registerTask( 'generatePkuiDocV2', [
+        'shell:generatePkuiDocV2'
+        // "uglify:buildPkui"
+    ] );
 
     grunt.registerTask( 'concat-pkui-config', [
         'concat:pkuiConfig'
