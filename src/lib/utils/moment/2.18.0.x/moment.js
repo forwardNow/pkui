@@ -20,7 +20,10 @@
     }
     // CMD
     else if (typeof define === "function" && define.cmd) {
-        define( factory );
+        define( function () {
+            global.moment = factory();
+            return global.moment;
+        } );
     }
     // Browser globals (global is window)
     else {
