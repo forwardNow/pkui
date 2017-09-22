@@ -12,4 +12,5 @@
 
 *.psd
 .DS_Store
+/doc/.gitignore
 
