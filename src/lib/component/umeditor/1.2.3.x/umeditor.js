@@ -9793,9 +9793,12 @@ UM.ui.define('separator', {
             });
         },
         clearCache : function(id){
-            if ( _editors[id]) {
+            // FIX 添加返回值
+            var instance = _editors[id];
+            if ( instance ) {
                 delete  _editors[id]
             }
+            return instance;
         },
         delEditor: function (id) {
             var editor;

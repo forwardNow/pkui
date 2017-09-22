@@ -38,7 +38,13 @@ define( function ( require ) {
 
 
         _this.each( function () {
-            var instance = $( this ).data( namespace );
+            var
+                instance = $( this ).data( namespace ),
+                UM,
+                editor,
+                editorId,
+                p
+            ;
 
             // 已经初始化
             if ( instance ) {
@@ -60,6 +66,24 @@ define( function ( require ) {
             else {
                 // FIX 标志已被初始化
                 $( this ).attr( "isrendered", true );
+
+                /*
+                    由于，实例都是以id为键名缓存在 UM的cache 中
+                    而一般性的移除容器节点无法达到达到真正的删除
+                    所以，再以相同id再次创建实例时，需要进行销毁
+                */
+                UM = window.UM;
+                editorId = this.id;
+                editor = UM.clearCache( editorId );
+
+                if ( editor ) {
+                    for ( p in editor ) {
+                        if ( editor.hasOwnProperty( p ) ) {
+                            delete editor[ p ];
+                        }
+                    }
+                }
+
 
                 $( this ).data( namespace, new UMEditor( this, options ) );
             }
