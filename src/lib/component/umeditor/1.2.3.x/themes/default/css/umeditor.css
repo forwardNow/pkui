@@ -1,6 +1,14 @@
+
+/* fixed定位元素是以transform为参考的。 */
+.pkui-popup-show .pkui-dialog {
+    -webkit-transform: none;
+     transform: none;
+}
+
+
 .edui-container{
     position: relative;
-    border: 1px solid #d4d4d4;
+    /*border: 1px solid #d4d4d4;*/
     box-shadow: 2px 2px 5px #d3d6da;
     background-color: #fff;
 }
@@ -27,7 +35,7 @@
     border:0;
     outline:none;
     cursor:text;
-    padding:0 10px 0;
+    /*padding:0 10px 0;*/
     overflow:auto;
     display:block;
     word-wrap:break-word;
