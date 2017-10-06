@@ -192,7 +192,7 @@ define( function( require ) {
                     options.$drawer.isLoading( "hide" );
 
                     options.$drawerContent.html( htmlString );
-                } );
+                }, { escape: false } );
 
             }
         },
