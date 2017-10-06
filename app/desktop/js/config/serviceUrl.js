@@ -18,6 +18,10 @@ define( function ( require ) {
             "service.notice.list.sysNoticeDelete": "__CTX__/service/sysNoticeDelete",
             "service.notice.list.sysNoticeListData": "__CTX__/service/sysNoticeListData",
             "service.notice.list.sysNoticeModel": "__CTX__/service/sysNoticeModel"
+        },
+        // tpl/common/msg/add.html
+        {
+            "service.notice.add.sysNoticeSave": "__CTX__/service/sysNoticeSave"
         }
     );
 
