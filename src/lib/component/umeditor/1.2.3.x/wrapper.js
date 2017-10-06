@@ -26,7 +26,9 @@ define( function ( require ) {
             window.layer.alert( { icon: 2 }, "UMEditor绑定的元素必须要有id属性" );
             throw "UMEditor绑定的元素必须要有id属性";
         }
-        window.UM.getEditor( targetId, opts );
+        setTimeout( function () {
+            window.UM.getEditor( targetId, opts );
+        }, 500 );
     }
 
     // 注册到jQuery
