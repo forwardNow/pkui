@@ -1,0 +1,29 @@
+<form class="da-form" >
+
+    <div class="da-form-heading">{{subject}}</div>
+    <div class="da-form-body">
+        <table class="da-form-table da-table da-table-striped">
+            <colgroup>
+                <col width="10%">
+                <col width="90%">
+            </colgroup>
+
+            <tr>
+                <td class="text-right"><label class="da-control-label">单位：</label></td>
+                <td>{{deptname}}</td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">发布人：</label></td>
+                <td>{{author}}</td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">创建时间：</label></td>
+                <td>{{optime | dateFormat : "YYYY年MM月DD日 HH时mm分ss秒"}}</td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">内容：</label></td>
+                <td><div style="box-shadow: 2px 2px 5px #d3d6da; background-color: #fff; padding: 12px;">{{content}}</div></td>
+            </tr>
+        </table>
+    </div>
+</form>

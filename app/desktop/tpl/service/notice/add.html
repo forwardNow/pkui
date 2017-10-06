@@ -1,0 +1,85 @@
+<form class="da-form"
+    action="{% service.notice.add.sysNoticeSave %}" method="post"
+    data-pkui-component="validator|form"
+    data-done-callback="addSysNoticeDoneCallback"
+    data-fail-callback="addSysNoticeFailCallback" >
+
+    <div class="da-form-heading">新增公告</div>
+    <div class="da-form-body">
+        <table class="da-form-table da-table da-table-striped">
+            <colgroup>
+                <col width="10%">
+                <col width="90%">
+            </colgroup>
+
+            <tr>
+                <td class="text-right"><label class="da-control-label required">标题：</label></td>
+                <td><input type="text" class="da-form-control" name="subject"
+                           data-rule='“标题”: required'></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">单位：</label></td>
+                <input type="hidden" name="deptname">
+                <td><select name="deptid"
+                            data-pkui-component="chosen"
+                            data-pkui-component-options='{
+                                "dic":"DIC_DEPT",
+                                "relateInputName": "deptname"
+                            }'
+                            data-rule="“单位”: required"
+                ></select></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label">发布人 <i class="fa fa-question-circle-o" title="如果不填，则为当前登陆用户。"></i>：</label></td>
+                <td><input type="text" class="da-form-control" name="author"></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">内容：</label></td>
+                <td><input type="hidden" name="content">
+                    <script type="text/plain" id="sysNoticeEditor"
+                            data-pkui-component="umeditor"
+                            data-pkui-component-options='{
+                                "toolbar": ["fullscreen source undo redo bold italic underline"],
+                                "initialContent": "不推荐直接在网页编辑器中编辑文档；<br>建议先使用“Microsoft Word”编辑文档，然后将编辑好的文档内容拷贝到网页编辑器中。",
+                                "autoClearinitialContent": false,
+                                "autoHeightEnabled": false,
+                                "initialFrameWidth": "100%",
+                                "initialFrameHeight": 300
+                            }'></script></td>
+            </tr>
+        </table>
+    </div>
+    <div class="da-form-footer">
+        <button type="submit" class="btn btn-success-2"
+                onclick="jQuery(this).closest('form').find('input[name=content]')[0].value=window.UM.getEditor('sysNoticeEditor').getContent()">确定</button>
+    </div>
+</form>
+<script>
+
+    // 请求发送成功，对服务器端返回的数据进行处理
+    function addSysNoticeDoneCallback($form, jsonResult) {
+        jsonResult = window.PKUI.handleJsonResult( jsonResult );
+        // 服务器端处理成功
+        if ( jsonResult.success ) {
+            // 提示
+            layer.alert( '添加成功！', { icon: 1 }, function ( index ) {
+                layer.close( index );
+                // 关闭抽屉层
+                //$( "#addSysNoticeBtn" ).drawer( "destroy" );
+                $form.closest( ".pkui-drawer" ).find( ".pkui-drawer-button" ).trigger( "click" );
+            } );
+        }
+        // 服务器端处理失败
+        else {
+            // 提示
+            layer.alert( '添加失败！', { icon: 2 } );
+        }
+    }
+
+    // 请求发送失败
+    function addSysNoticeFailCallback($form) {
+        // 提示网络错误
+        layer.alert( '网络错误！', { icon: 0 } );
+    }
+
+</script>
