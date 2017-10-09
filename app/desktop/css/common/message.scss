@@ -1,0 +1,133 @@
+// 临时设置
+
+.da-theme-light .da-top {
+    z-index: 3;
+}
+
+.pkui-message {
+    position: relative;
+}
+.pkui-message-count {
+    position: absolute;
+    top: 13px;
+    left: 8px;
+    width: 10px;
+    height: 10px;
+    color: #FFF;
+    background-color: #EA2E2E;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+}
+.pkui-message-popup {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    line-height: 1.35;
+    text-shadow: none;
+}
+.pkui-message-panel {
+    position: relative;
+    width: 300px;
+    min-height: 200px;
+    margin-top: 4px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    font-size: 12px;
+    color: #586069;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(27,31,35,0.15);
+    border-radius: 3px;
+    box-shadow: 0 3px 12px rgba(27,31,35,0.15);
+}
+.pkui-message-panel-header {
+    padding: 8px 10px;
+    line-height: 16px;
+    font-size: 14px;
+    background: #f6f8fa;
+    border-bottom: 1px solid #e1e4e8;
+}
+.pkui-message-panel-header-title {
+    font-weight: 600;
+    color: #24292e;
+}
+.pkui-message-panel-header-closebtn {
+    float: right;
+    width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    margin-top: -3px;
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1;
+    color: #c6cbd1;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    -webkit-appearance: none;
+    &:focus,
+    &:hover {
+        color: #444d56;
+    }
+}
+.pkui-message-panel-body {
+    background-color: #f6f8fa;
+}
+.pkui-message-menu {
+
+}
+.pkui-message-menu-tabs {
+    padding: 8px 10px 0 10px;
+    border-bottom: 1px solid #dfe2e5;
+}
+.pkui-message-menu-tab {
+    display: inline-block;
+    position: relative;
+    bottom: -1px;
+}
+.pkui-message-menu-tab-a {
+    display: inline-block;
+    padding: 4px 8px 2px 8px;
+    font-weight: 600;
+    color: #6a737d;
+    text-decoration: none;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 2px 2px 0 0;
+    &:hover,
+    &:focus {
+        color: #24292e;
+    }
+    &.selected {
+        color: #24292e;
+        background-color: #fff;
+        border-color: #dfe2e5;
+        border-bottom-color: #fff;
+    }
+}
+.pkui-message-menu-content {
+    position: relative;
+    max-height: 400px;
+    overflow: auto;
+    background: #fff;
+}
+.pkui-message-menu-list {
+
+}
+.pkui-message-menu-item {
+
+}
+.pkui-message-menu-item-icon {
+
+}
+.pkui-message-menu-item-text {
+
+}
+.pkui-message-menu-item-date {
+
+}
+.pkui-message-panel-footer {
+
+}

@@ -28,7 +28,36 @@
         <div class="da-top-aside">
             <div class="da-top-asideItem da-top-dept"><i class="fa fa-home"></i> <span id="daTopDeptName">属于哪个单位...<i class="fa fa-spinner fa-spin"></i></span></div>
             <div class="da-top-asideItem da-top-username"><i class="fa fa-user-o"></i> <span id="daTopUsername">我是谁...<i class="fa fa-spinner fa-spin"></i></span></div>
-            <div class="da-top-asideItem da-top-message clickable"><i class="fa fa-envelope-o"></i> 消息 <span class="caret"></span></div>
+            <div class="da-top-asideItem da-top-message clickable pkui-message">
+                <div class="pkui-message-count"></div><i class="fa fa-comment-o"></i> 消息 <span class="caret"></span>
+                <div class="pkui-message-popup">
+                    <div class="pkui-message-panel">
+                        <div class="pkui-message-panel-header">
+                            <button class="pkui-message-panel-header-closebtn">×</button>
+                            <span class="pkui-message-panel-header-title">我的消息</span>
+                        </div>
+                        <div class="pkui-message-panel-body">
+                            <div class="pkui-message-menu">
+                                <div class="pkui-message-menu-tabs">
+                                    <div class="pkui-message-menu-tab"><a href="#" class="pkui-message-menu-tab-a selected"><i class="fa fa-envelope-o"></i> 未读</a></div>
+                                    <div class="pkui-message-menu-tab"><a href="#" class="pkui-message-menu-tab-a"><i class="fa fa-commenting-o"></i> 私信</a></div>
+                                    <div class="pkui-message-menu-tab"><a href="#" class="pkui-message-menu-tab-a"><i class="fa fa-file-text-o"></i> 公告</a></div>
+                                </div>
+                                <div class="pkui-message-menu-content">
+                                    <div class="pkui-message-menu-list">
+                                        <div class="pkui-message-menu-item">
+                                            <span class="pkui-message-menu-item-icon"></span>
+                                            <span class="pkui-message-menu-item-text"></span>
+                                            <span class="pkui-message-menu-item-date"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pkui-message-panel-footer"></div>
+                    </div>
+                </div>
+            </div>
             <div class="da-top-asideItem da-top-search clickable" id="da-top-search"><i class="fa fa-search"></i> 应用搜索</div>
             <div class="da-top-asideItem da-top-modifyPassword clickable" id="da-top-modifyPassword"><i class="fa fa-key"></i> 修改密码</div>
             <div class="da-top-asideItem da-top-exit clickable" id="da-top-exit"><i class="fa fa-sign-out"></i> 退出</div>
