@@ -1,0 +1,75 @@
+<form class="da-form"
+    action="{% common.msg.add.sysMessageSave %}" method="post"
+    data-pkui-component="validator|form"
+    data-done-callback="addSysMessageDoneCallback"
+    data-fail-callback="addSysMessageFailCallback" >
+
+    <input type="hidden" id="sendDelFlag" name="sendDelFlag" value="0" />
+    <input type="hidden" id="receiveDelFlag" name="receiveDelFlag" value="0" />
+    <input type="hidden" id="readFlag" name="readFlag" value="0" />
+    <input type="hidden" id="msgType" name="msgType" value="10" />
+
+    <div class="da-form-heading">新增消息</div>
+    <div class="da-form-body">
+        <table class="da-form-table da-table da-table-striped">
+            <colgroup>
+                <col width="10%">
+                <col width="90%">
+            </colgroup>
+
+            <tr>
+                <td class="text-right"><label class="da-control-label required">接收人：</label></td>
+                <td><input type="hidden" name="receiveUserName">
+                    <select name="receiveUserId"
+                            data-pkui-component="chosen"
+                            data-pkui-component-options='{
+                                "dic":"{% common.msg.add.sysMessageUserData %}",
+                                "relateInputName": "receiveUserName"
+                            }'
+                            data-rule="“接收人”: required"
+                ></select></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">标题：</label></td>
+                <td><input type="text" class="da-form-control" name="msgTitle" data-rule="“标题”: required"></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label class="da-control-label required">内容：</label></td>
+                <td><textarea type="text" class="da-form-control" name="msgContent" style="height: 100px; resize: vertical;"
+                              data-rule="“标题”: required"></textarea></td>
+            </tr>
+        </table>
+    </div>
+    <div class="da-form-footer">
+        <button type="submit" class="btn btn-success-2">确定</button>
+    </div>
+</form>
+<script>
+
+    // 请求发送成功，对服务器端返回的数据进行处理
+    function addSysMessageDoneCallback($form, jsonResult) {
+        jsonResult = window.PKUI.handleJsonResult( jsonResult );
+        // 服务器端处理成功
+        if ( jsonResult.success ) {
+            // 提示
+            layer.alert( '添加成功！', { icon: 1 }, function ( index ) {
+                layer.close( index );
+                // 关闭抽屉层
+                //$( "#addSysMessageBtn" ).drawer( "destroy" );
+                $form.closest( ".pkui-drawer" ).find( ".pkui-drawer-button" ).trigger( "click" );
+            } );
+        }
+        // 服务器端处理失败
+        else {
+            // 提示
+            layer.alert( '添加失败！', { icon: 2 } );
+        }
+    }
+
+    // 请求发送失败
+    function addSysMessageFailCallback($form) {
+        // 提示网络错误
+        layer.alert( '网络错误！', { icon: 0 } );
+    }
+
+</script>

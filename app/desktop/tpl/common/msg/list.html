@@ -7,6 +7,20 @@
                     "url":"__CTX__/static/desktop/tpl/common/msg/add.html",
                     "container": ".da-win-main"}'
                 ><i class="fa fa-plus"></i> 新建</button>
+        <button type="button" class="btn btn-info-2" id="sysMessageMarkCheckedBtn"
+                data-pkui-component="datagrid-delete"
+                data-pkui-component-options='{
+                    "datagridSelector": "#sysMessageDatagrid",
+                    "PKName": "msgId",
+                    "url": "{% common.msg.list.sysMessageMarkChecked %}",
+                    "confirmDialogTitle": "信息",
+                    "confirmDialogContent": "是否标记为已读消息？",
+                    "confirmDialogOkBtnText": "标记为已读",
+                    "successDeleteTips": "标记成功！",
+                    "failDeleteTips": "标记失败：未知的错误！"
+                }'
+                title="设置消息为已读状态（可多选）"
+                ><i class="fa fa-envelope-open-o"></i> 已读</button>
         <button type="button" class="btn btn-danger-2"
                 data-pkui-component="datagrid-delete"
                 data-pkui-component-options='{
@@ -28,7 +42,7 @@
                 <select name="isSend" id="sysMessage-isSend" data-not-in-criteria="true"
                         data-pkui-component="chosen">
                     <option value="false">接收者</option>
-                    <option value="true">创建者</option>
+                    <option value="true">发送者</option>
                 </select>
             </div>
 
@@ -63,6 +77,7 @@
        }'
        data-url="{% common.msg.list.sysMessageListData %}"
        data-query-form-selector="#sysMessageQueryForm"
+       data-beforeload-callback="sysMessageListBeforeloadCallback"
        >
     <thead>
 
@@ -95,21 +110,47 @@
      * 操作
      */
     function sysMessageOpe(column, row) {
+        var
+            modelString
+        ;
+        // 未读消息 且 为接收者，则获取模型的同时会将其标记为已读
+        if ( row.readFlag !== "1" && sysMessageListBeforeloadCallback.isSender !== true ) {
+            modelString = '"model":"{% common.msg.list.getSysMessageModelAndMarkAsRead %}?msgId=' + row.msgId + '",';
+        } else {
+            modelString = '"model":"{% common.msg.list.sysMessageModel %}?msgId=' + row.msgId + '",';
+        }
         return '<a href="javascript:void(0)" '
         +           ' id=viewSysMessage_' + row.msgId
         +           ' data-pkui-component="drawer"'
         +           ' data-pkui-component-options=\'{'
         +               '"url":"__CTX__/static/desktop/tpl/common/msg/detail.html",'
-        +               '"model":"{% common.msg.list.sysMessageModel %}?msgId=' + row.msgId + '",'
-        +               '"container": ".da-win-main"}\'><i class="fa fa-file-o"></i> 查看</a>　'
+        +               modelString
+        +               '"container": ".da-win-main"}\'><i class="fa fa-file-o"></i> 查看</a>'
 
-        +       '<a href="javascript:void(0)" '
-        +           ' id=editSysMessage_' + row.msgId
-        +           ' data-pkui-component="drawer"'
-        +           ' data-pkui-component-options=\'{'
-        +               '"url":"__CTX__/static/desktop/tpl/common/msg/edit.html",'
-        +               '"model":"{% common.msg.list.sysMessageModel %}?msgId=' + row.msgId + '",'
-        +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>';
     }
 
+    /**
+     * 数据载入前，
+     * 如果是 接受者 ，则显示 “标记已读” 按钮
+     * 如果是 创建者 ，则隐藏 “标记已读” 按钮
+     */
+    function sysMessageListBeforeloadCallback () {
+        var
+            $ = jQuery,
+            $select = $( "#sysMessage-isSend" ),
+            isSender = $select.val() === "true",
+            $btn = $( "#sysMessageMarkCheckedBtn" )
+        ;
+        // 创建者（发送者）
+        if ( isSender ) {
+            $btn.addClass( "hidden" );
+        }
+        // 接受者
+        else {
+            $btn.removeClass( "hidden" );
+        }
+
+        // 暴露出去
+        sysMessageListBeforeloadCallback.isSender = isSender;
+    }
 </script>

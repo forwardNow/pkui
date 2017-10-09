@@ -16,8 +16,15 @@ define( function ( require ) {
         // tpl/common/msg/list.html
         {
             "common.msg.list.sysMessageDelete": "__CTX__/common/sysMessageDelete",
+            "common.msg.list.sysMessageModel": "__CTX__/common/sysMessageModel",
+            "common.msg.list.sysMessageMarkChecked": "__CTX__/common/sysMessageMarkChecked",
             "common.msg.list.sysMessageListData": "__CTX__/common/sysMessageListData",
-            "common.msg.list.sysMessageModel": "__CTX__/common/sysMessageModel"
+            "common.msg.list.getSysMessageModelAndMarkAsRead": "__CTX__/common/getSysMessageModelAndMarkAsRead"
+        },
+        // tpl/common/msg/add.html
+        {
+            "common.msg.add.sysMessageUserData": "__CTX__/common/sysMessageUserData",
+            "common.msg.add.sysMessageSave": "__CTX__/common/sysMessageSave"
         }
     );
 
