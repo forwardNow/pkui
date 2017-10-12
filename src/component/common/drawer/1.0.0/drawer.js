@@ -152,47 +152,55 @@ define( function( require ) {
                     if ( window[ openCallback ] && typeof window[ openCallback ] === "function" ) {
                         window[ openCallback ].call( $this );
                     }
+
+                    loadContent();
+
                     $this.trigger( "open." + Drawer.namespace );
                 } );
             options.$container
                 .addClass( Drawer.clazz.open );
 
-            // 开启 loading
-            options.$drawer.isLoading();
+            
+            function loadContent () {
 
-            // 后端mvc
-            if ( options.ajax && options.url && ! options.model ) {
-                $.ajax( {
-                    url: options.url,
-                    type: "GET",
-                    cache: false,
-                    dataType: "text"
-                } ).done( function( responseData ) {
-                    options.$drawerContent.html( responseData );
-                } ).fail( function() {
-                    window.PKUI.console.error( "[drawer]网络错误/登陆失效。", true )
-                } ).always( function() {
-                    options.$drawer.isLoading( "hide" );
-                } );
+                // 开启 loading
+                options.$drawer.isLoading();
 
-            }
-            // 前端mvc
-            else if ( options.url && options.model ) {
-                // 如果 options.model 是 序列化的json对象
-                try {
-                    options.model = $.parseJSON( options.model );
-                } catch ( e ) {
-                    window.PKUI.console.info( "model 不是序列化对象" )
+                // 后端mvc
+                if ( options.ajax && options.url && ! options.model ) {
+                    $.ajax( {
+                        url: options.url,
+                        type: "GET",
+                        cache: false,
+                        dataType: "text"
+                    } ).done( function( responseData ) {
+                        options.$drawerContent.html( responseData );
+                    } ).fail( function() {
+                        window.PKUI.console.error( "[drawer]网络错误/登陆失效。", true )
+                    } ).always( function() {
+                        options.$drawer.isLoading( "hide" );
+                    } );
+
                 }
+                // 前端mvc
+                else if ( options.url && options.model ) {
+                    // 如果 options.model 是 序列化的json对象
+                    try {
+                        options.model = $.parseJSON( options.model );
+                    } catch ( e ) {
+                        window.PKUI.console.info( "model 不是序列化对象" )
+                    }
 
-                Template.getModelAndView( options.url, options.model, function ( htmlString ) {
-                    // 关闭 loading
-                    options.$drawer.isLoading( "hide" );
+                    Template.getModelAndView( options.url, options.model, function ( htmlString ) {
+                        // 关闭 loading
+                        options.$drawer.isLoading( "hide" );
 
-                    options.$drawerContent.html( htmlString );
-                }, { escape: false } );
+                        options.$drawerContent.html( htmlString );
+                    }, { escape: false } );
 
+                }
             }
+
         },
         hide: function () {
             var
