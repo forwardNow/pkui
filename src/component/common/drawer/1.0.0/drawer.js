@@ -160,7 +160,7 @@ define( function( require ) {
             options.$container
                 .addClass( Drawer.clazz.open );
 
-            
+
             function loadContent () {
 
                 // 开启 loading
