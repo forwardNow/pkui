@@ -63,7 +63,7 @@ define( function( require ) {
             }
             options.$container = $container;
 
-            if ( $container.css( "position" ) == "static" ) {
+            if ( $container.css( "position" ) === "static" ) {
                 $container.css( "position", "relative" );
             }
 
@@ -169,9 +169,7 @@ define( function( require ) {
                     dataType: "text"
                 } ).done( function( responseData ) {
                     options.$drawerContent.html( responseData );
-                } ).fail( function( jqXHR, textStatus ) {
-                    //options.$drawerContent.html( "/(ㄒoㄒ)/~~[ " + textStatus + " ]网络错误。" );
-                    //console.info(  "/(ㄒoㄒ)/~~[ " + textStatus + " ]网络错误。" );
+                } ).fail( function() {
                     window.PKUI.console.error( "[drawer]网络错误/登陆失效。", true )
                 } ).always( function() {
                     options.$drawer.isLoading( "hide" );
