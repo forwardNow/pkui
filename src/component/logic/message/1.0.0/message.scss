@@ -71,6 +71,9 @@
     &:hover {
         color: #444d56;
     }
+    &:focus {
+        outline: none;
+    }
 }
 .pkui-message-panel-body {
     background-color: #f6f8fa;
@@ -130,6 +133,7 @@
 .pkui-message-menu-item-icon {
     float: left;
     margin-left: -20px;
+    color: #999;
     vertical-align: middle;
 }
 .pkui-message-menu-item-text {
@@ -145,8 +149,30 @@
 .pkui-message-panel-footer {
     padding: 8px 10px;
     line-height: 16px;
-    font-size: 14px;
+    //font-size: 12px;
     text-align: right;
     background: #f6f8fa;
     border-bottom: 1px solid #e1e4e8;
+}
+.pkui-message-more {
+
+}
+.pkui-message-refresh {
+    float: left;
+    width: 16px;
+    height: 16px;
+    font-size: 14px;
+    line-height: 1;
+    color: #c6cbd1;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    -webkit-appearance: none;
+    &:focus,
+    &:hover {
+        color: #444d56;
+    }
+    &:focus {
+        outline: none;
+    }
 }
