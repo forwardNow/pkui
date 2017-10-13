@@ -75,7 +75,7 @@ define( function( require ) {
             }
 
             // 参数
-            options = $.extend( {}, Drawer.defaults, $this.data( window.PKUI.componentOptionsHtmlAttr ) );
+            options = $.extend( true, {}, Drawer.defaults, $this.data( window.PKUI.componentOptionsHtmlAttr ) );
             $this.data( namespace, { options: options } );
 
             // toggle
@@ -148,7 +148,7 @@ define( function( require ) {
 
         // 点击按钮，摧毁掉
         options.$drawerButton.on( "click." + namespace, function () {
-            Drawer.destroy.call( _this );
+            Drawer.destroy.call( _this, optionsIndex );
         } );
 
         if ( $container.scrollTop() > 0 ) {
@@ -191,7 +191,7 @@ define( function( require ) {
             optionsCache = Drawer.optionsCache;
             optionsIndex = optionsCache.count;
             optionsCache.count++;
-            optionsCache[ optionsIndex ] = options;
+            optionsCache[ optionsIndex ] = $.extend( true, {}, Drawer.defaults, options );
         }
 
         options = Drawer.getOptions.call( this, optionsIndex );
@@ -311,16 +311,17 @@ define( function( require ) {
             // 更新标志
             options.isCreated = false;
 
+            // 删除缓存
+            if ( Drawer.optionsCache.hasOwnProperty( optionsIndex ) ) {
+                delete Drawer.optionsCache[ optionsIndex ];
+            }
+
             if ( window[ destroyCallback ] && typeof window[ destroyCallback ] === "function" ) {
                 window[ destroyCallback ].call( $this );
             }
 
         } );
 
-        // 删除缓存
-        if ( Drawer.optionsCache.hasOwnProperty( optionsIndex ) ) {
-            delete Drawer.optionsCache[ optionsIndex ];
-        }
     };
 
     Drawer._addOverlay = function ( options ) {
