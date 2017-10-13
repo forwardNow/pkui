@@ -73,6 +73,9 @@
         <th data-column-id="deptLevel" data-sortable="true" data-order="asc" data-dic="DIC_DEPT_LEVEL" data-width="10%">部门级别</th>
         <th data-column-id="addTime" data-sortable="false" data-formatter="dateFormatter" data-width="20%">录入时间</th>
         <th data-column-id="__" data-sortable="false" data-formatter="sysDeptOpe">操作</th>
+        <!-- 手动打开弹出层的示例
+        <th data-column-id="__" data-sortable="false" data-formatter="sysDeptOpe_2">操作</th>
+        -->
     </tr>
     </thead>
 
@@ -100,6 +103,38 @@
         +               '"model":"{% system.dept.list.sysDeptModel %}?deptId=' + row.deptId + '",'
         +               '"container": ".da-win-main"}\'><i class="fa fa-edit"></i> 编辑</a>';
     }
+
+    /**
+     * 操作，手动打开 抽屉层
+     */
+    function sysDeptOpe_2(column, row) {
+        return '<a href="javascript:void(0)" '
+        +           ' onclick="sysDeptOpe_2.viewDetail(this)"'
+        +           ' data-options=\'{'
+        +               '"url":"__CTX__/static/desktop/tpl/system/dept/detail.html",'
+        +               '"model":"{% system.dept.list.sysDeptModel %}?deptId=' + row.deptId + '",'
+
+        +               '"referenceElementSelector": "#sysDeptDatagrid",'
+        +               '"container": ".da-win-main"}\'><i class="fa fa-file-o"></i> 查看</a>　'
+        ;
+    }
+    sysDeptOpe_2.viewDetail = function ( target ) {
+        var
+            $ = jQuery,
+            $target = $( target ),
+            options = $target.data( "options" )
+        ;
+        layer.msg( '正在验证您的权限...', {
+            icon: 1,
+            time: 2000 // 2秒关闭（如果不配置，默认是3秒）
+        }, function () {
+
+            seajs.use( "drawer", function () {
+                window.PKUI.component.drawer( "open", options );
+            } );
+
+        } );
+    };
 
     /**
      * 勾选checkbox后的回调函数
