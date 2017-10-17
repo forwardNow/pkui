@@ -1,7 +1,3 @@
-.da-theme-light .da-top {
-  z-index: 3;
-}
-
 .pkui-message {
   position: relative;
 }
@@ -21,6 +17,7 @@
 
 .pkui-message-popup {
   position: absolute;
+  z-index: 3;
   top: 100%;
   left: 0;
   line-height: 1.35;
@@ -31,7 +28,6 @@
 .pkui-message-panel {
   position: relative;
   width: 300px;
-  min-height: 200px;
   margin-top: 4px;
   margin-bottom: 20px;
   overflow: hidden;
@@ -80,12 +76,14 @@
 }
 
 .pkui-message-panel-body {
-  background-color: #f6f8fa;
+  background-color: #fff;
+  min-height: 200px;
 }
 
 .pkui-message-menu-tabs {
   padding: 8px 10px 0 10px;
   border-bottom: 1px solid #dfe2e5;
+  background-color: #f6f8fa;
 }
 
 .pkui-message-menu-tab {
@@ -123,6 +121,7 @@
 }
 
 .pkui-message-menu-list {
+  display: none;
   position: relative;
   max-height: 400px;
   overflow: auto;
@@ -160,7 +159,7 @@
   line-height: 16px;
   text-align: right;
   background: #f6f8fa;
-  border-bottom: 1px solid #e1e4e8;
+  border-top: 1px solid #e1e4e8;
 }
 
 .pkui-message-refresh {
