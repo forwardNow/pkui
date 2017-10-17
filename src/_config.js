@@ -131,7 +131,10 @@ seajs.config( {
         "textMagnifier": "component/common/textMagnifier/1.0.0/textMagnifier",
 
         //【component/logic 】datagrid的扩展
-        "datagrid-delete": "component/logic/datagridExt/1.0.0/datagrid-delete"
+        "datagrid-delete": "component/logic/datagridExt/1.0.0/datagrid-delete",
+
+        //【component/logic 】我的消息
+        "message": "component/logic/message/1.0.0/message"
 
         //
     }

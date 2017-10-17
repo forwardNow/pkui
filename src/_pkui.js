@@ -6,7 +6,7 @@
  *
  * @author 吴钦飞（wuqf@pkusoft.net）
  * @link https://github.com/forwardNow/pkui/releases/
- * @version 1.0.10
+ * @version 1.0.11
  */
 define( function ( require ) {
     "use strict";
@@ -81,7 +81,7 @@ define( function ( require ) {
 
             isIE8: ns.isIE8,
 
-            version: "1.0.10"
+            version: "1.0.11"
 
         }
         ;
@@ -654,6 +654,9 @@ define( function ( require ) {
                                     break;
                                 case "umeditor":
                                     moduleId = "umeditor";
+                                    break;
+                                case "message":
+                                    moduleId = "message";
                                     break;
                                 default:
                                     var errorMessage = "未被注册的组件[" + componentName + "]";
