@@ -37,6 +37,11 @@ define( function ( require ) {
         // 面板标题
         panelTitle: "我的消息",
 
+        // “更多” - href：以app的方式打开，指定菜单URL。
+        moreHref: "",
+        // “更多” - onclick：指定click事件处理函数 的名称。
+        moreClickHandler: "",
+
         // 面板头部
         hasPanelHeader: true,
         // 面板头部 - 关闭按钮
@@ -73,7 +78,7 @@ define( function ( require ) {
             +             '<button type="button" class="pkui-message-refresh" title="刷新"><i class="fa fa-rotate-right"></i></button>'
             +             '{{/if}}'
             +             '{{if hasMoreBtn}}'
-            +             '<a href="#" class="pkui-message-more" title="打开消息中心">更多 <i class="fa fa-angle-double-right"></i></a>'
+            +             '<a href="{{moreHref}}" onclick="{{moreClickHandler}}" class="pkui-message-more" title="打开消息中心">更多 <i class="fa fa-angle-double-right"></i></a>'
             +             '{{/if}}'
             +         '</div>'
             +         '{{/if}}'
@@ -146,6 +151,9 @@ define( function ( require ) {
      * @private
      */
     Message.prototype._render = function () {
+
+        this.$target.addClass( "pkui-message" );
+
         // 是否已经创建
         this._isCreated = false;
 
@@ -164,12 +172,14 @@ define( function ( require ) {
     };
 
     /**
-     * 绑定事件处理程序
+     * 绑定事件处理程序，创建之前的事件绑定
      * @private
      */
     Message.prototype._bind = function () {
         var
-            _this = this
+            _this = this,
+            $document = $( document ),
+            namespace = NAMESPACE + "." + _this._id
         ;
         // 单击目标元素后，显示
         _this.$target.on( "click." + NAMESPACE, function () {
@@ -177,28 +187,29 @@ define( function ( require ) {
         } );
 
         // 点击非有效区域，则进行隐藏
-        $( document ).on( "click." + NAMESPACE + "." + _this._id, function ( event ) {
+        $document.on( "click." + namespace, function ( event ) {
             var
                 target
             ;
             // 如果 已经隐藏 或 没有创建弹出层，则退出
-            if ( _this._isShown || !_this.$popup  ) {
+            if ( !_this._isShown || !_this.$popup  ) {
                 return;
             }
             target = event.target;
 
             // 如果点击的是 $target，则退出
-            if ( $.contains( _this.$target.get( 0 ), target ) ) {
+            if ( _this.$target.get( 0 ) === target || $.contains( _this.$target.get( 0 ), target ) ) {
                 return;
             }
 
             // 如果点击的是 弹出层，则退出
-            if ( $.contains( _this.$popup.get( 0 ), target ) ) {
+            if ( _this.$popup.get( 0 ) === target || $.contains( _this.$popup.get( 0 ), target ) ) {
                 return;
             }
 
             _this.hide();
         } );
+
     };
 
     /**
@@ -208,7 +219,7 @@ define( function ( require ) {
     Message.prototype._create = function () {
         var
             tabHtml,
-            listHtml,
+            contentHtml,
             popup
         ;
 
@@ -216,13 +227,80 @@ define( function ( require ) {
         tabHtml = this._createTab();
 
         // content - list
-        listHtml = this._createList();
+        contentHtml = this._createList();
 
         // popup
-        popup = this._createPopup( { tabHtml: tabHtml, listHtml: listHtml } );
+        popup = this._createPopup( { tabHtml: tabHtml, contentHtml: contentHtml } );
 
         // 添加到文档
         this.$popup = $( popup ).appendTo( document.body );
+
+        // 注册事件处理函数
+        this._bindEventAfterCreate();
+    };
+
+    /**
+     * 事件绑定
+     * @private
+     */
+    Message.prototype._bindEventAfterCreate = function () {
+        var
+            _this = this
+        ;
+        // 标题 - 关闭按钮
+        this.$popup.on( "click." + NAMESPACE, ".pkui-message-panel-header-closebtn", function () {
+            _this.hide();
+        } );
+        // 内容 - tab切换
+        this.$popup.on( "click." + NAMESPACE, ".pkui-message-menu-tab-a", function ( event ) {
+            var
+                $this = $( this ),
+                tabIndex = $this.parent().index(),
+                $tab = _this.$popup.find( ".pkui-message-menu-tab-a" ),
+                $list = _this.$popup.find( ".pkui-message-menu-list" )
+
+            ;
+
+            event.preventDefault();
+
+            // tab
+            $tab.removeClass( "selected" );
+            $this.addClass( "selected" );
+
+            // content
+            $list.hide();
+            $list.eq( tabIndex ).show();
+        } );
+
+        // 底部 - “更多”
+        this.$popup.on( "click." + NAMESPACE, ".pkui-message-more", function ( event ) {
+
+            event.preventDefault();
+
+            // 打开app窗口
+            if ( this.href ) {
+
+            }
+            // 使用函数
+            else if ( this.onclick ) {
+
+            }
+        } );
+    };
+
+    /**
+     * 解除事件绑定
+     * @private
+     */
+    Message.prototype._unbindEvent = function () {
+        // 解除：单击目标元素后，显示
+        this.$target.off( "click." + NAMESPACE );
+        // 解除：点击非有效区域，则进行隐藏
+        $( document ).off( "click." + NAMESPACE + "." + this._id );
+        // 解除：标题 - 关闭按钮
+        // 解除：内容 - tab切换
+        // 解除：底部 - “更多”
+        this.$popup.off( "click." + NAMESPACE );
     };
 
     /**
@@ -236,7 +314,7 @@ define( function ( require ) {
             tpl = opts.tabTemplate,
             tabs = opts.tabList
         ;
-        return ArtTemplate.compile( tpl )( { tabs: tabs } );
+        return ArtTemplate.compile( tpl, { escape: false } )( { tabs: tabs } );
     };
 
     /**
@@ -250,7 +328,7 @@ define( function ( require ) {
             tpl = opts.listTemplate,
             tabs = opts.tabList
         ;
-        return ArtTemplate.compile( tpl )( { tabs: tabs } );
+        return ArtTemplate.compile( tpl, { escape: false } )( { tabs: tabs } );
     };
 
     /**
@@ -265,7 +343,7 @@ define( function ( require ) {
             tpl = opts.popupTemplate,
             data = $.extend( true, {}, opts, options )
         ;
-        return ArtTemplate.compile( tpl )( data );
+        return ArtTemplate.compile( tpl, { escape: false } )( data );
     };
 
 
@@ -305,8 +383,7 @@ define( function ( require ) {
     Message.prototype.destroy = function () {
 
         // 注销事件处理函数
-        this.$target.off( "click." + NAMESPACE );
-        $( document ).off( "click." + NAMESPACE + "." + this._id );
+        this._unbindEvent();
 
         // 删除弹出层节点
         this.$popup.remove();
@@ -320,7 +397,7 @@ define( function ( require ) {
      */
     Message.prototype.position = function ( placement ) {
         var
-            popupPos = this._getPosition(),
+            targetPos = this._getPosition(),
             actualWidth = this.$popup[0].offsetWidth,
             actualHeight = this.$popup[0].offsetHeight,
             viewportDimension,
@@ -334,10 +411,10 @@ define( function ( require ) {
 
             viewportDimension = this._getPosition( this.$viewport );
 
-            placement = placement === 'bottom' && popupPos.bottom + actualHeight > viewportDimension.bottom ? 'top'    :
-                        placement === 'top'    && popupPos.top    - actualHeight < viewportDimension.top    ? 'bottom' :
-                        placement === 'right'  && popupPos.right  + actualWidth  > viewportDimension.width  ? 'left'   :
-                        placement === 'left'   && popupPos.left   - actualWidth  < viewportDimension.left   ? 'right'  :
+            placement = placement === 'bottom' && targetPos.bottom + actualHeight > viewportDimension.bottom ? 'top'    :
+                        placement === 'top'    && targetPos.top    - actualHeight < viewportDimension.top    ? 'bottom' :
+                        placement === 'right'  && targetPos.right  + actualWidth  > viewportDimension.width  ? 'left'   :
+                        placement === 'left'   && targetPos.left   - actualWidth  < viewportDimension.left   ? 'right'  :
                         "bottom"
             ;
         }
@@ -349,7 +426,7 @@ define( function ( require ) {
         ;
 
         // 计算位置
-        calculatedOffset = this._getCalculatedOffset( placement, popupPos, actualWidth, actualHeight );
+        calculatedOffset = this._getCalculatedOffset( placement, targetPos, actualWidth, actualHeight );
 
         // 移动
         this._applyPlacement( calculatedOffset );
@@ -370,7 +447,6 @@ define( function ( require ) {
     /**
      * 移动
      * @param offset
-     * @param placement
      * @private
      */
     Message.prototype._applyPlacement = function ( offset ) {
@@ -426,7 +502,7 @@ define( function ( require ) {
             scroll,
             outerDimension
         ;
-        $element = $element || this.$popup;
+        $element = $element || this.$target;
 
         element = $element[ 0 ];
         isBody = ( element.tagName === 'BODY' );
