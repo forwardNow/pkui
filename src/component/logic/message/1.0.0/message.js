@@ -37,8 +37,8 @@ define( function ( require ) {
         // 面板标题
         panelTitle: "我的消息",
 
-        // “更多” - href：以app的方式打开，指定菜单URL。
-        moreHref: "",
+        // “更多” - app参数：以app的方式打开，指定menuId和打开模式mode。
+        moreAppOptions: null,
         // “更多” - onclick：指定click事件处理函数 的名称。
         moreClickHandler: "",
 
@@ -75,10 +75,20 @@ define( function ( require ) {
             +         '{{if hasPanelFooter }}'
             +         '<div class="pkui-message-panel-footer">'
             +             '{{if hasRefreshBtn}}'
-            +             '<button type="button" class="pkui-message-refresh" title="刷新"><i class="fa fa-rotate-right"></i></button>'
+            +             '<a href="javascript:void(0);" class="pkui-message-refresh"><i class="fa fa-rotate-right"></i> 刷新</a>'
+            +             '（<span class="pkui-message-refreshInfo loading" data-last-refresh-time="">'
+            +                   '<span class="pkui-message-refreshInfo-text"></span>'
+            +                   '<span class="pkui-message-refreshInfo-loading">正在加载...</span>'
+            +             '</span>）'
             +             '{{/if}}'
             +             '{{if hasMoreBtn}}'
-            +             '<a href="{{moreHref}}" onclick="{{moreClickHandler}}" class="pkui-message-more" title="打开消息中心">更多 <i class="fa fa-angle-double-right"></i></a>'
+            +             '<a href="#" '
+            +             '    {{if moreAppOptions}}'
+            +             '    data-pkui-app="true"'
+            +             '    data-pkui-app-options=\'{{moreAppOptions}}\''
+            +             '    {{/if}}'
+            +             '    onclick="{{moreClickHandler}}" '
+            +             '    class="pkui-message-more" title="打开消息中心">更多 <i class="fa fa-angle-double-right"></i></a>'
             +             '{{/if}}'
             +         '</div>'
             +         '{{/if}}'
@@ -100,7 +110,7 @@ define( function ( require ) {
         tabTemplate:
               '{{each tabs}}'
             +     '<div class="pkui-message-menu-tab">'
-            +         '<a href="#" class="pkui-message-menu-tab-a" data-url="{{$value.url}}">'
+            +         '<a href="#" class="pkui-message-menu-tab-a" data-url="{{$value.url}}" data-icon="{{$value.icon}}">'
             +             '<i class="{{$value.icon}}"></i> {{$value.text}}'
             +         '</a>'
             +     '</div>'
@@ -237,6 +247,9 @@ define( function ( require ) {
 
         // 注册事件处理函数
         this._bindEventAfterCreate();
+
+        // 标志已被创建
+        this._isCreated = true;
     };
 
     /**
@@ -270,22 +283,13 @@ define( function ( require ) {
             // content
             $list.hide();
             $list.eq( tabIndex ).show();
-        } );
 
-        // 底部 - “更多”
-        this.$popup.on( "click." + NAMESPACE, ".pkui-message-more", function ( event ) {
-
-            event.preventDefault();
-
-            // 打开app窗口
-            if ( this.href ) {
-
-            }
-            // 使用函数
-            else if ( this.onclick ) {
-
+            // 载入数据
+            if ( ! $this.is( ".loaded" ) ) {
+                _this.loadData( tabIndex );
             }
         } );
+
     };
 
     /**
@@ -301,6 +305,81 @@ define( function ( require ) {
         // 解除：内容 - tab切换
         // 解除：底部 - “更多”
         this.$popup.off( "click." + NAMESPACE );
+    };
+
+    /**
+     * 载入指定 tabIndex 的数据
+     * @param tabIndex {Number}
+     * @param successCallback {Function?}
+     * @param failCallback {Function?}
+     */
+    Message.prototype.loadData = function ( tabIndex, successCallback, failCallback ) {
+        var
+            _this = this,
+            $tab = _this.$popup.find( ".pkui-message-menu-tab-a" ).eq( tabIndex ),
+            $list = _this.$popup.find( ".pkui-message-menu-list" ).eq( tabIndex ),
+            url = $tab.data( "url" ),
+            icon = $tab.data( "icon" ),
+            text = $.trim( $tab.text() )
+        ;
+        successCallback = successCallback || function () {
+            _this._displayRefreshInfo( false, "[" + text + "]加载完毕。" )
+        };
+        failCallback = failCallback || function () {
+            _this._displayRefreshInfo( false, "[" + text + "]加载失败。" )
+        };
+
+        if ( $tab.is( ".loading" ) ) {
+            return;
+        }
+
+        // 开启 loading
+        $tab.removeClass( "loaded" ).addClass( "loading" );
+        $list.isLoading();
+        _this._displayRefreshInfo( true, "[" + text + "]正在加载..." )
+
+        // 请求
+        $.ajax( {
+            url: url
+        } ).done( function ( gridResult ) {
+            if ( gridResult.success ) {
+                fillList( gridResult.data );
+                $.isFunction( successCallback ) && successCallback();
+            } else {
+                $.isFunction( failCallback ) && failCallback();
+            }
+        } ).fail( function () {
+            $.isFunction( failCallback ) && failCallback();
+        } ).always( function () {
+            // 关闭 loading
+            $tab.removeClass( "loading" ).addClass( "loaded" );
+            $list.isLoading( "hide" );
+        } );
+
+        // 填充数据
+        function fillList( list ) {
+
+        }
+    };
+
+    /**
+     * 在底部显示加载反馈
+     * @param isloading
+     * @param text
+     * @private
+     */
+    Message.prototype._displayRefreshInfo = function ( isloading, text ) {
+        var
+            _this = this,
+            $refreshInfo = _this.$popup.find( ".pkui-message-refreshInfo" )
+        ;
+        if ( isloading ) {
+            $refreshInfo.addClass( "loading" );
+            $refreshInfo.find( ".pkui-message-refreshInfo-loading" ).text( text || "加载中..." );
+        } else {
+            $refreshInfo.removeClass( "loading" );
+            $refreshInfo.find( ".pkui-message-refreshInfo-text" ).text( text || "加载完成" );
+        }
     };
 
     /**
@@ -343,6 +422,10 @@ define( function ( require ) {
             tpl = opts.popupTemplate,
             data = $.extend( true, {}, opts, options )
         ;
+        // 处理参数：将对象转换成字符串
+        if ( data.moreAppOptions ) {
+            data.moreAppOptions = window.JSON.stringify( data.moreAppOptions );
+        }
         return ArtTemplate.compile( tpl, { escape: false } )( data );
     };
 
