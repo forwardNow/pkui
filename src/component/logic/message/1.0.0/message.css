@@ -17,7 +17,7 @@
 
 .pkui-message-popup {
   position: absolute;
-  z-index: 3;
+  z-index: 2000;
   top: 100%;
   left: 0;
   line-height: 1.35;
@@ -123,6 +123,7 @@
 .pkui-message-menu-list {
   display: none;
   position: relative;
+  min-height: 160px;
   max-height: 400px;
   overflow: auto;
 }
@@ -157,26 +158,24 @@
 .pkui-message-panel-footer {
   padding: 8px 10px;
   line-height: 16px;
-  text-align: right;
   background: #f6f8fa;
   border-top: 1px solid #e1e4e8;
 }
 
-.pkui-message-refresh {
-  float: left;
-  width: 16px;
-  height: 16px;
-  font-size: 14px;
-  line-height: 1;
-  color: #c6cbd1;
-  cursor: pointer;
-  background: transparent;
-  border: 0;
-  -webkit-appearance: none;
+.pkui-message-more {
+  float: right;
 }
-.pkui-message-refresh:focus, .pkui-message-refresh:hover {
-  color: #444d56;
+
+.pkui-message-refreshInfo.loading .pkui-message-refreshInfo-text {
+  display: none;
 }
-.pkui-message-refresh:focus {
-  outline: none;
+.pkui-message-refreshInfo.loading .pkui-message-refreshInfo-loading {
+  display: inline-block;
+}
+
+.pkui-message-refreshInfo-loading {
+  display: none;
+  padding-left: 20px;
+  min-height: 16px;
+  background: url(./icon_loading.gif) no-repeat left center;
 }
