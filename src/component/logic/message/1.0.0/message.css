@@ -35,6 +35,7 @@
   color: #586069;
   background-color: #fff;
   background-clip: padding-box;
+  border-color: #eee;
   border: 1px solid rgba(27, 31, 35, 0.15);
   border-radius: 3px;
   box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
@@ -129,8 +130,9 @@
 }
 
 .pkui-message-menu-item {
+  position: relative;
   display: block;
-  padding: 8px 8px 8px 30px;
+  padding: 8px 30px 8px 30px;
   overflow: hidden;
   color: inherit;
   border-bottom: 1px solid #eaecef;
@@ -155,6 +157,15 @@
   color: #999;
 }
 
+.pkui-message-menu-item-view {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30px;
+  padding: 10px 0;
+  text-align: center;
+}
+
 .pkui-message-panel-footer {
   padding: 8px 10px;
   line-height: 16px;
@@ -166,16 +177,70 @@
   float: right;
 }
 
-.pkui-message-refreshInfo.loading .pkui-message-refreshInfo-text {
+.pkui-message-refresh {
+  float: right;
+  margin-right: 12px;
+}
+
+.pkui-message-loadInfo-text {
+  display: inline-block;
+}
+.pkui-message-loadInfo-text > .fa {
+  width: 14px;
+}
+.pkui-message-loadInfo-text.loading {
+  padding-left: 16px;
+  background: url(./icon_loading.gif) no-repeat left center;
+}
+.pkui-message-loadInfo-text.loading > .fa {
   display: none;
 }
-.pkui-message-refreshInfo.loading .pkui-message-refreshInfo-loading {
+.pkui-message-loadInfo-text.info, .pkui-message-loadInfo-text.loading {
+  color: #31708f;
+}
+.pkui-message-loadInfo-text.warning, .pkui-message-loadInfo-text.refresh {
+  color: #5c3b08;
+}
+.pkui-message-loadInfo-text.success {
+  color: #1d9d74;
+}
+.pkui-message-loadInfo-text.error {
+  color: #fc0d1b;
+}
+
+.pkui-message-loadInfo-history {
+  position: relative;
+}
+.pkui-message-loadInfo-history:hover .pkui-message-history-list, .pkui-message-loadInfo-history:focus .pkui-message-history-list {
+  display: block;
+}
+.pkui-message-loadInfo-history .pkui-message-loadInfo-text.loading {
+  padding-left: 0;
+  background: none;
+}
+.pkui-message-loadInfo-history .pkui-message-loadInfo-text.loading > .fa {
   display: inline-block;
 }
 
-.pkui-message-refreshInfo-loading {
+.pkui-message-history-list {
   display: none;
-  padding-left: 20px;
-  min-height: 16px;
-  background: url(./icon_loading.gif) no-repeat left center;
+  position: absolute;
+  bottom: 102%;
+  width: 200px;
+  max-height: 200px;
+  overflow: auto;
+  background: #fff;
+  border-color: #eee;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 3px;
+  box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
+}
+
+.pkui-message-history-item {
+  padding: 3px;
+  cursor: default;
+  color: #999;
+}
+.pkui-message-history-item > .time {
+  margin-right: 4px;
 }
