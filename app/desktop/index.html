@@ -13,7 +13,7 @@
         data-timestamp: 时间戳（dev为开发模式），比如 data-timestamp="v=2017-02-27"
     -->
     <script data-main="./js/main.js" data-timestamp="2017-09-20" src="../pkui/pkui.js"></script>
-    <link rel="stylesheet" href="css/common/message.css">
+    <link rel="stylesheet" href="../pkui/component/logic/message/1.0.0/message.css">
 </head>
 <body>
 
@@ -28,7 +28,24 @@
         <div class="da-top-aside">
             <div class="da-top-asideItem da-top-dept"><i class="fa fa-home"></i> <span id="daTopDeptName">属于哪个单位...<i class="fa fa-spinner fa-spin"></i></span></div>
             <div class="da-top-asideItem da-top-username"><i class="fa fa-user-o"></i> <span id="daTopUsername">我是谁...<i class="fa fa-spinner fa-spin"></i></span></div>
-            <div class="da-top-asideItem da-top-message clickable pkui-message">
+            <div class="da-top-asideItem da-top-message clickable"
+                 data-pkui-component="message"
+                 data-pkui-component-options='{
+                    "URL_getSysMessageModelAndMarkAsRead": "__CTX__/common/getSysMessageModelAndMarkAsRead",
+                    "tabList": [
+                        { "text": "未读", "icon": "fa fa-envelope-o", "url": "__CTX__/common/getUnreadSysMessage?type=all"},
+                        { "text": "私信", "icon": "fa fa-commenting-o", "url": "__CTX__/common/getUnreadSysMessage?type=private"},
+                        { "text": "公告", "icon": "fa fa-file-text-o", "url": "__CTX__/common/getUnreadSysMessage?type=public"}
+                    ],
+                    "moreAppOptions": {
+                        "menuId": 450,
+                        "icon": "fa fa-envelope-o",
+                        "title": "消息管理",
+                        "mode": "default"
+                    }
+                 }'><div class="pkui-message-count"></div><i class="fa fa-comment-o"></i> 消息 <span class="caret"></span>
+            </div>
+            <div class="da-top-asideItem da-top-message clickable pkui-message hidden">
                 <div class="pkui-message-count"></div><i class="fa fa-comment-o"></i> 消息 <span class="caret"></span>
                 <div class="pkui-message-popup">
                     <div class="pkui-message-panel">
@@ -70,7 +87,8 @@
                             </div>
                         </div>
                         <div class="pkui-message-panel-footer">
-                            <a href="#" class="link-more-message"><i class="fa fa-plus"></i> 更多</a>
+                            <button type="button" class="pkui-message-refresh" title="刷新"><i class="fa fa-rotate-right"></i></button>
+                            <a href="#" class="pkui-message-more" title="打开消息中心">更多 <i class="fa fa-angle-double-right"></i></a>
                         </div>
                     </div>
                 </div>
