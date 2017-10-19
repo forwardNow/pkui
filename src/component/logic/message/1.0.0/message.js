@@ -28,6 +28,9 @@ define( function ( require ) {
             { "text": "公告", "icon": "fa fa-file-text-o", "url": "__CTX__/common/getUnreadSysMessage?type=public"}
         ],
 
+        // 获取模型并标志已被阅读
+        URL_getSysMessageModelAndMarkAsRead: "",
+
         // 视口，指定 popup 的容器。值类型：CSS选择器
         viewport: "body",
 
@@ -51,6 +54,8 @@ define( function ( require ) {
         hasPanelFooter: true,
         // 面板底部 - 刷新按钮
         hasRefreshBtn: true,
+        // 面板底部 - 加载信息反馈
+        hasLoadInfo: true,
         // 面板底部 - 更多按钮
         hasMoreBtn: true,
 
@@ -74,13 +79,18 @@ define( function ( require ) {
             +         '</div>'
             +         '{{if hasPanelFooter }}'
             +         '<div class="pkui-message-panel-footer">'
-            +             '{{if hasRefreshBtn}}'
-            +             '<a href="javascript:void(0);" class="pkui-message-refresh"><i class="fa fa-rotate-right"></i> 刷新</a>'
-            +             '（<span class="pkui-message-refreshInfo loading" data-last-refresh-time="">'
-            +                   '<span class="pkui-message-refreshInfo-text"></span>'
-            +                   '<span class="pkui-message-refreshInfo-loading">正在加载...</span>'
-            +             '</span>）'
+
+            +             '{{if hasLoadInfo}}'
+            +             '<span class="pkui-message-loadInfo">'
+            +                   '<span class="pkui-message-loadInfo-text"></span> '
+            +                   '<a href="javascript:void(0);" class="pkui-message-loadInfo-history">历史 <i class="fa fa-caret-down"></i>'
+            +                       '<div class="pkui-message-history-list">'
+            //+                           '<div class="pkui-message-history-item"><span class="time">16时36分30秒</span> <span class="pkui-message-loadInfo-text info"><i class="fa fa-info-circle"></i> [公告]加载完毕。</span></div>'
+            +                       '</div>'
+            +                   '</a>'
+            +             '</span>'
             +             '{{/if}}'
+
             +             '{{if hasMoreBtn}}'
             +             '<a href="#" '
             +             '    {{if moreAppOptions}}'
@@ -90,6 +100,11 @@ define( function ( require ) {
             +             '    onclick="{{moreClickHandler}}" '
             +             '    class="pkui-message-more" title="打开消息中心">更多 <i class="fa fa-angle-double-right"></i></a>'
             +             '{{/if}}'
+
+            +             '{{if hasRefreshBtn}}'
+            +             '<a href="javascript:void(0);" class="pkui-message-refresh"><i class="fa fa-rotate-right"></i> 刷新</a>'
+            +             '{{/if}}'
+
             +         '</div>'
             +         '{{/if}}'
             +     '</div>'
@@ -125,13 +140,17 @@ define( function ( require ) {
         // 条目模板
         itemTemplate:
               '{{each items}}'
-            +     '<div class="pkui-message-menu-item">'
-            +         '<span class="pkui-message-menu-item-icon"><i class="{{$value.icon}}"></i></span>'
+            +     '<div class="pkui-message-menu-item" data-msg-id="{{$value.msgId}}">'
+            +         '<span class="pkui-message-menu-item-icon"><i class="{{$value.icon||icon}}"></i></span>'
             +         '<span class="pkui-message-menu-item-text">{{$value.msgTitle}}</span>'
             +         '<span class="pkui-message-menu-item-date">{{$value.sendTime | dateFormat : "YYYY年MM月DD日 HH时mm分ss秒"}}</span>'
+            +         '<a href="javascript:void(0);" class="pkui-message-menu-item-view" title="阅读"><i class="fa fa-eye"></i></a>'
             +     '</div>'
-            + '{{/each}}'
-
+            + '{{/each}}',
+        historyItemTemplate:
+                '<div class="pkui-message-history-item">'
+            +       '<span class="time">{{time | dateFormat : "HH:mm:ss"}}</span> {{html}}</span>'
+            +   '</div>'
     };
 
     /**
@@ -176,8 +195,14 @@ define( function ( require ) {
         // ID
         this._id = count++;
 
+        // 日志记录
+        this._logList = [];
+
         // 视口/popup的容器
         this.$viewport = $( this.opts.viewport );
+
+        // render
+        this.historyItemRender = ArtTemplate.compile( this.opts.historyItemTemplate, { escape: false } );
 
     };
 
@@ -250,6 +275,19 @@ define( function ( require ) {
 
         // 标志已被创建
         this._isCreated = true;
+
+        /* 创建之后 */
+
+        // 加载信息
+        this.$loadInfoText = this.$popup.find( ".pkui-message-loadInfo-text" );
+        // 历史
+        this.$loadInfoHistoryList = this.$popup.find( ".pkui-message-history-list" );
+
+        /**
+         * @event created
+         */
+        this.$popup.trigger( "created." + NAMESPACE );
+
     };
 
     /**
@@ -290,6 +328,45 @@ define( function ( require ) {
             }
         } );
 
+        // 创建完毕后，让第一个页签加载
+        this.$popup.on( "created." + NAMESPACE, function () {
+            _this.$popup.find( ".pkui-message-menu-tab-a" ).eq( 0 ).trigger( "click" );
+        } );
+
+        // 点击刷新
+        this.$popup.on( "click." + NAMESPACE, ".pkui-message-refresh", function () {
+            var
+                $tab = _this.$popup.find( ".pkui-message-menu-tab-a" )
+            ;
+            // 日志
+            _this._log( "刷新", "refresh" );
+            // 删除已加载的标志
+            $tab.removeClass( "loaded" );
+            // 让选中的页签加载内容
+            $tab.filter( ".selected" ).trigger( "click" );
+        } );
+
+        // 点击阅读
+        this.$popup.on( "click." + NAMESPACE, ".pkui-message-menu-item-view", function () {
+            var
+                $item = $( this ).parent( ".pkui-message-menu-item" ),
+                $icon = $item.children( ".pkui-message-menu-item-icon" ),
+                url = this.opts.URL_getSysMessageModelAndMarkAsRead,
+                msgId = $item.data( "msgId" )
+            ;
+            // Ajax
+            $.ajax( {
+                url: url,
+                data: {
+                    msgId: msgId
+                }
+            } ).done( function ( jsonResult ) {
+
+            } ).fail( function () {
+
+            } );
+            //
+        } );
     };
 
     /**
@@ -323,10 +400,10 @@ define( function ( require ) {
             text = $.trim( $tab.text() )
         ;
         successCallback = successCallback || function () {
-            _this._displayRefreshInfo( false, "[" + text + "]加载完毕。" )
+            _this._log( "[" + text + "]加载成功", "success" );
         };
         failCallback = failCallback || function () {
-            _this._displayRefreshInfo( false, "[" + text + "]加载失败。" )
+            _this._log( "[" + text + "]加载失败", "error" );
         };
 
         if ( $tab.is( ".loading" ) ) {
@@ -336,7 +413,7 @@ define( function ( require ) {
         // 开启 loading
         $tab.removeClass( "loaded" ).addClass( "loading" );
         $list.isLoading();
-        _this._displayRefreshInfo( true, "[" + text + "]正在加载..." )
+        _this._log( "[" + text + "]正在加载", "loading" );
 
         // 请求
         $.ajax( {
@@ -358,28 +435,62 @@ define( function ( require ) {
 
         // 填充数据
         function fillList( list ) {
-
+            var
+                itemsHtml,
+                tpl
+            ;
+            if ( ! list || list.length === 0 ) {
+                itemsHtml = _this.opts.noResults || "没有数据";
+            } else {
+                tpl = _this.opts.itemTemplate;
+                itemsHtml = ArtTemplate.compile( tpl, { escape: false } )( { items: list, icon: icon } );
+            }
+            $list.html( itemsHtml );
         }
     };
 
     /**
      * 在底部显示加载反馈
-     * @param isloading
      * @param text
+     * @param type {String?} 类别
      * @private
      */
-    Message.prototype._displayRefreshInfo = function ( isloading, text ) {
+    Message.prototype._log = function ( text, type ) {
         var
-            _this = this,
-            $refreshInfo = _this.$popup.find( ".pkui-message-refreshInfo" )
+            $loadInfoText = this.$loadInfoText,
+            html,
+            logItemData
         ;
-        if ( isloading ) {
-            $refreshInfo.addClass( "loading" );
-            $refreshInfo.find( ".pkui-message-refreshInfo-loading" ).text( text || "加载中..." );
-        } else {
-            $refreshInfo.removeClass( "loading" );
-            $refreshInfo.find( ".pkui-message-refreshInfo-text" ).text( text || "加载完成" );
+        type = type || "info";
+
+        $loadInfoText.attr( "class", "pkui-message-loadInfo-text" ).addClass( type );
+
+        if ( type === "info" ) {
+            html = '<i class=\"fa fa-info-circle\"></i> ' + text;
+        } else if ( type === "loading" ) {
+            html = '<i class=\"fa fa-spinner\"></i> ' + text;
+        } else if ( type === "warning" ) {
+            html = '<i class=\"fa fa-exclamation-triangle\"></i> ' + text;
+        } else if ( type === "success" ) {
+            html = '<i class=\"fa fa-check-circle\"></i> ' + text;
+        } else if ( type === "error" ) {
+            html = '<i class=\"fa fa-times-circle\"></i> ' + text;
+        } else if ( type === "refresh" ) {
+            html = '<i class=\"fa fa-rotate-right\"></i> ' + text;
         }
+
+        $loadInfoText.get( 0 ).innerHTML = html;
+
+        logItemData = {
+            time: new Date().getTime(),
+            html: $loadInfoText.prop( "outerHTML" )
+        };
+
+        // 记录
+        this._logList.push( logItemData );
+
+        // 添加到历史
+        this.$loadInfoHistoryList.prepend( this.historyItemRender( logItemData ) );
     };
 
     /**
