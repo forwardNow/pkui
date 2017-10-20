@@ -39,7 +39,7 @@ define( function ( require ) {
 
     require( "placeholderHandler" );
 
-    if ( window.isIE8 ) {
+    if ( window.PKUI.isIE8 ) {
         require( "../css/page/ie8-hack.css" );
     }
 
@@ -104,8 +104,12 @@ define( function ( require ) {
     } );
 
     // 处理离开网页的情况
-    $( window ).on( "beforeunload", function () {
-        return "确认要离开?";
-    } );
+    // 当IE8注册“beforeunload”后，点击任何链接，都会提示“是否离开”。
+    if ( ! window.PKUI.isIE8 ) {
+        $( window ).on( "beforeunload", function () {
+            return "确认要离开?";
+        } );
+    }
+
 
 } );
