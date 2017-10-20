@@ -22,10 +22,16 @@ define( function ( require ) {
      */
     Message.prototype.defaults = {
 
-        // 是否有消息，用于在目标元素上添加“有消息”的标志
+        // 请求URL，判断是否有消息，用于在目标元素上添加“有消息”的标志。可不指定。
+        // 服务端返回值：JsonResult
         hasSysMessageURL: "",
 
-        /* 消息类别
+        /*
+         消息类别
+            isMarkedMsg：是否为已读消息。该类别的消息是否都是“已读”状态
+            text：页签的名称
+            icon：页签的图标CSS类，使用fontawesome
+            url：请求一页消息，服务器返回值 GridResult
          [
             { "isMarkedMsg": false, "text": "未读", "icon": "fa fa-envelope-o", "url": "__CTX__/common/getUnreadSysMessage?type=all"},
             { "isMarkedMsg": false, "text": "私信", "icon": "fa fa-commenting-o", "url": "__CTX__/common/getUnreadSysMessage?type=private"},
@@ -34,7 +40,9 @@ define( function ( require ) {
          */
         tabList: null,
 
-        // 标志已被阅读
+        // 请求URL，将指定的消息标志为已被阅读
+        // 请求参数名称：msgId
+        // 服务端返回值：JsonResult
         sysMessageMarkCheckedURL: "",
 
         // 视口，指定 popup 的容器。值类型：CSS选择器
@@ -46,9 +54,9 @@ define( function ( require ) {
         // 面板标题
         panelTitle: "我的消息",
 
-        // “更多” - app参数：以app的方式打开，指定menuId和打开模式mode。
+        // 面板底部 - “更多” ： app参数：以app的方式打开，指定menuId和打开模式mode。
         moreAppOptions: null,
-        // “更多” - onclick：指定click事件处理函数 的名称。
+        // 面板底部 - “更多” ： onclick：指定click事件处理函数 的名称。
         moreClickHandler: "",
 
         // 面板头部
