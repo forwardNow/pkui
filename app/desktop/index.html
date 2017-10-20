@@ -31,6 +31,7 @@
             <div class="da-top-asideItem da-top-message clickable"
                  data-pkui-component="message"
                  data-pkui-component-options='{
+                    "hasSysMessageURL": "__CTX__/common/hasSysMessage",
                     "sysMessageMarkCheckedURL": "__CTX__/common/sysMessageMarkChecked",
                     "tabList": [
                         { "isMarkedMsg": true, "text": "未读", "icon": "fa fa-envelope-o", "url": "__CTX__/common/getUnreadSysMessage?type=all"},
@@ -43,55 +44,7 @@
                         "title": "消息管理",
                         "mode": "default"
                     }
-                 }'><div class="pkui-message-count"></div><i class="fa fa-comment-o"></i> 消息 <span class="caret"></span>
-            </div>
-            <div class="da-top-asideItem da-top-message clickable pkui-message hidden">
-                <div class="pkui-message-count"></div><i class="fa fa-comment-o"></i> 消息 <span class="caret"></span>
-                <div class="pkui-message-popup">
-                    <div class="pkui-message-panel">
-                        <div class="pkui-message-panel-header">
-                            <button class="pkui-message-panel-header-closebtn">×</button>
-                            <span class="pkui-message-panel-header-title">我的消息</span>
-                        </div>
-                        <div class="pkui-message-panel-body">
-                            <div class="pkui-message-menu">
-                                <div class="pkui-message-menu-tabs">
-                                    <div class="pkui-message-menu-tab"><a href="#" class="pkui-message-menu-tab-a selected"><i class="fa fa-envelope-o"></i> 未读</a></div>
-                                    <div class="pkui-message-menu-tab"><a href="#" class="pkui-message-menu-tab-a"><i class="fa fa-commenting-o"></i> 私信</a></div>
-                                    <div class="pkui-message-menu-tab"><a href="#" class="pkui-message-menu-tab-a"><i class="fa fa-file-text-o"></i> 公告</a></div>
-                                </div>
-                                <div class="pkui-message-menu-content">
-                                    <div class="pkui-message-menu-list">
-                                        <div class="pkui-message-menu-item">
-                                            <span class="pkui-message-menu-item-icon"><i class="fa fa-envelope-o"></i></span>
-                                            <span class="pkui-message-menu-item-text">市内迁移通知</span>
-                                            <span class="pkui-message-menu-item-date">2017-02-16 09:34:12</span>
-                                        </div>
-                                        <div class="pkui-message-menu-item">
-                                            <span class="pkui-message-menu-item-icon"><i class="fa fa-envelope-o"></i></span>
-                                            <span class="pkui-message-menu-item-text">二代证退回通知</span>
-                                            <span class="pkui-message-menu-item-date">2016-12-30 11:25:02</span>
-                                        </div>
-                                        <div class="pkui-message-menu-item">
-                                            <span class="pkui-message-menu-item-icon"><i class="fa fa-envelope-o"></i></span>
-                                            <span class="pkui-message-menu-item-text">市内迁移撤销办理通知</span>
-                                            <span class="pkui-message-menu-item-date">2016-12-30 11:25:02</span>
-                                        </div>
-                                        <div class="pkui-message-menu-item">
-                                            <span class="pkui-message-menu-item-icon"><i class="fa fa-envelope-o"></i></span>
-                                            <span class="pkui-message-menu-item-text">二代证退回通知二代证退回通知二代证退回通知二代证退回通知</span>
-                                            <span class="pkui-message-menu-item-date">2016-12-30 11:25:02</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pkui-message-panel-footer">
-                            <button type="button" class="pkui-message-refresh" title="刷新"><i class="fa fa-rotate-right"></i></button>
-                            <a href="#" class="pkui-message-more" title="打开消息中心">更多 <i class="fa fa-angle-double-right"></i></a>
-                        </div>
-                    </div>
-                </div>
+                 }'><i class="fa fa-comment-o"></i> 消息 <span class="caret"></span>
             </div>
             <div class="da-top-asideItem da-top-search clickable" id="da-top-search"><i class="fa fa-search"></i> 应用搜索</div>
             <div class="da-top-asideItem da-top-modifyPassword clickable" id="da-top-modifyPassword"><i class="fa fa-key"></i> 修改密码</div>
