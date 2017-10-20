@@ -6228,6 +6228,360 @@ table th[class*="col-"] {
   padding-top: 2px;
 }
 
+.pkui-message {
+  position: relative;
+}
+
+.pkui-message-count {
+  position: absolute;
+  top: 13px;
+  left: 8px;
+  width: 10px;
+  height: 10px;
+  color: #FFF;
+  background-color: #EA2E2E;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+}
+
+.pkui-message-popup {
+  position: absolute;
+  z-index: 2000;
+  top: 100%;
+  left: 0;
+  line-height: 1.35;
+  text-shadow: none;
+  cursor: default;
+}
+.pkui-message-popup.right .pkui-message-panel-arrow {
+  top: 50%;
+  left: -7px;
+  margin-top: -7px;
+  border-width: 7px 7px 7px 0;
+  border-right-color: #f6f8fa;
+}
+.pkui-message-popup.top .pkui-message-panel-arrow {
+  bottom: -7px;
+  left: 50%;
+  margin-left: -7px;
+  border-width: 7px 7px 0;
+  border-top-color: #f6f8fa;
+}
+.pkui-message-popup.left .pkui-message-panel-arrow {
+  top: 50%;
+  right: -7px;
+  margin-top: -7px;
+  border-width: 7px 0 7px 7px;
+  border-left-color: #f6f8fa;
+}
+.pkui-message-popup.bottom .pkui-message-panel-arrow {
+  top: -7px;
+  left: 50%;
+  margin-left: -7px;
+  border-width: 0 7px 7px;
+  border-bottom-color: #f6f8fa;
+}
+
+.pkui-message-panel {
+  position: relative;
+  width: 300px;
+  font-size: 12px;
+  color: #586069;
+  background-color: #fff;
+  background-clip: padding-box;
+  border-color: #eee;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 3px;
+  box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
+}
+
+.pkui-message-panel-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+}
+
+.pkui-message-panel-header {
+  padding: 8px 10px;
+  line-height: 16px;
+  font-size: 14px;
+  background: #f6f8fa;
+  border-bottom: 1px solid #e1e4e8;
+  border-radius: 3px 3px 0 0;
+}
+
+.pkui-message-panel-header-title {
+  font-weight: 600;
+  color: #24292e;
+}
+
+.pkui-message-panel-header-closebtn {
+  float: right;
+  width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  margin-top: -3px;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #c6cbd1;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+}
+.pkui-message-panel-header-closebtn:focus, .pkui-message-panel-header-closebtn:hover {
+  color: #444d56;
+}
+.pkui-message-panel-header-closebtn:focus {
+  outline: none;
+}
+
+.pkui-message-panel-body {
+  background-color: #fff;
+  min-height: 200px;
+}
+
+.pkui-message-menu-tabs {
+  padding: 8px 10px 0 10px;
+  border-bottom: 1px solid #dfe2e5;
+  background-color: #f6f8fa;
+}
+
+.pkui-message-menu-tab {
+  display: inline-block;
+  position: relative;
+  bottom: -1px;
+}
+
+.pkui-message-menu-tab-a {
+  display: inline-block;
+  padding: 4px 8px 2px 8px;
+  font-weight: 600;
+  color: #6a737d;
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 2px 2px 0 0;
+}
+.pkui-message-menu-tab-a:hover, .pkui-message-menu-tab-a:focus {
+  color: #24292e;
+}
+.pkui-message-menu-tab-a.selected {
+  color: #24292e;
+  background-color: #fff;
+  border-color: #dfe2e5;
+  border-bottom-color: #fff;
+}
+
+.pkui-message-menu-content {
+  position: relative;
+  max-height: 400px;
+  overflow: auto;
+  background: #fff;
+}
+
+.pkui-message-menu-list {
+  display: none;
+  position: relative;
+  min-height: 160px;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.pkui-message-menu-item {
+  position: relative;
+  display: block;
+  padding: 8px 30px 8px 30px;
+  color: inherit;
+  border-bottom: 1px solid #eaecef;
+}
+.pkui-message-menu-item .pkui-message-icon-origin {
+  display: inline-block;
+}
+.pkui-message-menu-item .pkui-message-icon-marked {
+  color: #1d9d74;
+  display: none;
+}
+.pkui-message-menu-item.marking .pkui-message-icon-origin {
+  display: none;
+}
+.pkui-message-menu-item.marking .pkui-message-icon-marked {
+  display: none;
+}
+.pkui-message-menu-item.marking .pkui-message-menu-item-icon {
+  background: url(./icon_loading.gif) no-repeat left center;
+}
+.pkui-message-menu-item.marked .pkui-message-icon-origin {
+  display: none;
+}
+.pkui-message-menu-item.marked .pkui-message-icon-marked {
+  display: inline-block;
+}
+.pkui-message-menu-item.marked .pkui-message-menu-item-title {
+  color: #888;
+}
+
+.pkui-message-menu-item-icon {
+  float: left;
+  width: 16px;
+  height: 16px;
+  margin-left: -20px;
+  color: #999;
+  vertical-align: middle;
+}
+
+.pkui-message-menu-item-title {
+  display: block;
+  max-width: 100%;
+  word-break: break-all;
+}
+
+.pkui-message-menu-item-content {
+  display: none;
+  max-width: 100%;
+  padding: 6px;
+  margin-top: 4px;
+  margin-left: -6px;
+  margin-right: -6px;
+  line-height: 1.5;
+  background: #F5F5F5;
+  color: #333;
+  word-break: break-all;
+  cursor: text;
+}
+
+.pkui-message-menu-item-date {
+  display: block;
+  margin-top: 4px;
+  color: #aaa;
+}
+
+.pkui-message-menu-item-view {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30px;
+  padding: 10px 0;
+  text-align: center;
+}
+.pkui-message-menu-item-view > .pkui-message-icon-open {
+  display: inline-block;
+}
+.pkui-message-menu-item-view > .pkui-message-icon-close {
+  display: none;
+}
+.pkui-message-menu-item-view.opened > .pkui-message-icon-open {
+  display: none;
+}
+.pkui-message-menu-item-view.opened > .pkui-message-icon-close {
+  display: inline-block;
+}
+
+.pkui-message-view-panel {
+  position: absolute;
+  right: 50%;
+  bottom: 50%;
+  width: 240px;
+  max-height: 200px;
+  padding: 8px 6px;
+  overflow: auto;
+  word-break: break-all;
+  text-align: left;
+  background: #fff;
+  color: #666;
+  border-color: #eee;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 3px;
+  box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
+}
+
+.pkui-message-panel-footer {
+  padding: 8px 10px;
+  line-height: 16px;
+  background: #f6f8fa;
+  border-top: 1px solid #e1e4e8;
+}
+
+.pkui-message-more {
+  float: right;
+}
+
+.pkui-message-refresh {
+  float: right;
+  margin-right: 12px;
+  border-radius: 0 0 3px 3px;
+}
+
+.pkui-message-loadInfo-text {
+  display: inline-block;
+}
+.pkui-message-loadInfo-text > .fa {
+  width: 14px;
+}
+.pkui-message-loadInfo-text.loading {
+  padding-left: 16px;
+  background: url(./icon_loading.gif) no-repeat left center;
+}
+.pkui-message-loadInfo-text.loading > .fa {
+  display: none;
+}
+.pkui-message-loadInfo-text.info, .pkui-message-loadInfo-text.loading {
+  color: #31708f;
+}
+.pkui-message-loadInfo-text.warning, .pkui-message-loadInfo-text.refresh {
+  color: #5c3b08;
+}
+.pkui-message-loadInfo-text.success {
+  color: #1d9d74;
+}
+.pkui-message-loadInfo-text.error {
+  color: #fc0d1b;
+}
+
+.pkui-message-loadInfo-history {
+  position: relative;
+  margin-left: 6px;
+}
+.pkui-message-loadInfo-history:hover .pkui-message-history-list, .pkui-message-loadInfo-history:focus .pkui-message-history-list {
+  display: block;
+}
+.pkui-message-loadInfo-history .pkui-message-loadInfo-text.loading {
+  padding-left: 0;
+  background: none;
+}
+.pkui-message-loadInfo-history .pkui-message-loadInfo-text.loading > .fa {
+  display: inline-block;
+}
+
+.pkui-message-history-list {
+  display: none;
+  position: absolute;
+  bottom: 102%;
+  width: 240px;
+  padding: 8px 6px;
+  max-height: 200px;
+  overflow: auto;
+  background: #fff;
+  border-color: #eee;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 3px;
+  box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
+}
+
+.pkui-message-history-item {
+  padding: 3px;
+  cursor: default;
+  color: #999;
+}
+.pkui-message-history-item > .time {
+  margin-right: 4px;
+}
+
 /*!
  * pkui-dialog.css
  * Date: 2014-07-03
