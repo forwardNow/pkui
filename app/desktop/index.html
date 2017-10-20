@@ -31,11 +31,11 @@
             <div class="da-top-asideItem da-top-message clickable"
                  data-pkui-component="message"
                  data-pkui-component-options='{
-                    "URL_getSysMessageModelAndMarkAsRead": "__CTX__/common/getSysMessageModelAndMarkAsRead",
+                    "sysMessageMarkCheckedURL": "__CTX__/common/sysMessageMarkChecked",
                     "tabList": [
-                        { "text": "未读", "icon": "fa fa-envelope-o", "url": "__CTX__/common/getUnreadSysMessage?type=all"},
-                        { "text": "私信", "icon": "fa fa-commenting-o", "url": "__CTX__/common/getUnreadSysMessage?type=private"},
-                        { "text": "公告", "icon": "fa fa-file-text-o", "url": "__CTX__/common/getUnreadSysMessage?type=public"}
+                        { "isMarkedMsg": true, "text": "未读", "icon": "fa fa-envelope-o", "url": "__CTX__/common/getUnreadSysMessage?type=all"},
+                        { "isMarkedMsg": false, "text": "私信", "icon": "fa fa-commenting-o", "url": "__CTX__/common/getUnreadSysMessage?type=private"},
+                        { "isMarkedMsg": false, "text": "公告", "icon": "fa fa-file-text-o", "url": "__CTX__/common/getUnreadSysMessage?type=public"}
                     ],
                     "moreAppOptions": {
                         "menuId": 450,
