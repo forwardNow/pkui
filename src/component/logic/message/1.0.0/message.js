@@ -23,13 +23,13 @@ define( function ( require ) {
     Message.prototype.defaults = {
 
         tabList: [
-            { "text": "未读", "icon": "fa fa-envelope-o", "url": "__CTX__/common/getUnreadSysMessage?type=all"},
-            { "text": "私信", "icon": "fa fa-commenting-o", "url": "__CTX__/common/getUnreadSysMessage?type=private"},
-            { "text": "公告", "icon": "fa fa-file-text-o", "url": "__CTX__/common/getUnreadSysMessage?type=public"}
+            { "isMarkedMsg": false, "text": "未读", "icon": "fa fa-envelope-o", "url": "__CTX__/common/getUnreadSysMessage?type=all"},
+            { "isMarkedMsg": false, "text": "私信", "icon": "fa fa-commenting-o", "url": "__CTX__/common/getUnreadSysMessage?type=private"},
+            { "isMarkedMsg": false, "text": "公告", "icon": "fa fa-file-text-o", "url": "__CTX__/common/getUnreadSysMessage?type=public"}
         ],
 
-        // 获取模型并标志已被阅读
-        URL_getSysMessageModelAndMarkAsRead: "",
+        // 标志已被阅读
+        sysMessageMarkCheckedURL: "",
 
         // 视口，指定 popup 的容器。值类型：CSS选择器
         viewport: "body",
@@ -63,6 +63,7 @@ define( function ( require ) {
         popupTemplate:
             '<div class="pkui-message-popup">'
             +     '<div class="pkui-message-panel">'
+            +     '<div class="pkui-message-panel-arrow"></div>'
             +         '{{if hasPanelHeader }}'
             +         '<div class="pkui-message-panel-header">'
             +             '{{if hasCloseBtn }}'
@@ -82,7 +83,7 @@ define( function ( require ) {
 
             +             '{{if hasLoadInfo}}'
             +             '<span class="pkui-message-loadInfo">'
-            +                   '<span class="pkui-message-loadInfo-text"></span> '
+            +                   '<span class="pkui-message-loadInfo-text"></span>'
             +                   '<a href="javascript:void(0);" class="pkui-message-loadInfo-history">历史 <i class="fa fa-caret-down"></i>'
             +                       '<div class="pkui-message-history-list">'
             //+                           '<div class="pkui-message-history-item"><span class="time">16时36分30秒</span> <span class="pkui-message-loadInfo-text info"><i class="fa fa-info-circle"></i> [公告]加载完毕。</span></div>'
@@ -114,37 +115,35 @@ define( function ( require ) {
         // tab模板
         /*
             tabList = [
-                { "text": "未读", "icon": "fa fa-envelope-o",
-                  "url": "__CTX__/common/getUnreadSysMessage?type=all"},
-                { "text": "私信", "icon": "fa fa-commenting-o",
-                  "url": "__CTX__/common/getUnreadSysMessage?type=private"},
-                { "text": "公告", "icon": "fa fa-file-text-o",
-                  "url": "__CTX__/common/getUnreadSysMessage?type=public"}
+                { "text": "未读", "icon": "fa fa-envelope-o", "url": "__CTX__/common/getUnreadSysMessage?type=all"},
+                { "text": "私信", "icon": "fa fa-commenting-o", "url": "__CTX__/common/getUnreadSysMessage?type=private"},
+                { "text": "公告", "icon": "fa fa-file-text-o", "url": "__CTX__/common/getUnreadSysMessage?type=public"}
             ]
          */
-        tabTemplate:
+        tabsTemplate:
               '{{each tabs}}'
             +     '<div class="pkui-message-menu-tab">'
-            +         '<a href="#" class="pkui-message-menu-tab-a" data-url="{{$value.url}}" data-icon="{{$value.icon}}">'
+            +         '<a href="#" class="pkui-message-menu-tab-a" data-url="{{$value.url}}" data-icon="{{$value.icon}}" data-is-marked-msg="{{$value.isMarkedMsg && 1}}">'
             +             '<i class="{{$value.icon}}"></i> {{$value.text}}'
             +         '</a>'
             +     '</div>'
             + '{{/each}}'
         ,
         // 列表模板
-        listTemplate:
+        messageListsTemplate:
               '{{each tabs}}'
-            +     '<div class="pkui-message-menu-list" data-tabindex="{{$index}}"></div>'
+            +     '<div class="pkui-message-menu-list" data-tabindex="{{$index}}" data-tabtext="{{$value.text}}"></div>'
             + '{{/each}}'
         ,
         // 条目模板
-        itemTemplate:
+        messageItemsTemplate:
               '{{each items}}'
-            +     '<div class="pkui-message-menu-item" data-msg-id="{{$value.msgId}}">'
-            +         '<span class="pkui-message-menu-item-icon"><i class="{{$value.icon||icon}}"></i></span>'
-            +         '<span class="pkui-message-menu-item-text">{{$value.msgTitle}}</span>'
+            +     '<div class="pkui-message-menu-item {{isMarkedMsg||marked}}" data-msg-id="{{$value.msgId}}">'
+            +         '<span class="pkui-message-menu-item-icon"><i class="pkui-message-icon-origin {{$value.icon||icon}}"></i><i class="pkui-message-icon-marked fa fa-check-square-o"></i></span>'
+            +         '<span class="pkui-message-menu-item-title">{{$value.msgTitle}}</span>'
+            +         '<div class="pkui-message-menu-item-content">{{$value.msgContent}}</div>'
             +         '<span class="pkui-message-menu-item-date">{{$value.sendTime | dateFormat : "YYYY年MM月DD日 HH时mm分ss秒"}}</span>'
-            +         '<a href="javascript:void(0);" class="pkui-message-menu-item-view" title="阅读"><i class="fa fa-eye"></i></a>'
+            +         '<a href="javascript:void(0);" class="pkui-message-menu-item-view"><i class="pkui-message-icon-open fa fa-eye"></i><i class="pkui-message-icon-close fa fa-eye-slash"></i></a>'
             +     '</div>'
             + '{{/each}}',
         historyItemTemplate:
@@ -349,23 +348,63 @@ define( function ( require ) {
         // 点击阅读
         this.$popup.on( "click." + NAMESPACE, ".pkui-message-menu-item-view", function () {
             var
-                $item = $( this ).parent( ".pkui-message-menu-item" ),
-                $icon = $item.children( ".pkui-message-menu-item-icon" ),
-                url = this.opts.URL_getSysMessageModelAndMarkAsRead,
+                $this = $( this ),
+                $item = $this.parent( ".pkui-message-menu-item" ),
+                itemIndex,
+                tabText,
+                $content = $item.children( ".pkui-message-menu-item-content" ),
+                url = _this.opts.sysMessageMarkCheckedURL,
                 msgId = $item.data( "msgId" )
             ;
-            // Ajax
+
+            // 已经展开，要关闭
+            if ( $this.is( ".opened" ) ) {
+                $this.removeClass( "opened" );
+                $content.slideUp();
+                return;
+            }
+            // 已经关闭，要展开
+            $this.addClass( "opened" );
+            $content.slideDown();
+
+            // 如果是已读状态，则返回
+            if ( $item.is( ".marked" ) ) {
+                return;
+            }
+
+            // 如果是未读状态，则将其标记为已读
+
+            // loading
+            $item.addClass( "marking" );
+            itemIndex = $item.index() + 1;
+            tabText = $this.closest( ".pkui-message-menu-list" ).data( "tabtext" );
+            _this._log( "[" + tabText + "-消息#" + itemIndex + "]正在标记", "loading" );
+
             $.ajax( {
                 url: url,
                 data: {
                     msgId: msgId
                 }
             } ).done( function ( jsonResult ) {
+                if ( jsonResult && jsonResult.success ) {
+                    markSuccess();
+                } else {
+                    markFail();
+                }
 
             } ).fail( function () {
-
+                markFail();
             } );
-            //
+
+            function markSuccess() {
+                $item.removeClass( "marking" );
+                $item.addClass( "marked" );
+                _this._log( "[" + tabText + "-消息#" + itemIndex + "]标记成功", "success" );
+            }
+            function markFail() {
+                $item.removeClass( "marking" );
+                _this._log( "[" + tabText + "-消息#" + itemIndex + "]标记失败", "error" );
+            }
         } );
     };
 
@@ -397,6 +436,7 @@ define( function ( require ) {
             $list = _this.$popup.find( ".pkui-message-menu-list" ).eq( tabIndex ),
             url = $tab.data( "url" ),
             icon = $tab.data( "icon" ),
+            isMarkedMsg = !!$tab.data( "isMarkedMsg" ),
             text = $.trim( $tab.text() )
         ;
         successCallback = successCallback || function () {
@@ -442,8 +482,8 @@ define( function ( require ) {
             if ( ! list || list.length === 0 ) {
                 itemsHtml = _this.opts.noResults || "没有数据";
             } else {
-                tpl = _this.opts.itemTemplate;
-                itemsHtml = ArtTemplate.compile( tpl, { escape: false } )( { items: list, icon: icon } );
+                tpl = _this.opts.messageItemsTemplate;
+                itemsHtml = ArtTemplate.compile( tpl, { escape: false } )( { items: list, icon: icon, isMarkedMsg: isMarkedMsg } );
             }
             $list.html( itemsHtml );
         }
@@ -501,7 +541,7 @@ define( function ( require ) {
     Message.prototype._createTab = function () {
         var
             opts = this.opts,
-            tpl = opts.tabTemplate,
+            tpl = opts.tabsTemplate,
             tabs = opts.tabList
         ;
         return ArtTemplate.compile( tpl, { escape: false } )( { tabs: tabs } );
@@ -515,7 +555,7 @@ define( function ( require ) {
     Message.prototype._createList = function () {
         var
             opts = this.opts,
-            tpl = opts.listTemplate,
+            tpl = opts.messageListsTemplate,
             tabs = opts.tabList
         ;
         return ArtTemplate.compile( tpl, { escape: false } )( { tabs: tabs } );
