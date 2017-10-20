@@ -28,13 +28,49 @@
     line-height: 1.35;
     text-shadow: none;
     cursor: default;
+    &.right {
+        .pkui-message-panel-arrow {
+            top: 50%;
+            left: -7px;
+            margin-top: -7px;
+            border-width: 7px 7px 7px 0;
+            border-right-color: #f6f8fa;
+        }
+    }
+    &.top {
+        .pkui-message-panel-arrow {
+            bottom: -7px;
+            left: 50%;
+            margin-left: -7px;
+            border-width: 7px 7px 0;
+            border-top-color: #f6f8fa;
+        }
+    }
+    &.left {
+        .pkui-message-panel-arrow {
+            top: 50%;
+            right: -7px;
+            margin-top: -7px;
+            border-width: 7px 0 7px 7px;
+            border-left-color: #f6f8fa;
+        }
+    }
+    &.bottom {
+        .pkui-message-panel-arrow {
+            top: -7px;
+            left: 50%;
+            margin-left: -7px;
+            border-width: 0 7px 7px;
+            border-bottom-color: #f6f8fa;
+        }
+    }
 }
 .pkui-message-panel {
     position: relative;
     width: 300px;
-    margin-top: 4px;
-    margin-bottom: 20px;
-    overflow: hidden;
+    //margin-top: 4px;
+    //margin-bottom: 20px;
+    //overflow: hidden;
     font-size: 12px;
     color: #586069;
     background-color: #fff;
@@ -44,12 +80,20 @@
     border-radius: 3px;
     box-shadow: 0 3px 12px rgba(27,31,35,0.15);
 }
+.pkui-message-panel-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+}
 .pkui-message-panel-header {
     padding: 8px 10px;
     line-height: 16px;
     font-size: 14px;
     background: #f6f8fa;
     border-bottom: 1px solid #e1e4e8;
+    border-radius: 3px 3px 0 0;
 }
 .pkui-message-panel-header-title {
     font-weight: 600;
@@ -132,26 +176,74 @@
     position: relative;
     display: block;
     padding: 8px 30px 8px 30px;
-    overflow: hidden;
+    //overflow: hidden;
     color: inherit;
     //cursor: pointer;
     border-bottom: 1px solid #eaecef;
+
+    .pkui-message-icon-origin {
+        display: inline-block;
+    }
+    .pkui-message-icon-marked {
+        color: #1d9d74;
+        display: none;
+    }
+
+    &.marking {
+
+        .pkui-message-icon-origin {
+            display: none;
+        }
+        .pkui-message-icon-marked {
+            display: none;
+        }
+
+        .pkui-message-menu-item-icon {
+            background: url(./icon_loading.gif) no-repeat left center;
+        }
+    }
+    &.marked {
+        .pkui-message-icon-origin {
+            display: none;
+        }
+        .pkui-message-icon-marked {
+            display: inline-block;
+        }
+        .pkui-message-menu-item-title {
+            color: #888;
+        }
+    }
 }
 .pkui-message-menu-item-icon {
     float: left;
+    width: 16px;
+    height: 16px;
     margin-left: -20px;
     color: #999;
     vertical-align: middle;
 }
-.pkui-message-menu-item-text {
+.pkui-message-menu-item-title {
     display: block;
     max-width: 100%;
     word-break: break-all;
 }
+.pkui-message-menu-item-content {
+    display: none;
+    max-width: 100%;
+    padding: 6px;
+    margin-top: 4px;
+    margin-left: -6px;
+    margin-right: -6px;
+    line-height: 1.5;
+    background: #F5F5F5;
+    color: #333;
+    word-break: break-all;
+    cursor: text;
+}
 .pkui-message-menu-item-date {
     display: block;
     margin-top: 4px;
-    color: #999;
+    color: #aaa;
 }
 .pkui-message-menu-item-view {
     position: absolute;
@@ -160,6 +252,39 @@
     width: 30px;
     padding: 10px 0;
     text-align: center;
+
+    > .pkui-message-icon-open {
+        display: inline-block;
+    }
+    > .pkui-message-icon-close {
+        display: none;
+    }
+
+    &.opened {
+        > .pkui-message-icon-open {
+            display: none;
+        }
+        > .pkui-message-icon-close {
+            display: inline-block;
+        }
+    }
+}
+.pkui-message-view-panel {
+    position: absolute;
+    right: 50%;
+    bottom: 50%;
+    width: 240px;
+    max-height: 200px;
+    padding: 8px 6px;
+    overflow: auto;
+    word-break: break-all;
+    text-align: left;
+    background: #fff;
+    color: #666;
+    border-color: #eee;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    border-radius: 3px;
+    box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
 }
 .pkui-message-panel-footer {
     padding: 8px 10px;
@@ -192,6 +317,7 @@
     //}
     float: right;
     margin-right: 12px;
+    border-radius: 0 0 3px 3px;
 }
 .pkui-message-loadInfo {
 
@@ -239,6 +365,7 @@
 }
 .pkui-message-loadInfo-history {
     position: relative;
+    margin-left: 6px;
     &:hover,
     &:focus {
         .pkui-message-history-list {
@@ -257,7 +384,8 @@
     display: none;
     position: absolute;
     bottom: 102%;
-    width: 200px;
+    width: 240px;
+    padding: 8px 6px;
     max-height: 200px;
     overflow: auto;
     background: #fff;
