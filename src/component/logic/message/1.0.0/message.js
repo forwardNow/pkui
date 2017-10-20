@@ -3,7 +3,7 @@
  *      1. 定位
  *      2. 点击非有效区域 则隐藏
  *      3. 可配置 tabs 的类别
- *      4. 可拖拽
+ *     *4. 可拖拽
  *
  * @author 吴钦飞（wuqf@pkusoft.net）
  */
@@ -22,11 +22,17 @@ define( function ( require ) {
      */
     Message.prototype.defaults = {
 
-        tabList: [
+        // 是否有消息，用于在目标元素上添加“有消息”的标志
+        hasSysMessageURL: "",
+
+        /* 消息类别
+         [
             { "isMarkedMsg": false, "text": "未读", "icon": "fa fa-envelope-o", "url": "__CTX__/common/getUnreadSysMessage?type=all"},
             { "isMarkedMsg": false, "text": "私信", "icon": "fa fa-commenting-o", "url": "__CTX__/common/getUnreadSysMessage?type=private"},
             { "isMarkedMsg": false, "text": "公告", "icon": "fa fa-file-text-o", "url": "__CTX__/common/getUnreadSysMessage?type=public"}
-        ],
+         ]
+         */
+        tabList: null,
 
         // 标志已被阅读
         sysMessageMarkCheckedURL: "",
@@ -58,6 +64,9 @@ define( function ( require ) {
         hasLoadInfo: true,
         // 面板底部 - 更多按钮
         hasMoreBtn: true,
+
+        // 在目标元素上 标志 “有消息”
+        hasMessageTemplate: "<div class=\"pkui-message-count\"></div>",
 
         // 弹出层模板
         popupTemplate:
@@ -170,8 +179,33 @@ define( function ( require ) {
      */
     Message.prototype._init = function ( options ) {
         this.opts = $.extend( true, {}, this.defaults, options );
+        this._hasMessage();
         this._render();
         this._bind();
+    };
+
+    /**
+     * 发送请求，如果“有消息”则添加标志
+     * @private
+     */
+    Message.prototype._hasMessage = function () {
+        var
+            _this = this,
+            opts = _this.opts,
+            url = opts.hasSysMessageURL,
+            html = opts.hasMessageTemplate
+        ;
+        if ( ! url ) {
+            console.warn( "【message】未指定[hasSysMessageURL]，无法判断是否有消息。" );
+            return;
+        }
+        $.ajax( {
+            url: url
+        } ).done( function ( jsonResult ) {
+            if ( jsonResult && jsonResult.success ) {
+                _this.$target.append( html );
+            }
+        } );
     };
 
     /**
