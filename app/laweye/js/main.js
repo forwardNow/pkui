@@ -13,6 +13,8 @@ define( function ( require ) {
     require( "../../desktop/js/config/systemUrl" );
     // 载入通用功能URL配置文件
     require( "../../desktop/js/config/commonUrl" );
+    // 载入通用功能URL配置文件
+    require( "../../desktop/js/config/serviceUrl" );
 
     // 载入全局设置的配置文件
     require( "../../desktop/js/config/globalSetting" );
@@ -37,8 +39,8 @@ define( function ( require ) {
 
     require( "placeholderHandler" );
 
-    if ( window.isIE8 ) {
-        require( "../../desktop/css/page/ie8-hack.css" );
+    if ( window.PKUI.isIE8 ) {
+        require( "../css/page/ie8-hack.css" );
     }
 
 
@@ -48,7 +50,7 @@ define( function ( require ) {
     $( document ).ready( function () {
 
         // 会话有效性验证（自动初始化）
-        require( "../../desktop/js/page/sessionValidityManager" );
+        require.async( "../../desktop/js/page/sessionValidityManager" );
 
         // 启动 Launchpad
         Launchpad.init();
@@ -74,6 +76,9 @@ define( function ( require ) {
             maxRecentUsedItemNum: 10
         } );
 
+        // 右下角下拉菜单功能（自动初始化）
+        // require( "../../desktop/js/page/toolbarUserDropdown" );
+
         require.async( [
             "../../desktop/js/page/toolbar/userInfo",
             "../../desktop/js/page/toolbar/exitSystem",
@@ -96,13 +101,15 @@ define( function ( require ) {
             } );
         } );
 
-
-
     } );
 
     // 处理离开网页的情况
-    $( window ).on( "beforeunload", function () {
-        return "确认要离开?";
-    } );
+    // 当IE8注册“beforeunload”后，点击任何链接，都会提示“是否离开”。
+    if ( ! window.PKUI.isIE8 ) {
+        $( window ).on( "beforeunload", function () {
+            return "确认要离开?";
+        } );
+    }
+
 
 } );
