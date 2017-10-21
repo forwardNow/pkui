@@ -9823,6 +9823,12 @@ Pagination Styles
   background-color: #fff;
 }
 
+.da-theme-light .launchpad-pagination-previous {
+  transition: background-position 0.3s;
+}
+.da-theme-light .launchpad-pagination-next {
+  transition: background-position 0.3s;
+}
 .da-theme-light .launchpad-shortcut-icon {
   -webkit-box-reflect: below 2px -webkit-linear-gradient(top, rgba(250, 250, 250, 0), rgba(250, 250, 250, 0) 40%, rgba(250, 250, 250, 0.2));
   box-reflect: below 2px -webkit-linear-gradient(top, rgba(250, 250, 250, 0), rgba(250, 250, 250, 0) 40%, rgba(250, 250, 250, 0.2));
@@ -10904,21 +10910,21 @@ Pagination Styles
   color: #1d9d74;
 }
 
-.desktop-sprite, .icon-home, .topbar-home, .icon-history, .topbar-history, .icon-close, .dock-item-btn, .icon-dashboard, .icon-logout, .icon-message, .icon-more, .icon-search, .icon-user, .icon-triangle-down, .toolbar-item-indicator, .icon-add, .icon-setting, .icon-arrow-left, .launchpad-pagination-previous, .icon-arrow-right, .launchpad-pagination-next, .icon-arrow-light-left, .da-theme-light .launchpad-pagination-previous, .icon-arrow-light-right, .da-theme-light .launchpad-pagination-next, .icon-circle-1, .icon-circle-2, .icon-win-close, .pkui-dialog-close, .icon-win-close-hover, .da-theme-light .pkui-dialog-header:hover .pkui-dialog-close, .icon-win-max, .pkui-dialog-max, .icon-win-max-hover, .da-theme-light .pkui-dialog-header:hover .pkui-dialog-max, .icon-win-maxmin, .pkui-dialog-restore, .icon-win-maxmin-hover, .da-theme-light .pkui-dialog-header:hover .pkui-dialog-restore, .icon-win-min, .pkui-dialog-min, .icon-win-min-hover, .da-theme-light .pkui-dialog-header:hover .pkui-dialog-min, .icon-dock-dropmenu-indicator, .dock-dropmenu-indicator, .icon-sidebar-toggle-on, .icon-sidebar-toggle-off {
-  background-image: url('../images/desktop-sac1ba4ec60.png');
+.desktop-sprite, .icon-home, .topbar-home, .icon-history, .topbar-history, .icon-close, .dock-item-btn, .icon-dashboard, .icon-logout, .icon-message, .icon-more, .icon-search, .icon-user, .icon-triangle-down, .toolbar-item-indicator, .icon-add, .icon-setting, .icon-arrow-left, .launchpad-pagination-previous, .icon-arrow-right, .launchpad-pagination-next, .icon-arrow-light-left, .icon-arrow-light-right, .icon-halfcircle-left, .da-theme-light .launchpad-pagination-previous, .icon-halfcircle-right, .da-theme-light .launchpad-pagination-next, .icon-circle-1, .icon-circle-2, .icon-win-close, .pkui-dialog-close, .icon-win-close-hover, .da-theme-light .pkui-dialog-header:hover .pkui-dialog-close, .icon-win-max, .pkui-dialog-max, .icon-win-max-hover, .da-theme-light .pkui-dialog-header:hover .pkui-dialog-max, .icon-win-maxmin, .pkui-dialog-restore, .icon-win-maxmin-hover, .da-theme-light .pkui-dialog-header:hover .pkui-dialog-restore, .icon-win-min, .pkui-dialog-min, .icon-win-min-hover, .da-theme-light .pkui-dialog-header:hover .pkui-dialog-min, .icon-dock-dropmenu-indicator, .dock-dropmenu-indicator, .icon-sidebar-toggle-on, .icon-sidebar-toggle-off {
+  background-image: url('../images/desktop-s040b7a3eed.png');
   background-repeat: no-repeat;
 }
 
 .icon-home, .topbar-home {
   width: 20px;
   height: 46px;
-  background-position: 0 -617px;
+  background-position: 0 -913px;
 }
 
 .icon-history, .topbar-history {
   width: 19px;
   height: 16px;
-  background-position: 0 -601px;
+  background-position: 0 -897px;
 }
 
 .icon-close, .dock-item-btn {
@@ -10936,37 +10942,37 @@ Pagination Styles
 .icon-logout {
   width: 24px;
   height: 24px;
-  background-position: 0 -663px;
+  background-position: 0 -959px;
 }
 
 .icon-message {
   width: 24px;
   height: 24px;
-  background-position: 0 -687px;
+  background-position: 0 -983px;
 }
 
 .icon-more {
   width: 24px;
   height: 24px;
-  background-position: 0 -711px;
+  background-position: 0 -1007px;
 }
 
 .icon-search {
   width: 24px;
   height: 24px;
-  background-position: 0 -735px;
+  background-position: 0 -1031px;
 }
 
 .icon-user {
   width: 24px;
   height: 24px;
-  background-position: 0 -812px;
+  background-position: 0 -1108px;
 }
 
 .icon-triangle-down, .toolbar-item-indicator {
   width: 10px;
   height: 5px;
-  background-position: 0 -807px;
+  background-position: 0 -1103px;
 }
 
 .icon-add {
@@ -10978,7 +10984,7 @@ Pagination Styles
 .icon-setting {
   width: 16px;
   height: 16px;
-  background-position: 0 -759px;
+  background-position: 0 -1055px;
 }
 
 .icon-arrow-left, .launchpad-pagination-previous {
@@ -10999,22 +11005,40 @@ Pagination Styles
   background-position: 0 -436px;
 }
 
-.icon-arrow-light-left, .da-theme-light .launchpad-pagination-previous {
+.icon-arrow-light-left {
   width: 33px;
   height: 60px;
   background-position: 0 -136px;
 }
-.icon-arrow-light-left:hover, .da-theme-light .launchpad-pagination-previous:hover, .icon-arrow-light-left.icon_arrow_light_left-hover, .da-theme-light .icon_arrow_light_left-hover.launchpad-pagination-previous {
+.icon-arrow-light-left:hover, .icon-arrow-light-left.icon_arrow_light_left-hover {
   background-position: 0 -196px;
 }
 
-.icon-arrow-light-right, .da-theme-light .launchpad-pagination-next {
+.icon-arrow-light-right {
   width: 33px;
   height: 60px;
   background-position: 0 -256px;
 }
-.icon-arrow-light-right:hover, .da-theme-light .launchpad-pagination-next:hover, .icon-arrow-light-right.icon_arrow_light_right-hover, .da-theme-light .icon_arrow_light_right-hover.launchpad-pagination-next {
+.icon-arrow-light-right:hover, .icon-arrow-light-right.icon_arrow_light_right-hover {
   background-position: 0 -316px;
+}
+
+.icon-halfcircle-left, .da-theme-light .launchpad-pagination-previous {
+  width: 37px;
+  height: 74px;
+  background-position: 0 -601px;
+}
+.icon-halfcircle-left:hover, .da-theme-light .launchpad-pagination-previous:hover, .icon-halfcircle-left.icon_halfcircle_left-hover, .da-theme-light .icon_halfcircle_left-hover.launchpad-pagination-previous {
+  background-position: 0 -675px;
+}
+
+.icon-halfcircle-right, .da-theme-light .launchpad-pagination-next {
+  width: 37px;
+  height: 74px;
+  background-position: 0 -749px;
+}
+.icon-halfcircle-right:hover, .da-theme-light .launchpad-pagination-next:hover, .icon-halfcircle-right.icon_halfcircle_right-hover, .da-theme-light .icon_halfcircle_right-hover.launchpad-pagination-next {
+  background-position: 0 -823px;
 }
 
 .icon-circle-1 {
@@ -11032,61 +11056,61 @@ Pagination Styles
 .icon-win-close, .pkui-dialog-close {
   width: 16px;
   height: 16px;
-  background-position: 0 -836px;
+  background-position: 0 -1132px;
 }
 .icon-win-close:hover, .pkui-dialog-close:hover, .icon-win-close.icon_win_close-hover, .icon_win_close-hover.pkui-dialog-close {
-  background-position: 0 -852px;
+  background-position: 0 -1148px;
 }
 
 .icon-win-close-hover, .da-theme-light .pkui-dialog-header:hover .pkui-dialog-close {
   width: 16px;
   height: 16px;
-  background-position: 0 -852px;
+  background-position: 0 -1148px;
 }
 
 .icon-win-max, .pkui-dialog-max {
   width: 16px;
   height: 16px;
-  background-position: 0 -868px;
+  background-position: 0 -1164px;
 }
 .icon-win-max:hover, .pkui-dialog-max:hover, .icon-win-max.icon_win_max-hover, .icon_win_max-hover.pkui-dialog-max {
-  background-position: 0 -884px;
+  background-position: 0 -1180px;
 }
 
 .icon-win-max-hover, .da-theme-light .pkui-dialog-header:hover .pkui-dialog-max {
   width: 16px;
   height: 16px;
-  background-position: 0 -884px;
+  background-position: 0 -1180px;
 }
 
 .icon-win-maxmin, .pkui-dialog-restore {
   width: 16px;
   height: 16px;
-  background-position: 0 -900px;
+  background-position: 0 -1196px;
 }
 .icon-win-maxmin:hover, .pkui-dialog-restore:hover, .icon-win-maxmin.icon_win_maxmin-hover, .icon_win_maxmin-hover.pkui-dialog-restore {
-  background-position: 0 -916px;
+  background-position: 0 -1212px;
 }
 
 .icon-win-maxmin-hover, .da-theme-light .pkui-dialog-header:hover .pkui-dialog-restore {
   width: 16px;
   height: 16px;
-  background-position: 0 -916px;
+  background-position: 0 -1212px;
 }
 
 .icon-win-min, .pkui-dialog-min {
   width: 16px;
   height: 16px;
-  background-position: 0 -932px;
+  background-position: 0 -1228px;
 }
 .icon-win-min:hover, .pkui-dialog-min:hover, .icon-win-min.icon_win_min-hover, .icon_win_min-hover.pkui-dialog-min {
-  background-position: 0 -948px;
+  background-position: 0 -1244px;
 }
 
 .icon-win-min-hover, .da-theme-light .pkui-dialog-header:hover .pkui-dialog-min {
   width: 16px;
   height: 16px;
-  background-position: 0 -948px;
+  background-position: 0 -1244px;
 }
 
 .icon-dock-dropmenu-indicator, .dock-dropmenu-indicator {
@@ -11098,11 +11122,11 @@ Pagination Styles
 .icon-sidebar-toggle-on {
   width: 16px;
   height: 16px;
-  background-position: 0 -791px;
+  background-position: 0 -1087px;
 }
 
 .icon-sidebar-toggle-off {
   width: 16px;
   height: 16px;
-  background-position: 0 -775px;
+  background-position: 0 -1071px;
 }

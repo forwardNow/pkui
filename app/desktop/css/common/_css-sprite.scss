@@ -89,6 +89,19 @@
     @include desktop-sprite(icon_arrow_light_right);
 }
 
+.icon-halfcircle-left {
+    width: 37px;
+    height: 74px;
+    @include desktop-sprite(icon_halfcircle_left);
+}
+
+.icon-halfcircle-right {
+    width: 37px;
+    height: 74px;
+    @include desktop-sprite(icon_halfcircle_right);
+}
+
+
 .icon-circle-1 {
     width: 12px;
     height: 12px;

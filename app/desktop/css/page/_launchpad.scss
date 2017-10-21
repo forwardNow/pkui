@@ -129,10 +129,12 @@
 
 .da-theme-light {
     .launchpad-pagination-previous {
-        @extend .icon-arrow-light-left;
+        transition: background-position 0.3s;
+        @extend .icon-halfcircle-left;
     }
     .launchpad-pagination-next {
-        @extend .icon-arrow-light-right;
+        transition: background-position 0.3s;
+        @extend .icon-halfcircle-right;
     }
     .launchpad-shortcut-icon {
         -webkit-box-reflect: below 2px  -webkit-linear-gradient(top,rgba(250,250,250,0),rgba(250,250,250,.0) 40%,rgba(250,250,250,0.2));
