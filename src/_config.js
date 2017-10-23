@@ -112,6 +112,9 @@ seajs.config( {
         //【lib/component】umeditor
         "umeditor": "lib/component/umeditor/1.2.3.x/wrapper",
 
+        //【lib/component】echarts
+        "echarts": "lib/component/echarts/3.7.2.x/wrapper",
+
         //【component/common 】 数据源
         "dataSource": "component/common/dataSource/1.0.0/dataSource",
 
