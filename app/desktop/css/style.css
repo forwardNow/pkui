@@ -9806,7 +9806,7 @@ Pagination Styles
   position: absolute;
   z-index: 2;
   top: 45%;
-  right: 0;
+  right: 1%;
   width: 20px;
   height: 0;
 }
