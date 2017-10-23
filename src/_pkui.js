@@ -6,7 +6,7 @@
  *
  * @author 吴钦飞（wuqf@pkusoft.net）
  * @link https://github.com/forwardNow/pkui/releases/
- * @version 1.1.0
+ * @version 1.2.0
  */
 define( function ( require ) {
     "use strict";
@@ -42,6 +42,10 @@ define( function ( require ) {
         $doc = $( window.document ),
 
         PKUI = {
+
+            // 是否为开发模式
+            isDevMode: false,
+
             // 标识组件类型的HTML属性：<div data-pkui-component>
             componentHtmlAttr: "pkui-component",
 
@@ -81,7 +85,7 @@ define( function ( require ) {
 
             isIE8: ns.isIE8,
 
-            version: "1.1.0"
+            version: "1.2.0"
 
         }
         ;
@@ -126,6 +130,9 @@ define( function ( require ) {
             // 暴露到全局名称空间
             window.PKUI = PKUI;
 
+            // 判断是否为开发模式
+            this._distinguishMode();
+
             // 处理低版本IE
             this._handleLowVersionIE();
 
@@ -153,6 +160,17 @@ define( function ( require ) {
             // 设置自动渲染
             this.setAutoRender( this.isAutoRender );
         },
+
+        /**
+         * 判断是否为开发模式
+         */
+        _distinguishMode: function () {
+            var
+                pattern = /^http(s)?:\/\/localhost/
+            ;
+            PKUI.isDevMode = pattern.test( PKUI.ctxPath );
+        },
+
         /**
          * 处理低版本IE
          */
