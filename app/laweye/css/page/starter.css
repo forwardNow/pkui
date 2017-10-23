@@ -30,24 +30,34 @@
 
 .starter-panel {
   height: 100%;
-}
-.starter-panel.radius-top-left .starter-panel-heading {
-  border-top-left-radius: 6px;
-}
-.starter-panel.radius-top-left .starter-panel-body {
-  border-top-left-radius: 8px;
-}
-.starter-panel.radius-top-right .starter-panel-heading {
-  border-top-right-radius: 6px;
-}
-.starter-panel.radius-top-right .starter-panel-body {
-  border-top-right-radius: 8px;
-}
-.starter-panel.radius-bottom-left .starter-panel-body {
-  border-bottom-left-radius: 6px;
-}
-.starter-panel.radius-bottom-right .starter-panel-body {
-  border-bottom-right-radius: 6px;
+  box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
+  /*
+  &.radius-top-left {
+      .starter-panel-heading {
+          border-top-left-radius: $starter-panel-radius;
+      }
+      .starter-panel-body {
+          border-top-left-radius: $starter-panel-radius + 2;
+      }
+  }
+  &.radius-top-right {
+      .starter-panel-heading {
+          border-top-right-radius: $starter-panel-radius;
+      }
+      .starter-panel-body {
+          border-top-right-radius: $starter-panel-radius + 2;
+      }
+  }
+  &.radius-bottom-left {
+      .starter-panel-body {
+          border-bottom-left-radius: $starter-panel-radius;
+      }
+  }
+  &.radius-bottom-right {
+      .starter-panel-body {
+          border-bottom-right-radius: $starter-panel-radius;
+      }
+  }*/
 }
 
 .starter-panel-heading {
@@ -59,6 +69,8 @@
   text-align: center;
   color: #fff;
   background-color: #165ea8;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 
 .starter-panel-body {
@@ -67,6 +79,7 @@
   padding-top: 48px;
   background-color: #fff;
   cursor: auto;
+  border-radius: 6px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
