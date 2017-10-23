@@ -1,5 +1,4 @@
-(function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(['exports', 'echarts'], factory);
     } else if (typeof exports === 'object' && typeof exports.nodeName !== 'string') {
@@ -21,26 +20,24 @@
     }
 
     var colorPalette = [
-        '#2ec7c9','#b6a2de','#5ab1ef','#ffb980','#d87a80',
-        '#8d98b3','#e5cf0d','#97b552','#95706d','#dc69aa',
-        '#07a2a4','#9a7fd1','#588dd5','#f5994e','#c05050',
-        '#59678c','#c9ab00','#7eb00a','#6f5553','#c14089'
+        '#C1232B','#27727B','#FCCE10','#E87C25','#B5C334',
+        '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+        '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
     ];
 
-
     var theme = {
+
         color: colorPalette,
 
         title: {
             textStyle: {
                 fontWeight: 'normal',
-                color: '#008acd'
+                color: '#27727B'
             }
         },
 
         visualMap: {
-            itemWidth: 15,
-            color: ['#5ab1ef','#e0ffff']
+            color:['#C1232B','#FCCE10']
         },
 
         toolbox: {
@@ -56,110 +53,91 @@
             axisPointer : {
                 type : 'line',
                 lineStyle : {
-                    color: '#008acd'
+                    color: '#27727B',
+                    type: 'dashed'
                 },
                 crossStyle: {
-                    color: '#008acd'
+                    color: '#27727B'
                 },
                 shadowStyle : {
-                    color: 'rgba(200,200,200,0.2)'
+                    color: 'rgba(200,200,200,0.3)'
                 }
             }
         },
 
         dataZoom: {
-            dataBackgroundColor: '#efefff',
-            fillerColor: 'rgba(182,162,222,0.2)',
-            handleColor: '#008acd'
-        },
-
-        grid: {
-            borderColor: '#eee'
+            dataBackgroundColor: 'rgba(181,195,52,0.3)',
+            fillerColor: 'rgba(181,195,52,0.2)',
+            handleColor: '#27727B'
         },
 
         categoryAxis: {
             axisLine: {
                 lineStyle: {
-                    color: '#008acd'
+                    color: '#27727B'
                 }
             },
             splitLine: {
-                lineStyle: {
-                    color: ['#eee']
-                }
+                show: false
             }
         },
 
         valueAxis: {
             axisLine: {
-                lineStyle: {
-                    color: '#008acd'
-                }
+                show: false
             },
             splitArea : {
-                show : true,
-                areaStyle : {
-                    color: ['rgba(250,250,250,0.1)','rgba(200,200,200,0.1)']
-                }
+                show: false
             },
             splitLine: {
                 lineStyle: {
-                    color: ['#eee']
+                    color: ['#ccc'],
+                    type: 'dashed'
                 }
             }
         },
 
-        timeline : {
-            lineStyle : {
-                color : '#008acd'
+        timeline: {
+            lineStyle: {
+                color: '#27727B'
             },
-            controlStyle : {
-                normal : { color : '#008acd'},
-                emphasis : { color : '#008acd'}
+            controlStyle: {
+                normal: {
+                    color: '#27727B',
+                    borderColor: '#27727B'
+                }
             },
-            symbol : 'emptyCircle',
-            symbolSize : 3
+            symbol: 'emptyCircle',
+            symbolSize: 3
         },
 
         line: {
-            smooth : true,
-            symbol: 'emptyCircle',
-            symbolSize: 3
+            itemStyle: {
+                normal: {
+                    borderWidth:2,
+                    borderColor:'#fff',
+                    lineStyle: {
+                        width: 3
+                    }
+                },
+                emphasis: {
+                    borderWidth:0
+                }
+            },
+            symbol: 'circle',
+            symbolSize: 3.5
         },
 
         candlestick: {
             itemStyle: {
                 normal: {
-                    color: '#d87a80',
-                    color0: '#2ec7c9',
+                    color: '#C1232B',
+                    color0: '#B5C334',
                     lineStyle: {
-                        color: '#d87a80',
-                        color0: '#2ec7c9'
+                        width: 1,
+                        color: '#C1232B',
+                        color0: '#B5C334'
                     }
-                }
-            }
-        },
-
-        scatter: {
-            symbol: 'circle',
-            symbolSize: 4
-        },
-
-        map: {
-            label: {
-                normal: {
-                    textStyle: {
-                        color: '#d87a80'
-                    }
-                }
-            },
-            itemStyle: {
-                normal: {
-                    borderColor: '#eee',
-                    areaColor: '#ddd'
-                },
-                emphasis: {
-                    areaColor: '#fe994e'
                 }
             }
         },
@@ -168,31 +146,59 @@
             color: colorPalette
         },
 
-        gauge : {
+        map: {
+            label: {
+                normal: {
+                    textStyle: {
+                        color: '#C1232B'
+                    }
+                },
+                emphasis: {
+                    textStyle: {
+                        color: 'rgb(100,0,0)'
+                    }
+                }
+            },
+            itemStyle: {
+                normal: {
+                    areaColor: '#ddd',
+                    borderColor: '#eee'
+                },
+                emphasis: {
+                    areaColor: '#fe994e'
+                }
+            }
+        },
+
+        gauge: {
             axisLine: {
                 lineStyle: {
-                    color: [[0.2, '#2ec7c9'],[0.8, '#5ab1ef'],[1, '#d87a80']],
-                    width: 10
+                    color: [[0.2, '#B5C334'],[0.8, '#27727B'],[1, '#C1232B']]
                 }
             },
             axisTick: {
-                splitNumber: 10,
-                length :15,
+                splitNumber: 2,
+                length: 5,
                 lineStyle: {
-                    color: 'auto'
+                    color: '#fff'
+                }
+            },
+            axisLabel: {
+                textStyle: {
+                    color: '#fff'
                 }
             },
             splitLine: {
-                length :22,
+                length: '5%',
                 lineStyle: {
-                    color: 'auto'
+                    color: '#fff'
                 }
             },
-            pointer : {
-                width : 5
+            title : {
+                offsetCenter: [0, -20]
             }
         }
     };
 
-    echarts.registerTheme('macarons', theme);
+    echarts.registerTheme('infographic', theme);
 }));

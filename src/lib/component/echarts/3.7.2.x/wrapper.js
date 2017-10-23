@@ -7,14 +7,8 @@ define( function () {
     // 核心
     require( "./echarts.min" );
 
-    // 主题 - 深色
-    require( "./theme/dark" );
-
-    // 主题 - 浅色
-    require( "./theme/macarons" );
-
-    // 主题 - 浅色（亮色）
-    require( "./theme/shine" );
+    // 主题，请参考 http://echarts.baidu.com/download-theme.html
+    require( "./theme/all" );
 
     return window[ "echarts" ];
 } );

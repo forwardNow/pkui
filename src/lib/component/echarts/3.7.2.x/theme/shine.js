@@ -1,11 +1,6 @@
-(function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(['exports', 'echarts'], factory);
-    } else if (typeof define === 'function' && define.cmd) { // FIX 添加CMD支持 以处理依赖关系
-        define( function ( require ) {
-            factory( {}, require( "../echarts" ) );
-        } );
     } else if (typeof exports === 'object' && typeof exports.nodeName !== 'string') {
         // CommonJS
         factory(exports, require('echarts'));
