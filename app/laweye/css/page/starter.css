@@ -21,11 +21,67 @@
 }
 
 .stater-row-top {
-  height: 65%;
+  position: relative;
+  z-index: 10;
+  height: 10%;
+}
+
+.stater-row-middle {
+  height: 60%;
 }
 
 .stater-row-bottom {
-  height: 35%;
+  height: 30%;
+}
+
+.starter-search {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 64%;
+  height: 40px;
+  margin-left: -32%;
+  margin-top: -20px;
+}
+
+.starter-search-input {
+  width: 100%;
+  height: 36px;
+  border: solid 2px #2a9be1;
+  text-indent: 1em;
+  color: #fff;
+  background: none;
+  border-radius: 82px;
+}
+.starter-search-input:focus, .starter-search-input:hover {
+  outline: none 0;
+  border-color: #57b0e7;
+}
+.starter-search-input::-webkit-input-placeholder {
+  color: #1a3550;
+}
+.starter-search-input:-moz-placeholder {
+  color: #1a3550;
+}
+.starter-search-input::-moz-placeholder {
+  color: #1a3550;
+}
+.starter-search-input:-ms-input-placeholder {
+  color: #1a3550;
+}
+
+.starter-search-btn {
+  position: absolute;
+  right: 1px;
+  top: 4px;
+  width: 32px;
+  height: 32px;
+  border: none 0;
+  font-size: 16px;
+  color: #b9e1fa;
+  background: #1f8ccd;
+  border-radius: 50px;
+  cursor: pointer;
 }
 
 .starter-panel {
@@ -201,4 +257,33 @@
 }
 .starter-linkItem.disabled:before {
   background-color: #d3d4d8;
+}
+
+.ui-autocomplete {
+  z-index: 10;
+  background: #fff;
+  padding: 4px 0;
+  border-radius: 3px;
+  box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
+}
+
+.ui-menu-item {
+  line-height: 24px;
+  font-size: 14px;
+  color: #666;
+}
+
+.ui-state-active {
+  color: #fff;
+  background-color: #115ebf;
+}
+
+.ui-menu-item .fa {
+  width: 26px;
+  text-align: center;
+  margin-left: 10px;
+}
+
+.ui-menu-item strong {
+  color: #ff8000;
 }
