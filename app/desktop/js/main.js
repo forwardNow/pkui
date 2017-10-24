@@ -40,7 +40,7 @@ define( function ( require ) {
     require( "placeholderHandler" );
 
     if ( window.PKUI.isIE8 ) {
-        require( "../css/page/ie8-hack.css" );
+        require.async( "../css/page/ie8-hack.css" );
     }
 
 
