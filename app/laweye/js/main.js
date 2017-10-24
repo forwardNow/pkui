@@ -62,6 +62,12 @@ define( function ( require ) {
         new AppSearch( {
             targetSelector: "#da-top-search"
         } );
+        new AppSearch( {
+            mode: "private",
+            targetSelector: "#starter-search-input"
+        } );
+
+
 
         // 启动应用侧边栏
         new AppSidebar( {
