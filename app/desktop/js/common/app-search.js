@@ -4,6 +4,18 @@
  *      2. 列出符合关键字的菜单项
  *      3. 选中菜单项并按下回车立即启动该功能
  *
+ * 应用场景
+ *
+ *      1. 绑定到按钮
+ *
+ *          点击（click）某按钮（或其他元素）后，出现【弹出层和搜索】。
+ *          【弹出层和搜索】仅有一个。
+ *
+ *      2. 绑定到输入域
+ *
+ *          输入域获取焦点后，出现【推荐列表】。
+ *          【推荐列表】可以有多个，每个实例一个。
+ *
  * @author 吴钦飞（wuqf@pkusoft.net）
  */
 define( function ( require ) {
@@ -14,7 +26,10 @@ define( function ( require ) {
         MenuSource = require( "./menuSource" ),
         layer = window.layer,
         App = require( "./app" ),
-        namespace = "pkui.search"
+        NAMESPACE = "pkui.search",
+        IS_POPUP_CREATED = false,
+        // 公共弹出层
+        PublicPopup = {}
         ;
 
     // 依赖 jquery ui 的 autocomplete 模块
@@ -25,18 +40,20 @@ define( function ( require ) {
      * @type {{targetSelector: string, template: string}}
      */
     Search.prototype.defaults = {
+        // 模式："public" - 应用场景1；"private" - 应用场景2。
+        mode: "public",
         // 目标元素的CSS选择器，指定触发搜索的元素
         targetSelector: null,
-        // 遮罩层
-        backdrop: true,
         // 弹出层的HTML模板
-        template: '<div class="pkui-search-popup" id="pkui-search-popup">'
+        publicPopupTemplate: '<div class="pkui-search-popup" id="pkui-search-popup">'
             +       '<i class="fa fa-search pkui-search-icon"></i>'
             +       '<input type="text" id="pkui-search-input" class="pkui-search-input" placeholder="请输入应用名称">'
             +     '</div>'
             +     '<div class="pkui-search-backdrop">'
             +     '</div>'
     };
+
+
 
     /**
      * 构造函数
@@ -75,7 +92,7 @@ define( function ( require ) {
         var _this = this;
 
         // 点击 target 时，启动搜索功能
-        this.$target.on( "click." + namespace, function ( event ) {
+        this.$target.on( "click." + NAMESPACE, function ( event ) {
 
             if ( ! _this._data ) {
                 layer.alert( "初始时获取菜单数据失败，无法启用搜索功能，正在尝试重新获取菜单数据！", { icon: 2 } );
@@ -89,29 +106,21 @@ define( function ( require ) {
             event.stopPropagation();
         } );
 
-        // 点击非 popup 的地方，隐藏
-        $( document ).on( "click." + namespace, function ( event ) {
-            var target = event.target;
-            if ( ! _this.$popup ) {
-                return;
-            }
-            if ( ! $.contains( _this.$popup.get( 0 ), target ) ) {
-                _this.hide();
-            }
-        } );
+
     };
 
     /**
-     * 创建 search
+     *
+     * 场景1 创建 search
      * @private
      */
-    Search.prototype._create = function () {
+    Search.prototype._createPublicPopup = function () {
 
         var _this = this;
 
-        this.$popup = $( this.opts.template ).appendTo( $( document.body ) );
+        PublicPopup.$popup = $( this.opts.publicPopupTemplate ).appendTo( $( document.body ) );
 
-        this.$backdrop = this.$popup.find( ".pkui-search-backdrop" );
+        PublicPopup.$backdrop = PublicPopup.$popup.find( ".pkui-search-backdrop" );
 
         $.ui.autocomplete.prototype._renderItem = function( ul, item ) {
             return $( "<li>" )
@@ -159,33 +168,139 @@ define( function ( require ) {
                 "mode": "default"})
         } );
 
-        this.isCreated = true;
+
+        // 点击非 popup 的地方，隐藏
+        $( document ).on( "click." + NAMESPACE, function ( event ) {
+            var target = event.target;
+            if ( ! PublicPopup.$popup ) {
+                return;
+            }
+            // 点击 popup
+            if ( $.contains( PublicPopup.$popup.get( 0 ), target ) ) {
+                return;
+            }
+            _this.hide();
+        } );
+
+        // this.isCreated = true;
+
+        IS_POPUP_CREATED = true;
     };
+
+    /**
+     * 场景2
+     * @private
+     */
+    Search.prototype._createPrivatePopup = function () {
+        var
+            _this = this
+        ;
+
+        $.ui.autocomplete.prototype._renderItem = function( ul, item ) {
+            return $( "<li>" )
+                .append( $( "<div>" ).html( '<i class="' + item.icon + '"></i>' + item.label ) )
+                .appendTo( ul );
+        };
+
+        $.ui.autocomplete.prototype._resizeMenu = function() {
+            var ul = this.menu.element;
+            if ( this.options.width ) {
+                ul.outerWidth( this.options.width );
+                return;
+            }
+            ul.outerWidth( Math.max(
+                // Firefox wraps long text (possibly a rounding bug)
+                // so we add 1px to avoid the wrapping (#7513)
+                ul.width( "" ).outerWidth() + 1,
+                this.element.outerWidth()
+            ) );
+        };
+        this.$target.autocomplete({
+            // autoFocus: true,
+            //source: this._data
+            // appendTo: this.$target.parent(),
+
+            width: this.$target.outerWidth(),
+
+            source: function ( request, response ) {
+                var matcher = new RegExp( $.ui.autocomplete.escapeRegex( request.term ), "i" );
+                response( $.map( _this._data, function ( item ) {
+                    var menuName = item.value;
+                    if  ( !request.term || matcher.test( menuName ) ) {
+                        return {
+                            label: menuName.replace(
+                                new RegExp(
+                                    "(?![^&;]+;)(?!<[^<>]*)(" +
+                                    $.ui.autocomplete.escapeRegex( request.term ) +
+                                    ")(?![^<>]*>)(?![^&;]+;)", "gi"
+                                ), "<strong>$1</strong>" ),
+                            value: menuName,
+                            menuId: item.menuId,
+                            icon: item.icon
+                        };
+                    }
+                } ) );
+            }
+        } ).on( "focus", function () {
+            $( this ).autocomplete( "search" );
+        } ).on( "autocompleteselect", function( event, ui ) {
+            var item = ui.item;
+            // 关闭 menu
+            $( this ).autocomplete( "close" );
+            // 开启 窗口
+            new App(null, {
+                "icon": item.icon,
+                "title": item.value,
+                "src": "__CTX__/static/desktop/tpl/system/index.html",
+                "menuId": item.menuId,
+                "mode": "default"})
+        } );
+
+        this._isCreated = true;
+    };
+
+
 
     /**
      * 显示
      */
     Search.prototype.show = function () {
-        if ( ! this.isCreated ) {
-            this._create();
+
+        // 场景1
+        if ( this.opts.mode === "public" ) {
+
+            if ( ! IS_POPUP_CREATED ) {
+                this._createPublicPopup();
+            }
+
+            PublicPopup.$backdrop.show();
+            PublicPopup.$popup.show();
+
+        }
+        // 场景2
+        else {
+            if ( ! this._isCreated ) {
+                this._createPrivatePopup();
+            }
         }
 
-        if ( this.opts.backdrop ) {
-            this.$backdrop.show();
-        }
-
-        this.$popup.show();
     };
 
     /**
      * 隐藏
      */
     Search.prototype.hide = function () {
-        this.$popup.hide();
-        // this.$blur.removeClass( "blur" );
-        if ( this.opts.backdrop ) {
-            this.$backdrop.hide();
+
+        // 场景1
+        if ( this.opts.mode === "public" ) {
+            PublicPopup.$popup.hide();
+            PublicPopup.$backdrop.hide();
         }
+        // 场景2
+        else {
+
+        }
+
     };
 
 
