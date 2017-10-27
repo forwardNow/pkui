@@ -1156,6 +1156,27 @@
 				if (elements) {
 					elements.push(el);
 				}
+
+				// FIX 格式化 服务器获取到的日期（时间）值
+                +function(){
+                    var PKUI = window.PKUI;
+                    if ( PKUI.isFormatDateInputField ) {
+                        var
+                            $el = $( el ),
+                            dateValue = null
+                        ;
+                        if ( $el.is( '[data-pkui-component*="datepicker"]' ) ) {
+                            dateValue = PKUI.component.datepicker.call( $el, "getDate" );
+                        } else if ( $el.is( '[data-pkui-component*="datetimepicker"]' ) ) {
+                            dateValue = PKUI.component.datetimepicker.call( $el, "getValue" );
+                        }
+                        if ( dateValue instanceof Date ) {
+                            v = window.moment( dateValue ).format( PKUI.formattedInputFieldPattern || "YYYYMMDDHHmmss" );
+                        }
+                    }
+                }();
+                // /FIX 格式化 服务器获取到的日期（时间）值
+
 				a.push({name: n, value: v, type: el.type, required: el.required});
 			}
 		}
@@ -1544,9 +1565,10 @@
 		// FIX 监听 "ajaxSubmit.pkui.validator"
         $this.off( "ajaxSubmit.pkui.validator" ).on( "ajaxSubmit.pkui.validator", function () {
         	if ( $this.attr( "isAjaxSubmitting" ) ) {
-        		console.info( "/(ㄒoㄒ)/~~正则提交..." );
+        		console.info( "正在提交..." );
         		return;
 			}
+
 			// 提交
         	$this.ajaxSubmit( options );
         	// 遮罩
