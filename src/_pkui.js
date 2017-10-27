@@ -75,6 +75,11 @@ define( function ( require ) {
             // 数据表格使用 datetimeFormatter 时，日期时间格式化后的日期时间
             datagridDatetimeFormat: "YYYY-MM-DD HH:mm:ss",
 
+            // 是否格式化发送到服务器的日期（时间）值，针对 form（PKUI组件）
+            isFormatDateInputField: true,
+            // 服务器获取到的日期（时间）值格式
+            formattedInputFieldPattern: "YYYYMMDDHHmmss",
+
             // 自动渲染标志
             isAutoRender: true,
 
