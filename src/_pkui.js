@@ -6,7 +6,7 @@
  *
  * @author 吴钦飞（wuqf@pkusoft.net）
  * @link https://github.com/forwardNow/pkui/releases/
- * @version 1.2.0
+ * @version 1.3.0
  */
 define( function ( require ) {
     "use strict";
@@ -90,7 +90,7 @@ define( function ( require ) {
 
             isIE8: ns.isIE8,
 
-            version: "1.2.0"
+            version: "1.3.0"
 
         }
         ;
