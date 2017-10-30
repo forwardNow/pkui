@@ -70,9 +70,9 @@ define( function ( require ) {
             // 组件容器
             component: {},
 
-            // 数据表格使用 dateFormatter 时，日期格式化后的日期
+            // 数据表格使用预定义格式化器 dateFormatter 时，指定日期值格式化的模式
             datagridDateFormat: "YYYY-MM-DD",
-            // 数据表格使用 datetimeFormatter 时，日期时间格式化后的日期时间
+            // 数据表格使用预定义格式化器 datetimeFormatter 时，指定日期时间值格式化的模式
             datagridDatetimeFormat: "YYYY-MM-DD HH:mm:ss",
 
             // 是否格式化发送到服务器的日期（时间）值，针对 form（PKUI组件）
