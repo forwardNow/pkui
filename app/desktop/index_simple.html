@@ -13,7 +13,24 @@
         data-main：当前应用的入口js文件
         data-timestamp: 时间戳（dev为开发模式），比如 data-timestamp="v=2017-02-27"
     -->
-    <script data-main="./js/main_simple.js" data-timestamp="2017-11-03" src="../pkui/pkui.js"></script>
+    <script data-main="./js/main.js" data-timestamp="2017-11-03" src="../pkui/pkui.js"></script>
+    <script>
+        seajs.use( "./js/main", function () {
+            seajs.use( window.PKUI.ctxPath + "/static/desktop/js/common/app", function ( App ) {
+                var app = new App(null, {
+                    "icon": "fa fa-users",
+                    "title": "用户管理",
+                    "src": "__CTX__/static/desktop/tpl/system/index.html",
+                    "menuId": 3,
+                    "mode": "default"
+                });
+
+                //app.show();
+                //app.hide(); // 最小化
+                //app.destroy();
+            } );
+        } );
+    </script>
 </head>
 <body>
 
