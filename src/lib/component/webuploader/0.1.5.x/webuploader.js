@@ -272,7 +272,8 @@ define( function ( require ) {
         return this;
     };
 
-    window.PKUI.component.webuploader = $.fn.Uploader;
+
+
 
     return Uploader;
 } );
