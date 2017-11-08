@@ -86,7 +86,7 @@ define( function ( require ) {
         switch( this.options._mode ) {
             case "full": {
                 require.async( "./mode/full", function () {
-                    _this._initFullUploader();
+                    _this._fullUploader_init();
                 } );
                 break;
             }

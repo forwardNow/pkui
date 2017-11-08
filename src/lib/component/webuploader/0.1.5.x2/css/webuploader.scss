@@ -126,6 +126,11 @@
         float: left;
         overflow: hidden;
         font-size: 12px;
+        &:hover {
+            .wu-fileitem-control {
+                display: block;
+            }
+        }
     }
 
     .wu-fileitem .log {
@@ -229,6 +234,7 @@
     }
 
     .wu-fileitem-control {
+        display: none;
         position: absolute;
         filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#80000000', endColorstr='#80000000')\0;
         background: rgba( 0, 0, 0, 0.5 );
@@ -240,7 +246,7 @@
     }
 
     .wu-fileitem-control-cancel,
-    .wu-fileitem-control-rotateRight,
+    .wu-fileitem-control-retry,
     .wu-fileitem-control-rotateLeft {
         width: 24px;
         height: 24px;
@@ -260,10 +266,10 @@
         background-position: 0 0;
     }
 
-    .wu-fileitem-control-rotateRight {
+    .wu-fileitem-control-retry {
         background-position: -24px -24px;
     }
-    .wu-fileitem-control-rotateRight:hover {
+    .wu-fileitem-control-retry:hover {
         background-position: -24px 0;
     }
 

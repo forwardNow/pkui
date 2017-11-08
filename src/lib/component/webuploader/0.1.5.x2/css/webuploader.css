@@ -117,6 +117,9 @@
   overflow: hidden;
   font-size: 12px;
 }
+.wu-full .wu-fileitem:hover .wu-fileitem-control {
+  display: block;
+}
 .wu-full .wu-fileitem .log {
   position: relative;
   top: -45px;
@@ -204,6 +207,7 @@
   background: url(../images/success.png) no-repeat right bottom;
 }
 .wu-full .wu-fileitem-control {
+  display: none;
   position: absolute;
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#80000000', endColorstr='#80000000') \0;
   background: rgba(0, 0, 0, 0.5);
@@ -214,7 +218,7 @@
   z-index: 300;
 }
 .wu-full .wu-fileitem-control-cancel,
-.wu-full .wu-fileitem-control-rotateRight,
+.wu-full .wu-fileitem-control-retry,
 .wu-full .wu-fileitem-control-rotateLeft {
   width: 24px;
   height: 24px;
@@ -232,10 +236,10 @@
 .wu-full .wu-fileitem-control-rotateLeft:hover {
   background-position: 0 0;
 }
-.wu-full .wu-fileitem-control-rotateRight {
+.wu-full .wu-fileitem-control-retry {
   background-position: -24px -24px;
 }
-.wu-full .wu-fileitem-control-rotateRight:hover {
+.wu-full .wu-fileitem-control-retry:hover {
   background-position: -24px 0;
 }
 .wu-full .wu-fileitem-control-cancel {
