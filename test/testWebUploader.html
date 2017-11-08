@@ -4,13 +4,21 @@
     <meta charset="UTF-8">
     <title>webuploader使用示例</title>
 
-    <link rel="stylesheet" href="../src/lib/component/webuploader/0.1.5.x2/css/webuploader.css">
-    <!-- 依赖：jQuery -->
-    <script src="../src/lib/jquery/1.11.3/jquery.js"></script>
-    <!-- 官方版本（未做任何修改） -->
-    <script src="../src/lib/component/webuploader/0.1.5/webuploader.js"></script>
-    <!-- 封装版本（预定义使用方式） -->
-    <script src="../src/lib/component/webuploader/0.1.5.x2/webuploader.wrapper.js"></script>
+    <script src="../src/lib/sea-modules/seajs/2.3.0/sea.js"></script>
+    <script src="../src/lib/sea-modules/seajs-css/1.0.0/seajs-css.js"></script>
+
+    <script>
+        seajs.config({
+            alias: {
+                "jquery": "/pkui/src/lib/jquery/1.11.3.x/jquery"
+            }
+        });
+        seajs.use( [ "jquery", "../src/lib/component/webuploader/0.1.5.x2/webuploader.wrapper" ], function ( $ ) {
+            $( document ).ready( function () {
+                $( '[data-pkui-component="webuploader2"]' ).pkuiWebUploader();
+            } );
+        } );
+    </script>
 
     <style>
         body {
@@ -47,11 +55,11 @@
     }'
     >
 </div>
-
+<!--
 <div id="uploader" class="wu-container">
     <div class="wu-filelist-container">
         <div id="dndArea" class="wu-dnd-placeholder">
-            <div class="wu-filepicker"><!-- 开始上传 --></div>
+            <div class="wu-filepicker">&lt;!&ndash; 开始上传 &ndash;&gt;</div>
             <div>或将文件拖到这里，单次最多可选300个</div>
         </div>
         <ul class="wu-filelist"></ul>
@@ -63,12 +71,12 @@
         </div>
         <div class="wu-statusbar-info">共0个（0B），已上传0个</div>
         <div class="wu-statusbar-btns">
-            <div class="wu-filepicker"><!-- 继续上传 --></div>
+            <div class="wu-filepicker">&lt;!&ndash; 继续上传 &ndash;&gt;</div>
             <div class="wu-btn-upload state-pedding">开始上传</div>
         </div>
     </div>
-</div>
-<script>
+</div>-->
+<script type="text/custom">
     jQuery(function() {
         var $ = jQuery,    // just in case. Make sure it"s not an other libaray.
 
