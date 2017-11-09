@@ -118,32 +118,34 @@
     .wu-fileitem {
         width: 110px;
         height: 146px;
-        background: url(../images/bg.png) no-repeat;
+        background: url(../images/bg.png) no-repeat #F8F8F8;
         //text-align: center;
         margin: 8px;
         position: relative;
         display: inline;
         float: left;
-        overflow: hidden;
+        //overflow: hidden;
         font-size: 12px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        border-radius: 2px;
         &:hover {
-            .wu-fileitem-control {
-                display: block;
+            z-index: 100;
+            .wu-fileitem-title {
+                overflow: visible;
             }
         }
-    }
-
-    .wu-fileitem .log {
-        position: relative;
-        top: -45px;
     }
 
     .wu-fileitem-title {
         height: 32px;
         line-height: 16px;
-        margin-top: 4px;
         overflow: hidden;
         word-break: break-all;
+    }
+    .wu-fileitem-title-text {
+        display: inline-block;
+        padding: 4px 4px 0 4px;
+        background-color: #F8F8F8;
     }
 
     .wu-fileitem-progress {
@@ -203,70 +205,70 @@
     }
 
     .wu-fileitem-thumbnail-file {
-        background: url(../images/file.png) no-repeat;
+        background: url(../images/filetype/file.png) no-repeat;
     }
     .wu-fileitem-thumbnail-avi {
-        background: url(../images/avi.png) no-repeat;
+        background: url(../images/filetype/avi.png) no-repeat;
     }
     .wu-fileitem-thumbnail-css {
-        background: url(../images/css.png) no-repeat;
+        background: url(../images/filetype/css.png) no-repeat;
     }
     .wu-fileitem-thumbnail-doc,
     .wu-fileitem-thumbnail-docx {
-        background: url(../images/doc.png) no-repeat;
+        background: url(../images/filetype/doc.png) no-repeat;
     }
     .wu-fileitem-thumbnail-dwg {
-        background: url(../images/dwg.png) no-repeat;
+        background: url(../images/filetype/dwg.png) no-repeat;
     }
     .wu-fileitem-thumbnail-exe {
-        background: url(../images/exe.png) no-repeat;
+        background: url(../images/filetype/exe.png) no-repeat;
     }
     .wu-fileitem-thumbnail-html {
-        background: url(../images/html.png) no-repeat;
+        background: url(../images/filetype/html.png) no-repeat;
     }
     .wu-fileitem-thumbnail-iso {
-        background: url(../images/iso.png) no-repeat;
+        background: url(../images/filetype/iso.png) no-repeat;
     }
     .wu-fileitem-thumbnail-jpg {
-        background: url(../images/jpg.png) no-repeat;
+        background: url(../images/filetype/jpg.png) no-repeat;
     }
     .wu-fileitem-thumbnail-js {
-        background: url(../images/js.png) no-repeat;
+        background: url(../images/filetype/js.png) no-repeat;
     }
     .wu-fileitem-thumbnail-mp3 {
-        background: url(../images/mp3.png) no-repeat;
+        background: url(../images/filetype/mp3.png) no-repeat;
     }
     .wu-fileitem-thumbnail-mp4 {
-        background: url(../images/mp4.png) no-repeat;
+        background: url(../images/filetype/mp4.png) no-repeat;
     }
     .wu-fileitem-thumbnail-pdf {
-        background: url(../images/pdf.png) no-repeat;
+        background: url(../images/filetype/pdf.png) no-repeat;
     }
     .wu-fileitem-thumbnail-png {
-        background: url(../images/png.png) no-repeat;
+        background: url(../images/filetype/png.png) no-repeat;
     }
     .wu-fileitem-thumbnail-ppt,
     .wu-fileitem-thumbnail-pptx {
-        background: url(../images/ppt.png) no-repeat;
+        background: url(../images/filetype/ppt.png) no-repeat;
     }
     .wu-fileitem-thumbnail-psd {
-        background: url(../images/psd.png) no-repeat;
+        background: url(../images/filetype/psd.png) no-repeat;
     }
     .wu-fileitem-thumbnail-rtf {
-        background: url(../images/rtf.png) no-repeat;
+        background: url(../images/filetype/rtf.png) no-repeat;
     }
     .wu-fileitem-thumbnail-txt {
-        background: url(../images/txt.png) no-repeat;
+        background: url(../images/filetype/txt.png) no-repeat;
     }
     .wu-fileitem-thumbnail-xls,
     .wu-fileitem-thumbnail-xlsx {
-        background: url(../images/xls.png) no-repeat;
+        background: url(../images/filetype/xls.png) no-repeat;
     }
     .wu-fileitem-thumbnail-xml {
-        background: url(../images/xml.png) no-repeat;
+        background: url(../images/filetype/xml.png) no-repeat;
     }
     .wu-fileitem-thumbnail-zip {
-        background: url(../images/zip.png) no-repeat;
+        background: url(../images/filetype/zip.png) no-repeat;
     }
     .wu-fileitem-img {
         width: 100%;
@@ -296,50 +298,28 @@
     }
 
     .wu-fileitem-control {
-        display: none;
-        position: absolute;
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#80000000', endColorstr='#80000000')\0;
-        background: rgba( 0, 0, 0, 0.5 );
-        width: 100%;
-        top: 0;
-        left: 0;
-        overflow: hidden;
         z-index: 300;
+        position: absolute;
+        top: -12px;
+        right: -12px;
+        width: 30px;
+        height: 30px;
     }
 
-    .wu-fileitem-control-cancel,
-    .wu-fileitem-control-retry,
-    .wu-fileitem-control-rotateLeft {
-        width: 24px;
-        height: 24px;
-        display: inline;
-        float: right;
-        text-indent: -9999px;
-        overflow: hidden;
-        background: url(../images/icons.png) no-repeat;
-        margin: 5px 1px 1px;
-        cursor: pointer;
-    }
 
-    .wu-fileitem-control-rotateLeft {
-        background-position: 0 -24px;
-    }
-    .wu-fileitem-control-rotateLeft:hover {
-        background-position: 0 0;
-    }
-
-    .wu-fileitem-control-retry {
-        background-position: -24px -24px;
-    }
-    .wu-fileitem-control-retry:hover {
-        background-position: -24px 0;
-    }
 
     .wu-fileitem-control-cancel {
-        background-position: -48px -24px;
+        display: inline;
+        float: right;
+        width: 30px;
+        height: 30px;
+        background: url(../images/icon_close.png) no-repeat 0 0;
+        text-indent: -9999px;
+        overflow: hidden;
+        cursor: pointer;
     }
     .wu-fileitem-control-cancel:hover {
-        background-position: -48px 0;
+        background-position: -31px 0;
     }
 
     .wu-statusbar {

@@ -37,7 +37,7 @@ define( function( require ) {
         fileitemTemplate:
         '<div id="{{file.id}}" class="wu-fileitem">'
         +     '<div class="wu-fileitem-thumbnail"></div>'
-        +     '<div class="wu-fileitem-title">{{file.name}}</div>'
+        +     '<div class="wu-fileitem-title"><span class="wu-fileitem-title-text">{{file.name}}</span></div>'
         +     '<div class="wu-fileitem-progress" style="display: none;">'
         +         '<div class="wu-fileitem-progress-bar" style="width: 0;"></div>'
         +     '</div>'
