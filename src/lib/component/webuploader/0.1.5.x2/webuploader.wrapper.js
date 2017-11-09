@@ -102,6 +102,16 @@ define( function ( require ) {
     };
 
     /**
+     * @description 获取非图片fileitem的缩略图CSS类
+     * @param fileExt {String?} 文件后缀名
+     * @private
+     */
+    PkuiWebUploader.prototype._getFileTypeClass = function ( fileExt ) {
+        fileExt = fileExt || "file";
+        return "wu-fileitem-thumbnail-file wu-fileitem-thumbnail-" + fileExt;
+    };
+
+    /**
      * @description 获取参数
      *      参数来源：
      *          1、默认参数（优先级低）

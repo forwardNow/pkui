@@ -119,8 +119,8 @@
         width: 110px;
         height: 146px;
         background: url(../images/bg.png) no-repeat;
-        text-align: center;
-        margin: 0 8px 8px 0;
+        //text-align: center;
+        margin: 8px;
         position: relative;
         display: inline;
         float: left;
@@ -202,10 +202,72 @@
         transition: 200ms ease-out;
     }
 
-    .wu-fileitem-thumbnail-placeholder {
-        background: url(../images/file_placeholder.png) no-repeat;
+    .wu-fileitem-thumbnail-file {
+        background: url(../images/file.png) no-repeat;
     }
-
+    .wu-fileitem-thumbnail-avi {
+        background: url(../images/avi.png) no-repeat;
+    }
+    .wu-fileitem-thumbnail-css {
+        background: url(../images/css.png) no-repeat;
+    }
+    .wu-fileitem-thumbnail-doc,
+    .wu-fileitem-thumbnail-docx {
+        background: url(../images/doc.png) no-repeat;
+    }
+    .wu-fileitem-thumbnail-dwg {
+        background: url(../images/dwg.png) no-repeat;
+    }
+    .wu-fileitem-thumbnail-exe {
+        background: url(../images/exe.png) no-repeat;
+    }
+    .wu-fileitem-thumbnail-html {
+        background: url(../images/html.png) no-repeat;
+    }
+    .wu-fileitem-thumbnail-iso {
+        background: url(../images/iso.png) no-repeat;
+    }
+    .wu-fileitem-thumbnail-jpg {
+        background: url(../images/jpg.png) no-repeat;
+    }
+    .wu-fileitem-thumbnail-js {
+        background: url(../images/js.png) no-repeat;
+    }
+    .wu-fileitem-thumbnail-mp3 {
+        background: url(../images/mp3.png) no-repeat;
+    }
+    .wu-fileitem-thumbnail-mp4 {
+        background: url(../images/mp4.png) no-repeat;
+    }
+    .wu-fileitem-thumbnail-pdf {
+        background: url(../images/pdf.png) no-repeat;
+    }
+    .wu-fileitem-thumbnail-png {
+        background: url(../images/png.png) no-repeat;
+    }
+    .wu-fileitem-thumbnail-ppt,
+    .wu-fileitem-thumbnail-pptx {
+        background: url(../images/ppt.png) no-repeat;
+    }
+    .wu-fileitem-thumbnail-psd {
+        background: url(../images/psd.png) no-repeat;
+    }
+    .wu-fileitem-thumbnail-rtf {
+        background: url(../images/rtf.png) no-repeat;
+    }
+    .wu-fileitem-thumbnail-txt {
+        background: url(../images/txt.png) no-repeat;
+    }
+    .wu-fileitem-thumbnail-xls,
+    .wu-fileitem-thumbnail-xlsx {
+        background: url(../images/xls.png) no-repeat;
+    }
+    .wu-fileitem-thumbnail-xml {
+        background: url(../images/xml.png) no-repeat;
+    }
+    .wu-fileitem-thumbnail-zip {
+        background: url(../images/zip.png) no-repeat;
+    }
     .wu-fileitem-img {
         width: 100%;
     }

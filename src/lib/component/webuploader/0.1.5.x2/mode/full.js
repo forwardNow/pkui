@@ -180,7 +180,6 @@ define( function( require ) {
             // 文件状态
             setState.call( _this, "ready" );
             updateStatusbarInfo.call( _this, "" );
-            // updateTotalProgress();
         } );
 
         // 当文件被移除队列后触发。
@@ -192,8 +191,8 @@ define( function( require ) {
                 setState.call( _this, "new" );
             }
 
-            removeFileitem.call( _this, file );
-            // updateTotalProgress();
+            // 删除 fileitem
+            $( "#" + file.id ).off().find(".wu-fileitem-control").off().end().remove();
             updateStatusbarInfo.call( _this, "" );
 
         } );
@@ -201,7 +200,7 @@ define( function( require ) {
         this.uploaderInstance.on( "uploadProgress", function( file, percentage ) {
             var
                 $fileitem = $( "#" + file.id ),
-                $percent = $fileitem.find(".wu-fileitem-progress-bar")
+                $percent = $fileitem.find( ".wu-fileitem-progress-bar" )
             ;
 
             $percent.css( "width", percentage * 100 + "%" );
@@ -223,10 +222,15 @@ define( function( require ) {
             }
         });
 
-        this.uploaderInstance.on( 'error', function ( type ) {
+        // 当选取的文件validate不通过时，会以派送错误事件的形式通知调用者。
+        this.uploaderInstance.on( 'error', function ( type, file ) {
             switch ( type ) {
                 case "F_EXCEED_SIZE": { // 尝试给uploader添加的文件大小超出这个值时
                     alert( "单个文件大小不符合要求：超过" + WebUploader.formatSize( _this.options.fileSingleSizeLimit ) );
+                    break;
+                }
+                case "F_DUPLICATE": { // 尝试给uploader添加的文件大小超出这个值时
+                    alert( "文件重复，" + file.name + " 已被选择！" );
                     break;
                 }
                 case "Q_TYPE_DENIED": { // 当文件类型不满足时触发
@@ -248,24 +252,9 @@ define( function( require ) {
         } );
 
         _this.$target.addClass( "state-" + _this.state );
-        // updateTotalProgress();
-
-
 
     };
 
-
-    /**
-     * 删除缩略图队列里的文件
-     * @param file
-     */
-    function removeFileitem( file ) {
-        var
-            $fileitem = $( "#" + file.id )
-        ;
-
-        $fileitem.off().find(".wu-fileitem-control").off().end().remove();
-    }
 
 
     /**
@@ -389,9 +378,11 @@ define( function( require ) {
             _this = this
         ;
 
-        $fileitem = $( _this.options.fullUploader.fileitemTemplate
-            .replace( "{{file.id}}", file.id )
-            .replace( "{{file.name}}", file.name ) );
+        $fileitem = $(
+            _this.options.fullUploader.fileitemTemplate
+                .replace( "{{file.id}}", file.id )
+                .replace( "{{file.name}}", file.name + " [" + WebUploader.formatSize( file.size ) + "]" )
+        );
 
         $prgressbar = $fileitem.find( ".wu-fileitem-progress-bar" );
         $control = $fileitem.find( ".wu-fileitem-control" );
@@ -421,7 +412,7 @@ define( function( require ) {
             }
             // 非图片
             else {
-                $thumbnail.addClass( "wu-fileitem-thumbnail-placeholder" );
+                $thumbnail.addClass( _this._getFileTypeClass( file.ext ) );
             }
 
             $thumbnail.text("");
