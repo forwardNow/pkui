@@ -27,3 +27,11 @@
 2017/07/24
 
     1. // FIX 当值改变时，注入到关联的输入域
+
+2017/11/22
+
+    1. // FIX 扩展参数 isHideCode
+
+    2. // FIX 扩展参数 isHideText
+
+    3. // FIX 扩展参数 isHideSpell

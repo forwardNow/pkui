@@ -283,15 +283,33 @@ define(function( require ) {
       option_el.setAttribute("data-option-array-index", option.array_index);
       // FIX 修改option结果
       if ( opts.dic ) {
+          var
+              _code,
+              _text,
+              _spell
+          ;
+          _code = '<span class="option-code">' + option.value + '</span>';
+          _text = '<span class="option-text">' + option.html + '</span>';
+          _spell = '<span class="option-spell">' + option.spell + '</span>';
+
           // FIX 判断如果ID是UUID（36位），则不显示ID
           if ( typeof this._isUUID !== "boolean" ) {
               this._isUUID = option.value && String( option.value ).length > 24;
           }
-          if ( this._isUUID === true) {
-              option_el.innerHTML = '</span><span class="option-text">' + option.html + '</span><span class="option-spell">' + option.spell + '</span>';
-          } else {
-            option_el.innerHTML = '<span class="option-code">' + option.value + '</span><span class="option-text">' + option.html + '</span><span class="option-spell">' + option.spell + '</span>';
+          // FIX 扩展参数 isHideCode
+          if ( this._isUUID === true || opts.isHideCode ) {
+              _code = "";
           }
+          // FIX 扩展参数 isHideText
+          if ( opts.isHideText ) {
+              _text = "";
+          }
+          // FIX 扩展参数 isHideSpell
+          if ( opts.isHideSpell ) {
+              _spell = "";
+          }
+
+          option_el.innerHTML = _code + _text + _spell;
 
       } else {
           option_el.innerHTML = option.search_text;
