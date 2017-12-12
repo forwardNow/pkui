@@ -1261,9 +1261,10 @@ var DateFormatter;
 		showApplyButton: false
 	};
 
+	// FIX 将默认 locale 改为 "ch"
 	var dateHelper = null,
-		globalLocaleDefault = 'en',
-		globalLocale = 'en';
+		globalLocaleDefault = 'ch',
+		globalLocale = 'ch';
 
 	var dateFormatterOptionsDefault = {
 		meridiem: ['AM', 'PM']
