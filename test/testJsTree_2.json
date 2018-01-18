@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "totalRecords": 21,
+  "data": [
+    { "menuId": "1", "menuName": "文档服务", "icon": "", "treeParentid": -1, "visiable": "1", "expand": "1", "selected": "0" },
+    { "menuId": "2", "menuName": "文档管理", "icon": "fa fa-cog", "treeParentid": "1", "visiable": "1", "expand": 1, "selected": 0 },
+    { "menuId": "3", "menuName": "通知设置", "icon": "", "treeParentid": "1", "visiable": "1", "expand": true, "selected": false },
+    { "menuId": "4", "menuName": "域名服务", "icon": "", "treeParentid": -1, "visiable": "1", "expand": "1", "selected": null },
+    { "menuId": "5", "menuName": "域名概览", "icon": "", "treeParentid": "4", "visiable": "1", "expand": "1", "selected": "0" },
+    { "menuId": "6", "menuName": "域名交易", "icon": "", "treeParentid": "4", "visiable": "1", "expand": "1", "selected": "0" },
+    { "menuId": "7", "menuName": "一口价域名", "icon": "", "treeParentid": "6", "visiable": "1", "expand": "0", "selected": "0" },
+    { "menuId": "8", "menuName": "竞价排名", "icon": "", "treeParentid": -1, "visiable": "0", "expand": "0", "selected": "0" }
+  ]
+}
