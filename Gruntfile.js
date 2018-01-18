@@ -58,6 +58,10 @@ module.exports = function ( grunt ) {
                     src: '**/*.js',//所有js文件
                     dest: 'dist/desktop'//输出到此目录下
                 } ]
+            },
+            minPIXI: {
+                src: "test/pixi.js",
+                dest: "test/pixi.min.js"
             }
         },
 
