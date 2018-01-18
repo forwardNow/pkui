@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!--
+        data-main JS入口文件如果没有，可以随意指定；如果不指定，则预加载模块不会被载入。
+    -->
+    <script data-main="1" data-timestamp="2017-12-12" src="../pkui/pkui.js"></script>
+    <link rel="stylesheet" href="../desktop/css/style.css" />
+    <style>.btn-list .btn { display: block; margin: 1em; }</style>
+</head>
+<body>
+<div class="btn-list">
+    <button type="button" class="btn_1 btn btn-default-2">弹出 drawer_1</button>
+    <button type="button" class="btn_2 btn btn-info-2">弹出 drawer_2</button>
+    <button type="button" class="btn_3 btn btn-danger-2">销毁 drawer_1</button>
+    <button type="button" class="btn_4 btn btn-danger-2">销毁 drawer_2</button>
+</div>
+
+<div class="da-win-main">
+    <div id="drawer_1"></div>
+</div>
+
+<div class="da-win-main">
+    <div id="drawer_2"></div>
+</div>
+
+<script>
+    seajs.use( [ "jquery", "drawer" ], function ( $ ) {
+        var
+            Drawer = window.PKUI.component.drawer
+        ;
+
+
+        $( ".btn_1" ).on( "click", function () {
+            var
+                drawerIndex
+            ;
+
+            drawerIndex = Drawer( "open", {
+                "url":"__CTX__/static/desktop/tpl/system/dept/detail.html",
+                "model":"__CTX__/admin/sysDeptModel?deptId=420000000000",
+                "referenceElementSelector": "#drawer_1",
+                "container": ".da-win-main"
+            } );
+
+            $( ".btn_3" ).one( "click", function () {
+                Drawer( "destroy", drawerIndex );
+            } );
+
+        } );
+        $( ".btn_2" ).on( "click", function () {
+            var
+                drawerIndex
+            ;
+
+            drawerIndex = Drawer( "open", {
+                "url":"__CTX__/static/desktop/tpl/system/dept/detail.html",
+                "model":"__CTX__/admin/sysDeptModel?deptId=420105000000",
+                "referenceElementSelector": "#drawer_2",
+                "container": ".da-win-main"
+            } );
+
+            $( ".btn_4" ).one( "click", function () {
+                Drawer( "destroy", drawerIndex );
+            } );
+
+
+        } );
+    } );
+</script>
+
+</body>
+</html>
