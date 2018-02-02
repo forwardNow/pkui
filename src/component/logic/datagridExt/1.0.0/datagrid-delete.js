@@ -37,7 +37,14 @@ define( function ( require ) {
         // 发送删除请求并成功删除，如果返回的 JsonResult.message 为空，则显示默认的成功提示
         successDeleteTips: "删除成功！",
         // 发送删除请求但删除失败，如果返回的 JsonResult.message 为空，则显示默认的失败提示
-        failDeleteTips: "删除失败：未知的错误"
+        failDeleteTips: "删除失败：未知的错误",
+
+        // 删除记录后，是否标记删除行
+        isMarkAfterDeleteRecord: true,
+        // 删除记录后，是否移除<tr>
+        isRemoveRowAfterDeleteRecord: false,
+        // 删除记录后，是否刷新表格（datagrid）
+        isReloadDeleteRecord: false
     };
 
     function DatagridDelete( target, options ) {
@@ -133,8 +140,19 @@ define( function ( require ) {
                 if ( jsonResult.success ) {
                     // 提示
                     layer.msg( jsonResult.message || options.successDeleteTips, { icon: 1 } );
-                    // 标志删除的那行
-                    $table.bootgrid( "deleteRow", seletedRowIds );
+                    // 标志 删除的那行
+                    if ( options.isMarkAfterDeleteRecord ) {
+                        $table.bootgrid( "deleteRow", seletedRowIds );
+                    }
+                    // 移除 已删除的行
+                    if ( options.isRemoveRowAfterDeleteRecord ) {
+                        $table.bootgrid( "remove", seletedRowIds );
+                    }
+                    // 刷新
+                    if ( options.isReloadDeleteRecord ) {
+                        $table.bootgrid( "reload" );
+                    }
+
                 }
                 // 服务器端处理失败
                 else {
