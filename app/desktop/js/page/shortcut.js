@@ -50,6 +50,12 @@ define( function ( require ) {
      */
     Shortcut.getHtml = function ( callback ) {
         callback( this._getHtml() );
+
+        /**
+         * @description 在面板容器上触发一个【快捷方式以载入完毕】的自定义事件
+         * @event shortcutLoaded.pkui
+         */
+        $( ".launchpad-container" ).trigger( "shortcutLoaded.pkui" );
     };
 
     /**

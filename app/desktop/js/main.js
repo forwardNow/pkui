@@ -52,6 +52,66 @@ define( function ( require ) {
         // 会话有效性验证（自动初始化）
         require.async( "./page/sessionValidityManager" );
 
+        // 此行代码置于 “Launchpad.init();” 之上
+        $( ".launchpad-container" ).on( "launchpadInited.pkui shortcutLoaded.pkui",
+            /**
+             * @description 处理快捷方式溢出容器的情况
+             * @param event
+             */
+            function handleShortcutOverflow( event ) {
+                var
+                    $launchpadViewPageList,
+                    containerHeight,
+                    $launchpadShortcutpad,
+                    conentHeight,
+                    $newLaunchpadViewageItem,
+                    $newLaunchpadShortcutpad,
+                    newSlide
+                ;
+
+                if ( event.type === "launchpadInited" ) {
+                    handleShortcutOverflow[ "launchpadInited" ] = true;
+                }
+                if ( event.type === "shortcutLoaded" ) {
+                    handleShortcutOverflow[ "shortcutLoaded" ] = true;
+                }
+
+                if ( ! handleShortcutOverflow[ "launchpadInited" ] ||
+                    ! handleShortcutOverflow[ "shortcutLoaded" ] ) {
+                    return;
+                }
+
+                $launchpadViewPageList = $( ".launchpad-view-pageList" );
+                containerHeight = $launchpadViewPageList.height();
+                $launchpadShortcutpad = $( ".launchpad-shortcutpad" ).last();
+                conentHeight = $launchpadShortcutpad.height();
+
+                if ( conentHeight <= containerHeight ) {
+                    return;
+                }
+
+                $newLaunchpadViewageItem = $(
+                    "<div class=\"launchpad-view-pageItem swiper-slide\">" +
+                    "<div class=\"launchpad-shortcutpad\"></div>" +
+                    "</div>" );
+                $newLaunchpadShortcutpad = $newLaunchpadViewageItem.find( ".launchpad-shortcutpad" );
+
+                while( conentHeight > containerHeight ) {
+
+                    $newLaunchpadShortcutpad.prepend(
+                        $launchpadShortcutpad.children( ".launchpad-shortcut" ).last()
+                    );
+
+                    conentHeight = $launchpadShortcutpad.height();
+                }
+
+                newSlide = Launchpad.swiper.createSlide( $newLaunchpadViewageItem.html(), "launchpad-view-pageItem swiper-slide" );
+                Launchpad.swiper.insertSlideAfter( $launchpadShortcutpad.parent().index(), newSlide );
+
+                handleShortcutOverflow( {} );
+            }
+        );
+
         // 启动 Launchpad
         Launchpad.init();
 

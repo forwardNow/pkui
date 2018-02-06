@@ -63,6 +63,12 @@ define( function ( require ) {
                 loopWithoutDuplicate: true,
                 onFirstInit: function () {
                     _this.$pageList.removeClass( "hidden" );
+                    /**
+                     * @description 面板容器上触发一个【swiper初始化完毕】的自定义事件
+                     * @event launchpadInited.pkui
+                     */
+                    $( ".launchpad-container" ).trigger( "launchpadInited.pkui" );
+
                 }
 
             } );
